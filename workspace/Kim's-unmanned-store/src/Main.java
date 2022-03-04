@@ -6,7 +6,6 @@ import javax.swing.event.*;
 class Ex1{
 	private Frame mainFrame;
 	private JPanel controlPanel;
-	
     ImageIcon i = new ImageIcon("C:\\Users\\user\\Desktop\\배경화면\\박씨네.png");
     Image im=i.getImage();
     

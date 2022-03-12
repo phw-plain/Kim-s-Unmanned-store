@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+C:\Users\user\Desktop\JAVA_Project\ParkLee-unmanned-store\.metadata\.plugins\org.eclipse.jdt.core
+=======
+INDEX VERSION 1.131+C:\ParkLee-unmanned-store\.metadata\.plugins\org.eclipse.jdt.core
+1781747251.index
+1865797976.index
+>>>>>>> c9a9bfebff55eb85627d57cb459e960109c6fd20
 3581772362.index

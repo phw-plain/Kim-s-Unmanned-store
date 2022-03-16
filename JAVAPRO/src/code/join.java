@@ -11,7 +11,7 @@ class join {
 	private Panel form;
 	private Button b1;
 	
-	// 색깔
+	// color
 	Color title = new Color(0, 0, 0);
 	Color background = new Color(235, 222, 207);
 	 
@@ -21,11 +21,11 @@ class join {
 	
 	private void prepareGUI() {
 		// Font
-		Font font1 = new Font("esamanru Bold", Font.PLAIN, 50);
-		Font font2  = new Font("esamanru Light",Font.PLAIN, 16); 
+		Font font1 = new Font("돋움체", Font.PLAIN, 50);
+		Font font2  = new Font("돋움체",Font.PLAIN, 16); 
 		
 		// Frame 에 대한 셋팅
-		mainFrame = new Frame("DSMS");
+		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);

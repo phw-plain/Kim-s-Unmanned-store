@@ -5,6 +5,10 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class RoundedButton extends JButton { 
+
+	// color
+	Color over = new Color(201, 165, 124);
+	Color click = new Color(190, 147, 99);
 	
 	public RoundedButton() { 
 		super();
@@ -35,7 +39,7 @@ public class RoundedButton extends JButton {
 		setBorderPainted(false); 
 		setOpaque(false); 
 	}
-
+	
 	@Override 
 	protected void paintComponent(Graphics g) { 
 		int width = getWidth(); 
@@ -46,9 +50,9 @@ public class RoundedButton extends JButton {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
 		
 		if (getModel().isArmed()) { 
-			graphics.setColor(getBackground().darker()); 
+			graphics.setColor(over.darker()); 
 		} else if (getModel().isRollover()) {
-			graphics.setColor(getBackground().brighter()); 
+			graphics.setColor(click.brighter()); 
 		} else { 
 			graphics.setColor(getBackground()); 
 		} 

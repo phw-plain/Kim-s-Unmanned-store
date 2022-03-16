@@ -8,7 +8,7 @@ public class Start{
 	private Frame mainFrame;
 	private JPanel controlPanel;
 	
-    ImageIcon i = new ImageIcon("src/img/main.png");
+    ImageIcon i = new ImageIcon("src/img/main.jpg");
     Image im=i.getImage();
     
     // Font
@@ -23,7 +23,7 @@ public class Start{
 	private void prepareGUI() {
 		// 작업 경로 확인용
 //		String path = System.getProperty("user.dir"); 
-//        System.out.println("현재 작업 경로: " + path);
+//      System.out.println("현재 작업 경로: " + path);
         
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게"); 
@@ -47,7 +47,7 @@ public class Start{
 	    panel.setLayout(new FlowLayout(FlowLayout.CENTER, width+500, 10));
 	   
 	    // 버튼 생성
-	    RoundedButton loginbtn = new RoundedButton("로그인");
+	    RoundedButton loginbtn = new RoundedButton(" 로그인 ");
 	    RoundedButton joinbtn = new RoundedButton("회원가입");
 	    
 	    // 버튼 설정

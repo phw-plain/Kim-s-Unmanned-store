@@ -39,7 +39,7 @@ public class Start{
 	    
 		// 화면 크기
 		int width = mainFrame.getWidth();
-		int height = mainFrame.getWidth();
+		int height = mainFrame.getHeight();
 	    
 		// System.out.println(width + " " + height);
 		
@@ -60,7 +60,7 @@ public class Start{
 	    // 버튼 클릭 이벤트
 	    loginbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	           new login(); //프레임 전환
+	           new login2(); //프레임 전환
 	           mainFrame.setVisible(false);
 	       }
 	    });
@@ -79,7 +79,6 @@ public class Start{
 	    mainFrame.add(panel);
 	    mainFrame.setVisible(true);
 	}
-	
 	
     class MyPanel extends JPanel{   
         public void paintComponent(Graphics g){

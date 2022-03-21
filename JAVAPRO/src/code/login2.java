@@ -4,11 +4,17 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class login {
+class login2 {
 	private Frame mainFrame;
 	private JPanel subpanel;
+	private MyPanel panelLeft;
+	private JPanel panelRight;
 	private JLabel headerLabel;
 	private Button b1;
+	
+	// 기본 정보
+	int width;
+	int height;
 	
 	// color
 	Color title = new Color(0, 0, 0);
@@ -18,7 +24,11 @@ class login {
 	Font font1 = new Font("돋움체", Font.PLAIN, 50);
 	Font font2 = new Font("돋움체", Font.PLAIN, 16);
 	
-	public login() {
+	// Image
+    ImageIcon i = new ImageIcon("src/img/main.jpg");
+    Image im=i.getImage();
+	
+	public login2() {
 	        prepareGUI();
 	}
 	
@@ -26,8 +36,9 @@ class login {
 		// Frame 기본 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setResizable(false);
+	    mainFrame.setVisible(true);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
@@ -35,13 +46,21 @@ class login {
 			}
 		});
 		
-		// 상단 제목
+		// 화면 크기
+		width = mainFrame.getWidth();
+		height = mainFrame.getHeight();
+
+		// Left image
+		panelLeft = new MyPanel();
+	    
+		// Left title
 		headerLabel = new JLabel();
 		headerLabel.setHorizontalAlignment(JLabel.CENTER);
 		headerLabel.setText("로그인");
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
 
+		// Right content
 		Panel p = new Panel();
 		p.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
 
@@ -60,14 +79,6 @@ class login {
 		tf2.setEchoChar('●');
 		form.add(label2);
 		form.add(tf2);
-
-		// 투명 레이아웃
-		JLabel blank = new JLabel();      
-		JLabel blank2 = new JLabel();   
-		JLabel blank3 = new JLabel();
-		  
-		form.add(blank2);
-		form.add(blank3);
 
 		// 버튼 생성
 		JPanel btns = new JPanel(new FlowLayout());
@@ -129,19 +140,26 @@ class login {
 	    p.add(form);
 	    p.add(btns);
 	    p.setBackground(background);
-	      
-	    JPanel test = new JPanel(new GridLayout(3,1,0,0));
-	    test.setBackground(background);
-	    test.add(blank);
-	    test.add(headerLabel);
-	    test.add(p);
+	     
+		panelRight = new JPanel();
+		panelRight.setBackground(background);
+		panelRight.setLayout(new GridLayout(2, 1));
+		panelRight.add(headerLabel);
+		panelRight.add(p);
 		
 		subpanel = new JPanel();
-		subpanel.setBackground(background);
-		subpanel.setLayout(new GridLayout(2, 1));
-		subpanel.add(test, BorderLayout.WEST);
-		
+		subpanel.setLayout(new GridLayout(1, 2));
+		subpanel.add(panelLeft, BorderLayout.SOUTH);
+		subpanel.add(panelRight, BorderLayout.NORTH);
+	     
 	    mainFrame.add(subpanel);
 	    mainFrame.setVisible(true);
 	}
+	
+    class MyPanel extends JPanel{   
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            g.drawImage(im,0,0,getWidth(),getHeight(),this);
+        }
+    }
 }

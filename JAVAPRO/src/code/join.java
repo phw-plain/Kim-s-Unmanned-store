@@ -169,7 +169,7 @@ class join {
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(100 , 0, 0 , 0));	// À§ ¿Þ ¾Æ ¿À
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// À§ ¿Þ ¾Æ ¿À
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(p);
 	      

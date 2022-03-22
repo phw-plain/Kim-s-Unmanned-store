@@ -8,7 +8,7 @@ public class Start{
 	private Frame mainFrame;
 	private JPanel controlPanel;
 	
-    ImageIcon i = new ImageIcon("src/img/main.jpg");
+    ImageIcon i = new ImageIcon("src/img/main.png");
     Image im=i.getImage();
     
     // Font
@@ -41,7 +41,7 @@ public class Start{
 		int width = mainFrame.getWidth();
 		int height = mainFrame.getHeight();
 	    
-		// System.out.println(width + " " + height);
+		System.out.println(width + " " + height);
 		
 	    MyPanel panel = new MyPanel();
 	    panel.setLayout(new FlowLayout(FlowLayout.CENTER, width+500, 10));
@@ -74,7 +74,7 @@ public class Start{
 
 	    panel.add(loginbtn);
 	    panel.add(joinbtn);
-	    panel.setBorder(BorderFactory.createEmptyBorder(height/3, 0, 0, 0));
+	    panel.setBorder(BorderFactory.createEmptyBorder((int)(height/1.8), 0, 0, 0));
 	    
 	    mainFrame.add(panel);
 	    mainFrame.setVisible(true);

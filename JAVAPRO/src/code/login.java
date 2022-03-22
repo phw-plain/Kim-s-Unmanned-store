@@ -87,8 +87,8 @@ class login {
 		    	   String input_pw = tf2.getText();
 					
 		    	   // 데이터 불러오기
-		    	   String id = "admin";
-		    	   String pw = "admin1234";
+		    	   String id = "1";
+		    	   String pw = "1";
 		    	   
 		    	   if(input_id.length() == 0) {
 		    		   JOptionPane.showMessageDialog(null

@@ -18,14 +18,14 @@ class login2 {
 	
 	// color
 	Color title = new Color(0, 0, 0);
-	Color background = new Color(235, 222, 207);
+	Color background = new Color(255, 255, 255);
 
 	// Font
 	Font font1 = new Font("µ¸¿òÃ¼", Font.PLAIN, 50);
 	Font font2 = new Font("µ¸¿òÃ¼", Font.PLAIN, 16);
 	
 	// Image
-    ImageIcon i = new ImageIcon("src/img/main.jpg");
+    ImageIcon i = new ImageIcon("src/img/logo.png");
     Image im=i.getImage();
 	
 	public login2() {
@@ -56,6 +56,7 @@ class login2 {
 		// Left title
 		headerLabel = new JLabel();
 		headerLabel.setHorizontalAlignment(JLabel.CENTER);
+		headerLabel.setVerticalAlignment(JLabel.EAST);
 		headerLabel.setText("·Î±×ÀÎ");
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
@@ -143,7 +144,7 @@ class login2 {
 	     
 		panelRight = new JPanel();
 		panelRight.setBackground(background);
-		panelRight.setLayout(new GridLayout(2, 1));
+		panelRight.setLayout(new GridLayout(3, 1));
 		panelRight.add(headerLabel);
 		panelRight.add(p);
 		

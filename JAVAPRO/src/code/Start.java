@@ -1,6 +1,8 @@
 package code;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -36,6 +38,11 @@ public class Start{
 	          System.exit(0);
 	       }
 	    });
+	    
+	    // Icon 변경
+	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
+    	ImageIcon img = new ImageIcon(imageURL);
+    	mainFrame.setIconImage(img.getImage());
 	    
 		// 화면 크기
 		int width = mainFrame.getWidth();

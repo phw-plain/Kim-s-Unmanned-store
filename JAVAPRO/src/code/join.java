@@ -1,6 +1,8 @@
 package code;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -35,6 +37,11 @@ class join {
 				System.exit(0);
 			}
 		});
+	    
+	    // Icon 변경
+	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
+    	ImageIcon img = new ImageIcon(imageURL);
+    	mainFrame.setIconImage(img.getImage());
 		
 		// 상단 제목
 		headerLabel = new JLabel();

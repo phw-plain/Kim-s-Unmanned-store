@@ -17,6 +17,9 @@ class join {
 	Color title = new Color(0, 0, 0);
 	Color background = new Color(235, 222, 207);
 	 
+	// 아이디 중복 체크용 변수
+	private boolean idcheck = false;
+	
 	public join() {
 		prepareGUI();
 	}
@@ -162,7 +165,221 @@ class join {
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
-	    // 버튼 클릭 이벤트
+	    // isString추가 - 문자열 체크
+	    isString is = new isString();
+	    
+	    // 아이디 중복 체크
+	    b1.addActionListener(new ActionListener() {
+	 		public void actionPerformed(ActionEvent e) {
+		    	String id = tf2.getText();
+		    	
+		    	if(tf2.getText().length() == 0) {
+		    		JOptionPane.showMessageDialog(null
+							, "아이디를 입력해주세요."
+							, "DSMS"
+							, JOptionPane.ERROR_MESSAGE
+					);
+	                idcheck = false;
+				} else if(/*m.select(tf2.getText())==false*/false) {
+					JOptionPane.showMessageDialog(null
+							, "사용불가능한 아이디 입니다."
+		                    , "DSMS"
+		                    , JOptionPane.ERROR_MESSAGE
+		            );
+		            idcheck = false;
+	            } else if(!is.isString1(tf2.getText())) {            // 예외 처리 아이디
+		            JOptionPane.showMessageDialog(null
+		            		, "사용불가능한 아이디 입니다."
+		            		, "DSMS"
+		                   	, JOptionPane.ERROR_MESSAGE
+		           	);
+		            idcheck = false;
+		        } else {
+					JOptionPane.showMessageDialog(null
+							, "사용가능한 아이디 입니다."
+							, "DSMS"
+							, JOptionPane.PLAIN_MESSAGE
+					);
+					idcheck = true;
+				}
+		    }
+		});
+	    
+	    // 직원 유무 radio 이벤트
+	    ra1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				label7.setVisible(true);
+				tf7.setVisible(true);
+			}
+		});
+		ra2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				label7.setVisible(false);
+				tf7.setVisible(false);
+			}
+		});
+	    
+	    // 확인 버튼 클릭 이벤트
+ 		check.addActionListener(new ActionListener() {
+	 		public void actionPerformed(ActionEvent e) {
+	 			// 데이터 저장 변수 선언
+	 			String name = tf1.getText();
+	 			String id = tf2.getText();
+	 			String pw = tf3.getText();
+	 			String brand = tf4.getText();
+	 			float money;
+	 			int employee = (ra1.isSelected() == true) ? 1 : 0;
+	 				
+	 			// isNum 메서드 호출
+	 			isNum in = new isNum();
+	 			isString is = new isString();
+	 				
+	 			// 회원가입 예외 처리
+	 			if(name.length() == 0) {					// 예외 처리 이름
+	 				JOptionPane.showMessageDialog(null
+	 					, "이름을 입력해주세요."
+	 					, "박리다매"
+	 					, JOptionPane.ERROR_MESSAGE
+	 				);
+	 			} else if(name.length() > 12) {
+	 				JOptionPane.showMessageDialog(null
+	 					, "이름이 너무 깁니다. 12자 이내로 입력해 주세요."
+	 					, "박리다매"
+	 					, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(!is.isString2(name)) {           
+ 					JOptionPane.showMessageDialog(null
+	 		            , "이름에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
+	 		            , "박리다매"
+	 		            , JOptionPane.ERROR_MESSAGE
+	                );
+ 	            } else if(id.length() == 0) {				// 예외 처리 아이디
+ 					JOptionPane.showMessageDialog(null
+ 						, "아이디를 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 					idcheck = false;
+ 				} else if(id.length() < 5) {
+ 					JOptionPane.showMessageDialog(null
+						, "아이디가 너무 짧습니다. 5~12자 이내로 입력해 주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 	                idcheck = false;
+ 				} else if(id.length() > 12) {
+ 					JOptionPane.showMessageDialog(null
+						, "아이디가 너무 깁니다. 5~12자 이내로 입력해 주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 	                idcheck = false;
+ 				} else if(!is.isString1(id)) {           
+ 					JOptionPane.showMessageDialog(null
+                        , "아이디는 영숫자를 사용하여 입력해 주세요."
+                        , "박리다매"
+                       	, JOptionPane.ERROR_MESSAGE
+					);
+	               	idcheck = false;
+ 	            } else if(!idcheck) {
+ 	            	JOptionPane.showMessageDialog(null
+						, "아이디 중복 체크를 해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 	                idcheck = false;
+ 				} else if(pw.length() == 0) {				// 예외 처리 비밀번호
+ 					JOptionPane.showMessageDialog(null
+						, "비밀번호를 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(pw.length() < 8) {
+ 					JOptionPane.showMessageDialog(null
+						, "비밀번호가 너무 짧습니다. 8~16자 이내로 입력해 주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(pw.length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+						, "비밀번호가 너무 깁니다. 8~16자 이내로 입력해 주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(!is.isString1(pw)) {         
+ 					JOptionPane.showMessageDialog(null
+ 						, "비밀번호는 영숫자를 사용하여 입력해 주세요."
+ 						, "박리다매"
+ 						, JOptionPane.ERROR_MESSAGE
+					);
+ 	            } else if(brand.length() == 0) {			// 예외 처리 브렌드
+ 					JOptionPane.showMessageDialog(null
+						, "브랜드를 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(!is.isString2(brand)) {           
+ 					JOptionPane.showMessageDialog(null
+                        , "지점명에 특수문자를 제외하여 입력해 주세요."
+                        , "박리다매"
+                       	, JOptionPane.ERROR_MESSAGE
+					);
+ 	            } else if(brand.length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if((tf5.getText()).length() == 0) {	// 예외 처리 매출대비지급액
+ 					JOptionPane.showMessageDialog(null
+						, "매출대비지급액을 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(!in.isNum(tf5.getText())) {
+ 					JOptionPane.showMessageDialog(null
+						, "매출대비지급액은 숫자만 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(employee == 1 && (tf7.getText()).length() == 0) {		// 예외 처리 직원 월급
+					JOptionPane.showMessageDialog(null
+						, "직원 월급을 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+					);
+ 				} else if(employee == 1 && !in.isNum(tf7.getText())) {
+ 					JOptionPane.showMessageDialog(null
+						, "직원 월급은 숫자만 입력해주세요."
+						, "박리다매"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+	 			} else {
+	 				money = Float.parseFloat(tf5.getText());
+	 				if(employee == 1)employee = Integer.parseInt(tf7.getText());
+	 		
+	 				System.out.println("회원가입 성공!!");
+	 				System.out.println("이름 : " + name);
+	 				System.out.println("아이디 : " + id);
+	 				System.out.println("비밀번호 : " + pw);
+	 				System.out.println("지점명 : " + brand);
+	 				if(employee != 0) {
+	 					System.out.println("직원 월급 : " + employee);
+	 					System.out.println("매출대비지급액(%) : " + money);
+	 				}
+	 				
+	 				JOptionPane.showMessageDialog(null
+	 						, "회원가입을 축하합니다!"
+	 						, "박리다매"
+	 						, JOptionPane.PLAIN_MESSAGE
+	 				);
+	 				new Start();
+	 		        mainFrame.setVisible(false);
+	 			}
+	 		}
+	 	});
+ 		
+	    // 취소 버튼 클릭 이벤트
 	    cancel.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
 	           new Start(); // 프레임 전환

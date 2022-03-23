@@ -77,7 +77,12 @@ public class Manage {
 		
 		ImageIcon mBtn2_img1 = new ImageIcon("src/img/btn2_1.png");
 		
-		// btn1 : 
+
+		ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
+		ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
+		ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
+		
+		// btn1 : 매출 & 지출 기록 및 그래프
 		JButton btn1 = new JButton("", mBtn2_img1);
 		btn1.setRolloverIcon(mBtn_img2); 	// rolloverIcon용 이미지 등록
 		btn1.setPressedIcon(mBtn_img3); 	// pressedIcon용 이미지 등록
@@ -86,7 +91,7 @@ public class Manage {
 		btn1.setBorderPainted(false);		// 외각선
 		btn1.setFocusPainted(false);		// 선택 외각선
 		
-		// btn2 : 
+		// btn2 : 실수령액 그래프
 		JButton btn2 = new JButton("", mBtn2_img1);
 		btn2.setRolloverIcon(mBtn_img2); 
 		btn2.setPressedIcon(mBtn_img3); 
@@ -95,7 +100,7 @@ public class Manage {
 		btn2.setBorderPainted(false);
 		btn2.setFocusPainted(false);
 		
-		// btn3 : 
+		// btn3 : 재고관리
 		JButton btn3 = new JButton("", mBtn2_img1);
 		btn3.setRolloverIcon(mBtn_img2); 
 		btn3.setPressedIcon(mBtn_img3);
@@ -104,7 +109,7 @@ public class Manage {
 		btn3.setBorderPainted(false);
 		btn3.setFocusPainted(false);
 		
-		// btn4 : 
+		// btn4 : 마이페이지
 		JButton btn4 = new JButton("", mBtn_img1);
 		btn4.setRolloverIcon(mBtn_img2); 
 		btn4.setPressedIcon(mBtn_img3);
@@ -112,28 +117,28 @@ public class Manage {
 		btn4.setBorderPainted(false);
 		btn4.setFocusPainted(false);
 		
-		// btn5 : 
-		JButton btn5 = new JButton("", mBtn_img1);
-		btn5.setRolloverIcon(mBtn_img2); 
-		btn5.setPressedIcon(mBtn_img3); 
+		// btn5 : 로그아웃
+		JButton btn5 = new JButton("", mBtn5_img1);
+		btn5.setRolloverIcon(mBtn5_img2); 
+		btn5.setPressedIcon(mBtn5_img3); 
 		btn5.setContentAreaFilled(false);	
 		btn5.setBorderPainted(false);
 		btn5.setFocusPainted(false);
 		
-		// btn6 : 
-		JButton btn6 = new JButton("", mBtn_img1);
-		btn6.setRolloverIcon(mBtn_img2);
-		btn6.setPressedIcon(mBtn_img3); 
-		btn6.setContentAreaFilled(false);	
-		btn6.setBorderPainted(false);
-		btn6.setFocusPainted(false);
+		// 버튼 이벤트
+		btn5.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		           new Start(); //프레임 전환
+		           mainFrame.setVisible(false);
+		       }
+		});
+		
 		
 		panel0.add(btn1);
 		panel0.add(btn2);
 		panel0.add(btn3);
 		panel1.add(btn4);
 		panel1.add(btn5);
-		panel1.add(btn6);
 	    
 	}
 	

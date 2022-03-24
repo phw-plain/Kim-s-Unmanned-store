@@ -23,8 +23,9 @@ class login2 {
 	Color background = new Color(255, 255, 255);
 
 	// Font
-	Font font1 = new Font("돋움체", Font.PLAIN, 50);
-	Font font2 = new Font("돋움체", Font.PLAIN, 16);
+	Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
+	Font font2 = new Font("배달의민족 주아", Font.PLAIN, 16);
+	Font font3 = new Font("배달의민족 주아", Font.PLAIN, 13);
 	
 	// Image
     ImageIcon i = new ImageIcon("src/img/login_img.png");
@@ -37,7 +38,7 @@ class login2 {
 	private void prepareGUI() {
 		// Frame 기본 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
-		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+	    mainFrame.setSize(1280 ,1024);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setResizable(false);
 	    mainFrame.setVisible(true);
@@ -94,6 +95,12 @@ class login2 {
 		RoundedButton check = new RoundedButton("확인");
 		RoundedButton cancel = new RoundedButton("취소");
 	      
+		// 버튼 설정
+		check.setFocusPainted(false); 
+	    check.setFont(font3);
+	    cancel.setFocusPainted(false); 
+	    cancel.setFont(font3);
+		
 	    btns.add(check);
 	    btns.add(cancel);
 	    btns.setBackground(background);

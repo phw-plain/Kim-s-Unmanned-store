@@ -16,7 +16,7 @@ public class Start{
     // Font
     // Font font1 = new Font("esamanru Bold", Font.PLAIN, 50);
     // Font font2 = new Font("esamanru Medium", Font.PLAIN, 25);
-	Font font3 = new Font("돋움체", Font.PLAIN, 30);
+	Font font3 = new Font("배달의민족 주아", Font.PLAIN, 30);
     
 	public Start(){
 		prepareGUI();
@@ -29,8 +29,8 @@ public class Start{
         
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게"); 
-		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-	    mainFrame.setLocationRelativeTo(null);
+	    mainFrame.setSize(1280 ,1024);
+		mainFrame.setLocationRelativeTo(null);
 	    mainFrame.setResizable(false);
 	    mainFrame.setVisible(true);
 	    mainFrame.addWindowListener(new WindowAdapter() {
@@ -54,13 +54,12 @@ public class Start{
 	    panel.setLayout(new FlowLayout(FlowLayout.CENTER, width+500, 10));
 	   
 	    // 버튼 생성
-	    RoundedButton loginbtn = new RoundedButton(" 로그인 ");
+	    RoundedButton loginbtn = new RoundedButton("  로그인  ");
 	    RoundedButton joinbtn = new RoundedButton("회원가입");
 	    
 	    // 버튼 설정
 	    loginbtn.setFocusPainted(false); 
 	    loginbtn.setFont(font3);
-	      
 	    joinbtn.setFocusPainted(false); 
 	    joinbtn.setFont(font3);
 	    

@@ -26,12 +26,13 @@ class join {
 	
 	private void prepareGUI() {
 		// Font
-		Font font1 = new Font("돋움체", Font.PLAIN, 50);
-		Font font2  = new Font("돋움체",Font.PLAIN, 16); 
+		Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
+		Font font2 = new Font("배달의민족 주아", Font.PLAIN, 16); ;
+		Font font3 = new Font("배달의민족 주아", Font.PLAIN, 13); 
 		
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
-		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+		mainFrame.setSize(1280 ,1024);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setLayout(new BorderLayout());
@@ -157,9 +158,15 @@ class join {
 
 		// 버튼 생성
 		JPanel btns = new JPanel(new FlowLayout());
-
+		
 		RoundedButton check = new RoundedButton("확인");
 		RoundedButton cancel = new RoundedButton("취소");
+		
+		// 버튼 설정
+		check.setFocusPainted(false); 
+		check.setFont(font3);
+		cancel.setFocusPainted(false); 
+		cancel.setFont(font3);
 		
 	    btns.add(check);
 	    btns.add(cancel);

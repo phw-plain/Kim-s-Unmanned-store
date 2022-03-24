@@ -25,13 +25,15 @@ import org.jfree.ui.RefineryUtilities;
 
 public class Manage {
 	private Frame mainFrame;
+	private JPanel subpanel;
 	
 	private JPanel panel0;		// menu
+	private JPanel panel1;		// 매출 & 지출 기록 및 그래프 
+	
 	private JPanel panel0_W;
 	private JPanel panel0_E;
-	private JPanel panel1;		// 매출 & 지출 기록 및 그래프 
-	//private JPanel p1_Month;
-	//private JPanel p1_Recode;
+	private JPanel p1_Today;
+	private JPanel p1_Month;
 	
 	// 기본 정보
 	int width;
@@ -39,12 +41,12 @@ public class Manage {
 	
 	// color
 	Color title = new Color(0, 0, 0);
-	Color background = new Color(200, 255, 255);
+	Color background = new Color(255, 255, 255);
 	
 	// Font
-	Font font1 = new Font("돋움체", Font.PLAIN, 50);
-	Font font2 = new Font("돋움체", Font.PLAIN, 26);
-	Font font3 = new Font("돋움체", Font.PLAIN, 16);
+	Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
+	Font font2 = new Font("배달의민족 주아", Font.PLAIN, 26);
+	Font font3 = new Font("배달의민족 주아", Font.PLAIN, 16);
 	
 	// Image
 	ImageIcon logo = new ImageIcon("src/img/logo.png");
@@ -52,13 +54,10 @@ public class Manage {
 	ImageIcon i = new ImageIcon("src/img/benner.png");
 	Image im=i.getImage();
 	
-	// btn
-	private JButton homebtn;	// home 버튼
-	
 	public Manage() {
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게"); 
-		mainFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+	    mainFrame.setSize(1280 ,1024);
 	    mainFrame.setLocationRelativeTo(null);
 	    mainFrame.setResizable(false);
 	    mainFrame.setVisible(true);
@@ -76,7 +75,11 @@ public class Manage {
 		// 화면 크기
 		width = mainFrame.getWidth();
 		height = mainFrame.getWidth();
-
+		  
+	    // subpanel 세팅
+		subpanel = new JPanel(new CardLayout());
+		subpanel.setBackground(background);
+		
 		// panel0 세팅
 		panel0 = new JPanel();
 		panel0.setBackground(background);
@@ -85,31 +88,27 @@ public class Manage {
 		// 상단 배너
 		MyPanel benner = new MyPanel();
 		panel0.add(benner, BorderLayout.EAST);
-
-		// home 버튼 생성
-		homebtn = new JButton("", logo);
-		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
-		homebtn.setContentAreaFilled(false);	// 배경 채우기
-		homebtn.setBorderPainted(false);		//외각선
-		homebtn.setFocusPainted(false);		// 선택 외각선
 		
 		// 메뉴 화면 생성
 		menu();
 		
-		// 매출 & 지출 기록 및 그래프 화면 생성
+		// 매출 & 지출 기록 및 그래프 화면 생성	
+		panel1 = new JPanel(new CardLayout());
+		panel1.setBackground(background);
 		TodaySales();
-		//MonthSales();
-		//Record();
+		MonthSales();
+		panel1.setVisible(false);
 
+		subpanel.add(panel0);
+		subpanel.add(panel1);
 		
-		mainFrame.add(panel0);
-		mainFrame.add(panel1);
+		mainFrame.add(subpanel);
 	}
 	
 	public void menu() {
 		panel0_W = new JPanel();
 		panel0_E = new JPanel();
-		panel0_W.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+		panel0_W.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 	    
 		panel0_W.setBackground(background);  
 		panel0_E.setBackground(background);  
@@ -118,37 +117,31 @@ public class Manage {
 		ImageIcon mBtn_img2 = new ImageIcon("src/img/btn1_2.png");
 		ImageIcon mBtn_img3 = new ImageIcon("src/img/btn1_3.png");
 		
-		ImageIcon mBtn2_img1 = new ImageIcon("src/img/btn2_1.png");
-		
-
 		ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
 		ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
 		ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
 		
 		// btn1 : 매출 & 지출 기록 및 그래프
-		JButton btn1 = new JButton("", mBtn2_img1);
+		JButton btn1 = new JButton("", mBtn_img1);
 		btn1.setRolloverIcon(mBtn_img2); 	// rolloverIcon용 이미지 등록
 		btn1.setPressedIcon(mBtn_img3); 	// pressedIcon용 이미지 등록
-		btn1.setContentAreaFilled(true);	// 배경 채우기
-		btn1.setBackground(Color.gray);
+		btn1.setContentAreaFilled(false);	// 배경 채우기
 		btn1.setBorderPainted(false);		// 외각선
 		btn1.setFocusPainted(false);		// 선택 외각선
 		
 		// btn2 : 실수령액 그래프
-		JButton btn2 = new JButton("", mBtn2_img1);
+		JButton btn2 = new JButton("", mBtn_img1);
 		btn2.setRolloverIcon(mBtn_img2); 
 		btn2.setPressedIcon(mBtn_img3); 
-		btn2.setContentAreaFilled(true);	
-		btn2.setBackground(Color.gray);
+		btn2.setContentAreaFilled(false);
 		btn2.setBorderPainted(false);
 		btn2.setFocusPainted(false);
 		
 		// btn3 : 재고관리
-		JButton btn3 = new JButton("", mBtn2_img1);
+		JButton btn3 = new JButton("", mBtn_img1);
 		btn3.setRolloverIcon(mBtn_img2); 
 		btn3.setPressedIcon(mBtn_img3);
-		btn3.setContentAreaFilled(true);	
-		btn3.setBackground(Color.gray);
+		btn3.setContentAreaFilled(false);
 		btn3.setBorderPainted(false);
 		btn3.setFocusPainted(false);
 		
@@ -195,27 +188,54 @@ public class Manage {
 	}
 	
 	public void TodaySales() {
-		// panel1 세팅
-		panel1 = new JPanel();
-		panel1.setBackground(background);
-		panel1.setLayout(new BorderLayout());
+		// p1_Today 세팅
+		p1_Today = new JPanel();
+		p1_Today.setBackground(background);
+		p1_Today.setLayout(new BorderLayout());
 		
 		// navigation
 		JPanel header = new JPanel(new BorderLayout());
-		// header.setBackground(background);
+		header.setBackground(background);
+		
+		// home 버튼 생성
+		JButton homebtn = new JButton("", logo);
+		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
+		homebtn.setContentAreaFilled(false);	// 배경 채우기
+		homebtn.setBorderPainted(false);		//외각선
+		homebtn.setFocusPainted(false);		// 선택 외각선
+		
+		// home 버튼 이벤트
+		homebtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   panel0.setVisible(true);
+		           panel1.setVisible(false);
+		       }
+		});
+		
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);
 
 		header.add(homebtn, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
-		
+
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   일       ");
-		HalfRoundedButton daybtn = new HalfRoundedButton("   월       ");
+		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
-		leftpanel.add(monthbtn);
+		daybtn.setFont(font3);
+		monthbtn.setFont(font3);
+		
+		// 버튼 이벤트
+		monthbtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		           p1_Today.setVisible(false); // 화면 전환
+		           p1_Month.setVisible(true);
+		       }
+		});
+		
 		leftpanel.add(daybtn);
+		leftpanel.add(monthbtn);
 		
 		// sales
 		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
@@ -223,30 +243,122 @@ public class Manage {
 		JLabel stitle = new JLabel("Today");
 		stitle.setFont(font3);
 		JLabel sales = new JLabel("▲ 350,000");
-		sales.setFont(font3);
+		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
 		sales.setForeground(Color.red);
 		
 		rightpanel.add(stitle);
 		rightpanel.add(sales);
 		
 		// graph
-		JPanel chartPanel = createDemoPanel();
+		JPanel chartPanel = createDemoPanel(1);
 	    
-		panel1.add(header, BorderLayout.NORTH);
-		panel1.add(leftpanel, BorderLayout.WEST);
-		panel1.add(rightpanel, BorderLayout.EAST);
-		panel1.add(chartPanel, BorderLayout.CENTER);
+		p1_Today.add(header, BorderLayout.NORTH);
+		p1_Today.add(leftpanel, BorderLayout.WEST);
+		p1_Today.add(rightpanel, BorderLayout.EAST);
+		p1_Today.add(chartPanel, BorderLayout.CENTER);
 		
-		panel1.setVisible(true);
+		p1_Today.setVisible(true);
+		panel1.add(p1_Today);
 	}
 	
-	public static JPanel createDemoPanel() {
-		JFreeChart chart = createChart(createDataset());
+	public void MonthSales() {
+		// p1_Month 세팅
+		p1_Month = new JPanel();
+		p1_Month.setBackground(background);
+		p1_Month.setLayout(new BorderLayout());
+		
+		// navigation
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(background);
+
+		// home 버튼 생성
+		JButton homebtn = new JButton("", logo);
+		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
+		homebtn.setContentAreaFilled(false);	// 배경 채우기
+		homebtn.setBorderPainted(false);		//외각선
+		homebtn.setFocusPainted(false);		// 선택 외각선
+		
+		// home 버튼 이벤트
+		homebtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   panel0.setVisible(true);
+		           panel1.setVisible(false);
+		       }
+		});
+		
+		JLabel title = new JLabel("매출 및 지출");
+		title.setFont(font2);
+
+		header.add(homebtn, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+
+		// menu bar
+		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
+		
+		daybtn.setFont(font3);
+		monthbtn.setFont(font3);
+		
+		// 버튼 이벤트
+		daybtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		           p1_Today.setVisible(true); // 화면 전환
+		           p1_Month.setVisible(false);
+		       }
+		});
+		
+		leftpanel.add(daybtn);
+		leftpanel.add(monthbtn);
+		
+		// sales
+		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));	// 위 왼 아 오
+		JLabel stitle = new JLabel("Month");
+		stitle.setFont(font3);
+		JLabel sales = new JLabel("▲ 780,000");
+		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
+		sales.setForeground(Color.red);
+		
+		rightpanel.add(stitle);
+		rightpanel.add(sales);
+		
+		// graph
+		JPanel chartPanel = createDemoPanel(2);
+	    
+		p1_Month.add(header, BorderLayout.NORTH);
+		p1_Month.add(leftpanel, BorderLayout.WEST);
+		p1_Month.add(rightpanel, BorderLayout.EAST);
+		p1_Month.add(chartPanel, BorderLayout.CENTER);
+		
+		p1_Month.setVisible(false);
+		panel1.add(p1_Month);
+	}
+	
+	public static JPanel createDemoPanel(int idx) {
+		JFreeChart chart = createChart(createDataset(idx));
         return new ChartPanel(chart);
 	}
 	
-	private static XYDataset createDataset() {
-        TimeSeries s1 = new TimeSeries("이번주");
+	private static String str1 = "";
+	private static String str2 = "";
+	private static String str3 = "";
+	
+	private static XYDataset createDataset(int idx) {
+		
+		switch(idx) {
+		case 1:	{
+				str1 = "이번주";
+				str2 = "지난주";
+				str3 = "TodaySales";
+			}	break;
+		case 2:	{
+				str1 = "이번달";
+				str2 = "지난달";
+				str3 = "MonthSales";
+			}	break;
+		}
+		TimeSeries s1 = new TimeSeries(str1);
         s1.add(new Second(45, 6, 9, 1, 10, 2006), 143);
         s1.add(new Second(33, 8, 9, 1, 10, 2006), 167);
         s1.add(new Second(10, 10, 9, 1, 10, 2006), 189);
@@ -256,7 +368,7 @@ public class Manage {
         s1.add(new Second(6, 18, 9, 1, 10, 2006), 138);
         s1.add(new Second(11, 20, 9, 1, 10, 2006), 102);
 
-        TimeSeries s2 = new TimeSeries("지난주");
+		TimeSeries s2 = new TimeSeries(str2);
         s2.add(new Second(6, 18, 9, 1, 10, 2006), 143);
         s2.add(new Second(11, 20, 9, 1, 10, 2006), 167);
         s2.add(new Second(12, 16, 9, 1, 10, 2006), 189);
@@ -275,7 +387,7 @@ public class Manage {
 	
 	 private static JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Today Sales",        	// title
+            str3,        	// title
             "",       	// x-axis label
             "",  	// y-axis label
             dataset,            	// data
@@ -305,14 +417,6 @@ public class Manage {
 
         return chart;
     }
-	
-	public void MonthSales() {
-		
-	}
-	
-	public void Record() {
-		
-	}
 	
 	class MyPanel extends JPanel{   
         public void paintComponent(Graphics g){

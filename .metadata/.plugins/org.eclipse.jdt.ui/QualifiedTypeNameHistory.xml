@@ -4,4 +4,7 @@
     <fullyQualifiedTypeName name="java.net.URL"/>
     <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
     <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="code.RoundedButton2"/>
+    <fullyQualifiedTypeName name="code.HalfRoundedButton"/>
+    <fullyQualifiedTypeName name="org.jfree.chart.util.RelativeDateFormat"/>
 </qualifiedTypeNameHistroy>

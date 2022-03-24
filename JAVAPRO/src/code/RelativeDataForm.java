@@ -1,3 +1,4 @@
+package code;
 import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
@@ -19,19 +20,16 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class RelativeDateFormatDemo1 extends ApplicationFrame {
+public class RelativeDataForm {
 
-    public RelativeDateFormatDemo1(String title) {
-        super(title);
+    public RelativeDataForm(String title) {
         JPanel chartPanel = createDemoPanel();
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        setContentPane(chartPanel);
     }
 
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Exercise Chart",        // title
+            "Today 매출 현황",        // title
             "Elapsed Time",             // x-axis label
             "Beats Per Minute",   // y-axis label
             dataset,            // data
@@ -39,7 +37,6 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
             true,               // generate tooltips?
             false               // generate URLs?
         );
-
 
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
@@ -85,7 +82,6 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         s2.add(new Second(10, 10, 9, 1, 10, 2006), 183);
         s2.add(new Second(33, 8, 9, 1, 10, 2006), 102);
         s2.add(new Second(45, 6, 9, 1, 10, 2006), 138);
-        
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
@@ -98,17 +94,6 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
-    }
-
-    public static void main(String[] args) {
-
-        RelativeDateFormatDemo1 demo = new RelativeDateFormatDemo1(
-                "JFreeChart: RelativeDateFormatDemo1.java");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setSize(1500,800);
-        demo.setVisible(true);
-
     }
 
 }

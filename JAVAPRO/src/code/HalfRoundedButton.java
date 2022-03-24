@@ -1,31 +1,35 @@
+package code;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class RoundedButton extends JButton { 
+public class HalfRoundedButton extends JButton { 
+
+	// color
+	Color btn = new Color(120, 120, 120);
 	
-	public RoundedButton() { 
+	public HalfRoundedButton() { 
 		super();
 		decorate();
 	} 
 	
-	public RoundedButton(String text) { 
+	public HalfRoundedButton(String text) { 
 		super(text); 
 		decorate();
 	} 
 	
-	public RoundedButton(Action action) { 
+	public HalfRoundedButton(Action action) { 
 		super(action); 
 		decorate();
 	} 
 	
-	public RoundedButton(Icon icon) { 
+	public HalfRoundedButton(Icon icon) { 
 		super(icon); 
 		decorate();
 	}
 	
-	public RoundedButton(String text, Icon icon) { 
+	public HalfRoundedButton(String text, Icon icon) { 
 		super(text, icon); 
 		decorate();
 	} 
@@ -34,7 +38,7 @@ public class RoundedButton extends JButton {
 		setBorderPainted(false); 
 		setOpaque(false); 
 	}
-
+	
 	@Override 
 	protected void paintComponent(Graphics g) { 
 		int width = getWidth(); 
@@ -45,14 +49,14 @@ public class RoundedButton extends JButton {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
 		
 		if (getModel().isArmed()) { 
-			graphics.setColor(getBackground().darker()); 
+			graphics.setColor(btn.darker()); 
 		} else if (getModel().isRollover()) {
-			graphics.setColor(getBackground().brighter()); 
+			graphics.setColor(btn.brighter()); 
 		} else { 
-			graphics.setColor(getBackground()); 
+			graphics.setColor(btn); 
 		} 
 		
-		graphics.fillRoundRect(0, 0, width, height, 10, 10); 
+		graphics.fillRoundRect(-10, 0, width+3, height, 10, 10); 
 		
 		FontMetrics fontMetrics = graphics.getFontMetrics(); 
 		Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds(); 
@@ -60,7 +64,7 @@ public class RoundedButton extends JButton {
 		int textX = (width - stringBounds.width) / 2; 
 		int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent(); 
 		
-		graphics.setColor(getForeground()); 
+		graphics.setColor(Color.white); 
 		graphics.setFont(getFont());
 		graphics.drawString(getText(), textX, textY); 
 		graphics.dispose(); 

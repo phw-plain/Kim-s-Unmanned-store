@@ -27,7 +27,7 @@ class login2 {
 	Font font2 = new Font("µ¸¿òÃ¼", Font.PLAIN, 16);
 	
 	// Image
-    ImageIcon i = new ImageIcon("src/img/logo.png");
+    ImageIcon i = new ImageIcon("src/img/login_img.png");
     Image im=i.getImage();
 	
 	public login2() {

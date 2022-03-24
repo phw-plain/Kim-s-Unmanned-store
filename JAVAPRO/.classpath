@@ -7,7 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="icon"/>
-	<classpathentry kind="lib" path="C:/Users/user/Documents/GitHub/ParkLee-unmanned-store/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/user/Documents/GitHub/ParkLee-unmanned-store/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="D:/github/ParkLee-unmanned-store/jfreechart-1.0.19/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="D:/github/ParkLee-unmanned-store/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

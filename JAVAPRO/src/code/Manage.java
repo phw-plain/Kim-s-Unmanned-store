@@ -16,6 +16,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.util.RelativeDateFormat;
+import org.jfree.data.time.Day;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
@@ -29,11 +30,14 @@ public class Manage {
 	
 	private JPanel panel0;		// menu
 	private JPanel panel1;		// 매출 & 지출 기록 및 그래프 
+	//private JPanel panel2;	// 실수령액 그래프
 	
 	private JPanel panel0_W;
 	private JPanel panel0_E;
 	private JPanel p1_Today;
 	private JPanel p1_Month;
+	//private JPanel p2_Week;
+	//private JPanel p2_Month;
 	
 	// 기본 정보
 	int width;
@@ -220,6 +224,7 @@ public class Manage {
 
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		leftpanel.setBackground(background);
 		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
@@ -239,6 +244,7 @@ public class Manage {
 		
 		// sales
 		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		rightpanel.setBackground(background);
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));	// 위 왼 아 오
 		JLabel stitle = new JLabel("Today");
 		stitle.setFont(font3);
@@ -294,6 +300,7 @@ public class Manage {
 
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		leftpanel.setBackground(background);
 		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
@@ -313,6 +320,7 @@ public class Manage {
 		
 		// sales
 		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		rightpanel.setBackground(background);
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));	// 위 왼 아 오
 		JLabel stitle = new JLabel("Month");
 		stitle.setFont(font3);
@@ -345,7 +353,6 @@ public class Manage {
 	private static String str3 = "";
 	
 	private static XYDataset createDataset(int idx) {
-		
 		switch(idx) {
 		case 1:	{
 				str1 = "이번주";
@@ -358,38 +365,37 @@ public class Manage {
 				str3 = "MonthSales";
 			}	break;
 		}
-		TimeSeries s1 = new TimeSeries(str1);
-        s1.add(new Second(45, 6, 9, 1, 10, 2006), 143);
-        s1.add(new Second(33, 8, 9, 1, 10, 2006), 167);
-        s1.add(new Second(10, 10, 9, 1, 10, 2006), 189);
-        s1.add(new Second(19, 12, 9, 1, 10, 2006), 156);
-        s1.add(new Second(5, 15, 9, 1, 10, 2006), 176);
-        s1.add(new Second(12, 16, 9, 1, 10, 2006), 183);
-        s1.add(new Second(6, 18, 9, 1, 10, 2006), 138);
-        s1.add(new Second(11, 20, 9, 1, 10, 2006), 102);
+		
+		TimeSeries s1 = new TimeSeries(str1);			// (초,분,시,일,월,년),마지막이 데이터
+        s1.add(new Day(20, 3, 2022), 100);
+        s1.add(new Day(21, 3, 2022), 120);
+        s1.add(new Day(22, 3, 2022), 140);
+        s1.add(new Day(23, 3, 2022), 160);
+        s1.add(new Day(24, 3, 2022), 180);
+        s1.add(new Day(25, 3, 2022), 200);
+        s1.add(new Day(26, 3, 2022), 220);
 
 		TimeSeries s2 = new TimeSeries(str2);
-        s2.add(new Second(6, 18, 9, 1, 10, 2006), 143);
-        s2.add(new Second(11, 20, 9, 1, 10, 2006), 167);
-        s2.add(new Second(12, 16, 9, 1, 10, 2006), 189);
-        s2.add(new Second(5, 15, 9, 1, 10, 2006), 156);
-        s2.add(new Second(19, 12, 9, 1, 10, 2006), 176);
-        s2.add(new Second(10, 10, 9, 1, 10, 2006), 183);
-        s2.add(new Second(33, 8, 9, 1, 10, 2006), 102);
-        s2.add(new Second(45, 6, 9, 1, 10, 2006), 138);
+        s2.add(new Day(20, 3, 2022), 170);
+        s2.add(new Day(21, 3, 2022), 150);
+        s2.add(new Day(22, 3, 2022), 200);
+        s2.add(new Day(23, 3, 2022), 180);
+        s2.add(new Day(24, 3, 2022), 160);
+        s2.add(new Day(25, 3, 2022), 140);
+        s2.add(new Day(26, 3, 2022), 120);
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
 
         return dataset;
-    }
-	
-	 private static JFreeChart createChart(XYDataset dataset) {
-        JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            str3,        	// title
-            "",       	// x-axis label
-            "",  	// y-axis label
+	}
+
+	private static JFreeChart createChart(XYDataset dataset) {
+		JFreeChart chart = ChartFactory.createTimeSeriesChart(
+			str3,        			// title
+			"",       				// x-axis label
+            "",  					// y-axis label
             dataset,            	// data
             true,               	// create legend?
             true,               	// generate tooltips?
@@ -408,9 +414,9 @@ public class Manage {
         }
 
         DateAxis axis = (DateAxis) plot.getDomainAxis();
-        Minute base = new Minute(0, 9, 1, 10, 2006);
+        Minute base = new Minute(0, 0, 24, 3, 2022);	// 현재 날짜
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
-        rdf.setSecondFormatter(new DecimalFormat("00"));
+        rdf.setSecondFormatter(new DecimalFormat(""));
         axis.setDateFormatOverride(rdf);
 
         ChartUtilities.applyCurrentTheme(chart);

@@ -30,14 +30,14 @@ public class Manage {
 	
 	private JPanel panel0;		// menu
 	private JPanel panel1;		// 매출 & 지출 기록 및 그래프 
-	//private JPanel panel2;	// 실수령액 그래프
+	private JPanel panel2;	// 실수령액 그래프
 	
 	private JPanel panel0_W;
 	private JPanel panel0_E;
 	private JPanel p1_Today;
 	private JPanel p1_Month;
-	//private JPanel p2_Week;
-	//private JPanel p2_Month;
+	private JPanel p2_Week;
+	private JPanel p2_Month;
 	
 	// 기본 정보
 	int width;
@@ -84,16 +84,15 @@ public class Manage {
 		subpanel = new JPanel(new CardLayout());
 		subpanel.setBackground(background);
 		
-		// panel0 세팅
+		// 메뉴 화면 생성
 		panel0 = new JPanel();
 		panel0.setBackground(background);
 		panel0.setLayout(new GridLayout(3, 1));
 		
-		// 상단 배너
+		// 메뉴 화면 - 상단 배너
 		MyPanel benner = new MyPanel();
 		panel0.add(benner, BorderLayout.EAST);
 		
-		// 메뉴 화면 생성
 		menu();
 		
 		// 매출 & 지출 기록 및 그래프 화면 생성	
@@ -102,14 +101,22 @@ public class Manage {
 		TodaySales();
 		MonthSales();
 		panel1.setVisible(false);
+		
+		// 실수령액 그래프 화면 생성
+		panel2 = new JPanel(new CardLayout());
+		panel2.setBackground(background);
+		WeekGrahp();
+		MonthGrahp();
+		panel2.setVisible(false);
 
 		subpanel.add(panel0);
 		subpanel.add(panel1);
+		subpanel.add(panel2);
 		
 		mainFrame.add(subpanel);
 	}
 	
-	public void menu() {
+	private void menu() {
 		panel0_W = new JPanel();
 		panel0_E = new JPanel();
 		panel0_W.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
@@ -170,6 +177,14 @@ public class Manage {
 		       public void actionPerformed(ActionEvent e) {
 		           panel0.setVisible(false);
 		           panel1.setVisible(true);
+		           panel2.setVisible(false);
+		       }
+		});	
+		btn2.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		           panel0.setVisible(false);
+		           panel1.setVisible(false);
+		           panel2.setVisible(true);
 		       }
 		});
 		btn5.addActionListener(new ActionListener() {
@@ -191,11 +206,11 @@ public class Manage {
 		panel0.setVisible(true);
 	}
 	
-	public void TodaySales() {
+	private void TodaySales() {
 		// p1_Today 세팅
 		p1_Today = new JPanel();
 		p1_Today.setBackground(background);
-		p1_Today.setLayout(new BorderLayout());
+		p1_Today.setLayout(new BorderLayout()); 
 		
 		// navigation
 		JPanel header = new JPanel(new BorderLayout());
@@ -256,7 +271,22 @@ public class Manage {
 		rightpanel.add(sales);
 		
 		// graph
-		JPanel chartPanel = createDemoPanel(1);
+		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
+		int[][] data2 = new int[7][4];
+		
+		for(int i=0; i<7; i++) {
+			data1[i][0] = 20+i;
+			data1[i][1] = 3;
+			data1[i][2] = 2022;
+			data1[i][3] = 100+(20*i);
+			
+			data2[i][0] = 20+i;
+			data2[i][1] = 3;
+			data2[i][2] = 2022;
+			data2[i][3] = 240-(20*i);
+		}
+		
+		JPanel chartPanel = createDemoPanel(1, data1, data2);
 	    
 		p1_Today.add(header, BorderLayout.NORTH);
 		p1_Today.add(leftpanel, BorderLayout.WEST);
@@ -267,7 +297,7 @@ public class Manage {
 		panel1.add(p1_Today);
 	}
 	
-	public void MonthSales() {
+	private void MonthSales() {
 		// p1_Month 세팅
 		p1_Month = new JPanel();
 		p1_Month.setBackground(background);
@@ -332,7 +362,22 @@ public class Manage {
 		rightpanel.add(sales);
 		
 		// graph
-		JPanel chartPanel = createDemoPanel(2);
+		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
+		int[][] data2 = new int[7][4];
+		
+		for(int i=0; i<7; i++) {
+			data1[i][0] = 20+i;
+			data1[i][1] = 3;
+			data1[i][2] = 2022;
+			data1[i][3] = 100+(20*i);
+			
+			data2[i][0] = 20+i;
+			data2[i][1] = 3;
+			data2[i][2] = 2022;
+			data2[i][3] = 240-(20*i);
+		}
+		
+		JPanel chartPanel = createDemoPanel(2, data1, data2);
 	    
 		p1_Month.add(header, BorderLayout.NORTH);
 		p1_Month.add(leftpanel, BorderLayout.WEST);
@@ -343,8 +388,174 @@ public class Manage {
 		panel1.add(p1_Month);
 	}
 	
-	public static JPanel createDemoPanel(int idx) {
-		JFreeChart chart = createChart(createDataset(idx));
+	private void WeekGrahp() {
+		// p2_Week 세팅
+		p2_Week = new JPanel();
+		p2_Week.setBackground(background);
+		p2_Week.setLayout(new BorderLayout());
+		
+		// navigation
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(background);
+		
+		// home 버튼 생성
+		JButton homebtn = new JButton("", logo);
+		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
+		homebtn.setContentAreaFilled(false);	// 배경 채우기
+		homebtn.setBorderPainted(false);		//외각선
+		homebtn.setFocusPainted(false);		// 선택 외각선
+		
+		// home 버튼 이벤트
+		homebtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   panel0.setVisible(true);
+		           panel2.setVisible(false);
+		       }
+		});
+		
+		JLabel title = new JLabel("실수령액 그래프");
+		title.setFont(font2);
+
+		header.add(homebtn, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+
+		// menu bar
+		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		leftpanel.setBackground(background);
+		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
+		
+		weekbtn.setFont(font3);
+		monthbtn.setFont(font3);
+		
+		// 버튼 이벤트
+		monthbtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   p2_Week.setVisible(false); // 화면 전환
+		    	   p2_Month.setVisible(true);
+		       }
+		});
+		
+		leftpanel.add(weekbtn);
+		leftpanel.add(monthbtn);
+		
+		// right
+		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		rightpanel.setBackground(background);
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 150));	// 위 왼 아 오
+		
+		// graph
+		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
+		int[][] data2 = new int[7][4];
+		
+		for(int i=0; i<7; i++) {
+			data1[i][0] = 20+i;
+			data1[i][1] = 3;
+			data1[i][2] = 2022;
+			data1[i][3] = 100+(20*i);
+			
+			data2[i][0] = 20+i;
+			data2[i][1] = 3;
+			data2[i][2] = 2022;
+			data2[i][3] = 240-(20*i);
+		}
+		
+		JPanel chartPanel = createDemoPanel(3, data1, data2);
+	    
+		p2_Week.add(header, BorderLayout.NORTH);
+		p2_Week.add(leftpanel, BorderLayout.WEST);
+		p2_Week.add(rightpanel, BorderLayout.EAST);
+		p2_Week.add(chartPanel, BorderLayout.CENTER);
+		
+		p2_Week.setVisible(true);
+		panel2.add(p2_Week);
+	}
+	
+	private void MonthGrahp() {
+		// p2_Month 세팅
+		p2_Month = new JPanel();
+		p2_Month.setBackground(background);
+		p2_Month.setLayout(new BorderLayout());
+		
+		// navigation
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(background);
+		
+		// home 버튼 생성
+		JButton homebtn = new JButton("", logo);
+		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
+		homebtn.setContentAreaFilled(false);	// 배경 채우기
+		homebtn.setBorderPainted(false);		//외각선
+		homebtn.setFocusPainted(false);		// 선택 외각선
+		
+		// home 버튼 이벤트
+		homebtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   panel0.setVisible(true);
+		           panel2.setVisible(false);
+		       }
+		});
+		
+		JLabel title = new JLabel("실수령액 그래프");
+		title.setFont(font2);
+
+		header.add(homebtn, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+
+		// menu bar
+		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		leftpanel.setBackground(background);
+		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
+		
+		weekbtn.setFont(font3);
+		monthbtn.setFont(font3);
+		
+		// 버튼 이벤트
+		weekbtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   p2_Week.setVisible(true); // 화면 전환
+		    	   p2_Month.setVisible(false);
+		       }
+		});
+		
+		leftpanel.add(weekbtn);
+		leftpanel.add(monthbtn);
+		
+		// right
+		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		rightpanel.setBackground(background);
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 150));	// 위 왼 아 오
+		
+		// graph
+		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
+		int[][] data2 = new int[7][4];
+		
+		for(int i=0; i<7; i++) {
+			data1[i][0] = 20+i;
+			data1[i][1] = 3;
+			data1[i][2] = 2022;
+			data1[i][3] = 100+(20*i);
+			
+			data2[i][0] = 20+i;
+			data2[i][1] = 3;
+			data2[i][2] = 2022;
+			data2[i][3] = 240-(20*i);
+		}
+		
+		JPanel chartPanel = createDemoPanel(4, data1, data2);
+	    
+		p2_Month.add(header, BorderLayout.NORTH);
+		p2_Month.add(leftpanel, BorderLayout.WEST);
+		p2_Month.add(rightpanel, BorderLayout.EAST);
+		p2_Month.add(chartPanel, BorderLayout.CENTER);
+		
+		p2_Month.setVisible(true);
+		panel2.add(p2_Month);
+	}
+	
+	public static JPanel createDemoPanel(int idx, int data1[][], int data2[][]) {
+		JFreeChart chart = createChart(createDataset(idx, data1, data2));
         return new ChartPanel(chart);
 	}
 	
@@ -352,7 +563,7 @@ public class Manage {
 	private static String str2 = "";
 	private static String str3 = "";
 	
-	private static XYDataset createDataset(int idx) {
+	private static XYDataset createDataset(int idx, int data1[][], int data2[][]) {
 		switch(idx) {
 		case 1:	{
 				str1 = "이번주";
@@ -364,26 +575,26 @@ public class Manage {
 				str2 = "지난달";
 				str3 = "MonthSales";
 			}	break;
+		case 3: {
+				str1 = "이번주";
+				str2 = "저번주";
+				str3 = "WeekSales";
+			}	break;
+		case 4: {
+				str1 = "이번달";
+				str2 = "지난달";
+				str3 = "MonthSales";
+			}	break;
 		}
 		
 		TimeSeries s1 = new TimeSeries(str1);			// (초,분,시,일,월,년),마지막이 데이터
-        s1.add(new Day(20, 3, 2022), 100);
-        s1.add(new Day(21, 3, 2022), 120);
-        s1.add(new Day(22, 3, 2022), 140);
-        s1.add(new Day(23, 3, 2022), 160);
-        s1.add(new Day(24, 3, 2022), 180);
-        s1.add(new Day(25, 3, 2022), 200);
-        s1.add(new Day(26, 3, 2022), 220);
-
 		TimeSeries s2 = new TimeSeries(str2);
-        s2.add(new Day(20, 3, 2022), 170);
-        s2.add(new Day(21, 3, 2022), 150);
-        s2.add(new Day(22, 3, 2022), 200);
-        s2.add(new Day(23, 3, 2022), 180);
-        s2.add(new Day(24, 3, 2022), 160);
-        s2.add(new Day(25, 3, 2022), 140);
-        s2.add(new Day(26, 3, 2022), 120);
-
+		
+		for(int i=0; i<7; i++) {
+			s1.add(new Day(data1[i][0], data1[i][1], data1[i][2]), data1[i][3]);
+			s2.add(new Day(data2[i][0], data2[i][1], data2[i][2]), data2[i][3]);
+		}
+		
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);

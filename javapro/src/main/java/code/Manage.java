@@ -287,11 +287,17 @@ public class Manage {
 		}
 		
 		JPanel chartPanel = createDemoPanel(1, data1, data2);
+		
+		// footer (공백)
+		JPanel footer = new JPanel(new BorderLayout());
+		footer.setBackground(background);
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// 위 왼 아 오
 	    
 		p1_Today.add(header, BorderLayout.NORTH);
 		p1_Today.add(leftpanel, BorderLayout.WEST);
 		p1_Today.add(rightpanel, BorderLayout.EAST);
 		p1_Today.add(chartPanel, BorderLayout.CENTER);
+		p1_Today.add(footer, BorderLayout.SOUTH);
 		
 		p1_Today.setVisible(true);
 		panel1.add(p1_Today);
@@ -379,10 +385,16 @@ public class Manage {
 		
 		JPanel chartPanel = createDemoPanel(2, data1, data2);
 	    
+		// footer (공백)
+		JPanel footer = new JPanel(new BorderLayout());
+		footer.setBackground(background);
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// 위 왼 아 오
+	    
 		p1_Month.add(header, BorderLayout.NORTH);
 		p1_Month.add(leftpanel, BorderLayout.WEST);
 		p1_Month.add(rightpanel, BorderLayout.EAST);
 		p1_Month.add(chartPanel, BorderLayout.CENTER);
+		p1_Month.add(footer, BorderLayout.SOUTH);
 		
 		p1_Month.setVisible(false);
 		panel1.add(p1_Month);
@@ -461,11 +473,17 @@ public class Manage {
 		}
 		
 		JPanel chartPanel = createDemoPanel(3, data1, data2);
+
+		// footer (공백)
+		JPanel footer = new JPanel(new BorderLayout());
+		footer.setBackground(background);
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// 위 왼 아 오
 	    
 		p2_Week.add(header, BorderLayout.NORTH);
 		p2_Week.add(leftpanel, BorderLayout.WEST);
 		p2_Week.add(rightpanel, BorderLayout.EAST);
 		p2_Week.add(chartPanel, BorderLayout.CENTER);
+		p2_Week.add(footer, BorderLayout.SOUTH);
 		
 		p2_Week.setVisible(true);
 		panel2.add(p2_Week);
@@ -544,11 +562,17 @@ public class Manage {
 		}
 		
 		JPanel chartPanel = createDemoPanel(4, data1, data2);
-	    
+
+		// footer (공백)
+		JPanel footer = new JPanel(new BorderLayout());
+		footer.setBackground(background);
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// 위 왼 아 오
+		
 		p2_Month.add(header, BorderLayout.NORTH);
 		p2_Month.add(leftpanel, BorderLayout.WEST);
 		p2_Month.add(rightpanel, BorderLayout.EAST);
 		p2_Month.add(chartPanel, BorderLayout.CENTER);
+		p2_Month.add(footer, BorderLayout.SOUTH);
 		
 		p2_Month.setVisible(true);
 		panel2.add(p2_Month);
@@ -566,23 +590,23 @@ public class Manage {
 	private static XYDataset createDataset(int idx, int data1[][], int data2[][]) {
 		switch(idx) {
 		case 1:	{
-				str1 = "이번주";
-				str2 = "지난주";
+				str1 = "This week";
+				str2 = "Last week";
 				str3 = "TodaySales";
 			}	break;
 		case 2:	{
-				str1 = "이번달";
-				str2 = "지난달";
+				str1 = "This month";
+				str2 = "Last month";
 				str3 = "MonthSales";
 			}	break;
 		case 3: {
-				str1 = "이번주";
-				str2 = "저번주";
+				str1 = "This week";
+				str2 = "Last week";
 				str3 = "WeekSales";
 			}	break;
 		case 4: {
-				str1 = "이번달";
-				str2 = "지난달";
+				str1 = "This month";
+				str2 = "Last month";
 				str3 = "MonthSales";
 			}	break;
 		}
@@ -594,6 +618,7 @@ public class Manage {
 			s1.add(new Day(data1[i][0], data1[i][1], data1[i][2]), data1[i][3]);
 			s2.add(new Day(data2[i][0], data2[i][1], data2[i][2]), data2[i][3]);
 		}
+		
 		
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
@@ -616,7 +641,7 @@ public class Manage {
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-
+        
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
@@ -632,6 +657,14 @@ public class Manage {
 
         ChartUtilities.applyCurrentTheme(chart);
 
+        // 그래프 디자인
+        plot.setBackgroundPaint(java.awt.Color.green);
+		chart.setBackgroundPaint(java.awt.Color.white);
+		chart.getPlot().setBackgroundPaint(java.awt.Color.white);
+
+        r.setSeriesPaint(0, new Color(179, 110, 232));
+        r.setSeriesPaint(1, new Color(211, 211, 211));
+        
         return chart;
     }
 	

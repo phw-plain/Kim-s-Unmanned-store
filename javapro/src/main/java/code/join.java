@@ -65,7 +65,7 @@ class join {
 		JLabel blankR1 = new JLabel();
 		JLabel label1 = new JLabel("이름");
 		label1.setFont(font2);
-		TextField tf1 = new TextField("", 15);
+		final TextField tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(blankL1);
 		form.add(label1);
@@ -81,7 +81,7 @@ class join {
 		btnlabel.add(b1, BorderLayout.WEST);
 		JLabel label2 = new JLabel("아이디");
 		label2.setFont(font2);
-		TextField tf2 = new TextField("", 15);
+		final TextField tf2 = new TextField("", 15);
 		tf2.selectAll();
 		form.add(blankL2);
 		form.add(label2);
@@ -92,7 +92,7 @@ class join {
 		JLabel blankR3 = new JLabel();
 		JLabel label3 = new JLabel("비밀번호");
 		label3.setFont(font2);
-		TextField tf3 = new TextField("", 15);
+		final TextField tf3 = new TextField("", 15);
 		tf3.selectAll(); // tf2.setEchoChar('*');
 		form.add(blankL3);
 		form.add(label3);
@@ -103,7 +103,7 @@ class join {
 		JLabel blankR4 = new JLabel();
 		JLabel label4 = new JLabel("지점명");
 		label4.setFont(font2);
-		TextField tf4 = new TextField("", 15);
+		final TextField tf4 = new TextField("", 15);
 		tf4.selectAll(); 
 		form.add(blankL4);
 		form.add(label4);
@@ -114,7 +114,7 @@ class join {
 		JLabel blankR5 = new JLabel();
 		JLabel label5 = new JLabel("매출대비지급액(%)");
 		label5.setFont(font2);
-		TextField tf5 = new TextField("", 15);
+		final TextField tf5 = new TextField("", 15);
 		tf5.selectAll(); 
 		form.add(blankL5);
 		form.add(label5);
@@ -127,7 +127,7 @@ class join {
 		JLabel label6 = new JLabel("직원");
 		label6.setFont(font2);
 		CheckboxGroup g = new CheckboxGroup();
-		JRadioButton ra1 = new JRadioButton("유", true);
+		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font2);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", false);
@@ -147,9 +147,9 @@ class join {
 
 		JLabel blankL7 = new JLabel();
 		JLabel blankR7 = new JLabel();
-		JLabel label7 = new JLabel("직원 월급");
+		final JLabel label7 = new JLabel("직원 월급");
 		label7.setFont(font2);
-		TextField tf7 = new TextField("", 15);
+		final TextField tf7 = new TextField("", 15);
 		tf7.selectAll(); 
 		form.add(blankL7);
 		form.add(label7);
@@ -173,7 +173,7 @@ class join {
 	    btns.setBackground(background);
 	    
 	    // isString추가 - 문자열 체크
-	    isString is = new isString();
+	    final isString is = new isString();
 	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {

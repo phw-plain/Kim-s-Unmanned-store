@@ -6,7 +6,7 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class login2 {
+class login {
 	private Frame mainFrame;
 	private JPanel subpanel;
 	private MyPanel panelLeft;
@@ -31,7 +31,7 @@ class login2 {
     ImageIcon i = new ImageIcon("src/img/login_img.png");
     Image im=i.getImage();
 	
-	public login2() {
+	public login() {
 	        prepareGUI();
 	}
 	
@@ -77,14 +77,14 @@ class login2 {
 		
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font2);
-		TextField tf1 = new TextField("", 15);
+		final TextField tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(label1);
 		form.add(tf1);
 
 		JLabel label2 = new JLabel("비밀번호");
 		label2.setFont(font2);
-		TextField tf2 = new TextField("", 15);
+		final TextField tf2 = new TextField("", 15);
 		tf2.setEchoChar('●');
 		form.add(label2);
 		form.add(tf2);

@@ -240,6 +240,7 @@ public class Manage {
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
@@ -258,9 +259,9 @@ public class Manage {
 		leftpanel.add(monthbtn);
 		
 		// sales
-		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));	// 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 108));	// 위 왼 아 오
 		JLabel stitle = new JLabel("Today");
 		stitle.setFont(font3);
 		JLabel sales = new JLabel("▲ 350,000");
@@ -337,6 +338,7 @@ public class Manage {
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
@@ -355,17 +357,43 @@ public class Manage {
 		leftpanel.add(monthbtn);
 		
 		// sales
-		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 100));	// 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
+		
 		JLabel stitle = new JLabel("Month");
 		stitle.setFont(font3);
 		JLabel sales = new JLabel("▲ 780,000");
 		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
 		sales.setForeground(Color.red);
 		
+		// 그래프 날짜 버튼 추가
+		int year = 2022; // 지금 년도 가져오기
+		int[] years = new int[10];
+      
+		Choice yearCh = new Choice();
+		JButton yearbtn = new JButton("확인");
+		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
+		yearbtn.setBackground(Color.white);
+      
+		for(int i=0; i<10; i++) {
+			years[i] = year-i;
+			yearCh.add(year-i+"년");
+		}	
+		
+		JPanel chbox = new JPanel(new BorderLayout());
+		chbox.setBackground(Color.white);
+		JPanel chp = new JPanel();
+		chp.add(yearCh);
+		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0));	// 위 왼 아 오
+		chp.setBackground(Color.white);
+		
+		chbox.add(chp, BorderLayout.WEST);
+		chbox.add(yearbtn, BorderLayout.EAST);
+		
 		rightpanel.add(stitle);
-		rightpanel.add(sales);
+		rightpanel.add(sales);		
+		rightpanel.add(chbox);
 		
 		// graph
 		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
@@ -434,6 +462,7 @@ public class Manage {
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
 		
@@ -452,9 +481,9 @@ public class Manage {
 		leftpanel.add(monthbtn);
 		
 		// right
-		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(0, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 150));	// 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 188));	// 위 왼 아 오
 		
 		// graph
 		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
@@ -523,6 +552,7 @@ public class Manage {
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
 		
@@ -541,9 +571,34 @@ public class Manage {
 		leftpanel.add(monthbtn);
 		
 		// right
-		JPanel rightpanel = new JPanel(new GridLayout(50, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 150));	// 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
+		
+		// 그래프 날짜 버튼 추가
+		int year = 2022; // 지금 년도 가져오기
+		int[] years = new int[10];
+      
+		Choice yearCh = new Choice();
+		JButton yearbtn = new JButton("확인");
+		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
+		yearbtn.setBackground(Color.white);
+      
+		for(int i=0; i<10; i++) {
+			years[i] = year-i;
+			yearCh.add(year-i+"년");
+		}	
+		
+		JPanel chbox = new JPanel(new BorderLayout());
+		chbox.setBackground(Color.white);
+		JPanel chp = new JPanel();
+		chp.add(yearCh);
+		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0));	// 위 왼 아 오
+		chp.setBackground(Color.white);
+		
+		chbox.add(chp, BorderLayout.WEST);
+		chbox.add(yearbtn, BorderLayout.EAST);
+		rightpanel.add(chbox);
 		
 		// graph
 		int[][] data1 = new int[7][4];	// 일, 월, 연, sales

@@ -8,6 +8,7 @@ public class HalfRoundedButton extends JButton {
 
 	// color
 	Color btn = new Color(120, 120, 120);
+	Color text = new Color(255, 255, 255);
 	
 	public HalfRoundedButton() { 
 		super();
@@ -16,6 +17,13 @@ public class HalfRoundedButton extends JButton {
 	
 	public HalfRoundedButton(String text) { 
 		super(text); 
+		decorate();
+	} 
+	
+	public HalfRoundedButton(String text, Color btn) { 
+		super(text); 
+		this.btn = btn;
+		this.text = new Color(0, 0, 0);
 		decorate();
 	} 
 	
@@ -64,7 +72,7 @@ public class HalfRoundedButton extends JButton {
 		int textX = (width - stringBounds.width) / 2; 
 		int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent(); 
 		
-		graphics.setColor(Color.white); 
+		graphics.setColor(text); 
 		graphics.setFont(getFont());
 		graphics.drawString(getText(), textX, textY); 
 		graphics.dispose(); 

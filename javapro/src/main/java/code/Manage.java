@@ -39,6 +39,11 @@ public class Manage {
 	private JPanel p2_Week;
 	private JPanel p2_Month;
 	
+	private JPanel chartPanel1;
+	private JPanel chartPanel2;
+	private JPanel chartPanel3;
+	private JPanel chartPanel4;
+	
 	// 기본 정보
 	int width;
 	int height;
@@ -92,23 +97,23 @@ public class Manage {
 		// 메뉴 화면 - 상단 배너
 		MyPanel benner = new MyPanel();
 		panel0.add(benner, BorderLayout.EAST);
-		
 		menu();
 		
 		// 매출 & 지출 기록 및 그래프 화면 생성	
 		panel1 = new JPanel(new CardLayout());
-		panel1.setBackground(background);
-		TodaySales();
-		MonthSales();
-		panel1.setVisible(false);
-		
-		// 실수령액 그래프 화면 생성
+ 	   	panel1.setBackground(background);
+ 	   	TodaySales();
+ 	   	MonthSales();
+
+ 	   	// 실수령액 그래프 화면 생성
 		panel2 = new JPanel(new CardLayout());
 		panel2.setBackground(background);
-		WeekGrahp();
-		MonthGrahp();
+ 	   	WeekGrahp();
+ 	   	MonthGrahp();
+		
+		panel1.setVisible(false);
 		panel2.setVisible(false);
-
+		
 		subpanel.add(panel0);
 		subpanel.add(panel1);
 		subpanel.add(panel2);
@@ -175,13 +180,17 @@ public class Manage {
 		// 버튼 이벤트
 		btn1.addActionListener(new ActionListener() {
 		       public void actionPerformed(ActionEvent e) {
-		           panel0.setVisible(false);
+		    	   TodaySales();
+		    	   MonthSales();
+		    	   panel0.setVisible(false);
 		           panel1.setVisible(true);
 		           panel2.setVisible(false);
 		       }
 		});	
 		btn2.addActionListener(new ActionListener() {
 		       public void actionPerformed(ActionEvent e) {
+		    	   WeekGrahp();
+		    	   MonthGrahp();
 		           panel0.setVisible(false);
 		           panel1.setVisible(false);
 		           panel2.setVisible(true);
@@ -241,7 +250,7 @@ public class Manage {
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
-		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
+		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ", Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
 		
 		daybtn.setFont(font3);
@@ -287,7 +296,7 @@ public class Manage {
 			data2[i][3] = 240-(20*i);
 		}
 		
-		JPanel chartPanel = createDemoPanel(1, data1, data2);
+		JPanel chartPanel1 = createDemoPanel(1, data1, data2);
 		
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -297,7 +306,7 @@ public class Manage {
 		p1_Today.add(header, BorderLayout.NORTH);
 		p1_Today.add(leftpanel, BorderLayout.WEST);
 		p1_Today.add(rightpanel, BorderLayout.EAST);
-		p1_Today.add(chartPanel, BorderLayout.CENTER);
+		p1_Today.add(chartPanel1, BorderLayout.CENTER);
 		p1_Today.add(footer, BorderLayout.SOUTH);
 		
 		p1_Today.setVisible(true);
@@ -340,7 +349,7 @@ public class Manage {
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ", Color.orange);
 		
 		daybtn.setFont(font3);
 		monthbtn.setFont(font3);
@@ -394,6 +403,15 @@ public class Manage {
 		rightpanel.add(stitle);
 		rightpanel.add(sales);		
 		rightpanel.add(chbox);
+
+		yearbtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   // Graph 다시 그리기
+		    	   p1_Month.setVisible(false);
+		    	   MonthGrahp();
+		    	   p1_Month.setVisible(true);
+		       }
+		});
 		
 		// graph
 		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
@@ -411,7 +429,7 @@ public class Manage {
 			data2[i][3] = 240-(20*i);
 		}
 		
-		JPanel chartPanel = createDemoPanel(2, data1, data2);
+		chartPanel2 = createDemoPanel(2, data1, data2);
 	    
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -421,7 +439,7 @@ public class Manage {
 		p1_Month.add(header, BorderLayout.NORTH);
 		p1_Month.add(leftpanel, BorderLayout.WEST);
 		p1_Month.add(rightpanel, BorderLayout.EAST);
-		p1_Month.add(chartPanel, BorderLayout.CENTER);
+		p1_Month.add(chartPanel2, BorderLayout.CENTER);
 		p1_Month.add(footer, BorderLayout.SOUTH);
 		
 		p1_Month.setVisible(false);
@@ -463,7 +481,7 @@ public class Manage {
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
+		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ", Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
 		
 		weekbtn.setFont(font3);
@@ -501,7 +519,7 @@ public class Manage {
 			data2[i][3] = 240-(20*i);
 		}
 		
-		JPanel chartPanel = createDemoPanel(3, data1, data2);
+		JPanel chartPanel3 = createDemoPanel(3, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -511,7 +529,7 @@ public class Manage {
 		p2_Week.add(header, BorderLayout.NORTH);
 		p2_Week.add(leftpanel, BorderLayout.WEST);
 		p2_Week.add(rightpanel, BorderLayout.EAST);
-		p2_Week.add(chartPanel, BorderLayout.CENTER);
+		p2_Week.add(chartPanel3, BorderLayout.CENTER);
 		p2_Week.add(footer, BorderLayout.SOUTH);
 		
 		p2_Week.setVisible(true);
@@ -554,7 +572,7 @@ public class Manage {
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ", Color.orange);
 		
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
@@ -600,6 +618,15 @@ public class Manage {
 		chbox.add(yearbtn, BorderLayout.EAST);
 		rightpanel.add(chbox);
 		
+		yearbtn.addActionListener(new ActionListener() {
+		       public void actionPerformed(ActionEvent e) {
+		    	   // Graph 다시 그리기
+		    	   p2_Month.setVisible(false);
+		    	   MonthGrahp();
+		    	   p2_Month.setVisible(true);
+		       }
+		});
+		
 		// graph
 		int[][] data1 = new int[7][4];	// 일, 월, 연, sales
 		int[][] data2 = new int[7][4];
@@ -616,7 +643,7 @@ public class Manage {
 			data2[i][3] = 240-(20*i);
 		}
 		
-		JPanel chartPanel = createDemoPanel(4, data1, data2);
+		chartPanel4 = createDemoPanel(4, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -626,10 +653,10 @@ public class Manage {
 		p2_Month.add(header, BorderLayout.NORTH);
 		p2_Month.add(leftpanel, BorderLayout.WEST);
 		p2_Month.add(rightpanel, BorderLayout.EAST);
-		p2_Month.add(chartPanel, BorderLayout.CENTER);
+		p2_Month.add(chartPanel4, BorderLayout.CENTER);
 		p2_Month.add(footer, BorderLayout.SOUTH);
 		
-		p2_Month.setVisible(true);
+		p2_Month.setVisible(false);
 		panel2.add(p2_Month);
 	}
 	

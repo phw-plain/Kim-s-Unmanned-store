@@ -24,8 +24,8 @@ public class Start{
 	
 	private void prepareGUI() {
 		// 작업 경로 확인용
-//		String path = System.getProperty("user.dir"); 
-//      System.out.println("현재 작업 경로: " + path);
+		// String path = System.getProperty("user.dir"); 
+		// System.out.println("현재 작업 경로: " + path);
         
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게"); 
@@ -48,7 +48,7 @@ public class Start{
 		int width = mainFrame.getWidth();
 		int height = mainFrame.getHeight();
 	    
-		System.out.println(width + " " + height);
+		//System.out.println(width + " " + height);
 		
 	    MyPanel panel = new MyPanel();
 	    panel.setLayout(new FlowLayout(FlowLayout.CENTER, width+500, 10));

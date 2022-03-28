@@ -45,4 +45,5 @@ public class Setting {
 	public double percent = 0;
 	public int emp = 0;
 	public int empsal = 0;
+
 }

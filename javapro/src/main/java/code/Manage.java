@@ -37,7 +37,7 @@ public class Manage extends Setting {
 	
 	private Sales sales; 				// 매출 & 지출 기록 및 그래프
 	private NetIncome netincome;	 	// 실수령액 그래프
-	private JPanel panel3; 				// 재고 관리
+	private Inventory inventory; 		// 재고 관리
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage() {
@@ -72,17 +72,20 @@ public class Manage extends Setting {
 		sales = new Sales(); 
 		netincome = new NetIncome();
 		mypage = new MyPage();
+		inventory = new Inventory();
 		
 		// 홈 버튼 이벤트 적용
 		homeevt();
 		
 		sales.setVisible(false);
 		netincome.setVisible(false);
+		inventory.setVisible(false);
 		mypage.setVisible(false);
 
 		subpanel.add(menu);
 		subpanel.add(sales.panel);
 		subpanel.add(netincome.panel);
+		subpanel.add(inventory.panel);
 		subpanel.add(mypage.panel);
 
 		mainFrame.add(subpanel);
@@ -158,6 +161,7 @@ public class Manage extends Setting {
 				menu.setVisible(false);
 				sales.setVisible(true);
 				netincome.setVisible(false);
+				inventory.setVisible(false);
 				mypage.setVisible(false);
 			}
 		});
@@ -166,6 +170,16 @@ public class Manage extends Setting {
 				menu.setVisible(false);
 				sales.setVisible(false);
 				netincome.setVisible(true);
+				inventory.setVisible(false);
+				mypage.setVisible(false);
+			}
+		});
+		btn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(false);
+				inventory.setVisible(true);
 				mypage.setVisible(false);
 			}
 		});
@@ -174,6 +188,7 @@ public class Manage extends Setting {
 				menu.setVisible(false);
 				sales.setVisible(false);
 				netincome.setVisible(false);
+				inventory.setVisible(false);
 				mypage.setVisible(true);
 			}
 		});
@@ -226,6 +241,12 @@ public class Manage extends Setting {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				mypage.setVisible(false);
+			}
+		});
+		inventory.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				inventory.setVisible(false);
 			}
 		});
 	}

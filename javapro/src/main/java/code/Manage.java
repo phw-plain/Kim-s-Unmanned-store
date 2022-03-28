@@ -1,4 +1,5 @@
 package code;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -24,736 +25,236 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RefineryUtilities;
 
-public class Manage {
+import code.Manage.MyPanel;
+
+public class Manage extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
+
+	private JPanel menu; 				// ë©”ë‰´
+	private JPanel pWest;
+	private JPanel pEast;
 	
-	private JPanel panel0;		// menu
-	private JPanel panel1;		// ¸ÅÃâ & ÁöÃâ ±â·Ï ¹× ±×·¡ÇÁ 
-	private JPanel panel2;	// ½Ç¼ö·É¾× ±×·¡ÇÁ
-	
-	private JPanel panel0_W;
-	private JPanel panel0_E;
-	private JPanel p1_Today;
-	private JPanel p1_Month;
-	private JPanel p2_Week;
-	private JPanel p2_Month;
-	
-	private JPanel chartPanel1;
-	private JPanel chartPanel2;
-	private JPanel chartPanel3;
-	private JPanel chartPanel4;
-	
-	// ±âº» Á¤º¸
-	int width;
-	int height;
-	
-	// color
-	Color title = new Color(0, 0, 0);
-	Color background = new Color(255, 255, 255);
-	
-	// Font
-	Font font1 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 50);
-	Font font2 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 26);
-	Font font3 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 16);
-	
-	// Image
-	ImageIcon logo = new ImageIcon("src/img/logo.png");
-	ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
-	ImageIcon i = new ImageIcon("src/img/benner.png");
-	Image im=i.getImage();
-	
+	private Sales sales; 				// ë§¤ì¶œ & ì§€ì¶œ ê¸°ë¡ ë° ê·¸ë˜í”„
+	private NetIncome netincome;	 	// ì‹¤ìˆ˜ë ¹ì•¡ ê·¸ë˜í”„
+	private Inventory inventory; 		// ì¬ê³  ê´€ë¦¬
+	private MyPage mypage; 				// ë§ˆì´í˜ì´ì§€
+
 	public Manage() {
-		// Frame ±âº» ¼¼ÆÃ
-		mainFrame = new Frame("¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"); 
-	    mainFrame.setSize(1280 ,1024);
-	    mainFrame.setLocationRelativeTo(null);
-	    mainFrame.setResizable(false);
-	    mainFrame.setVisible(true);
-	    mainFrame.addWindowListener(new WindowAdapter() {
-	       public void windowClosing(WindowEvent windowEvent) {
-	          System.exit(0);
-	       }
-	    });
-	    
-	    // Icon º¯°æ
-	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
-    	ImageIcon img = new ImageIcon(imageURL);
-    	mainFrame.setIconImage(img.getImage());
-    	
-		// È­¸é Å©±â
+		i = new ImageIcon("src/img/benner.png");
+		im = i.getImage();
+		
+		// Frame ê¸°ë³¸ ì„¸íŒ…
+		mainFrame = new Frame("ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ");
+		mainFrame.setSize(1280, 1024);
+		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setResizable(false);
+		mainFrame.setVisible(true);
+		mainFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent windowEvent) {
+				System.exit(0);
+			}
+		});
+		mainFrame.setIconImage(img.getImage());		// Icon ë³€ê²½
+
+		// í™”ë©´ í¬ê¸°
 		width = mainFrame.getWidth();
 		height = mainFrame.getWidth();
-		  
-	    // subpanel ¼¼ÆÃ
+
+		// subpanel ì„¸íŒ…
 		subpanel = new JPanel(new CardLayout());
 		subpanel.setBackground(background);
-		
-		// ¸Ş´º È­¸é »ı¼º
-		panel0 = new JPanel();
-		panel0.setBackground(background);
-		panel0.setLayout(new GridLayout(3, 1));
-		
-		// ¸Ş´º È­¸é - »ó´Ü ¹è³Ê
-		MyPanel benner = new MyPanel();
-		panel0.add(benner, BorderLayout.EAST);
-		menu();
-		
-		// ¸ÅÃâ & ÁöÃâ ±â·Ï ¹× ±×·¡ÇÁ È­¸é »ı¼º	
-		panel1 = new JPanel(new CardLayout());
- 	   	panel1.setBackground(background);
- 	   	TodaySales();
- 	   	MonthSales();
 
- 	   	// ½Ç¼ö·É¾× ±×·¡ÇÁ È­¸é »ı¼º
-		panel2 = new JPanel(new CardLayout());
-		panel2.setBackground(background);
- 	   	WeekGrahp();
- 	   	MonthGrahp();
+		// ë©”ë‰´ í™”ë©´ ìƒì„±
+		menu();
+
+		// ê°ì²´ í• ë‹¹
+		sales = new Sales(); 
+		netincome = new NetIncome();
+		mypage = new MyPage();
+		inventory = new Inventory();
 		
-		panel1.setVisible(false);
-		panel2.setVisible(false);
+		// í™ˆ ë²„íŠ¼ ì´ë²¤íŠ¸ ì ìš©
+		homeevt();
 		
-		subpanel.add(panel0);
-		subpanel.add(panel1);
-		subpanel.add(panel2);
-		
+		sales.setVisible(false);
+		netincome.setVisible(false);
+		inventory.setVisible(false);
+		mypage.setVisible(false);
+
+		subpanel.add(menu);
+		subpanel.add(sales.panel);
+		subpanel.add(netincome.panel);
+		subpanel.add(inventory.panel);
+		subpanel.add(mypage.panel);
+
 		mainFrame.add(subpanel);
 	}
-	
+
 	private void menu() {
-		panel0_W = new JPanel();
-		panel0_E = new JPanel();
-		panel0_W.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
-	    
-		panel0_W.setBackground(background);  
-		panel0_E.setBackground(background);  
+		menu = new JPanel();
+		menu.setBackground(background);
+		menu.setLayout(new GridLayout(3, 1));
+
+		// ìƒë‹¨ ë°°ë„ˆ
+		MyPanel benner = new MyPanel();
+		menu.add(benner, BorderLayout.EAST);
 		
+		pWest = new JPanel();
+		pEast = new JPanel();
+		pWest.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+
+		pWest.setBackground(background);
+		pEast.setBackground(background);
+
 		ImageIcon mBtn_img1 = new ImageIcon("src/img/btn1_1.png");
 		ImageIcon mBtn_img2 = new ImageIcon("src/img/btn1_2.png");
 		ImageIcon mBtn_img3 = new ImageIcon("src/img/btn1_3.png");
-		
+
 		ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
 		ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
 		ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
-		
-		// btn1 : ¸ÅÃâ & ÁöÃâ ±â·Ï ¹× ±×·¡ÇÁ
+
+		// btn1 : ë§¤ì¶œ & ì§€ì¶œ ê¸°ë¡ ë° ê·¸ë˜í”„
 		JButton btn1 = new JButton("", mBtn_img1);
-		btn1.setRolloverIcon(mBtn_img2); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		btn1.setPressedIcon(mBtn_img3); 	// pressedIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		btn1.setContentAreaFilled(false);	// ¹è°æ Ã¤¿ì±â
-		btn1.setBorderPainted(false);		// ¿Ü°¢¼±
-		btn1.setFocusPainted(false);		// ¼±ÅÃ ¿Ü°¢¼±
-		
-		// btn2 : ½Ç¼ö·É¾× ±×·¡ÇÁ
+		btn1.setRolloverIcon(mBtn_img2); 	// rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		btn1.setPressedIcon(mBtn_img3); 	// pressedIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		btn1.setContentAreaFilled(false); 	// ë°°ê²½ ì±„ìš°ê¸°
+		btn1.setBorderPainted(false); 		// ì™¸ê°ì„ 
+		btn1.setFocusPainted(false); 		// ì„ íƒ ì™¸ê°ì„ 
+
+		// btn2 : ì‹¤ìˆ˜ë ¹ì•¡ ê·¸ë˜í”„
 		JButton btn2 = new JButton("", mBtn_img1);
-		btn2.setRolloverIcon(mBtn_img2); 
-		btn2.setPressedIcon(mBtn_img3); 
+		btn2.setRolloverIcon(mBtn_img2);
+		btn2.setPressedIcon(mBtn_img3);
 		btn2.setContentAreaFilled(false);
 		btn2.setBorderPainted(false);
 		btn2.setFocusPainted(false);
-		
-		// btn3 : Àç°í°ü¸®
+
+		// btn3 : ì¬ê³ ê´€ë¦¬
 		JButton btn3 = new JButton("", mBtn_img1);
-		btn3.setRolloverIcon(mBtn_img2); 
+		btn3.setRolloverIcon(mBtn_img2);
 		btn3.setPressedIcon(mBtn_img3);
 		btn3.setContentAreaFilled(false);
 		btn3.setBorderPainted(false);
 		btn3.setFocusPainted(false);
-		
-		// btn4 : ¸¶ÀÌÆäÀÌÁö
+
+		// btn4 : ë§ˆì´í˜ì´ì§€
 		JButton btn4 = new JButton("", mBtn_img1);
-		btn4.setRolloverIcon(mBtn_img2); 
+		btn4.setRolloverIcon(mBtn_img2);
 		btn4.setPressedIcon(mBtn_img3);
-		btn4.setContentAreaFilled(false);	
+		btn4.setContentAreaFilled(false);
 		btn4.setBorderPainted(false);
 		btn4.setFocusPainted(false);
-		
-		// btn5 : ·Î±×¾Æ¿ô
+
+		// btn5 : ë¡œê·¸ì•„ì›ƒ
 		JButton btn5 = new JButton("", mBtn5_img1);
-		btn5.setRolloverIcon(mBtn5_img2); 
-		btn5.setPressedIcon(mBtn5_img3); 
-		btn5.setContentAreaFilled(false);	
+		btn5.setRolloverIcon(mBtn5_img2);
+		btn5.setPressedIcon(mBtn5_img3);
+		btn5.setContentAreaFilled(false);
 		btn5.setBorderPainted(false);
 		btn5.setFocusPainted(false);
-		
-		// ¹öÆ° ÀÌº¥Æ®
+
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 		btn1.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   TodaySales();
-		    	   MonthSales();
-		    	   panel0.setVisible(false);
-		           panel1.setVisible(true);
-		           panel2.setVisible(false);
-		       }
-		});	
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(true);
+				netincome.setVisible(false);
+				inventory.setVisible(false);
+				mypage.setVisible(false);
+			}
+		});
 		btn2.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   WeekGrahp();
-		    	   MonthGrahp();
-		           panel0.setVisible(false);
-		           panel1.setVisible(false);
-		           panel2.setVisible(true);
-		       }
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(true);
+				inventory.setVisible(false);
+				mypage.setVisible(false);
+			}
+		});
+		btn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(false);
+				inventory.setVisible(true);
+				mypage.setVisible(false);
+			}
+		});
+		btn4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(false);
+				inventory.setVisible(false);
+				mypage.setVisible(true);
+			}
 		});
 		btn5.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		           new Start(); //ÇÁ·¹ÀÓ ÀüÈ¯
-		           mainFrame.setVisible(false);
-		       }
+			public void actionPerformed(ActionEvent e) {
+				new Start(); // í”„ë ˆì„ ì „í™˜
+				mainFrame.setVisible(false);
+			}
 		});
-		
-		panel0_W.add(btn1);
-		panel0_W.add(btn2);
-		panel0_W.add(btn3);
-		panel0_E.add(btn4);
-		panel0_E.add(btn5);
-		
-		panel0.add(panel0_W, BorderLayout.EAST);
-		panel0.add(panel0_E, BorderLayout.EAST);
-		
-		panel0.setVisible(true);
+
+		pWest.add(btn1);
+		pWest.add(btn2);
+		pWest.add(btn3);
+		pEast.add(btn4);
+		pEast.add(btn5);
+
+		menu.add(pWest, BorderLayout.EAST);
+		menu.add(pEast, BorderLayout.EAST);
+
+		menu.setVisible(true);
+	}
+
+	private void homeevt() {
+		// home ë²„íŠ¼ ì´ë²¤íŠ¸
+		sales.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				sales.setVisible(false);
+			}
+		});
+		sales.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				sales.setVisible(false);
+			}
+		});
+		netincome.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				netincome.setVisible(false);
+			}
+		});
+		netincome.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				netincome.setVisible(false);
+			}
+		});
+		mypage.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				mypage.setVisible(false);
+			}
+		});
+		inventory.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				inventory.setVisible(false);
+			}
+		});
 	}
 	
-	private void TodaySales() {
-		// p1_Today ¼¼ÆÃ
-		p1_Today = new JPanel();
-		p1_Today.setBackground(background);
-		p1_Today.setLayout(new BorderLayout()); 
-		
-		// navigation
-		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
-		
-		// home ¹öÆ° »ı¼º
-		JButton homebtn = new JButton("", logo);
-		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn.setContentAreaFilled(false);	// ¹è°æ Ã¤¿ì±â
-		homebtn.setBorderPainted(false);		//¿Ü°¢¼±
-		homebtn.setFocusPainted(false);		// ¼±ÅÃ ¿Ü°¢¼±
-		
-		// home ¹öÆ° ÀÌº¥Æ®
-		homebtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   panel0.setVisible(true);
-		           panel1.setVisible(false);
-		       }
-		});
-		
-		JLabel title = new JLabel("¸ÅÃâ ¹× ÁöÃâ");
-		title.setFont(font2);
-
-		header.add(homebtn, BorderLayout.WEST);
-		header.add(title, BorderLayout.CENTER);
-
-		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
-		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton daybtn = new HalfRoundedButton("   ÀÏ       ", Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿ù       ");
-		
-		daybtn.setFont(font3);
-		monthbtn.setFont(font3);
-		
-		// ¹öÆ° ÀÌº¥Æ®
-		monthbtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		           p1_Today.setVisible(false); // È­¸é ÀüÈ¯
-		           p1_Month.setVisible(true);
-		       }
-		});
-		
-		leftpanel.add(daybtn);
-		leftpanel.add(monthbtn);
-		
-		// sales
-		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
-		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 108));	// À§ ¿Ş ¾Æ ¿À
-		JLabel stitle = new JLabel("Today");
-		stitle.setFont(font3);
-		JLabel sales = new JLabel("¡ã 350,000");
-		sales.setFont(new Font("µ¸¿òÃ¼", Font.PLAIN, 16));
-		sales.setForeground(Color.red);
-		
-		rightpanel.add(stitle);
-		rightpanel.add(sales);
-		
-		// graph
-		int[][] data1 = new int[7][4];	// ÀÏ, ¿ù, ¿¬, sales
-		int[][] data2 = new int[7][4];
-		
-		for(int i=0; i<7; i++) {
-			data1[i][0] = 20+i;
-			data1[i][1] = 3;
-			data1[i][2] = 2022;
-			data1[i][3] = 100+(20*i);
-			
-			data2[i][0] = 20+i;
-			data2[i][1] = 3;
-			data2[i][2] = 2022;
-			data2[i][3] = 240-(20*i);
+	class MyPanel extends JPanel {
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(im, 0, 0, getWidth(), getHeight(), this);
 		}
-		
-		JPanel chartPanel1 = createDemoPanel(1, data1, data2);
-		
-		// footer (°ø¹é)
-		JPanel footer = new JPanel(new BorderLayout());
-		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-	    
-		p1_Today.add(header, BorderLayout.NORTH);
-		p1_Today.add(leftpanel, BorderLayout.WEST);
-		p1_Today.add(rightpanel, BorderLayout.EAST);
-		p1_Today.add(chartPanel1, BorderLayout.CENTER);
-		p1_Today.add(footer, BorderLayout.SOUTH);
-		
-		p1_Today.setVisible(true);
-		panel1.add(p1_Today);
 	}
-	
-	private void MonthSales() {
-		// p1_Month ¼¼ÆÃ
-		p1_Month = new JPanel();
-		p1_Month.setBackground(background);
-		p1_Month.setLayout(new BorderLayout());
-		
-		// navigation
-		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
-
-		// home ¹öÆ° »ı¼º
-		JButton homebtn = new JButton("", logo);
-		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn.setContentAreaFilled(false);	// ¹è°æ Ã¤¿ì±â
-		homebtn.setBorderPainted(false);		//¿Ü°¢¼±
-		homebtn.setFocusPainted(false);		// ¼±ÅÃ ¿Ü°¢¼±
-		
-		// home ¹öÆ° ÀÌº¥Æ®
-		homebtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   panel0.setVisible(true);
-		           panel1.setVisible(false);
-		       }
-		});
-		
-		JLabel title = new JLabel("¸ÅÃâ ¹× ÁöÃâ");
-		title.setFont(font2);
-
-		header.add(homebtn, BorderLayout.WEST);
-		header.add(title, BorderLayout.CENTER);
-
-		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
-		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton daybtn = new HalfRoundedButton("   ÀÏ       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿ù       ", Color.orange);
-		
-		daybtn.setFont(font3);
-		monthbtn.setFont(font3);
-		
-		// ¹öÆ° ÀÌº¥Æ®
-		daybtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		           p1_Today.setVisible(true); // È­¸é ÀüÈ¯
-		           p1_Month.setVisible(false);
-		       }
-		});
-		
-		leftpanel.add(daybtn);
-		leftpanel.add(monthbtn);
-		
-		// sales
-		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
-		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		
-		JLabel stitle = new JLabel("Month");
-		stitle.setFont(font3);
-		JLabel sales = new JLabel("¡ã 780,000");
-		sales.setFont(new Font("µ¸¿òÃ¼", Font.PLAIN, 16));
-		sales.setForeground(Color.red);
-		
-		// ±×·¡ÇÁ ³¯Â¥ ¹öÆ° Ãß°¡
-		int year = 2022; // Áö±İ ³âµµ °¡Á®¿À±â
-		int[] years = new int[10];
-      
-		Choice yearCh = new Choice();
-		JButton yearbtn = new JButton("È®ÀÎ");
-		yearbtn.setFont(new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 13));
-		yearbtn.setBackground(Color.white);
-      
-		for(int i=0; i<10; i++) {
-			years[i] = year-i;
-			yearCh.add(year-i+"³â");
-		}	
-		
-		JPanel chbox = new JPanel(new BorderLayout());
-		chbox.setBackground(Color.white);
-		JPanel chp = new JPanel();
-		chp.add(yearCh);
-		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-		chp.setBackground(Color.white);
-		
-		chbox.add(chp, BorderLayout.WEST);
-		chbox.add(yearbtn, BorderLayout.EAST);
-		
-		rightpanel.add(stitle);
-		rightpanel.add(sales);		
-		rightpanel.add(chbox);
-
-		yearbtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   // Graph ´Ù½Ã ±×¸®±â
-		    	   p1_Month.setVisible(false);
-		    	   MonthGrahp();
-		    	   p1_Month.setVisible(true);
-		       }
-		});
-		
-		// graph
-		int[][] data1 = new int[7][4];	// ÀÏ, ¿ù, ¿¬, sales
-		int[][] data2 = new int[7][4];
-		
-		for(int i=0; i<7; i++) {
-			data1[i][0] = 20+i;
-			data1[i][1] = 3;
-			data1[i][2] = 2022;
-			data1[i][3] = 100+(20*i);
-			
-			data2[i][0] = 20+i;
-			data2[i][1] = 3;
-			data2[i][2] = 2022;
-			data2[i][3] = 240-(20*i);
-		}
-		
-		chartPanel2 = createDemoPanel(2, data1, data2);
-	    
-		// footer (°ø¹é)
-		JPanel footer = new JPanel(new BorderLayout());
-		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-	    
-		p1_Month.add(header, BorderLayout.NORTH);
-		p1_Month.add(leftpanel, BorderLayout.WEST);
-		p1_Month.add(rightpanel, BorderLayout.EAST);
-		p1_Month.add(chartPanel2, BorderLayout.CENTER);
-		p1_Month.add(footer, BorderLayout.SOUTH);
-		
-		p1_Month.setVisible(false);
-		panel1.add(p1_Month);
-	}
-	
-	private void WeekGrahp() {
-		// p2_Week ¼¼ÆÃ
-		p2_Week = new JPanel();
-		p2_Week.setBackground(background);
-		p2_Week.setLayout(new BorderLayout());
-		
-		// navigation
-		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
-		
-		// home ¹öÆ° »ı¼º
-		JButton homebtn = new JButton("", logo);
-		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn.setContentAreaFilled(false);	// ¹è°æ Ã¤¿ì±â
-		homebtn.setBorderPainted(false);		//¿Ü°¢¼±
-		homebtn.setFocusPainted(false);		// ¼±ÅÃ ¿Ü°¢¼±
-		
-		// home ¹öÆ° ÀÌº¥Æ®
-		homebtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   panel0.setVisible(true);
-		           panel2.setVisible(false);
-		       }
-		});
-		
-		JLabel title = new JLabel("½Ç¼ö·É¾× ±×·¡ÇÁ");
-		title.setFont(font2);
-
-		header.add(homebtn, BorderLayout.WEST);
-		header.add(title, BorderLayout.CENTER);
-
-		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
-		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   ÁÖ       ", Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿¬       ");
-		
-		weekbtn.setFont(font3);
-		monthbtn.setFont(font3);
-		
-		// ¹öÆ° ÀÌº¥Æ®
-		monthbtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   p2_Week.setVisible(false); // È­¸é ÀüÈ¯
-		    	   p2_Month.setVisible(true);
-		       }
-		});
-		
-		leftpanel.add(weekbtn);
-		leftpanel.add(monthbtn);
-		
-		// right
-		JPanel rightpanel = new JPanel(new GridLayout(0, 1, 0, 0));
-		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 188));	// À§ ¿Ş ¾Æ ¿À
-		
-		// graph
-		int[][] data1 = new int[7][4];	// ÀÏ, ¿ù, ¿¬, sales
-		int[][] data2 = new int[7][4];
-		
-		for(int i=0; i<7; i++) {
-			data1[i][0] = 20+i;
-			data1[i][1] = 3;
-			data1[i][2] = 2022;
-			data1[i][3] = 100+(20*i);
-			
-			data2[i][0] = 20+i;
-			data2[i][1] = 3;
-			data2[i][2] = 2022;
-			data2[i][3] = 240-(20*i);
-		}
-		
-		JPanel chartPanel3 = createDemoPanel(3, data1, data2);
-
-		// footer (°ø¹é)
-		JPanel footer = new JPanel(new BorderLayout());
-		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-	    
-		p2_Week.add(header, BorderLayout.NORTH);
-		p2_Week.add(leftpanel, BorderLayout.WEST);
-		p2_Week.add(rightpanel, BorderLayout.EAST);
-		p2_Week.add(chartPanel3, BorderLayout.CENTER);
-		p2_Week.add(footer, BorderLayout.SOUTH);
-		
-		p2_Week.setVisible(true);
-		panel2.add(p2_Week);
-	}
-	
-	private void MonthGrahp() {
-		// p2_Month ¼¼ÆÃ
-		p2_Month = new JPanel();
-		p2_Month.setBackground(background);
-		p2_Month.setLayout(new BorderLayout());
-		
-		// navigation
-		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
-		
-		// home ¹öÆ° »ı¼º
-		JButton homebtn = new JButton("", logo);
-		homebtn.setRolloverIcon(logo_over); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn.setContentAreaFilled(false);	// ¹è°æ Ã¤¿ì±â
-		homebtn.setBorderPainted(false);		//¿Ü°¢¼±
-		homebtn.setFocusPainted(false);		// ¼±ÅÃ ¿Ü°¢¼±
-		
-		// home ¹öÆ° ÀÌº¥Æ®
-		homebtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   panel0.setVisible(true);
-		           panel2.setVisible(false);
-		       }
-		});
-		
-		JLabel title = new JLabel("½Ç¼ö·É¾× ±×·¡ÇÁ");
-		title.setFont(font2);
-
-		header.add(homebtn, BorderLayout.WEST);
-		header.add(title, BorderLayout.CENTER);
-
-		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
-		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   ÁÖ       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿¬       ", Color.orange);
-		
-		weekbtn.setFont(font3);
-		monthbtn.setFont(font3);
-		
-		// ¹öÆ° ÀÌº¥Æ®
-		weekbtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   p2_Week.setVisible(true); // È­¸é ÀüÈ¯
-		    	   p2_Month.setVisible(false);
-		       }
-		});
-		
-		leftpanel.add(weekbtn);
-		leftpanel.add(monthbtn);
-		
-		// right
-		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
-		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));	// À§ ¿Ş ¾Æ ¿À
-		
-		// ±×·¡ÇÁ ³¯Â¥ ¹öÆ° Ãß°¡
-		int year = 2022; // Áö±İ ³âµµ °¡Á®¿À±â
-		int[] years = new int[10];
-      
-		Choice yearCh = new Choice();
-		JButton yearbtn = new JButton("È®ÀÎ");
-		yearbtn.setFont(new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 13));
-		yearbtn.setBackground(Color.white);
-      
-		for(int i=0; i<10; i++) {
-			years[i] = year-i;
-			yearCh.add(year-i+"³â");
-		}	
-		
-		JPanel chbox = new JPanel(new BorderLayout());
-		chbox.setBackground(Color.white);
-		JPanel chp = new JPanel();
-		chp.add(yearCh);
-		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-		chp.setBackground(Color.white);
-		
-		chbox.add(chp, BorderLayout.WEST);
-		chbox.add(yearbtn, BorderLayout.EAST);
-		rightpanel.add(chbox);
-		
-		yearbtn.addActionListener(new ActionListener() {
-		       public void actionPerformed(ActionEvent e) {
-		    	   // Graph ´Ù½Ã ±×¸®±â
-		    	   p2_Month.setVisible(false);
-		    	   MonthGrahp();
-		    	   p2_Month.setVisible(true);
-		       }
-		});
-		
-		// graph
-		int[][] data1 = new int[7][4];	// ÀÏ, ¿ù, ¿¬, sales
-		int[][] data2 = new int[7][4];
-		
-		for(int i=0; i<7; i++) {
-			data1[i][0] = 20+i;
-			data1[i][1] = 3;
-			data1[i][2] = 2022;
-			data1[i][3] = 100+(20*i);
-			
-			data2[i][0] = 20+i;
-			data2[i][1] = 3;
-			data2[i][2] = 2022;
-			data2[i][3] = 240-(20*i);
-		}
-		
-		chartPanel4 = createDemoPanel(4, data1, data2);
-
-		// footer (°ø¹é)
-		JPanel footer = new JPanel(new BorderLayout());
-		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
-		
-		p2_Month.add(header, BorderLayout.NORTH);
-		p2_Month.add(leftpanel, BorderLayout.WEST);
-		p2_Month.add(rightpanel, BorderLayout.EAST);
-		p2_Month.add(chartPanel4, BorderLayout.CENTER);
-		p2_Month.add(footer, BorderLayout.SOUTH);
-		
-		p2_Month.setVisible(false);
-		panel2.add(p2_Month);
-	}
-	
-	public static JPanel createDemoPanel(int idx, int data1[][], int data2[][]) {
-		JFreeChart chart = createChart(createDataset(idx, data1, data2));
-        return new ChartPanel(chart);
-	}
-	
-	private static String str1 = "";
-	private static String str2 = "";
-	private static String str3 = "";
-	
-	private static XYDataset createDataset(int idx, int data1[][], int data2[][]) {
-		switch(idx) {
-		case 1:	{
-				str1 = "This week";
-				str2 = "Last week";
-				str3 = "TodaySales";
-			}	break;
-		case 2:	{
-				str1 = "This month";
-				str2 = "Last month";
-				str3 = "MonthSales";
-			}	break;
-		case 3: {
-				str1 = "This week";
-				str2 = "Last week";
-				str3 = "WeekSales";
-			}	break;
-		case 4: {
-				str1 = "This month";
-				str2 = "Last month";
-				str3 = "MonthSales";
-			}	break;
-		}
-		
-		TimeSeries s1 = new TimeSeries(str1);			// (ÃÊ,ºĞ,½Ã,ÀÏ,¿ù,³â),¸¶Áö¸·ÀÌ µ¥ÀÌÅÍ
-		TimeSeries s2 = new TimeSeries(str2);
-		
-		for(int i=0; i<7; i++) {
-			s1.add(new Day(data1[i][0], data1[i][1], data1[i][2]), data1[i][3]);
-			s2.add(new Day(data2[i][0], data2[i][1], data2[i][2]), data2[i][3]);
-		}
-		
-		
-        TimeSeriesCollection dataset = new TimeSeriesCollection();
-        dataset.addSeries(s1);
-        dataset.addSeries(s2);
-
-        return dataset;
-	}
-
-	private static JFreeChart createChart(XYDataset dataset) {
-		JFreeChart chart = ChartFactory.createTimeSeriesChart(
-			str3,        			// title
-			"",       				// x-axis label
-            "",  					// y-axis label
-            dataset,            	// data
-            true,               	// create legend?
-            true,               	// generate tooltips?
-            false              		// generate URLs?
-        );
-
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        
-        XYItemRenderer r = plot.getRenderer();
-        if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
-        }
-
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        Minute base = new Minute(0, 0, 24, 3, 2022);	// ÇöÀç ³¯Â¥
-        RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
-        rdf.setSecondFormatter(new DecimalFormat(""));
-        axis.setDateFormatOverride(rdf);
-
-        ChartUtilities.applyCurrentTheme(chart);
-
-        // ±×·¡ÇÁ µğÀÚÀÎ
-        plot.setBackgroundPaint(java.awt.Color.green);
-		chart.setBackgroundPaint(java.awt.Color.white);
-		chart.getPlot().setBackgroundPaint(java.awt.Color.white);
-
-        r.setSeriesPaint(0, new Color(179, 110, 232));
-        r.setSeriesPaint(1, new Color(211, 211, 211));
-        
-        return chart;
-    }
-	
-	class MyPanel extends JPanel{   
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            g.drawImage(im,0,0,getWidth(),getHeight(),this);
-        }
-    }
 }

@@ -6,16 +6,12 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class join {
+class join extends Setting{
 	private Frame mainFrame;
 	private JPanel subpanel;
 	private JLabel headerLabel;
 	private Panel form;
 	private Button b1;
-	
-	// color
-	Color title = new Color(0, 0, 0);
-	Color background = new Color(235, 222, 207);
 	 
 	// 아이디 중복 체크용 변수
 	private boolean idcheck = false;
@@ -25,11 +21,6 @@ class join {
 	}
 	
 	private void prepareGUI() {
-		// Font
-		Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
-		Font font2 = new Font("배달의민족 주아", Font.PLAIN, 16); ;
-		Font font3 = new Font("배달의민족 주아", Font.PLAIN, 13); 
-		
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(1280 ,1024);
@@ -41,11 +32,7 @@ class join {
 				System.exit(0);
 			}
 		});
-	    
-	    // Icon 변경
-	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
-    	ImageIcon img = new ImageIcon(imageURL);
-    	mainFrame.setIconImage(img.getImage());
+    	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 		
 		// 상단 제목
 		headerLabel = new JLabel();
@@ -172,9 +159,6 @@ class join {
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
-	    // isString추가 - 문자열 체크
-	    final isString is = new isString();
-	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
@@ -237,9 +221,7 @@ class join {
 	 			float money;
 	 			int employee = (ra1.isSelected() == true) ? 1 : 0;
 	 				
-	 			// isNum 메서드 호출
-	 			isNum in = new isNum();
-	 			isString is = new isString();
+
 	 				
 	 			// 회원가입 예외 처리
 	 			if(name.length() == 0) {					// 예외 처리 이름
@@ -343,7 +325,7 @@ class join {
 						, "박리다매"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!in.isNum(tf5.getText())) {
+ 				} else if(!is.isNum(tf5.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액은 숫자만 입력해주세요."
 						, "박리다매"
@@ -355,7 +337,7 @@ class join {
 						, "박리다매"
 						, JOptionPane.ERROR_MESSAGE
 					);
- 				} else if(employee == 1 && !in.isNum(tf7.getText())) {
+ 				} else if(employee == 1 && !is.isNum(tf7.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "직원 월급은 숫자만 입력해주세요."
 						, "박리다매"

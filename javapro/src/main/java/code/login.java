@@ -6,7 +6,7 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class login {
+class login extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
 	private MyPanel panelLeft;
@@ -14,25 +14,11 @@ class login {
 	private JLabel headerLabel;
 	private Button b1;
 	
-	// 기본 정보
-	int width;
-	int height;
-	
-	// color
-	Color title = new Color(0, 0, 0);
-	Color background = new Color(255, 255, 255);
-
-	// Font
-	Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
-	Font font2 = new Font("배달의민족 주아", Font.PLAIN, 16);
-	Font font3 = new Font("배달의민족 주아", Font.PLAIN, 13);
-	
-	// Image
-    ImageIcon i = new ImageIcon("src/img/login_img.png");
-    Image im=i.getImage();
-	
 	public login() {
-	        prepareGUI();
+		i = new ImageIcon("src/img/login_img.png");
+		im = i.getImage();
+		
+	    prepareGUI();
 	}
 	
 	private void prepareGUI() {
@@ -48,15 +34,7 @@ class login {
 				System.exit(0);
 			}
 		});
-	    
-	    // Icon 변경
-	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
-    	ImageIcon img = new ImageIcon(imageURL);
-    	mainFrame.setIconImage(img.getImage());
-		
-		// 화면 크기
-		width = mainFrame.getWidth();
-		height = mainFrame.getHeight();
+    	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 
 		// Left image
 		panelLeft = new MyPanel();
@@ -76,14 +54,14 @@ class login {
 		Panel form = new Panel(new GridLayout(3,2,0,5));
 		
 		JLabel label1 = new JLabel("아이디");
-		label1.setFont(font2);
+		label1.setFont(font3);
 		final TextField tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(label1);
 		form.add(tf1);
 
 		JLabel label2 = new JLabel("비밀번호");
-		label2.setFont(font2);
+		label2.setFont(font3);
 		final TextField tf2 = new TextField("", 15);
 		tf2.setEchoChar('●');
 		form.add(label2);

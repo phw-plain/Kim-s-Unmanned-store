@@ -1,6 +1,16 @@
 package code;
 
-public class isString {
+public class isType {
+	public static boolean isNum(String str) {
+		char tmp;
+		for(int i=0; i<str.length(); i++) {
+			tmp = str.charAt(i);
+			if(!('0' <= tmp && tmp <= '9' || tmp == '.')) {
+				return false;
+			}
+		}
+		return true;
+	}
 	public static boolean isString1(String str) {
 		boolean result;
 		if(!str.matches("[0-9|a-z|A-Z|]*"))

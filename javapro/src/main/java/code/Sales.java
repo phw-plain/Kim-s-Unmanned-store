@@ -57,14 +57,6 @@ public class Sales extends Setting{
 		homebtn1.setBorderPainted(false); 		// 외각선
 		homebtn1.setFocusPainted(false); 		// 선택 외각선
 
-//		// home 버튼 이벤트
-//		homebtn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				panel0.setVisible(true);
-//				panel1.setVisible(false);
-//			}
-//		});
-
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);
 
@@ -150,18 +142,10 @@ public class Sales extends Setting{
 
 		// home 버튼 생성
 		homebtn2 = new JButton("", logo);
-		homebtn2.setRolloverIcon(logo_over); // rolloverIcon용 이미지 등록
-		homebtn2.setContentAreaFilled(false); // 배경 채우기
-		homebtn2.setBorderPainted(false); // 외각선
-		homebtn2.setFocusPainted(false); // 선택 외각선
-
-//		// home 버튼 이벤트
-//		homebtn2.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				panel0.setVisible(true);
-//				panel1.setVisible(false);
-//			}
-//		});
+		homebtn2.setRolloverIcon(logo_over);	
+		homebtn2.setContentAreaFilled(false); 
+		homebtn2.setBorderPainted(false);
+		homebtn2.setFocusPainted(false);
 
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);

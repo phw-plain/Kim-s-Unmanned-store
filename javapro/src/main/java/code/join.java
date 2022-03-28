@@ -172,8 +172,8 @@ class join {
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
-	    // isString추가 - 문자열 체크
-	    final isString is = new isString();
+	    // isType추가 - 타입 체크
+	    final isType is = new isType();
 	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {
@@ -237,9 +237,7 @@ class join {
 	 			float money;
 	 			int employee = (ra1.isSelected() == true) ? 1 : 0;
 	 				
-	 			// isNum 메서드 호출
-	 			isNum in = new isNum();
-	 			isString is = new isString();
+
 	 				
 	 			// 회원가입 예외 처리
 	 			if(name.length() == 0) {					// 예외 처리 이름
@@ -343,7 +341,7 @@ class join {
 						, "박리다매"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!in.isNum(tf5.getText())) {
+ 				} else if(!is.isNum(tf5.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액은 숫자만 입력해주세요."
 						, "박리다매"
@@ -355,7 +353,7 @@ class join {
 						, "박리다매"
 						, JOptionPane.ERROR_MESSAGE
 					);
- 				} else if(employee == 1 && !in.isNum(tf7.getText())) {
+ 				} else if(employee == 1 && !is.isNum(tf7.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "직원 월급은 숫자만 입력해주세요."
 						, "박리다매"

@@ -3,6 +3,7 @@ package code;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,8 +28,14 @@ public class Setting {
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
 	public ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
-	public ImageIcon i = new ImageIcon("src/img/benner.png");
-	public Image im = i.getImage();
+	public ImageIcon test = new ImageIcon("src/img/btn1_1.png");
+	public ImageIcon i;
+	public Image im;
+	public URL imageURL = Start.class.getClassLoader().getResource("apple.png");
+	public ImageIcon img = new ImageIcon(imageURL);
+	
+    // 타입 체크
+    final isType is = new isType();
 	
 	// 회원 정보
 	public String name = "고고곡";

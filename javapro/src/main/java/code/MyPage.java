@@ -168,7 +168,6 @@ public class MyPage extends Setting {
 		
 		// home 버튼 생성
 		homebtn2 = new JButton("", logo);
-		homebtn2.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
 		homebtn2.setContentAreaFilled(false); 	// 배경 채우기
 		homebtn2.setBorderPainted(false); 		// 외각선
 		homebtn2.setFocusPainted(false); 		// 선택 외각선
@@ -287,19 +286,19 @@ public class MyPage extends Setting {
 		// 버튼 이벤트
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(R1.length() == 0) {
+				if(R1.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "이름을 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R3.length() == 0) {
+				} else if(R3.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "비밀번호를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R4.length() == 0) {
+				} else if(R4.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "지점명을 입력해주세요."
 							, "박리다매 무인가게"
@@ -311,31 +310,25 @@ public class MyPage extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(!in.isNum(pl7Tf5.getText())) {
+				} else if(!is.isNum(R5.getText())) {
 					JOptionPane.showMessageDialog(null
 							, "매출대비지급액은 숫자만 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R7 == 1 && (pl7Tf7.getText()).length() == 0) {		// 예외 처리 직원 월급
+				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// 예외 처리 직원 월급
 					JOptionPane.showMessageDialog(null
 							, "직원 월급을 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R7 == 1 && !in.isNum(pl7Tf7.getText())) {
+				} else if(ra1.isSelected() && !is.isNum(R7.getText())) {
 					JOptionPane.showMessageDialog(null
 							, "직원 월급은 숫자만 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
-					JOptionPane.showMessageDialog(null
-							, "정상적으로 정보 수정 완료!"
-							, "박리다매 무인가게"
-							, JOptionPane.PLAIN_MESSAGE
-					);
-					
 					int n = JOptionPane.showConfirmDialog(
 							null
 							, "변경사항을 저장하시겠습니까?"
@@ -357,7 +350,13 @@ public class MyPage extends Setting {
 						// reloading
 						Read.setVisible(false);
 						Read();
-	
+
+						JOptionPane.showMessageDialog(null
+								, "정상적으로 정보 수정 완료!"
+								, "박리다매 무인가게"
+								, JOptionPane.PLAIN_MESSAGE
+						);
+						
 						Read.setVisible(true); // 화면 전환
 						Write.setVisible(false);
 					}

@@ -6,16 +6,12 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class join {
+class join extends Setting{
 	private Frame mainFrame;
 	private JPanel subpanel;
 	private JLabel headerLabel;
 	private Panel form;
 	private Button b1;
-	
-	// color
-	Color title = new Color(0, 0, 0);
-	Color background = new Color(235, 222, 207);
 	 
 	// 아이디 중복 체크용 변수
 	private boolean idcheck = false;
@@ -25,11 +21,6 @@ class join {
 	}
 	
 	private void prepareGUI() {
-		// Font
-		Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
-		Font font2 = new Font("배달의민족 주아", Font.PLAIN, 16); ;
-		Font font3 = new Font("배달의민족 주아", Font.PLAIN, 13); 
-		
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(1280 ,1024);
@@ -41,11 +32,7 @@ class join {
 				System.exit(0);
 			}
 		});
-	    
-	    // Icon 변경
-	    URL imageURL = Start.class.getClassLoader().getResource("apple.png");
-    	ImageIcon img = new ImageIcon(imageURL);
-    	mainFrame.setIconImage(img.getImage());
+    	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 		
 		// 상단 제목
 		headerLabel = new JLabel();
@@ -171,9 +158,6 @@ class join {
 	    btns.add(check);
 	    btns.add(cancel);
 	    btns.setBackground(background);
-	    
-	    // isType추가 - 타입 체크
-	    final isType is = new isType();
 	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {

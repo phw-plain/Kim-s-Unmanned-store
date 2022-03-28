@@ -41,6 +41,9 @@ public class Manage extends Setting {
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage() {
+		i = new ImageIcon("src/img/benner.png");
+		im = i.getImage();
+		
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(1280, 1024);
@@ -52,11 +55,7 @@ public class Manage extends Setting {
 				System.exit(0);
 			}
 		});
-
-		// Icon 변경
-		URL imageURL = Start.class.getClassLoader().getResource("apple.png");
-		ImageIcon img = new ImageIcon(imageURL);
-		mainFrame.setIconImage(img.getImage());
+		mainFrame.setIconImage(img.getImage());		// Icon 변경
 
 		// 화면 크기
 		width = mainFrame.getWidth();
@@ -73,10 +72,6 @@ public class Manage extends Setting {
 		sales = new Sales(); 
 		netincome = new NetIncome();
 		mypage = new MyPage();
-		
-		// 마이페이지 화면 생성
-		//MyPage_Read();
-		//MyPage_Write();
 		
 		// 홈 버튼 이벤트 적용
 		homeevt();
@@ -228,12 +223,6 @@ public class Manage extends Setting {
 			}
 		});
 		mypage.homebtn1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu.setVisible(true);
-				mypage.setVisible(false);
-			}
-		});
-		mypage.homebtn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				mypage.setVisible(false);

@@ -18,6 +18,7 @@ public class Setting {
 	public Color background = new Color(255, 255, 255);
 	public Color header_back = new Color(254, 235, 182);
 	public Color menu_back = new Color(214, 174, 242);
+	public Color menu_over = new Color(253, 206, 83);
 	
 	// Font
 	public Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);

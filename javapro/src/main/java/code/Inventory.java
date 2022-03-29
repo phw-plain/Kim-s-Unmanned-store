@@ -36,9 +36,9 @@ public class Inventory extends Setting {
 	public JButton homebtn2;
 	public JButton homebtn3;
 	
-	JLabel btnView;
-	JLabel btnModify;
-	JLabel btnAdd;
+	JLabel btnView[] = new JLabel[3];
+	JLabel btnModify[] = new JLabel[3];
+	JLabel btnAdd[] = new JLabel[3];
 
 	Vector<String> colNames = new Vector<>();
 	
@@ -92,27 +92,28 @@ public class Inventory extends Setting {
 		header.add(title, BorderLayout.CENTER);
 
 		// menubar
-		btnView = new JLabel("재고 보기");
-		btnModify = new JLabel("재고 수정");
-		btnAdd = new JLabel("재고 추가");
+		btnView[0] = new JLabel("재고 보기");
+		btnView[0].setForeground(menu_over);
+		btnModify[0] = new JLabel("재고 수정");
+		btnAdd[0] = new JLabel("재고 추가");
 		JLabel blank = new JLabel();
 		JLabel blank2 = new JLabel();
 
-		btnView.setFont(font4);
-		btnModify.setFont(font4);
-		btnAdd.setFont(font4);
+		btnView[0].setFont(font4);
+		btnModify[0].setFont(font4);
+		btnAdd[0].setFont(font4);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
 		MouseExitedListener3 listener3 = new MouseExitedListener3();
 
-		btnView.addMouseListener(listener1);
-		btnModify.addMouseListener(listener2);
-		btnAdd.addMouseListener(listener3);
+		btnView[0].addMouseListener(listener1);
+		btnModify[0].addMouseListener(listener2);
+		btnAdd[0].addMouseListener(listener3);
 
-		menubar.add(btnView);
-		menubar.add(btnModify);
-		menubar.add(btnAdd);
+		menubar.add(btnView[0]);
+		menubar.add(btnModify[0]);
+		menubar.add(btnAdd[0]);
 		menubar.add(blank);
 		menubar.add(blank2);
 
@@ -200,37 +201,166 @@ public class Inventory extends Setting {
 	}
 
 	private void Modify() {
+		// Modify 세팅
+		Modify = new JPanel();
+		Modify.setBackground(background);
+		Modify.setLayout(new BorderLayout());
 
+		// navigation
+		JPanel nav = new JPanel(new BorderLayout());
+		nav.setBackground(background);
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(background);
+		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
+		menubar.setBackground(menu_back);
+
+		// header
+		homebtn2 = new JButton("", logo);
+		homebtn2.setRolloverIcon(logo_over);
+		homebtn2.setContentAreaFilled(false);
+		homebtn2.setBorderPainted(false);
+		homebtn2.setFocusPainted(false);
+
+		JLabel title = new JLabel("재고 관리");
+		title.setFont(font2);
+
+		header.add(homebtn2, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+
+		// menubar
+		btnView[1] = new JLabel("재고 보기");
+		btnModify[1] = new JLabel("재고 수정");
+		btnModify[1].setForeground(menu_over);
+		btnAdd[1] = new JLabel("재고 추가");
+		JLabel blank = new JLabel();
+		JLabel blank2 = new JLabel();
+
+		btnView[1].setFont(font4);
+		btnModify[1].setFont(font4);
+		btnAdd[1].setFont(font4);
+
+		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
+		MouseExitedListener2 listener2 = new MouseExitedListener2();
+		MouseExitedListener3 listener3 = new MouseExitedListener3();
+
+		btnView[1].addMouseListener(listener1);
+		btnModify[1].addMouseListener(listener2);
+		btnAdd[1].addMouseListener(listener3);
+
+		menubar.add(btnView[1]);
+		menubar.add(btnModify[1]);
+		menubar.add(btnAdd[1]);
+		menubar.add(blank);
+		menubar.add(blank2);
+
+		menubar.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 0));
+
+		nav.add(header, BorderLayout.CENTER);
+		nav.add(menubar, BorderLayout.SOUTH);
+		
+		Modify.add(nav, BorderLayout.NORTH);
+
+		Modify.setVisible(false);
+		panel.add(Modify);
 	}
 
 	private void Add() {
+		// Modify 세팅
+		Add = new JPanel();
+		Add.setBackground(background);
+		Add.setLayout(new BorderLayout());
 
+		// navigation
+		JPanel nav = new JPanel(new BorderLayout());
+		nav.setBackground(background);
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(background);
+		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
+		menubar.setBackground(menu_back);
+
+		// header
+		homebtn3 = new JButton("", logo);
+		homebtn3.setRolloverIcon(logo_over);
+		homebtn3.setContentAreaFilled(false);
+		homebtn3.setBorderPainted(false);
+		homebtn3.setFocusPainted(false);
+
+		JLabel title = new JLabel("재고 관리");
+		title.setFont(font2);
+
+		header.add(homebtn3, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+
+		// menubar
+		btnView[2] = new JLabel("재고 보기");
+		btnModify[2] = new JLabel("재고 수정");
+		btnAdd[2] = new JLabel("재고 추가");
+		btnAdd[2].setForeground(menu_over);
+		JLabel blank = new JLabel();
+		JLabel blank2 = new JLabel();
+
+		btnView[2].setFont(font4);
+		btnModify[2].setFont(font4);
+		btnAdd[2].setFont(font4);
+
+		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
+		MouseExitedListener2 listener2 = new MouseExitedListener2();
+		MouseExitedListener3 listener3 = new MouseExitedListener3();
+
+		btnView[2].addMouseListener(listener1);
+		btnModify[2].addMouseListener(listener2);
+		btnAdd[2].addMouseListener(listener3);
+
+		menubar.add(btnView[2]);
+		menubar.add(btnModify[2]);
+		menubar.add(btnAdd[2]);
+		menubar.add(blank);
+		menubar.add(blank2);
+
+		menubar.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 0));
+
+		nav.add(header, BorderLayout.CENTER);
+		nav.add(menubar, BorderLayout.SOUTH);
+		
+		Add.add(nav, BorderLayout.NORTH);
+
+		Add.setVisible(false);
+		panel.add(Add);
 	}
 
 	class MouseExitedListener1 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("재고 보기");
+			View.setVisible(true);
+			Modify.setVisible(false);
+			Add.setVisible(false);
 		}
-		public void mouseEntered(MouseEvent e ) {
-			btnView.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		public void mouseEntered(MouseEvent e) {
+			for(int i=0; i<3; i++)
+				btnView[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 	}
 
 	class MouseExitedListener2 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("재고 수정");
+			View.setVisible(false);
+			Modify.setVisible(true);
+			Add.setVisible(false);
 		}
 		public void mouseEntered(MouseEvent e ) {
-			btnModify.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			for(int i=0; i<3; i++)
+				btnModify[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 	}
 
 	class MouseExitedListener3 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("재고 추가");
+			View.setVisible(false);
+			Modify.setVisible(false);
+			Add.setVisible(true);
 		}
 		public void mouseEntered(MouseEvent e ) {
-			btnAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			for(int i=0; i<3; i++)
+				btnAdd[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 	}
 }

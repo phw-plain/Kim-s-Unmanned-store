@@ -17,7 +17,8 @@ public class Setting {
 	public Color title = new Color(0, 0, 0);
 	public Color background = new Color(255, 255, 255);
 	public Color header_back = new Color(254, 235, 182);
-
+	public Color menu_back = new Color(214, 174, 242);
+	
 	// Font
 	public Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
 	public Font font2 = new Font("배달의민족 주아", Font.PLAIN, 26);
@@ -28,7 +29,6 @@ public class Setting {
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
 	public ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
-	public ImageIcon test = new ImageIcon("src/img/btn1_1.png");
 	public ImageIcon i;
 	public Image im;
 	public URL imageURL = Start.class.getClassLoader().getResource("apple.png");

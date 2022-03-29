@@ -22,4 +22,6 @@
     <fullyQualifiedTypeName name="javax.swing.table.TableColumnModel"/>
     <fullyQualifiedTypeName name="java.awt.Cursor"/>
     <fullyQualifiedTypeName name="java.awt.Font"/>
+    <fullyQualifiedTypeName name="javax.swing.JList"/>
+    <fullyQualifiedTypeName name="java.awt.Choice"/>
 </qualifiedTypeNameHistroy>

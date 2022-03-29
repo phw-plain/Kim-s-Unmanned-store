@@ -2,6 +2,7 @@ package code;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,14 +35,21 @@ public class Inventory extends Setting {
 	private JPanel Add;
 
 	public JButton homebtn1;
-	public JButton homebtn2;
-	public JButton homebtn3;
+	private JButton homebtn2;
+	private JButton homebtn3;
 	
-	JLabel btnView[] = new JLabel[3];
-	JLabel btnModify[] = new JLabel[3];
-	JLabel btnAdd[] = new JLabel[3];
+	private JLabel btnView[] = new JLabel[3];
+	private JLabel btnModify[] = new JLabel[3];
+	private JLabel btnAdd[] = new JLabel[3];
 
-	Vector<String> colNames = new Vector<>();
+	private Vector<String> colNames = new Vector<>();
+
+	private String[] code;
+	private String[] name;
+	private String[] category;
+	private String[] standard;
+	private int[] cnt;
+	private int[] price;
 	
 	public Inventory() {
 		panel = new JPanel(new CardLayout());
@@ -138,17 +147,17 @@ public class Inventory extends Setting {
 		// list
 		JPanel list = new JPanel();
 		JTable tableView;
-
-		Vector<String> rows;
-		Vector<Vector> dataSet = new Vector<>();
-
+		
 		// 데이터 불러오기
-		String[] code = { "AD1004", "BC2075", "TR1200"};
-		String[] name = { "초코송이", "칠성사이다", "허니버터칩"};
-		String[] category = { "스낵", "음료", "스낵"};
-		String[] standard = { "240g", "1.5L", "600g"};
-		int[] cnt = { 3, 15, 7};
-		int[] price = { 1200, 2700, 1600};
+		code = new String[]{ "AD1004", "BC2075", "TR1200"};
+		name = new String[]{ "초코송이", "칠성사이다", "허니버터칩"};
+		category = new String[]{ "스낵", "음료", "스낵"};
+		standard = new String[]{ "240g", "1.5L", "600g"};
+		cnt = new int[]{ 3, 15, 7};
+		price = new int[]{ 1200, 2700, 1600};
+		
+		Vector<Vector> dataSet = new Vector<>();
+		Vector<String> rows;
 		
 		// 데이터 입력
 		for (int i = 0; i < code.length; i++) {
@@ -258,7 +267,37 @@ public class Inventory extends Setting {
 		nav.add(header, BorderLayout.CENTER);
 		nav.add(menubar, BorderLayout.SOUTH);
 		
+		// inventory modify
+		JPanel inventory = new JPanel(new BorderLayout());
+		
+		// 재고 선택
+		JPanel choose = new JPanel();
+		choose.setBackground(background);
+		choose.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		
+		Choice ch = new Choice();
+		for(int i=0; i<name.length; i++) {
+			ch.add(name[i]);
+		}
+
+		choose.add(ch);
+		
+		// 확인 & 취소
+		JPanel btns = new JPanel();
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		RoundedButton check = new RoundedButton("확인");
+		RoundedButton cancel = new RoundedButton("취소");
+		
+		btns.add(check);
+		btns.add(cancel);
+		
+		
+		inventory.add(choose, BorderLayout.NORTH);
+		inventory.add(btns, BorderLayout.SOUTH);
+		
+		
 		Modify.add(nav, BorderLayout.NORTH);
+		Modify.add(inventory, BorderLayout.CENTER);
 
 		Modify.setVisible(false);
 		panel.add(Modify);

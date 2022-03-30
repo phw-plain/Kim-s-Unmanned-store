@@ -215,25 +215,25 @@ public class MyPage extends Setting {
 		L7.setFont(font3);
 		
 		TextField R1 = new TextField(name);
-		R1.setFont(font5);
+		R1.setFont(font6);
 		JLabel R2 = new JLabel(id);
-		R2.setFont(font5);
+		R2.setFont(font6);
 		TextField R3 = new TextField(pw);
-		R3.setFont(font5);
+		R3.setFont(font6);
 		TextField R4 = new TextField(brand);
-		R4.setFont(font5);
+		R4.setFont(font6);
 		TextField R5 = new TextField(Double.toString(percent));
-		R5.setFont(font5);
+		R5.setFont(font6);
 		TextField R7 = new TextField(Integer.toString(empsal));
-		R7.setFont(font5);
+		R7.setFont(font6);
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
 		final JRadioButton ra1 = new JRadioButton("유", true);
-		ra1.setFont(font5);
+		ra1.setFont(font6);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", false);
-		ra2.setFont(font5);
+		ra2.setFont(font6);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		
@@ -286,6 +286,7 @@ public class MyPage extends Setting {
 		// 버튼 이벤트
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// 예외 처리
 				if(R1.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "이름을 입력해주세요."

@@ -7,6 +7,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 
 public class Setting {
 	// 기본 정보
@@ -25,7 +26,8 @@ public class Setting {
 	public Font font2 = new Font("배달의민족 주아", Font.PLAIN, 26);
 	public Font font3 = new Font("배달의민족 주아", Font.PLAIN, 18);
 	public Font font4 = new Font("배달의민족 주아", Font.PLAIN, 16);
-	public Font font5 = new Font("배달의민족 주아", Font.PLAIN, 11);
+	public Font font5 = new Font("배달의민족 주아", Font.PLAIN, 14);
+	public Font font6 = new Font("배달의민족 주아", Font.PLAIN, 11);
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
@@ -47,4 +49,8 @@ public class Setting {
 	public int emp = 0;
 	public int empsal = 0;
 
+	public Setting(){
+		UIManager.put("OptionPane.messageFont", font5);
+		UIManager.put("OptionPane.buttonFont", font5);
+	}
 }

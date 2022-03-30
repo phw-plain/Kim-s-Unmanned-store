@@ -176,6 +176,7 @@ public class Manage extends Setting {
 		});
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				inventory.reLoad();
 				menu.setVisible(false);
 				sales.setVisible(false);
 				netincome.setVisible(false);
@@ -244,6 +245,18 @@ public class Manage extends Setting {
 			}
 		});
 		inventory.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				inventory.setVisible(false);
+			}
+		});
+		inventory.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				inventory.setVisible(false);
+			}
+		});
+		inventory.homebtn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				inventory.setVisible(false);

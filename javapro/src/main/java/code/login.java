@@ -89,10 +89,10 @@ class login extends Setting {
 		    	   // 데이터 저장 변수 선언
 		    	   String input_id = tf1.getText();
 		    	   String input_pw = tf2.getText();
-					
+		    	   
 		    	   // 데이터 불러오기
-		    	   String id = "admin";
-		    	   String pw = "admin1234";
+//		    	   String id = "1";
+//		    	   String pw = "1";
 		    	   
 		    	   if(input_id.length() == 0) {
 		    		   JOptionPane.showMessageDialog(null
@@ -106,7 +106,7 @@ class login extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.ERROR_MESSAGE
 								);
-					} else if(id == null|| pw == null) {
+					} else if(!id.equals(input_id) || !pw.equals(input_pw)) {
 						JOptionPane.showMessageDialog(null
 								, "아이디 또는 비밀번호 입력 오류. 다시 한번 확인 해주세요."
 								, "박리다매 무인가게"
@@ -118,7 +118,18 @@ class login extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 								);
-						new Manage();
+						
+						// 로그인 정보 저장
+						name = "고고곡";
+						brand = "은행나무사거리점";
+						percent = 0.5;
+						emp = false;
+						empsal = 0;
+						
+						// 테스트 계정 확인용
+				    	print();
+								
+						new Manage(id, pw);
 						mainFrame.setVisible(false);
 					}
 		       }

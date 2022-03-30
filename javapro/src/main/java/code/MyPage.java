@@ -21,15 +21,17 @@ import javax.swing.JRadioButton;
 public class MyPage extends Setting {
 	public JPanel panel;
 
-	private JPanel Read;
+	public JPanel Read;
 	private JPanel Write;
 
 	public JButton homebtn1;
 	public JButton homebtn2;
-
+	
 	public MyPage() {
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
+		homebtn1 = new JButton("", logo);
+		homebtn2 = new JButton("", logo);
 		Read();
 		Write();
 	}
@@ -38,8 +40,8 @@ public class MyPage extends Setting {
 		panel.setVisible(tf);
 	}
 
-	private void Read() {
-		// Read ¼¼ÆÃ
+	public void Read() {
+		// Read ì„¸íŒ…
 		Read = new JPanel();
 		Read.setBackground(background);
 		Read.setLayout(new BorderLayout());
@@ -48,19 +50,19 @@ public class MyPage extends Setting {
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(header_back);
 		
-		// home ¹öÆ° »ı¼º
-		homebtn1 = new JButton("", logo);
-		homebtn1.setRolloverIcon(logo_over); 	// rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn1.setContentAreaFilled(false); 	// ¹è°æ Ã¤¿ì±â
-		homebtn1.setBorderPainted(false); 		// ¿Ü°¢¼±
-		homebtn1.setFocusPainted(false); 		// ¼±ÅÃ ¿Ü°¢¼±
+		// home ë²„íŠ¼ ìƒì„±
+		homebtn1.setRolloverIcon(logo_over); 	// rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		homebtn1.setPressedIcon(img); 	// rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		homebtn1.setContentAreaFilled(false); 	// ë°°ê²½ ì±„ìš°ê¸°
+		homebtn1.setBorderPainted(false); 		// ì™¸ê°ì„ 
+		homebtn1.setFocusPainted(false); 		// ì„ íƒ ì™¸ê°ì„ 
 
 		JPanel text = new JPanel(new GridLayout(2, 1, 0, -50));
 		text.setBackground(header_back);
 		
-		JLabel title = new JLabel("¸¶ÀÌÆäÀÌÁö");
+		JLabel title = new JLabel("ë§ˆì´í˜ì´ì§€");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(brand + "Á¡ " + name + "´Ô È¯¿µÇÕ´Ï´Ù.");
+		JLabel subtitle = new JLabel(brand + "ì  " + name + "ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -69,7 +71,7 @@ public class MyPage extends Setting {
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(text, BorderLayout.CENTER);
 		
-		// Á¤º¸ º¸±â
+		// ì •ë³´ ë³´ê¸°
 		JPanel center = new JPanel(new GridLayout(2, 1));
 		center.setBackground(background);
 		center.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
@@ -80,62 +82,43 @@ public class MyPage extends Setting {
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
 
-		JLabel L1 = new JLabel("ÀÌ¸§");
-		L1.setFont(font3);
-		JLabel L2 = new JLabel("¾ÆÀÌµğ");
-		L2.setFont(font3);
-		JLabel L3 = new JLabel("ºñ¹Ğ¹øÈ£");
-		L3.setFont(font3);
-		JLabel L4 = new JLabel("ÁöÁ¡¸í");
-		L4.setFont(font3);
-		JLabel L5 = new JLabel("¸ÅÃâ´ëºñÁö±Ş¾×(%)");
-		L5.setFont(font3);
-		JLabel L6 = new JLabel("Á÷¿ø");
-		L6.setFont(font3);
-		JLabel L7 = new JLabel("Á÷¿ø ¿ù±Ş");
-		L7.setFont(font3);
+		JLabel L[] = new JLabel[7];
+		JLabel R[] = new JLabel[7];
 		
-		JLabel R1 = new JLabel(name);
-		R1.setFont(font3);
-		JLabel R2 = new JLabel(id);
-		R2.setFont(font3);
-		JLabel R3 = new JLabel(pw);
-		R3.setFont(font3);
-		JLabel R4 = new JLabel(brand);
-		R4.setFont(font3);
-		JLabel R5 = new JLabel(Double.toString(percent));
-		R5.setFont(font3);
-		JLabel R6 = new JLabel((emp == 0) ? "¹«" : "À¯");
-		R6.setFont(font3);
-		JLabel R7 = new JLabel(Integer.toString(empsal));
-		R7.setFont(font3);
+		L[0] = new JLabel("ì´ë¦„");
+		L[1] = new JLabel("ì•„ì´ë””");
+		L[2] = new JLabel("ë¹„ë°€ë²ˆí˜¸");
+		L[3] = new JLabel("ì§€ì ëª…");
+		L[4] = new JLabel("ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡(%)");
+		L[5] = new JLabel("ì§ì›");
+		L[6] = new JLabel("ì§ì› ì›”ê¸‰");
 		
-		data.add(L1);
-		data.add(R1);
-		data.add(L2);
-		data.add(R2);
-		data.add(L3);
-		data.add(R3);
-		data.add(L4);
-		data.add(R4);
-		data.add(L5);
-		data.add(R5);
-		data.add(L6);
-		data.add(R6);
-		data.add(L7);
-		data.add(R7);
+		R[0] = new JLabel(name);
+		R[1] = new JLabel(id);
+		R[2] = new JLabel(pw);
+		R[3] = new JLabel(brand);
+		R[4] = new JLabel(Double.toString(percent));
+		R[5] = new JLabel((emp)?"ìœ ":"ë¬´");
+		R[6] = new JLabel(Integer.toString(empsal));
+		
+		for(int i=0; i<7; i++ ) {
+			R[i].setFont(font3);
+			L[i].setFont(font3);
+			data.add(L[i]);
+			data.add(R[i]);
+		}
 		
 		datas.add(data);
 		
-		RoundedButton change = new RoundedButton("Á¤º¸¼öÁ¤");
+		RoundedButton change = new RoundedButton("ì •ë³´ìˆ˜ì •");
 		change.setFont(font3);
 		btn.add(change);
 		btn.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 		
-		// ¹öÆ° ÀÌº¥Æ®
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 		change.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Read.setVisible(false); // È­¸é ÀüÈ¯
+				Read.setVisible(false); // í™”ë©´ ì „í™˜
 				
 				// reloading
 				Write.setVisible(false);
@@ -157,7 +140,7 @@ public class MyPage extends Setting {
 	}
 
 	private void Write() {
-		// Write ¼¼ÆÃ
+		// Write ì„¸íŒ…
 		Write = new JPanel();
 		Write.setBackground(background);
 		Write.setLayout(new BorderLayout());
@@ -166,18 +149,18 @@ public class MyPage extends Setting {
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(header_back);
 		
-		// home ¹öÆ° »ı¼º
-		homebtn2 = new JButton("", logo);
-		homebtn2.setContentAreaFilled(false); 	// ¹è°æ Ã¤¿ì±â
-		homebtn2.setBorderPainted(false); 		// ¿Ü°¢¼±
-		homebtn2.setFocusPainted(false); 		// ¼±ÅÃ ¿Ü°¢¼±
+		// home ë²„íŠ¼ ìƒì„±
+		homebtn2.setRolloverIcon(logo_over); 	// rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		homebtn2.setContentAreaFilled(false); 	// ë°°ê²½ ì±„ìš°ê¸°
+		homebtn2.setBorderPainted(false); 		// ì™¸ê°ì„ 
+		homebtn2.setFocusPainted(false); 		// ì„ íƒ ì™¸ê°ì„ 
 
 		JPanel text = new JPanel(new GridLayout(2, 1, 0, -50));
 		text.setBackground(header_back);
 		
-		JLabel title = new JLabel("¸¶ÀÌÆäÀÌÁö");
+		JLabel title = new JLabel("ë§ˆì´í˜ì´ì§€");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(brand + "Á¡ " + name + "´Ô È¯¿µÇÕ´Ï´Ù.");
+		JLabel subtitle = new JLabel(brand + "ì  " + name + "ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -186,7 +169,7 @@ public class MyPage extends Setting {
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(text, BorderLayout.CENTER);
 		
-		// Á¤º¸ º¸±â
+		// ì •ë³´ ë³´ê¸°
 		JPanel center = new JPanel(new GridLayout(2, 1));
 		center.setBackground(background);
 		center.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
@@ -199,19 +182,19 @@ public class MyPage extends Setting {
 		JPanel btn = new JPanel(new GridLayout(1, 2, 30, 0));
 		btn.setBackground(background);
 
-		JLabel L1 = new JLabel("ÀÌ¸§");
+		JLabel L1 = new JLabel("ì´ë¦„");
 		L1.setFont(font3);
-		JLabel L2 = new JLabel("¾ÆÀÌµğ");
+		JLabel L2 = new JLabel("ì•„ì´ë””");
 		L2.setFont(font3);
-		JLabel L3 = new JLabel("ºñ¹Ğ¹øÈ£");
+		JLabel L3 = new JLabel("ë¹„ë°€ë²ˆí˜¸");
 		L3.setFont(font3);
-		JLabel L4 = new JLabel("ÁöÁ¡¸í");
+		JLabel L4 = new JLabel("ì§€ì ëª…");
 		L4.setFont(font3);
-		JLabel L5 = new JLabel("¸ÅÃâ´ëºñÁö±Ş¾×(%)");
+		JLabel L5 = new JLabel("ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡(%)");
 		L5.setFont(font3);
-		JLabel L6 = new JLabel("Á÷¿ø");
+		JLabel L6 = new JLabel("ì§ì›");
 		L6.setFont(font3);
-		JLabel L7 = new JLabel("Á÷¿ø ¿ù±Ş");
+		JLabel L7 = new JLabel("ì§ì› ì›”ê¸‰");
 		L7.setFont(font3);
 		
 		TextField R1 = new TextField(name);
@@ -229,20 +212,24 @@ public class MyPage extends Setting {
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
-		final JRadioButton ra1 = new JRadioButton("À¯", true);
+		final JRadioButton ra1 = new JRadioButton("ìœ ", (emp)? true:false);
 		ra1.setFont(font6);
 		ra1.setBackground(background);
-		JRadioButton ra2 = new JRadioButton("¹«", false);
+		JRadioButton ra2 = new JRadioButton("ë¬´", (emp) ? false:true);
 		ra2.setFont(font6);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
+		if(emp == false) {
+			L7.setVisible(false);
+			R7.setVisible(false);
+		}
 		
 		group.add(ra1);
 		group.add(ra2);
 		staff.add(ra1);
 		staff.add(ra2);
 		
-		// Á÷¿ø À¯¹« radio ÀÌº¥Æ®
+		// ì§ì› ìœ ë¬´ radio ì´ë²¤íŠ¸
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				L7.setVisible(true);
@@ -273,9 +260,9 @@ public class MyPage extends Setting {
 		
 		datas.add(data);
 		
-		RoundedButton check = new RoundedButton("È®ÀÎ");
+		RoundedButton check = new RoundedButton("í™•ì¸");
 		check.setFont(font3);
-		RoundedButton cancel = new RoundedButton("Ãë¼Ò");
+		RoundedButton cancel = new RoundedButton("ì·¨ì†Œ");
 		cancel.setFont(font3);
 		btn.add(check);
 		btn.add(cancel);
@@ -283,82 +270,121 @@ public class MyPage extends Setting {
 		
 		btns.add(btn);
 		
-		// ¹öÆ° ÀÌº¥Æ®
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ¿¹¿Ü Ã³¸®
+				// ì˜ˆì™¸ ì²˜ë¦¬
 				if(R1.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
-							, "ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R3.getText().length() == 0) {
+				} else if(R1.getText().length() > 12) {
+	 				JOptionPane.showMessageDialog(null
+		 					, "ì´ë¦„ì´ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 12ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+		 					, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+		 					, JOptionPane.ERROR_MESSAGE
+	 					);
+ 				} else if(!is.isString2(R1.getText())) {           
+ 					JOptionPane.showMessageDialog(null
+ 							, "ì´ë¦„ì— íŠ¹ìˆ˜ë¬¸ì ë˜ëŠ” ê³µë°±ì„ í¬í•¨í•˜ê³  ìˆìŠµë‹ˆë‹¤.\ní•´ë‹¹ ë¬¸ìë¥¼ ì œì™¸í•˜ê³  ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+ 							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+ 							, JOptionPane.ERROR_MESSAGE
+	                );
+ 	            } else if(R3.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
-							, "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R4.getText().length() == 0) {
+				} else if(R3.getText().length() < 8) {
+ 					JOptionPane.showMessageDialog(null
+							, "ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ì§§ìŠµë‹ˆë‹¤. 8~16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+							, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(R3.getText().length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+							, "ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 8~16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+							, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(!is.isString1(R3.getText())) {         
+ 					JOptionPane.showMessageDialog(null
+	 						, "ë¹„ë°€ë²ˆí˜¸ëŠ” ì˜ìˆ«ìë¥¼ ì‚¬ìš©í•˜ì—¬ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+	 						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+	 						, JOptionPane.ERROR_MESSAGE
+					);
+ 	            } else if(R4.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
-							, "ÁöÁ¡¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ì§€ì ëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(ra1.isSelected() == true && R5.getText().length() == 0) {	// ¿¹¿Ü Ã³¸® ¸ÅÃâ´ëºñÁö±Ş¾×
+				} else if(R4.getText().length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+						, "ì§€ì ëª…ì´ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(ra1.isSelected() == true && R5.getText().length() == 0) {	// ì˜ˆì™¸ ì²˜ë¦¬ ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡
 					JOptionPane.showMessageDialog(null
-							, "¸ÅÃâ´ëºñÁö±Ş¾×À» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else if(!is.isNum(R5.getText())) {
 					JOptionPane.showMessageDialog(null
-							, "¸ÅÃâ´ëºñÁö±Ş¾×Àº ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡ì€ ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// ¿¹¿Ü Ã³¸® Á÷¿ø ¿ù±Ş
+				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// ì˜ˆì™¸ ì²˜ë¦¬ ì§ì› ì›”ê¸‰
 					JOptionPane.showMessageDialog(null
-							, "Á÷¿ø ¿ù±ŞÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ì§ì› ì›”ê¸‰ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else if(ra1.isSelected() && !is.isNum(R7.getText())) {
 					JOptionPane.showMessageDialog(null
-							, "Á÷¿ø ¿ù±ŞÀº ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ì§ì› ì›”ê¸‰ì€ ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(
 							null
-							, "º¯°æ»çÇ×À» ÀúÀåÇÏ½Ã°Ú½À´Ï±î?"
-							, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+							, "ë³€ê²½ì‚¬í•­ì„ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.YES_NO_OPTION
 							, JOptionPane.WARNING_MESSAGE
 					);
-				
+					
 					if(n == 0) {
-						// º¯°æ µ¥ÀÌÅÍ ÀúÀå
+						// ë³€ê²½ ë°ì´í„° ì €ì¥
 						name = R1.getText();
 						id = R2.getText();
 						pw = R3.getText();
 						brand = R4.getText();
 						percent = Double.parseDouble(R5.getText());
-						emp = (ra1.isSelected() == true) ? 1 : 0;
+						emp = (ra1.isSelected() == true) ? true : false;
 						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
-						
-						// reloading
-						Read.setVisible(false);
-						Read();
 
+						// reloading
+						panel.remove(0);   
+						Read.setVisible(true);
+						Read();
+						
 						JOptionPane.showMessageDialog(null
-								, "Á¤»óÀûÀ¸·Î Á¤º¸ ¼öÁ¤ ¿Ï·á!"
-								, "¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"
+								, "ì •ìƒì ìœ¼ë¡œ ì •ë³´ ìˆ˜ì • ì™„ë£Œ!"
+								, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 								, JOptionPane.PLAIN_MESSAGE
 						);
+
+						print();
 						
-						Read.setVisible(true); // È­¸é ÀüÈ¯
+						Read.setVisible(true);
 						Write.setVisible(false);
 					}
 				}
@@ -366,11 +392,10 @@ public class MyPage extends Setting {
 		});
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Read.setVisible(true); // È­¸é ÀüÈ¯
+				Read.setVisible(true); // í™”ë©´ ì „í™˜
 				Write.setVisible(false);
 			}
 		});
-		
 		
 		center.add(datas, BorderLayout.NORTH);
 		center.add(btns, BorderLayout.CENTER);

@@ -40,7 +40,10 @@ public class Manage extends Setting {
 	private Inventory inventory; 		// 재고 관리
 	private MyPage mypage; 				// 마이페이지
 
-	public Manage() {
+	public Manage(String id, String pw) {
+		this.id = id;
+		this.pw = pw;
+		
 		i = new ImageIcon("src/img/benner.png");
 		im = i.getImage();
 		
@@ -191,6 +194,7 @@ public class Manage extends Setting {
 				netincome.setVisible(false);
 				inventory.setVisible(false);
 				mypage.setVisible(true);
+				print();
 			}
 		});
 		btn5.addActionListener(new ActionListener() {
@@ -212,7 +216,7 @@ public class Manage extends Setting {
 		menu.setVisible(true);
 	}
 
-	private void homeevt() {
+	public void homeevt() {
 		// home 버튼 이벤트
 		sales.homebtn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -239,6 +243,12 @@ public class Manage extends Setting {
 			}
 		});
 		mypage.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				mypage.setVisible(false);
+			}
+		});	
+		mypage.homebtn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				mypage.setVisible(false);

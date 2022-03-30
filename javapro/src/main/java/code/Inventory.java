@@ -498,7 +498,7 @@ public class Inventory extends Setting {
 					JOptionPane.showMessageDialog(null
 							, "변경사항이 없습니다!"
 							, "박리다매 무인가게"
-							, JOptionPane.ERROR_MESSAGE
+							, JOptionPane.INFORMATION_MESSAGE
 					);
 					n = -1;
 				}
@@ -685,6 +685,126 @@ public class Inventory extends Setting {
 		data.add(R7);
 		
 		datas.add(data);
+		
+		// 버튼 이벤튼
+		add.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 예외 처리
+				if(R1.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "제품코드를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(/* 중복인지 확인 */R1.getText().equals("AD1004")) {
+					JOptionPane.showMessageDialog(null
+							, "이미 등록된 제품코드입니다."
+		                    , "박리다매 무인가게"
+		                    , JOptionPane.ERROR_MESSAGE
+		            );
+	            } else if(!is.isString2(R1.getText())) {           
+ 					JOptionPane.showMessageDialog(null
+ 		 		            , "제품코드에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
+ 		 		            , "박리다매"
+ 		 		            , JOptionPane.ERROR_MESSAGE
+ 		                );
+ 	            } else if(R2.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "상품명을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R3.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "분류를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isString2(R3.getText())) {           
+ 					JOptionPane.showMessageDialog(null
+ 		 		            , "분류에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
+ 		 		            , "박리다매"
+ 		 		            , JOptionPane.ERROR_MESSAGE
+ 		                );
+ 	            } else if(R4.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "규격을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isString2(R4.getText())) {           
+ 					JOptionPane.showMessageDialog(null
+ 		 		            , "규격에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
+ 		 		            , "박리다매"
+ 		 		            , JOptionPane.ERROR_MESSAGE
+ 		                );
+ 	            } else if(R5.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "수량을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R5.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "수량은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R6.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "금액을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R6.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "금액은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else {
+					if(R7.getText().length() == 0) {
+						R7.setText("/");
+					}
+					// 수정 기능 구현
+					int n = JOptionPane.showConfirmDialog(
+							null
+							, "변경사항을 저장하시겠습니까?"
+							, "박리다매 무인가게"
+							, JOptionPane.YES_NO_OPTION
+							, JOptionPane.WARNING_MESSAGE
+					);
+					if(n == 0) {
+						// 데이터 추가
+						code.add(R1.getText());
+						name.add(R2.getText());
+						category.add(R3.getText());
+						standard.add(R4.getText());
+						cnt.add(Integer.parseInt(R5.getText()));
+						price.add(Integer.parseInt(R6.getText()));
+						note.add(R7.getText());
+						
+						// 데이터 변경 사항 저장
+						
+						// repaint
+						dataLoad();		
+						model.fireTableDataChanged();
+
+						Add();
+						panel.remove(2);
+						Add.setVisible(true);
+						
+						JOptionPane.showMessageDialog(null
+								, "정상적으로 재고 수정 완료!"
+								, "박리다매 무인가게"
+								, JOptionPane.PLAIN_MESSAGE
+						);
+
+						Add.setVisible(true);
+					}
+				}
+			}
+		});
 		
 		inventory.add(subtitle, BorderLayout.NORTH);
 		inventory.add(datas, BorderLayout.CENTER);

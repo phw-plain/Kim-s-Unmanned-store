@@ -41,16 +41,24 @@ public class Setting {
     final isType is = new isType();
 	
 	// 회원 정보
-	public String name = "고고곡";
-	public String id = "1";
-	public String pw = "1";
-	public String brand = "은행나무사거리";
-	public double percent = 0;
-	public int emp = 0;
-	public int empsal = 0;
-
+	public static String name;
+	public static String id;
+	public static String pw;
+	public static String brand;
+	public static double percent;
+	public static boolean emp;
+	public static int empsal;
+	
 	public Setting(){
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
+	}
+	
+	public void print() {
+		System.out.println("id : " + id);
+		System.out.println("pw : " + pw);
+		System.out.println("name : " + name);
+		System.out.println("brand : " + brand);
+		System.out.println("percent : " + percent);
 	}
 }

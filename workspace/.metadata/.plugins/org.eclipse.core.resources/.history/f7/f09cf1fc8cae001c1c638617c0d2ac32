@@ -1,0 +1,15 @@
+package code;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class Inventory {
+	public JPanel panel;
+//View, modify, add.
+	private JPanel View;
+	private JPanel Modify;
+	private JPanel Add;
+
+	public JButton homebtn;
+
+}

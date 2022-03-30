@@ -74,7 +74,7 @@ public class MyPage extends Setting {
 		// 정보 보기
 		JPanel center = new JPanel(new GridLayout(2, 1));
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
+		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
 		JPanel data = new JPanel(new GridLayout(7, 2, 180, 27));
@@ -113,7 +113,7 @@ public class MyPage extends Setting {
 		RoundedButton change = new RoundedButton("정보수정");
 		change.setFont(font3);
 		btn.add(change);
-		btn.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
 		
 		// 버튼 이벤트
 		change.addActionListener(new ActionListener() {
@@ -128,8 +128,8 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.NORTH);
-		center.add(btn, BorderLayout.CENTER);
+		center.add(datas, BorderLayout.CENTER);
+		center.add(btn, BorderLayout.SOUTH);
 		
 		Read.add(header, BorderLayout.NORTH);
 		Read.add(center, BorderLayout.CENTER);
@@ -154,7 +154,6 @@ public class MyPage extends Setting {
 		homebtn2.setContentAreaFilled(false); 	// 배경 채우기
 		homebtn2.setBorderPainted(false); 		// 외각선
 		homebtn2.setFocusPainted(false); 		// 선택 외각선
-
 		JPanel text = new JPanel(new GridLayout(2, 1, 0, -50));
 		text.setBackground(header_back);
 		
@@ -172,11 +171,12 @@ public class MyPage extends Setting {
 		// 정보 보기
 		JPanel center = new JPanel(new GridLayout(2, 1));
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
+		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
 		JPanel data = new JPanel(new GridLayout(9, 2, 180, 15));
 		data.setBackground(background);
+		
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
 		JPanel btn = new JPanel(new GridLayout(1, 2, 30, 0));
@@ -266,7 +266,7 @@ public class MyPage extends Setting {
 		cancel.setFont(font3);
 		btn.add(check);
 		btn.add(cancel);
-		btn.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
 		
 		btns.add(btn);
 		
@@ -397,8 +397,8 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.NORTH);
-		center.add(btns, BorderLayout.CENTER);
+		center.add(datas, BorderLayout.CENTER);
+		center.add(btns, BorderLayout.SOUTH);
 		
 		Write.add(header, BorderLayout.NORTH);
 		Write.add(center, BorderLayout.CENTER);

@@ -297,7 +297,7 @@ public class Inventory extends Setting {
 		// 수정 & 삭제
 		JPanel btns1 = new JPanel();
 		btns1.setBackground(background);
-		btns1.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		btns1.setBorder(BorderFactory.createEmptyBorder(0, 0, height/10, 0));
 		RoundedButton rp = new RoundedButton("재고수정");
 		rp.setFont(font3);
 		RoundedButton rm = new RoundedButton("재고삭제");
@@ -316,7 +316,7 @@ public class Inventory extends Setting {
 
 		JPanel btns2 = new JPanel();
 		btns2.setBackground(background);
-		btns2.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		btns2.setBorder(BorderFactory.createEmptyBorder(0, 0, height/10, 0));
 		RoundedButton check1 = new RoundedButton("확인");
 		check1.setFont(font3);
 		RoundedButton cancel1 = new RoundedButton("취소");
@@ -628,7 +628,7 @@ public class Inventory extends Setting {
 
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
-		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, height/10, 0));
 		RoundedButton add = new RoundedButton("추가");
 		add.setFont(font3);
 		btns.add(add);

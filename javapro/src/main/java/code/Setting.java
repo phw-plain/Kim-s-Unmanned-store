@@ -11,8 +11,8 @@ import javax.swing.UIManager;
 
 public class Setting {
 	// 기본 정보
-	public int width;
-	public int height;
+	public int width = 1280;
+	public int height = 1024;
 
 	// color
 	public Color title = new Color(0, 0, 0);

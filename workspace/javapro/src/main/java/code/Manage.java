@@ -46,7 +46,7 @@ public class Manage extends Setting {
 		
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게");
-		mainFrame.setSize(1280, 1024);
+		mainFrame.setSize(width, height);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
@@ -56,10 +56,6 @@ public class Manage extends Setting {
 			}
 		});
 		mainFrame.setIconImage(img.getImage());		// Icon 변경
-
-		// 화면 크기
-		width = mainFrame.getWidth();
-		height = mainFrame.getWidth();
 
 		// subpanel 세팅
 		subpanel = new JPanel(new CardLayout());

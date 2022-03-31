@@ -23,7 +23,7 @@ class join extends Setting{
 	private void prepareGUI() {
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
-		mainFrame.setSize(1280 ,1024);
+		mainFrame.setSize(width, height);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setLayout(new BorderLayout());
@@ -41,11 +41,8 @@ class join extends Setting{
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
 
-		Panel p = new Panel();
-		p.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
-
 		// 회원가입 정보 입력
-		form = new Panel(new GridLayout(7,4,0,5));
+		form = new Panel(new GridLayout(7,4,0,18));
 		form.setPreferredSize(new Dimension(800,300));
 		
 		JLabel blankL1 = new JLabel();
@@ -131,7 +128,7 @@ class join extends Setting{
 		form.add(label6);
 		form.add(staff);
 		form.add(blankR6);
-
+		
 		JLabel blankL7 = new JLabel();
 		JLabel blankR7 = new JLabel();
 		final JLabel label7 = new JLabel("직원 월급");
@@ -375,16 +372,19 @@ class join extends Setting{
 	           mainFrame.setVisible(false);
 	       }
 	    });
-	    
-	    p.add(form);
-	    p.add(btns);
 	      
+	    JPanel center = new JPanel();
+	    center.add(form);
+	    center.setBackground(background);
+	    center.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));	// 위 왼 아 오
+	    
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));	// 위 왼 아 오
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));	// 위 왼 아 오
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
-	    subpanel.add(p);
+	    subpanel.add(center, BorderLayout.CENTER);
+	    subpanel.add(btns, BorderLayout.SOUTH);
 	      
 	    mainFrame.add(subpanel);
 	    mainFrame.setVisible(true);

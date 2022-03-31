@@ -18,12 +18,12 @@ public class Start extends Setting {
     }
 	
 	private void prepareGUI() {
-		// ÀÛ¾÷ °æ·Î È®ÀÎ¿ë
+		// ì‘ì—… ê²½ë¡œ í™•ì¸ìš©
 		// String path = System.getProperty("user.dir"); 
-		// System.out.println("ÇöÀç ÀÛ¾÷ °æ·Î: " + path);
+		// System.out.println("í˜„ì¬ ì‘ì—… ê²½ë¡œ: " + path);
         
-		// Frame ±âº» ¼¼ÆÃ
-		mainFrame = new Frame("¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô"); 
+		// Frame ê¸°ë³¸ ì„¸íŒ…
+		mainFrame = new Frame("ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"); 
 	    mainFrame.setSize(width, height);
 		mainFrame.setLocationRelativeTo(null);
 	    mainFrame.setResizable(false);
@@ -33,9 +33,9 @@ public class Start extends Setting {
 	          System.exit(0);
 	       }
 	    });
-    	mainFrame.setIconImage(img.getImage());	    // Icon º¯°æ
+    	mainFrame.setIconImage(img.getImage());	    // Icon ë³€ê²½
 	    
-		// È­¸é Å©±â
+		// í™”ë©´ í¬ê¸°
 		width = mainFrame.getWidth();
 		height = mainFrame.getHeight();
 	    
@@ -44,27 +44,27 @@ public class Start extends Setting {
 	    MyPanel panel = new MyPanel();
 	    panel.setLayout(new FlowLayout(FlowLayout.CENTER, width+500, 10));
 	   
-	    // ¹öÆ° »ı¼º
-	    RoundedButton loginbtn = new RoundedButton("  ·Î±×ÀÎ  ");
-	    RoundedButton joinbtn = new RoundedButton("È¸¿ø°¡ÀÔ");
+	    // ë²„íŠ¼ ìƒì„±
+	    RoundedButton loginbtn = new RoundedButton("  ë¡œê·¸ì¸  ");
+	    RoundedButton joinbtn = new RoundedButton("íšŒì›ê°€ì…");
 	    
-	    // ¹öÆ° ¼³Á¤
+	    // ë²„íŠ¼ ì„¤ì •
 	    loginbtn.setFocusPainted(false); 
 	    loginbtn.setFont(font2);
 	    joinbtn.setFocusPainted(false); 
 	    joinbtn.setFont(font2);
 	    
-	    // ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
+	    // ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸
 	    loginbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	           new login(); //ÇÁ·¹ÀÓ ÀüÈ¯
+	           new login(); //í”„ë ˆì„ ì „í™˜
 	           mainFrame.setVisible(false);
 	       }
 	    });
 	      
 	    joinbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	           new join(); //ÇÁ·¹ÀÓ ÀüÈ¯
+	           new join(); //í”„ë ˆì„ ì „í™˜
 	           mainFrame.setVisible(false);
 	       }
 	    });

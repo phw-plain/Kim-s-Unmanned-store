@@ -13,7 +13,7 @@ class join extends Setting{
 	private Panel form;
 	private Button b1;
 	 
-	// ¾ÆÀÌµğ Áßº¹ Ã¼Å©¿ë º¯¼ö
+	// ì•„ì´ë”” ì¤‘ë³µ ì²´í¬ìš© ë³€ìˆ˜
 	private boolean idcheck = false;
 	
 	public join() {
@@ -21,8 +21,8 @@ class join extends Setting{
 	}
 	
 	private void prepareGUI() {
-		// Frame ¿¡ ´ëÇÑ ¼ÂÆÃ
-		mainFrame = new Frame("¹Ú¸®´Ù¸Å ¹«ÀÎ°¡°Ô");
+		// Frame ì— ëŒ€í•œ ì…‹íŒ…
+		mainFrame = new Frame("ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ");
 		mainFrame.setSize(width, height);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
@@ -32,23 +32,23 @@ class join extends Setting{
 				System.exit(0);
 			}
 		});
-    	mainFrame.setIconImage(img.getImage());	    // Icon º¯°æ
+    	mainFrame.setIconImage(img.getImage());	    // Icon ë³€ê²½
 		
-		// »ó´Ü Á¦¸ñ
+		// ìƒë‹¨ ì œëª©
 		headerLabel = new JLabel();
 		headerLabel.setHorizontalAlignment(JLabel.CENTER);
-		headerLabel.setText("È¸¿ø°¡ÀÔ");
+		headerLabel.setText("íšŒì›ê°€ì…");
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
 
-		// È¸¿ø°¡ÀÔ Á¤º¸ ÀÔ·Â
+		// íšŒì›ê°€ì… ì •ë³´ ì…ë ¥
 		form = new Panel(new GridLayout(7,4,0,18));
 		form.setPreferredSize(new Dimension(800,300));
 		
 		JLabel blankL1 = new JLabel();
 		JLabel blankR1 = new JLabel();
-		JLabel label1 = new JLabel("ÀÌ¸§");
-		label1.setFont(font2);
+		JLabel label1 = new JLabel("ì´ë¦„");
+		label1.setFont(font3);
 		final TextField tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(blankL1);
@@ -59,12 +59,12 @@ class join extends Setting{
 		JLabel blankL2 = new JLabel();
 		Panel btnlabel = new Panel();
 		btnlabel.setLayout(new BorderLayout());
-		JButton b1 = new JButton("Áßº¹È®ÀÎ");
-		b1.setFont(font2);
+		JButton b1 = new JButton("ì¤‘ë³µí™•ì¸");
+		b1.setFont(font3);
 		b1.setBackground(Color.white);
 		btnlabel.add(b1, BorderLayout.WEST);
-		JLabel label2 = new JLabel("¾ÆÀÌµğ");
-		label2.setFont(font2);
+		JLabel label2 = new JLabel("ì•„ì´ë””");
+		label2.setFont(font3);
 		final TextField tf2 = new TextField("", 15);
 		tf2.selectAll();
 		form.add(blankL2);
@@ -74,8 +74,8 @@ class join extends Setting{
 		
 		JLabel blankL3 = new JLabel();
 		JLabel blankR3 = new JLabel();
-		JLabel label3 = new JLabel("ºñ¹Ğ¹øÈ£");
-		label3.setFont(font2);
+		JLabel label3 = new JLabel("ë¹„ë°€ë²ˆí˜¸");
+		label3.setFont(font3);
 		final TextField tf3 = new TextField("", 15);
 		tf3.selectAll(); // tf2.setEchoChar('*');
 		form.add(blankL3);
@@ -85,8 +85,8 @@ class join extends Setting{
 
 		JLabel blankL4 = new JLabel();
 		JLabel blankR4 = new JLabel();
-		JLabel label4 = new JLabel("ÁöÁ¡¸í");
-		label4.setFont(font2);
+		JLabel label4 = new JLabel("ì§€ì ëª…");
+		label4.setFont(font3);
 		final TextField tf4 = new TextField("", 15);
 		tf4.selectAll(); 
 		form.add(blankL4);
@@ -96,8 +96,8 @@ class join extends Setting{
 
 		JLabel blankL5 = new JLabel();
 		JLabel blankR5 = new JLabel();
-		JLabel label5 = new JLabel("¸ÅÃâ´ëºñÁö±Ş¾×(%)");
-		label5.setFont(font2);
+		JLabel label5 = new JLabel("ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡(%)");
+		label5.setFont(font3);
 		final TextField tf5 = new TextField("", 15);
 		tf5.selectAll(); 
 		form.add(blankL5);
@@ -108,14 +108,14 @@ class join extends Setting{
 		JLabel blankL6 = new JLabel();
 		JLabel blankR6 = new JLabel();
 		Panel staff = new Panel();
-		JLabel label6 = new JLabel("Á÷¿ø");
-		label6.setFont(font2);
+		JLabel label6 = new JLabel("ì§ì›");
+		label6.setFont(font3);
 		CheckboxGroup g = new CheckboxGroup();
-		final JRadioButton ra1 = new JRadioButton("À¯", true);
-		ra1.setFont(font2);
+		final JRadioButton ra1 = new JRadioButton("ìœ ", true);
+		ra1.setFont(font3);
 		ra1.setBackground(background);
-		JRadioButton ra2 = new JRadioButton("¹«", false);
-		ra2.setFont(font2);
+		JRadioButton ra2 = new JRadioButton("ë¬´", false);
+		ra2.setFont(font3);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		
@@ -131,8 +131,8 @@ class join extends Setting{
 		
 		JLabel blankL7 = new JLabel();
 		JLabel blankR7 = new JLabel();
-		final JLabel label7 = new JLabel("Á÷¿ø ¿ù±Ş");
-		label7.setFont(font2);
+		final JLabel label7 = new JLabel("ì§ì› ì›”ê¸‰");
+		label7.setFont(font3);
 		final TextField tf7 = new TextField("", 15);
 		tf7.selectAll(); 
 		form.add(blankL7);
@@ -140,13 +140,13 @@ class join extends Setting{
 		form.add(tf7);
 		form.add(blankR7);
 
-		// ¹öÆ° »ı¼º
+		// ë²„íŠ¼ ìƒì„±
 		JPanel btns = new JPanel(new FlowLayout());
 		
-		RoundedButton check = new RoundedButton("È®ÀÎ");
-		RoundedButton cancel = new RoundedButton("Ãë¼Ò");
+		RoundedButton check = new RoundedButton("í™•ì¸");
+		RoundedButton cancel = new RoundedButton("ì·¨ì†Œ");
 		
-		// ¹öÆ° ¼³Á¤
+		// ë²„íŠ¼ ì„¤ì •
 		check.setFocusPainted(false); 
 		check.setFont(font3);
 		cancel.setFocusPainted(false); 
@@ -156,36 +156,41 @@ class join extends Setting{
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
-	    // ¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	    // ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
 	    b1.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
-		    	String id = tf2.getText();
-		    	
 		    	if(tf2.getText().length() == 0) {
 		    		JOptionPane.showMessageDialog(null
-							, "¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-							, "DSMS"
+							, "ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.ERROR_MESSAGE
 					);
 	                idcheck = false;
-				} else if(/*m.select(tf2.getText())==false*/false) {
+				} else if(/* ì¤‘ë³µì¸ì§€ í™•ì¸ */false) {
 					JOptionPane.showMessageDialog(null
-							, "»ç¿ëºÒ°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù."
-		                    , "DSMS"
+							, "ì‚¬ìš©ë¶ˆê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤."
+		                    , "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 		                    , JOptionPane.ERROR_MESSAGE
 		            );
 		            idcheck = false;
-	            } else if(!is.isString1(tf2.getText())) {            // ¿¹¿Ü Ã³¸® ¾ÆÀÌµğ
+	            } else if(!is.isString1(tf2.getText())) {            
 		            JOptionPane.showMessageDialog(null
-		            		, "»ç¿ëºÒ°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù."
-		            		, "DSMS"
+		            		, "ì‚¬ìš©ë¶ˆê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤."
+		            		, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 		                   	, JOptionPane.ERROR_MESSAGE
 		           	);
 		            idcheck = false;
-		        } else {
+		        } else if(tf2.getText().length() < 5 || tf2.getText().length() > 12) {
+ 					JOptionPane.showMessageDialog(null
+							, "ì‚¬ìš©ë¶ˆê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
+							, JOptionPane.ERROR_MESSAGE
+ 					);
+ 	                idcheck = false;
+ 				} else {
 					JOptionPane.showMessageDialog(null
-							, "»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù."
-							, "DSMS"
+							, "ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤."
+							, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 							, JOptionPane.PLAIN_MESSAGE
 					);
 					idcheck = true;
@@ -193,7 +198,7 @@ class join extends Setting{
 		    }
 		});
 	    
-	    // Á÷¿ø À¯¹« radio ÀÌº¥Æ®
+	    // ì§ì› ìœ ë¬´ radio ì´ë²¤íŠ¸
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				label7.setVisible(true);
@@ -207,168 +212,155 @@ class join extends Setting{
 			}
 		});
 	    
-	    // È®ÀÎ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
+	    // í™•ì¸ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸
  		check.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
-	 			// µ¥ÀÌÅÍ ÀúÀå º¯¼ö ¼±¾ğ
+	 			// ë°ì´í„° ì €ì¥ ë³€ìˆ˜ ì„ ì–¸
 	 			String name = tf1.getText();
 	 			String id = tf2.getText();
 	 			String pw = tf3.getText();
 	 			String brand = tf4.getText();
-	 			float money;
-	 			int employee = (ra1.isSelected() == true) ? 1 : 0;
-	 				
-
-	 				
-	 			// È¸¿ø°¡ÀÔ ¿¹¿Ü Ã³¸®
-	 			if(name.length() == 0) {					// ¿¹¿Ü Ã³¸® ÀÌ¸§
+	 			Double percent;
+	 			boolean emp = (ra1.isSelected() == true) ? true : false;
+	 			int empsal;
+	 		
+	 			// íšŒì›ê°€ì… ì˜ˆì™¸ ì²˜ë¦¬
+	 			if(name.length() == 0) {				
 	 				JOptionPane.showMessageDialog(null
-	 					, "ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-	 					, "¹Ú¸®´Ù¸Å"
+	 					, "ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+	 					, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 	 					, JOptionPane.ERROR_MESSAGE
 	 				);
 	 			} else if(name.length() > 12) {
 	 				JOptionPane.showMessageDialog(null
-	 					, "ÀÌ¸§ÀÌ ³Ê¹« ±é´Ï´Ù. 12ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-	 					, "¹Ú¸®´Ù¸Å"
+	 					, "ì´ë¦„ì´ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 12ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+	 					, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 	 					, JOptionPane.ERROR_MESSAGE
  					);
  				} else if(!is.isString2(name)) {           
  					JOptionPane.showMessageDialog(null
-	 		            , "ÀÌ¸§¿¡ Æ¯¼ö¹®ÀÚ ¶Ç´Â °ø¹éÀ» Æ÷ÇÔÇÏ°í ÀÖ½À´Ï´Ù.\nÇØ´ç ¹®ÀÚ¸¦ Á¦¿ÜÇÏ°í ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-	 		            , "¹Ú¸®´Ù¸Å"
+	 		            , "ì´ë¦„ì— íŠ¹ìˆ˜ë¬¸ì ë˜ëŠ” ê³µë°±ì„ í¬í•¨í•˜ê³  ìˆìŠµë‹ˆë‹¤.\ní•´ë‹¹ ë¬¸ìë¥¼ ì œì™¸í•˜ê³  ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+	 		            , "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 	 		            , JOptionPane.ERROR_MESSAGE
 	                );
- 	            } else if(id.length() == 0) {				// ¿¹¿Ü Ã³¸® ¾ÆÀÌµğ
+ 	            } else if(id.length() == 0) {			
  					JOptionPane.showMessageDialog(null
- 						, "¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+ 						, "ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  					idcheck = false;
  				} else if(id.length() < 5) {
  					JOptionPane.showMessageDialog(null
-						, "¾ÆÀÌµğ°¡ ³Ê¹« Âª½À´Ï´Ù. 5~12ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì•„ì´ë””ê°€ ë„ˆë¬´ ì§§ìŠµë‹ˆë‹¤. 5~12ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
  				} else if(id.length() > 12) {
  					JOptionPane.showMessageDialog(null
-						, "¾ÆÀÌµğ°¡ ³Ê¹« ±é´Ï´Ù. 5~12ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì•„ì´ë””ê°€ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 5~12ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
  				} else if(!is.isString1(id)) {           
  					JOptionPane.showMessageDialog(null
-                        , "¾ÆÀÌµğ´Â ¿µ¼ıÀÚ¸¦ »ç¿ëÇÏ¿© ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-                        , "¹Ú¸®´Ù¸Å"
+                        , "ì•„ì´ë””ëŠ” ì˜ìˆ«ìë¥¼ ì‚¬ìš©í•˜ì—¬ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+                        , "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
                        	, JOptionPane.ERROR_MESSAGE
 					);
 	               	idcheck = false;
  	            } else if(!idcheck) {
  	            	JOptionPane.showMessageDialog(null
-						, "¾ÆÀÌµğ Áßº¹ Ã¼Å©¸¦ ÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì•„ì´ë”” ì¤‘ë³µ ì²´í¬ë¥¼ í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(pw.length() == 0) {				// ¿¹¿Ü Ã³¸® ºñ¹Ğ¹øÈ£
+ 				} else if(pw.length() == 0) {
  					JOptionPane.showMessageDialog(null
-						, "ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  				} else if(pw.length() < 8) {
  					JOptionPane.showMessageDialog(null
-						, "ºñ¹Ğ¹øÈ£°¡ ³Ê¹« Âª½À´Ï´Ù. 8~16ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ì§§ìŠµë‹ˆë‹¤. 8~16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  				} else if(pw.length() > 16) {
  					JOptionPane.showMessageDialog(null
-						, "ºñ¹Ğ¹øÈ£°¡ ³Ê¹« ±é´Ï´Ù. 8~16ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë¹„ë°€ë²ˆí˜¸ê°€ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 8~16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  				} else if(!is.isString1(pw)) {         
  					JOptionPane.showMessageDialog(null
- 						, "ºñ¹Ğ¹øÈ£´Â ¿µ¼ıÀÚ¸¦ »ç¿ëÇÏ¿© ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
- 						, "¹Ú¸®´Ù¸Å"
+ 						, "ë¹„ë°€ë²ˆí˜¸ëŠ” ì˜ìˆ«ìë¥¼ ì‚¬ìš©í•˜ì—¬ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+ 						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
  						, JOptionPane.ERROR_MESSAGE
 					);
- 	            } else if(brand.length() == 0) {			// ¿¹¿Ü Ã³¸® ºê·»µå
+ 	            } else if(brand.length() == 0) {		
  					JOptionPane.showMessageDialog(null
-						, "ºê·£µå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë¸Œëœë“œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isString2(brand)) {           
+ 				} else if(brand.length() > 16) {
  					JOptionPane.showMessageDialog(null
-                        , "ÁöÁ¡¸í¿¡ Æ¯¼ö¹®ÀÚ¸¦ Á¦¿ÜÇÏ¿© ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-                        , "¹Ú¸®´Ù¸Å"
-                       	, JOptionPane.ERROR_MESSAGE
-					);
- 	            } else if(brand.length() > 16) {
- 					JOptionPane.showMessageDialog(null
-						, "ÁöÁ¡¸íÀÌ ³Ê¹« ±é´Ï´Ù. 16ÀÚ ÀÌ³»·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì§€ì ëª…ì´ ë„ˆë¬´ ê¹ë‹ˆë‹¤. 16ì ì´ë‚´ë¡œ ì…ë ¥í•´ ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if((tf5.getText()).length() == 0) {	// ¿¹¿Ü Ã³¸® ¸ÅÃâ´ëºñÁö±Ş¾×
+ 				} else if(brand.length() == 0) {
  					JOptionPane.showMessageDialog(null
-						, "¸ÅÃâ´ëºñÁö±Ş¾×À» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
  				} else if(!is.isNum(tf5.getText())) {
  					JOptionPane.showMessageDialog(null
-						, "¸ÅÃâ´ëºñÁö±Ş¾×Àº ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ë§¤ì¶œëŒ€ë¹„ì§€ê¸‰ì•¡ì€ ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(employee == 1 && (tf7.getText()).length() == 0) {		// ¿¹¿Ü Ã³¸® Á÷¿ø ¿ù±Ş
+ 				} else if(ra1.isSelected() == true && (tf7.getText()).length() == 0) {	
 					JOptionPane.showMessageDialog(null
-						, "Á÷¿ø ¿ù±ŞÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì§ì› ì›”ê¸‰ì„ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
 					);
- 				} else if(employee == 1 && !is.isNum(tf7.getText())) {
+ 				} else if(ra1.isSelected() == true && !is.isNum(tf7.getText())) {
  					JOptionPane.showMessageDialog(null
-						, "Á÷¿ø ¿ù±ŞÀº ¼ıÀÚ¸¸ ÀÔ·ÂÇØÁÖ¼¼¿ä."
-						, "¹Ú¸®´Ù¸Å"
+						, "ì§ì› ì›”ê¸‰ì€ ìˆ«ìë§Œ ì…ë ¥í•´ì£¼ì„¸ìš”."
+						, "ë°•ë¦¬ë‹¤ë§¤ ë¬´ì¸ê°€ê²Œ"
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
-	 				money = Float.parseFloat(tf5.getText());
-	 				if(employee == 1)employee = Integer.parseInt(tf7.getText());
-	 		
-	 				System.out.println("È¸¿ø°¡ÀÔ ¼º°ø!!");
-	 				System.out.println("ÀÌ¸§ : " + name);
-	 				System.out.println("¾ÆÀÌµğ : " + id);
-	 				System.out.println("ºñ¹Ğ¹øÈ£ : " + pw);
-	 				System.out.println("ÁöÁ¡¸í : " + brand);
-	 				if(employee != 0) {
-	 					System.out.println("Á÷¿ø ¿ù±Ş : " + employee);
-	 					System.out.println("¸ÅÃâ´ëºñÁö±Ş¾×(%) : " + money);
-	 				}
-	 				
+		 			percent = Double.parseDouble(tf5.getText());
+		 			emp = (ra1.isSelected() == true) ? true : false;
+		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
+		 		
+		 			// ë°ì´í„° ì €ì¥
+		 			
 	 				JOptionPane.showMessageDialog(null
-	 						, "È¸¿ø°¡ÀÔÀ» ÃàÇÏÇÕ´Ï´Ù!"
-	 						, "¹Ú¸®´Ù¸Å"
+	 						, "íšŒì›ê°€ì…ì„ ì¶•í•˜í•©ë‹ˆë‹¤!"
+	 						, "ë°•ë¦¬ë‹¤ë§¤"
 	 						, JOptionPane.PLAIN_MESSAGE
 	 				);
 	 				new Start();
 	 		        mainFrame.setVisible(false);
+	
 	 			}
 	 		}
 	 	});
  		
-	    // Ãë¼Ò ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
+	    // ì·¨ì†Œ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸
 	    cancel.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	           new Start(); // ÇÁ·¹ÀÓ ÀüÈ¯
+	           new Start(); // í”„ë ˆì„ ì „í™˜
 	           mainFrame.setVisible(false);
 	       }
 	    });
@@ -376,12 +368,12 @@ class join extends Setting{
 	    JPanel center = new JPanel();
 	    center.add(form);
 	    center.setBackground(background);
-	    center.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));	// À§ ¿Ş ¾Æ ¿À
+	    center.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));	// ìœ„ ì™¼ ì•„ ì˜¤
 	    
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));	// À§ ¿Ş ¾Æ ¿À
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));	// ìœ„ ì™¼ ì•„ ì˜¤
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(center, BorderLayout.CENTER);
 	    subpanel.add(btns, BorderLayout.SOUTH);

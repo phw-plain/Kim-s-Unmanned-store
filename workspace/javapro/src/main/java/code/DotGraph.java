@@ -58,7 +58,7 @@ public class DotGraph {
 			break;
 		}
 
-		TimeSeries s1 = new TimeSeries(str1); // (ÃÊ,ºĞ,½Ã,ÀÏ,¿ù,³â),¸¶Áö¸·ÀÌ µ¥ÀÌÅÍ
+		TimeSeries s1 = new TimeSeries(str1); // (ì´ˆ,ë¶„,ì‹œ,ì¼,ì›”,ë…„),ë§ˆì§€ë§‰ì´ ë°ì´í„°
 		TimeSeries s2 = new TimeSeries(str2);
 
 		for (int i = 0; i < 7; i++) {
@@ -95,14 +95,14 @@ public class DotGraph {
 		}
 
 		DateAxis axis = (DateAxis) plot.getDomainAxis();
-		Minute base = new Minute(0, 0, 24, 3, 2022); // ÇöÀç ³¯Â¥
+		Minute base = new Minute(0, 0, 24, 3, 2022); // í˜„ì¬ ë‚ ì§œ
 		RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
 		rdf.setSecondFormatter(new DecimalFormat(""));
 		axis.setDateFormatOverride(rdf);
 
 		ChartUtilities.applyCurrentTheme(chart);
 
-		// ±×·¡ÇÁ µğÀÚÀÎ
+		// ê·¸ë˜í”„ ë””ìì¸
 		plot.setBackgroundPaint(java.awt.Color.green);
 		chart.setBackgroundPaint(java.awt.Color.white);
 		chart.getPlot().setBackgroundPaint(java.awt.Color.white);

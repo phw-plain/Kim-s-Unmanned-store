@@ -1,0 +1,23 @@
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+import code.Manage;
+import code.Setting;
+import code.Start;
+
+public class Main extends Setting{
+    public static void main(String[] args) {
+    	// �׽�Ʈ ������
+		name = "test";
+		id = "1";
+		pw = "1";
+		brand = "���೪����Ÿ�";
+		percent = 0.5;
+		emp = false;
+		empsal = 0;
+		
+    	new Start();
+    } 
+}

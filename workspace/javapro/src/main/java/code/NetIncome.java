@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class NetIncome extends Setting{
-	public JPanel panel; // ½Ç¼ö·É¾× ±×·¡ÇÁ
+	public JPanel panel; // ì‹¤ìˆ˜ë ¹ì•¡ ê·¸ë˜í”„
 
 	private JPanel Week;
 	private JPanel Month;
@@ -39,7 +39,7 @@ public class NetIncome extends Setting{
 	}
 	
 	private void WeekGrahp() {
-		// Week ¼¼ÆÃ
+		// Week ì„¸íŒ…
 		Week = new JPanel();
 		Week.setBackground(background);
 		Week.setLayout(new BorderLayout());
@@ -48,14 +48,14 @@ public class NetIncome extends Setting{
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(background);
 
-		// home ¹öÆ° »ı¼º
+		// home ë²„íŠ¼ ìƒì„±
 		homebtn1 = new JButton("", logo);
-		homebtn1.setRolloverIcon(logo_over); // rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn1.setContentAreaFilled(false); // ¹è°æ Ã¤¿ì±â
-		homebtn1.setBorderPainted(false); // ¿Ü°¢¼±
-		homebtn1.setFocusPainted(false); // ¼±ÅÃ ¿Ü°¢¼±
+		homebtn1.setRolloverIcon(logo_over); // rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		homebtn1.setContentAreaFilled(false); // ë°°ê²½ ì±„ìš°ê¸°
+		homebtn1.setBorderPainted(false); // ì™¸ê°ì„ 
+		homebtn1.setFocusPainted(false); // ì„ íƒ ì™¸ê°ì„ 
 
-		JLabel title = new JLabel("½Ç¼ö·É¾× ±×·¡ÇÁ");
+		JLabel title = new JLabel("ì‹¤ìˆ˜ë ¹ì•¡ ê·¸ë˜í”„");
 		title.setFont(font2);
 
 		header.add(homebtn1, BorderLayout.WEST);
@@ -64,17 +64,17 @@ public class NetIncome extends Setting{
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   ÁÖ       ", Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿¬       ");
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // ìœ„ ì™¼ ì•„ ì˜¤
+		HalfRoundedButton weekbtn = new HalfRoundedButton("   ì£¼       ", Color.orange);
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   ì—°       ");
 
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
 
-		// ¹öÆ° ÀÌº¥Æ®
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 		monthbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Week.setVisible(false); // È­¸é ÀüÈ¯
+				Week.setVisible(false); // í™”ë©´ ì „í™˜
 				Month.setVisible(true);
 			}
 		});
@@ -85,10 +85,10 @@ public class NetIncome extends Setting{
 		// right
 		JPanel rightpanel = new JPanel(new GridLayout(0, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 182)); // À§ ¿Ş ¾Æ ¿À
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 182)); // ìœ„ ì™¼ ì•„ ì˜¤
 
 		// graph
-		int[][] data1 = new int[7][4]; // ÀÏ, ¿ù, ¿¬, sales
+		int[][] data1 = new int[7][4]; // ì¼, ì›”, ì—°, sales
 		int[][] data2 = new int[7][4];
 
 		for (int i = 0; i < 7; i++) {
@@ -105,10 +105,10 @@ public class NetIncome extends Setting{
 
 		JPanel chartPanel3 = graph.createDemoPanel(3, data1, data2);
 
-		// footer (°ø¹é)
+		// footer (ê³µë°±)
 		JPanel footer = new JPanel(new BorderLayout());
 		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // À§ ¿Ş ¾Æ ¿À
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // ìœ„ ì™¼ ì•„ ì˜¤
 
 		Week.add(header, BorderLayout.NORTH);
 		Week.add(leftpanel, BorderLayout.WEST);
@@ -121,7 +121,7 @@ public class NetIncome extends Setting{
 	}
 
 	private void MonthGrahp() {
-		// Month ¼¼ÆÃ
+		// Month ì„¸íŒ…
 		Month = new JPanel();
 		Month.setBackground(background);
 		Month.setLayout(new BorderLayout());
@@ -130,14 +130,14 @@ public class NetIncome extends Setting{
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(background);
 
-		// home ¹öÆ° »ı¼º
+		// home ë²„íŠ¼ ìƒì„±
 		homebtn2 = new JButton("", logo);
-		homebtn2.setRolloverIcon(logo_over); // rolloverIcon¿ë ÀÌ¹ÌÁö µî·Ï
-		homebtn2.setContentAreaFilled(false); // ¹è°æ Ã¤¿ì±â
-		homebtn2.setBorderPainted(false); // ¿Ü°¢¼±
-		homebtn2.setFocusPainted(false); // ¼±ÅÃ ¿Ü°¢¼±
+		homebtn2.setRolloverIcon(logo_over); // rolloverIconìš© ì´ë¯¸ì§€ ë“±ë¡
+		homebtn2.setContentAreaFilled(false); // ë°°ê²½ ì±„ìš°ê¸°
+		homebtn2.setBorderPainted(false); // ì™¸ê°ì„ 
+		homebtn2.setFocusPainted(false); // ì„ íƒ ì™¸ê°ì„ 
 
-		JLabel title = new JLabel("½Ç¼ö·É¾× ±×·¡ÇÁ");
+		JLabel title = new JLabel("ì‹¤ìˆ˜ë ¹ì•¡ ê·¸ë˜í”„");
 		title.setFont(font2);
 
 		header.add(homebtn2, BorderLayout.WEST);
@@ -146,17 +146,17 @@ public class NetIncome extends Setting{
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // À§ ¿Ş ¾Æ ¿À
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   ÁÖ       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   ¿¬       ", Color.orange);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // ìœ„ ì™¼ ì•„ ì˜¤
+		HalfRoundedButton weekbtn = new HalfRoundedButton("   ì£¼       ");
+		HalfRoundedButton monthbtn = new HalfRoundedButton("   ì—°       ", Color.orange);
 
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
 
-		// ¹öÆ° ÀÌº¥Æ®
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 		weekbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Week.setVisible(true); // È­¸é ÀüÈ¯
+				Week.setVisible(true); // í™”ë©´ ì „í™˜
 				Month.setVisible(false);
 			}
 		});
@@ -167,27 +167,27 @@ public class NetIncome extends Setting{
 		// right
 		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // À§ ¿Ş ¾Æ ¿À
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // ìœ„ ì™¼ ì•„ ì˜¤
 
-		// ±×·¡ÇÁ ³¯Â¥ ¹öÆ° Ãß°¡
-		int year = 2022; // Áö±İ ³âµµ °¡Á®¿À±â
+		// ê·¸ë˜í”„ ë‚ ì§œ ë²„íŠ¼ ì¶”ê°€
+		int year = 2022; // ì§€ê¸ˆ ë…„ë„ ê°€ì ¸ì˜¤ê¸°
 		int[] years = new int[10];
 
 		Choice yearCh = new Choice();
-		JButton yearbtn = new JButton("È®ÀÎ");
-		yearbtn.setFont(new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 13));
+		JButton yearbtn = new JButton("í™•ì¸");
+		yearbtn.setFont(new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 13));
 		yearbtn.setBackground(Color.white);
 
 		for (int i = 0; i < 10; i++) {
 			years[i] = year - i;
-			yearCh.add(year - i + "³â");
+			yearCh.add(year - i + "ë…„");
 		}
 
 		JPanel chbox = new JPanel(new BorderLayout());
 		chbox.setBackground(Color.white);
 		JPanel chp = new JPanel();
 		chp.add(yearCh);
-		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // À§ ¿Ş ¾Æ ¿À
+		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // ìœ„ ì™¼ ì•„ ì˜¤
 		chp.setBackground(Color.white);
 
 		chbox.add(chp, BorderLayout.WEST);
@@ -196,7 +196,7 @@ public class NetIncome extends Setting{
 
 		yearbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Graph ´Ù½Ã ±×¸®±â
+				// Graph ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 				Month.setVisible(false);
 				MonthGrahp();
 				Month.setVisible(true);
@@ -204,7 +204,7 @@ public class NetIncome extends Setting{
 		});
 
 		// graph
-		int[][] data1 = new int[7][4]; // ÀÏ, ¿ù, ¿¬, sales
+		int[][] data1 = new int[7][4]; // ì¼, ì›”, ì—°, sales
 		int[][] data2 = new int[7][4];
 
 		for (int i = 0; i < 7; i++) {
@@ -221,10 +221,10 @@ public class NetIncome extends Setting{
 
 		chartPanel2 = graph.createDemoPanel(4, data1, data2);
 
-		// footer (°ø¹é)
+		// footer (ê³µë°±)
 		JPanel footer = new JPanel(new BorderLayout());
 		footer.setBackground(background);
-		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // À§ ¿Ş ¾Æ ¿À
+		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // ìœ„ ì™¼ ì•„ ì˜¤
 
 		Month.add(header, BorderLayout.NORTH);
 		Month.add(leftpanel, BorderLayout.WEST);

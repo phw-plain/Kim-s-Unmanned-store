@@ -7,43 +7,66 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 public class Setting {
-	// ±âº» Á¤º¸
-	public int width;
-	public int height;
+	// ê¸°ë³¸ ì •ë³´
+	public int width = 1280;
+	public int height = 1024;
 
 	// color
 	public Color title = new Color(0, 0, 0);
 	public Color background = new Color(255, 255, 255);
 	public Color header_back = new Color(254, 235, 182);
-
+	public Color menu_back = new Color(214, 174, 242);
+	public Color menu_over = new Color(253, 206, 83);
+	
 	// Font
-	public Font font1 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 50);
-	public Font font2 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 26);
-	public Font font3 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 18);
-	public Font font4 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 16);
-	public Font font5 = new Font("¹è´ŞÀÇ¹ÎÁ· ÁÖ¾Æ", Font.PLAIN, 11);
+	public Font font1 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 50);
+	public Font font2 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 26);
+	public Font font3 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 18);
+	public Font font4 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 16);
+	public Font font5 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 14);
+	public Font font6 = new Font("ë°°ë‹¬ì˜ë¯¼ì¡± ì£¼ì•„", Font.PLAIN, 11);
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
 	public ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
-	public ImageIcon test = new ImageIcon("src/img/btn1_1.png");
 	public ImageIcon i;
 	public Image im;
 	public URL imageURL = Start.class.getClassLoader().getResource("apple.png");
 	public ImageIcon img = new ImageIcon(imageURL);
 	
-    // Å¸ÀÔ Ã¼Å©
+	public ImageIcon mBtn_img1 = new ImageIcon("src/img/btn1_1.png");
+	public ImageIcon mBtn_img2 = new ImageIcon("src/img/btn1_2.png");
+	public ImageIcon mBtn_img3 = new ImageIcon("src/img/btn1_3.png");
+	public ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
+	public ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
+	public ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
+	
+    // íƒ€ì… ì²´í¬
     final isType is = new isType();
 	
-	// È¸¿ø Á¤º¸
-	public String name = "°í°í°î";
-	public String id = "1";
-	public String pw = "1";
-	public String brand = "ÀºÇà³ª¹«»ç°Å¸®";
-	public double percent = 0;
-	public int emp = 0;
-	public int empsal = 0;
+	// íšŒì› ì •ë³´
+	public static String name;
+	public static String id;
+	public static String pw;
+	public static String brand;
+	public static double percent;
+	public static boolean emp;
+	public static int empsal;
 
+	public Setting(){
+		UIManager.put("OptionPane.messageFont", font5);
+		UIManager.put("OptionPane.buttonFont", font5);
+	}
+	
+	public void print() {
+		System.out.println("id : " + id);
+		System.out.println("pw : " + pw);
+		System.out.println("name : " + name);
+		System.out.println("brand : " + brand);
+		System.out.println("percent : " + percent);
+	}
 }

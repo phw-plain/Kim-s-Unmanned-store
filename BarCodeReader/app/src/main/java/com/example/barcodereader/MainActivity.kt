@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 //        getSupportActionBar()?.setDisplayUseLogoEnabled(true);
 //        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
 
+        supportActionBar?.hide();
+
         val eventText: TextView = findViewById(R.id.eventText)
         FadeInEvent(eventText);
     }

@@ -9,11 +9,16 @@
     android:background="@drawable/main"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:src="@drawable/action_bar" />
+
     <Button
+        style="?android:borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="startBarcodeReader"
-        style="?android:borderlessButtonStyle"/>
+        android:onClick="startBarcodeReader" />
 
     <TextView
         android:id="@+id/eventText"

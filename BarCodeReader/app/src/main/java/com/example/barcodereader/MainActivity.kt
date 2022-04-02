@@ -3,6 +3,7 @@ package com.example.barcodereader
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -15,8 +16,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        supportActionBar?.setIcon(R.drawable.icon);
+//        getSupportActionBar()?.setDisplayUseLogoEnabled(true);
+//        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
+
         val eventText: TextView = findViewById(R.id.eventText)
         FadeInEvent(eventText);
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar, menu)
+        return true
     }
 
     fun FadeInEvent(view: View) {

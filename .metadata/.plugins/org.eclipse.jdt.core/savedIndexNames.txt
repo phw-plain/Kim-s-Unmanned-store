@@ -1,15 +1,3 @@
 INDEX VERSION 1.131+C:\github\ParkLee-unmanned-store\.metadata\.plugins\org.eclipse.jdt.core
-<<<<<<< HEAD
 3581772362.index
 1913901585.index
-1733575696.index
-1331245510.index
-=======
-354017189.index
-1081486893.index
-1624900341.index
-3929570384.index
-2776768632.index
-1865797976.index
-1263833462.index
->>>>>>> 860f5e7a49afd9d9b7aca3884a976e930efd06ab

@@ -29,7 +29,7 @@ class login extends Setting {
 		mainFrame = new Frame("박리다매 무인가게");
 	    mainFrame.setSize(width ,height);
 		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setResizable(false);
+		mainFrame.setResizable(adjustment);
 	    mainFrame.setVisible(true);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {
@@ -134,8 +134,8 @@ class login extends Setting {
  	   	String input_pw = tf2.getText();
  	   
  	   // 데이터 불러오기
-// 	   	String id = "1";
-// 	   	String pw = "1";
+ 	   	String id = "1";
+ 	   	String pw = "1";
  	   
  	   if(input_id.length() == 0) {
  		   JOptionPane.showMessageDialog(null
@@ -161,16 +161,13 @@ class login extends Setting {
 						, "박리다매 무인가게"
 						, JOptionPane.PLAIN_MESSAGE
 						);
-				
+
 				// 로그인 정보 저장
+		    	// 테스트 계정용
 				name = "고고곡";
 				brand = "은행나무사거리점";
-				percent = 0.5;
 				emp = false;
 				empsal = 0;
-				
-				// 테스트 계정 확인용
-		    	print();
 						
 				new Manage(id, pw);
 				mainFrame.setVisible(false);

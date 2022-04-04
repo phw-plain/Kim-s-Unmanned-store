@@ -82,26 +82,24 @@ public class MyPage extends Setting {
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
 
-		JLabel L[] = new JLabel[7];
-		JLabel R[] = new JLabel[7];
+		JLabel L[] = new JLabel[6];
+		JLabel R[] = new JLabel[6];
 		
 		L[0] = new JLabel("이름");
 		L[1] = new JLabel("아이디");
 		L[2] = new JLabel("비밀번호");
 		L[3] = new JLabel("지점명");
-		L[4] = new JLabel("매출대비지급액(%)");
-		L[5] = new JLabel("직원");
-		L[6] = new JLabel("직원 월급");
+		L[4] = new JLabel("직원");
+		L[5] = new JLabel("직원 월급");
 		
 		R[0] = new JLabel(name);
 		R[1] = new JLabel(id);
 		R[2] = new JLabel(pw);
 		R[3] = new JLabel(brand);
-		R[4] = new JLabel(Double.toString(percent));
-		R[5] = new JLabel((emp)?"유":"무");
-		R[6] = new JLabel(Integer.toString(empsal));
+		R[4] = new JLabel((emp)?"유":"무");
+		R[5] = new JLabel(Integer.toString(empsal));
 		
-		for(int i=0; i<7; i++ ) {
+		for(int i=0; i<6; i++ ) {
 			R[i].setFont(font3);
 			L[i].setFont(font3);
 			data.add(L[i]);
@@ -190,12 +188,10 @@ public class MyPage extends Setting {
 		L3.setFont(font3);
 		JLabel L4 = new JLabel("지점명");
 		L4.setFont(font3);
-		JLabel L5 = new JLabel("매출대비지급액(%)");
+		JLabel L5 = new JLabel("직원");
 		L5.setFont(font3);
-		JLabel L6 = new JLabel("직원");
+		JLabel L6 = new JLabel("직원 월급");
 		L6.setFont(font3);
-		JLabel L7 = new JLabel("직원 월급");
-		L7.setFont(font3);
 		
 		TextField R1 = new TextField(name);
 		R1.setFont(font6);
@@ -205,10 +201,8 @@ public class MyPage extends Setting {
 		R3.setFont(font6);
 		TextField R4 = new TextField(brand);
 		R4.setFont(font6);
-		TextField R5 = new TextField(Double.toString(percent));
-		R5.setFont(font6);
-		TextField R7 = new TextField(Integer.toString(empsal));
-		R7.setFont(font6);
+		TextField R6 = new TextField(Integer.toString(empsal));
+		R6.setFont(font6);
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
@@ -220,8 +214,8 @@ public class MyPage extends Setting {
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		if(emp == false) {
-			L7.setVisible(false);
-			R7.setVisible(false);
+			L6.setVisible(false);
+			R6.setVisible(false);
 		}
 		
 		group.add(ra1);
@@ -232,14 +226,14 @@ public class MyPage extends Setting {
 		// 직원 유무 radio 이벤트
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L7.setVisible(true);
-				R7.setVisible(true);
+				L6.setVisible(true);
+				R6.setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L7.setVisible(false);
-				R7.setVisible(false);
+				L6.setVisible(false);
+				R6.setVisible(false);
 			}
 		});
 		
@@ -252,11 +246,9 @@ public class MyPage extends Setting {
 		data.add(L4);
 		data.add(R4);
 		data.add(L5);
-		data.add(R5);
-		data.add(L6);
 		data.add(staff);
-		data.add(L7);
-		data.add(R7);
+		data.add(L6);
+		data.add(R6);
 		
 		datas.add(data);
 		
@@ -328,25 +320,13 @@ public class MyPage extends Setting {
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(ra1.isSelected() == true && R5.getText().length() == 0) {	// 예외 처리 매출대비지급액
-					JOptionPane.showMessageDialog(null
-							, "매출대비지급액을 입력해주세요."
-							, "박리다매 무인가게"
-							, JOptionPane.ERROR_MESSAGE
-					);
-				} else if(!is.isNum(R5.getText())) {
-					JOptionPane.showMessageDialog(null
-							, "매출대비지급액은 숫자만 입력해주세요."
-							, "박리다매 무인가게"
-							, JOptionPane.ERROR_MESSAGE
-					);
-				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// 예외 처리 직원 월급
+ 				} else if(ra1.isSelected() && (R6.getText()).length() == 0) {		// 예외 처리 직원 월급
 					JOptionPane.showMessageDialog(null
 							, "직원 월급을 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(ra1.isSelected() && !is.isNum(R7.getText())) {
+				} else if(ra1.isSelected() && !is.isNum(R6.getText())) {
 					JOptionPane.showMessageDialog(null
 							, "직원 월급은 숫자만 입력해주세요."
 							, "박리다매 무인가게"
@@ -367,9 +347,8 @@ public class MyPage extends Setting {
 						id = R2.getText();
 						pw = R3.getText();
 						brand = R4.getText();
-						percent = Double.parseDouble(R5.getText());
 						emp = (ra1.isSelected() == true) ? true : false;
-						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
+						empsal = (R6.getText().length() != 0) ? Integer.parseInt(R6.getText()) : 0;
 
 						// reloading
 						panel.remove(0);   

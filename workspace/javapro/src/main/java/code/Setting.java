@@ -14,6 +14,7 @@ public class Setting {
 	// 기본 정보
 	public int width = 1280;
 	public int height = 1024;
+	public boolean adjustment = true;
 
 	// color
 	public Color title = new Color(0, 0, 0);
@@ -53,7 +54,6 @@ public class Setting {
 	public static String id;
 	public static String pw;
 	public static String brand;
-	public static double percent;
 	public static boolean emp;
 	public static int empsal;
 
@@ -67,6 +67,5 @@ public class Setting {
 		System.out.println("pw : " + pw);
 		System.out.println("name : " + name);
 		System.out.println("brand : " + brand);
-		System.out.println("percent : " + percent);
 	}
 }

@@ -15,6 +15,7 @@ public class Start extends Setting {
 		im = i.getImage();
 		
 		prepareGUI();
+		//new FileUpload();
     }
 	
 	private void prepareGUI() {
@@ -26,7 +27,7 @@ public class Start extends Setting {
 		mainFrame = new Frame("박리다매 무인가게"); 
 	    mainFrame.setSize(width, height);
 		mainFrame.setLocationRelativeTo(null);
-	    mainFrame.setResizable(false);
+	    mainFrame.setResizable(adjustment);
 	    mainFrame.setVisible(true);
 	    mainFrame.addWindowListener(new WindowAdapter() {
 	       public void windowClosing(WindowEvent windowEvent) {

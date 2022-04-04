@@ -56,8 +56,12 @@ public class Inventory extends Setting {
 	private Vector<String> category = new Vector<>();
 	private Vector<String> standard = new Vector<>();
 	private Vector<Integer> cnt = new Vector<>();
-	private Vector<Integer> price = new Vector<>();
-	private Vector<String> note = new Vector<>();
+	private Vector<Integer> price = new Vector<>();	
+	private Vector<Integer> amount = new Vector<>();
+	private Vector<Integer> costprice = new Vector<>();
+	private Vector<Integer> totalsale = new Vector<>();
+	private Vector<String> explain = new Vector<>();
+	private Vector<String> picture = new Vector<>();
 	
 	public Inventory() {
 		panel = new JPanel(new CardLayout());
@@ -70,7 +74,10 @@ public class Inventory extends Setting {
 		colNames.add("규 격");
 		colNames.add("수 량");
 		colNames.add("금 액");
-		colNames.add("비 고");
+		colNames.add("판매량");
+		colNames.add("원 가");
+		colNames.add("순수익");
+		colNames.add("상품설명");
 		
 		// 데이터 불러오기	(for문 사용하기)
 		code.add("AD1004");
@@ -91,9 +98,21 @@ public class Inventory extends Setting {
 		price.add(1200);
 		price.add(2700);
 		price.add(1600);
-		note.add("/");
-		note.add("/");
-		note.add("/");
+		amount.add(1);
+		amount.add(2);
+		amount.add(3);
+		costprice.add(800);
+		costprice.add(2000);
+		costprice.add(1100);
+		totalsale.add(1200);
+		totalsale.add(2700);
+		totalsale.add(3200);
+		explain.add("/");
+		explain.add("/");
+		explain.add("/");
+		picture.add("");
+		picture.add("");
+		picture.add("");
 		
 		for(int i=0; i<100; i++) {
 			code.add("test");
@@ -102,7 +121,11 @@ public class Inventory extends Setting {
 			standard.add("test4");
 			cnt.add(1);
 			price.add(1);
-			note.add("/");
+			amount.add(2);
+			costprice.add(1100);
+			totalsale.add(3200);
+			explain.add("/");
+			picture.add("");
 		}
 		
 		View();
@@ -225,7 +248,7 @@ public class Inventory extends Setting {
 		DefaultTableCellRenderer dtcr;
 		for (int i = 0; i < tableView.getColumnCount(); i++) { 
 			dtcr = new DefaultTableCellRenderer();	// 셀 내용 정렬 
-			if(i < 4) 
+			if(i < 4 || i > 8) 
 				dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 			else 
 				dtcr.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -362,9 +385,9 @@ public class Inventory extends Setting {
 		
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		datas.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+		datas.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 		
-		JPanel data = new JPanel(new GridLayout(7, 2, 0, 30));
+		JPanel data = new JPanel(new GridLayout(11, 2, 0, 20));
 		data.setBackground(background);
 		JLabel L1 = new JLabel(colNames.get(0));
 		L1.setFont(font3);
@@ -380,6 +403,14 @@ public class Inventory extends Setting {
 		L6.setFont(font3);
 		JLabel L7 = new JLabel(colNames.get(6));
 		L7.setFont(font3);
+		JLabel L8 = new JLabel(colNames.get(7));
+		L8.setFont(font3);
+		JLabel L9 = new JLabel(colNames.get(8));
+		L9.setFont(font3);
+		JLabel L10 = new JLabel(colNames.get(9));
+		L10.setFont(font3);
+		JLabel L11 = new JLabel("상품 이미지");
+		L11.setFont(font3);
 		
 		JLabel R1 = new JLabel("");
 		R1.setFont(font6);
@@ -393,8 +424,23 @@ public class Inventory extends Setting {
 		R5.setFont(font6);
 		TextField R6 = new TextField("", 20);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
-		R6.setFont(font6);
+		TextField R7 = new TextField("", 20);
+		R7.setFont(font6);
+		TextField R8 = new TextField("", 20);
+		R8.setFont(font6);
+		JLabel R9 = new JLabel();
+		R9.setFont(font6);
+		TextField R10 = new TextField("", 20);
+		R10.setFont(font6);
+		
+		// 이미지 등록
+		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		TextField R11 = new TextField("", 20);
+		R11.setFont(font6);
+		JButton btnR11 = new JButton("파일찾기");
+		btnR11.setFont(font6);
+		imglayer.add(R11);
+		imglayer.add(btnR11);
 		
 		data.add(L1);
 		data.add(R1);
@@ -410,6 +456,14 @@ public class Inventory extends Setting {
 		data.add(R6);
 		data.add(L7);
 		data.add(R7);
+		data.add(L8);
+		data.add(R8);
+		data.add(L9);
+		data.add(R9);
+		data.add(L10);
+		data.add(R10);
+		data.add(L11);
+		data.add(imglayer);
 		
 		datas.add(data);
 		
@@ -418,6 +472,11 @@ public class Inventory extends Setting {
 		replace.add(btns2, BorderLayout.SOUTH);
 		
 		// 버튼 이벤트
+		btnR11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				R11.setText(FileUpload());
+			}
+		});
 		rp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inventory.setVisible(false);
@@ -430,7 +489,11 @@ public class Inventory extends Setting {
 				R4.setText(standard.get(index));
 				R5.setText(Integer.toString(cnt.get(index)));
 				R6.setText(Integer.toString(price.get(index)));
-				R7.setText(note.get(index));
+				R7.setText(Integer.toString(amount.get(index)));
+				R8.setText(Integer.toString(costprice.get(index)));
+				R9.setText(Integer.toString(totalsale.get(index)));
+				R10.setText(explain.get(index));
+				R11.setText(picture.get(index));
 				
 			}
 		});
@@ -455,7 +518,10 @@ public class Inventory extends Setting {
 					standard.remove(index);
 					cnt.remove(index);
 					price.remove(index);
-					note.remove(index);
+					amount.remove(index);
+					costprice.remove(index);
+					totalsale.remove(index);
+					explain.remove(index);
 					
 					// repaint
 					ch.remove(index);
@@ -517,14 +583,41 @@ public class Inventory extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R7.getText().length() == 0) {
-					R7.setText("/");
+				} else if(R7.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "판매량을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R7.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "판매량은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R8.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "원가를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R8.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "원가는 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R10.getText().length() == 0) {
+					R10.setText("/");
 				} else if( R2.getText().equals(name.get(index))
 						&&  R3.getText().equals(category.get(index))
 						&&  R4.getText().equals(standard.get(index))
 						&&  Integer.parseInt(R5.getText()) == cnt.get(index)
 						&&  Integer.parseInt(R6.getText()) == price.get(index)
-						&&  R7.getText().equals(note.get(index))) {
+						&&  Integer.parseInt(R7.getText()) == amount.get(index)
+						&&  Integer.parseInt(R8.getText()) == costprice .get(index)
+						&&  R10.getText().equals(explain.get(index))
+						&&  R11.getText().equals(picture.get(index))) {
 					JOptionPane.showMessageDialog(null
 							, "변경사항이 없습니다!"
 							, "박리다매 무인가게"
@@ -545,13 +638,17 @@ public class Inventory extends Setting {
 							, JOptionPane.WARNING_MESSAGE
 					);
 					if(n == 0) {
-						// 데이터 삭제
+						// 데이터 저장
 						name.set(index, R2.getText());
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
 						price.set(index, Integer.parseInt(R6.getText()));
-						note.set(index, R7.getText());
+						amount.set(index, Integer.parseInt(R7.getText()));
+						costprice.set(index, Integer.parseInt(R8.getText()));
+						totalsale.set(index, price.get(index) * amount.get(index));
+						explain.set(index, R10.getText());
+						picture.set(index, R11.getText());
 						
 						// repaint
 						dataLoad();		
@@ -665,9 +762,9 @@ public class Inventory extends Setting {
 		
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		datas.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+		datas.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
 		
-		JPanel data = new JPanel(new GridLayout(8, 2, 0, 30));
+		JPanel data = new JPanel(new GridLayout(11, 2, 0, 20));
 		data.setBackground(background);
 		JLabel L1 = new JLabel(colNames.get(0));
 		L1.setFont(font3);
@@ -683,8 +780,14 @@ public class Inventory extends Setting {
 		L6.setFont(font3);
 		JLabel L7 = new JLabel(colNames.get(6));
 		L7.setFont(font3);
-		JLabel L8 = new JLabel("이미지");
+		JLabel L8 = new JLabel(colNames.get(7));
 		L8.setFont(font3);
+		JLabel L9 = new JLabel(colNames.get(8));
+		L9.setFont(font3);
+		JLabel L10 = new JLabel(colNames.get(9));
+		L10.setFont(font3);
+		JLabel L11 = new JLabel("이미지");
+		L11.setFont(font3);
 		
 		TextField R1 = new TextField("", 15);
 		R1.setFont(font6);
@@ -698,16 +801,22 @@ public class Inventory extends Setting {
 		R5.setFont(font6);
 		TextField R6 = new TextField("", 15);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 15);
+		TextField R7 = new TextField("", 15);
 		R7.setFont(font6);
+		TextField R8 = new TextField("", 15);
+		R8.setFont(font6);
+		TextField R9 = new TextField("", 15);
+		R9.setFont(font6);
+		TextField R10 = new TextField("/", 15);
+		R10.setFont(font6);
 		
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		TextField R8 = new TextField("", 20);
-		R8.setFont(font6);
-		JButton btnR8 = new JButton("파일찾기");
-		btnR8.setFont(font6);
-		imglayer.add(R8);
-		imglayer.add(btnR8);
+		TextField R11 = new TextField("", 20);
+		R11.setFont(font6);
+		JButton btnR11 = new JButton("파일찾기");
+		btnR11.setFont(font6);
+		imglayer.add(R11);
+		imglayer.add(btnR11);
 		
 		data.add(L1);
 		data.add(R1);
@@ -724,14 +833,20 @@ public class Inventory extends Setting {
 		data.add(L7);
 		data.add(R7);
 		data.add(L8);
+		data.add(R8);
+		data.add(L9);
+		data.add(R9);
+		data.add(L10);
+		data.add(R10);
+		data.add(L11);
 		data.add(imglayer);
 		
 		datas.add(data);
 		
 		// 버튼 이벤튼
-		btnR8.addActionListener(new ActionListener() {
+		btnR11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				R8.setText(FileUpload());
+				R11.setText(FileUpload());
 			}
 		});
 		add.addActionListener(new ActionListener() {
@@ -797,7 +912,7 @@ public class Inventory extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R6.getText().length() == 0) {	
+				}else if(R6.getText().length() == 0) {	
 					JOptionPane.showMessageDialog(null
 							, "금액을 입력해주세요."
 							, "박리다매 무인가게"
@@ -809,16 +924,34 @@ public class Inventory extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R8.getText().length() == 0) {
+				} else if(R7.getText().length() == 0) {	
 					JOptionPane.showMessageDialog(null
-							, "이미지를 등록해주세요."
+							, "판매량을 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R7.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "판매량은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R8.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "원가를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R8.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "원가는 숫자만 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
-					if(R7.getText().length() == 0) {
-						R7.setText("/");
-					}
+					if(R10.getText().length() == 0)
+						R10.setText("/");
+				
 					// 수정 기능 구현
 					int n = JOptionPane.showConfirmDialog(
 							null
@@ -835,8 +968,11 @@ public class Inventory extends Setting {
 						standard.add(R4.getText());
 						cnt.add(Integer.parseInt(R5.getText()));
 						price.add(Integer.parseInt(R6.getText()));
-						note.add(R7.getText());
-						// = R8.getText(); 이미지 주소 저장
+						amount.add(Integer.parseInt(R7.getText()));
+						costprice.add(Integer.parseInt(R8.getText()));
+						totalsale.add(Integer.parseInt(R6.getText()) * Integer.parseInt(R7.getText()));
+						explain.add(R10.getText());
+						picture.add(R11.getText()); 
 						
 						// 데이터 변경 사항 저장
 						
@@ -890,7 +1026,10 @@ public class Inventory extends Setting {
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(price.get(i)));
-			rows.add(note.get(i));
+			rows.add(Integer.toString(amount.get(i)));
+			rows.add(Integer.toString(costprice.get(i)));
+			rows.add(Integer.toString(totalsale.get(i)));
+			rows.add(explain.get(i));
 			dataSet.add(rows);
 		}
 	}
@@ -908,7 +1047,10 @@ public class Inventory extends Setting {
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(price.get(i)));
-			rows.add(note.get(i));
+			rows.add(Integer.toString(amount.get(i)));
+			rows.add(Integer.toString(costprice.get(i)));
+			rows.add(Integer.toString(totalsale.get(i)));
+			rows.add(explain.get(i));
 
 			if(name.get(i).indexOf(str) != -1)
 				dataSet.add(rows);

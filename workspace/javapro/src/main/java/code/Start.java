@@ -15,6 +15,7 @@ public class Start extends Setting {
 		im = i.getImage();
 		
 		prepareGUI();
+		//new FileUpload();
     }
 	
 	private void prepareGUI() {

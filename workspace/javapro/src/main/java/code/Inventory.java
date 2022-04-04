@@ -13,10 +13,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -663,7 +667,7 @@ public class Inventory extends Setting {
 		datas.setBackground(background);
 		datas.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
 		
-		JPanel data = new JPanel(new GridLayout(7, 2, 0, 30));
+		JPanel data = new JPanel(new GridLayout(8, 2, 0, 30));
 		data.setBackground(background);
 		JLabel L1 = new JLabel(colNames.get(0));
 		L1.setFont(font3);
@@ -679,21 +683,31 @@ public class Inventory extends Setting {
 		L6.setFont(font3);
 		JLabel L7 = new JLabel(colNames.get(6));
 		L7.setFont(font3);
+		JLabel L8 = new JLabel("이미지");
+		L8.setFont(font3);
 		
-		TextField R1 = new TextField("", 20);
+		TextField R1 = new TextField("", 15);
 		R1.setFont(font6);
-		TextField R2 = new TextField("", 20);
+		TextField R2 = new TextField("", 15);
 		R2.setFont(font6);
-		TextField R3 = new TextField("", 20);
+		TextField R3 = new TextField("", 15);
 		R3.setFont(font6);
-		TextField R4 = new TextField("", 20);
+		TextField R4 = new TextField("", 15);
 		R4.setFont(font6);
-		TextField R5 = new TextField("", 20);
+		TextField R5 = new TextField("", 15);
 		R5.setFont(font6);
-		TextField R6 = new TextField("", 20);
+		TextField R6 = new TextField("", 15);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
-		R6.setFont(font6);
+		TextField R7 = new TextField("/", 15);
+		R7.setFont(font6);
+		
+		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		TextField R8 = new TextField("", 20);
+		R8.setFont(font6);
+		JButton btnR8 = new JButton("파일찾기");
+		btnR8.setFont(font6);
+		imglayer.add(R8);
+		imglayer.add(btnR8);
 		
 		data.add(L1);
 		data.add(R1);
@@ -709,10 +723,17 @@ public class Inventory extends Setting {
 		data.add(R6);
 		data.add(L7);
 		data.add(R7);
+		data.add(L8);
+		data.add(imglayer);
 		
 		datas.add(data);
 		
 		// 버튼 이벤튼
+		btnR8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				R8.setText(FileUpload());
+			}
+		});
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 예외 처리
@@ -788,6 +809,12 @@ public class Inventory extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
+				} else if(R8.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "이미지를 등록해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
 				} else {
 					if(R7.getText().length() == 0) {
 						R7.setText("/");
@@ -809,6 +836,7 @@ public class Inventory extends Setting {
 						cnt.add(Integer.parseInt(R5.getText()));
 						price.add(Integer.parseInt(R6.getText()));
 						note.add(R7.getText());
+						// = R8.getText(); 이미지 주소 저장
 						
 						// 데이터 변경 사항 저장
 						
@@ -886,7 +914,31 @@ public class Inventory extends Setting {
 				dataSet.add(rows);
 		}
 	}
-	
+	private String FileUpload() {
+		JFileChooser jfc = new JFileChooser();
+        int returnVal = jfc.showSaveDialog(null);
+        if(returnVal == 0) {
+            File file = jfc.getSelectedFile();
+            try {
+                String tmp, str = null;
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                while((tmp = br.readLine()) != null)
+                {
+                    str += tmp;
+                }
+                return jfc.getSelectedFile().getPath();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+             
+        }
+        else
+        {
+            System.out.println("파일 열기를 취소하였습니다.");
+        }
+        return null;
+
+	}
 	class MouseExitedListener1 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			View.setVisible(true);

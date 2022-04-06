@@ -1,0 +1,19 @@
+package code;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class Inventory extends Setting {
+	public JPanel panel;
+
+	private JPanel View;
+	private JPanel Modify;
+	private JPanel Add;
+
+	public JButton homebtn;
+	
+	public Inventory() {
+		View();
+	}
+
+}

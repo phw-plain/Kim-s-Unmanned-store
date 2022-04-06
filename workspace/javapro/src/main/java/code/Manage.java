@@ -44,9 +44,6 @@ public class Manage extends Setting {
 		this.id = id;
 		this.pw = pw;
 		
-		// 테스트 계정 확인용
-    	print();
-		
 		i = new ImageIcon("src/img/benner.png");
 		im = i.getImage();
 		
@@ -54,7 +51,7 @@ public class Manage extends Setting {
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(width, height);
 		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setResizable(adjustment);
+		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
 		mainFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {

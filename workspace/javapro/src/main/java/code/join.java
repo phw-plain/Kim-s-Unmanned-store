@@ -24,7 +24,7 @@ class join extends Setting{
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(width, height);
-		mainFrame.setResizable(adjustment);
+		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {
@@ -96,9 +96,20 @@ class join extends Setting{
 
 		JLabel blankL5 = new JLabel();
 		JLabel blankR5 = new JLabel();
-		Panel staff = new Panel();
-		JLabel label5 = new JLabel("직원");
+		JLabel label5 = new JLabel("매출대비지급액(%)");
 		label5.setFont(font3);
+		final TextField tf5 = new TextField("", 15);
+		tf5.selectAll(); 
+		form.add(blankL5);
+		form.add(label5);
+		form.add(tf5);
+		form.add(blankR5);
+
+		JLabel blankL6 = new JLabel();
+		JLabel blankR6 = new JLabel();
+		Panel staff = new Panel();
+		JLabel label6 = new JLabel("직원");
+		label6.setFont(font3);
 		CheckboxGroup g = new CheckboxGroup();
 		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font3);
@@ -113,21 +124,21 @@ class join extends Setting{
 
 		staff.add(ra1);
 		staff.add(ra2);
-		form.add(blankL5);
-		form.add(label5);
-		form.add(staff);
-		form.add(blankR5);
-		
-		JLabel blankL6 = new JLabel();
-		JLabel blankR6 = new JLabel();
-		final JLabel label6 = new JLabel("직원 월급");
-		label6.setFont(font3);
-		final TextField tf6 = new TextField("", 15);
-		tf6.selectAll(); 
 		form.add(blankL6);
 		form.add(label6);
-		form.add(tf6);
+		form.add(staff);
 		form.add(blankR6);
+		
+		JLabel blankL7 = new JLabel();
+		JLabel blankR7 = new JLabel();
+		final JLabel label7 = new JLabel("직원 월급");
+		label7.setFont(font3);
+		final TextField tf7 = new TextField("", 15);
+		tf7.selectAll(); 
+		form.add(blankL7);
+		form.add(label7);
+		form.add(tf7);
+		form.add(blankR7);
 
 		// 버튼 생성
 		JPanel btns = new JPanel(new FlowLayout());
@@ -190,14 +201,14 @@ class join extends Setting{
 	    // 직원 유무 radio 이벤트
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				label6.setVisible(true);
-				tf6.setVisible(true);
+				label7.setVisible(true);
+				tf7.setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				label6.setVisible(false);
-				tf6.setVisible(false);
+				label7.setVisible(false);
+				tf7.setVisible(false);
 			}
 		});
 	    
@@ -309,21 +320,28 @@ class join extends Setting{
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(ra1.isSelected() == true && (tf6.getText()).length() == 0) {	
+ 				} else if(!is.isNum(tf5.getText())) {
+ 					JOptionPane.showMessageDialog(null
+						, "매출대비지급액은 숫자만 입력해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(ra1.isSelected() == true && (tf7.getText()).length() == 0) {	
 					JOptionPane.showMessageDialog(null
 						, "직원 월급을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 					);
- 				} else if(ra1.isSelected() == true && !is.isNum(tf6.getText())) {
+ 				} else if(ra1.isSelected() == true && !is.isNum(tf7.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "직원 월급은 숫자만 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
+		 			percent = Double.parseDouble(tf5.getText());
 		 			emp = (ra1.isSelected() == true) ? true : false;
-		 			empsal = (emp) ? Integer.parseInt(tf6.getText()) : 0;
+		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
 		 		
 		 			// 데이터 저장
 		 			

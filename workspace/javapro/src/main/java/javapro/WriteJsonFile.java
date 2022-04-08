@@ -13,12 +13,11 @@ import com.google.gson.JsonObject;
 public class WriteJsonFile {
 	public static void main(String[] args) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		// Json key, value Ãß°¡
+		// Json key, value 
 		JsonObject jsonObject = new JsonObject();
 		// manager
-		JsonObject manager = getJsonObject("admin1", "admin1234", "°ü¸®ÀÚ", "»þ·Î¼ö±æÁ¡", 13.5, true, 21000);
+		JsonObject manager = getJsonObject("admin1", "admin1234", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½", 13.5, true, 21000);
 		jsonObject.add("manager", manager);
-		// JsonObject¸¦ ÆÄÀÏ¿¡ ¾²±â
 		String filepath = "C:\\github\\ParkLee-unmanned-store\\javapro\\src\\main\\json\\manager.json";
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filepath),"UTF8"));
 		gson.toJson(jsonObject, writer);

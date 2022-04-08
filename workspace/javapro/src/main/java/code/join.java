@@ -5,6 +5,7 @@ import java.net.URL;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import mysql.*;
 
 class join extends Setting{
 	private Frame mainFrame;
@@ -220,9 +221,8 @@ class join extends Setting{
 	 			String id = tf2.getText();
 	 			String pw = tf3.getText();
 	 			String brand = tf4.getText();
-	 			Double percent;
+	 			//위치(~~점) 안 넣으심 넣어주세오
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
-	 			int empsal;
 	 		
 	 			// 회원가입 예외 처리
 	 			if(name.length() == 0) {				

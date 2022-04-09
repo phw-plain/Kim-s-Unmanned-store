@@ -42,8 +42,8 @@ class join extends Setting{
 		headerLabel.setForeground(title);
 
 		// 회원가입 정보 입력
-		form = new Panel(new GridLayout(7,4,0,18));
-		form.setPreferredSize(new Dimension(800,300));
+		form = new Panel(new GridLayout(8,4,0,30));
+		form.setPreferredSize(new Dimension(800,400));
 		
 		JLabel blankL1 = new JLabel();
 		JLabel blankR1 = new JLabel();
@@ -93,41 +93,54 @@ class join extends Setting{
 		form.add(label4);
 		form.add(tf4);
 		form.add(blankR4);
-
+		
 		JLabel blankL5 = new JLabel();
 		JLabel blankR5 = new JLabel();
-		Panel staff = new Panel();
-		JLabel label5 = new JLabel("직원");
+		JLabel label5 = new JLabel("위치");
 		label5.setFont(font3);
-		CheckboxGroup g = new CheckboxGroup();
+		final TextField tf5 = new TextField("", 15);
+		tf5.selectAll(); 
+		form.add(blankL5);
+		form.add(label5);
+		form.add(tf5);
+		form.add(blankR5);
+
+		JLabel blankL6 = new JLabel();
+		JLabel blankR6 = new JLabel();
+		JPanel radiobtn = new JPanel();
+		JLabel label6 = new JLabel("직원");
+		label6.setFont(font3);
+		ButtonGroup group = new ButtonGroup();
 		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font3);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", false);
 		ra2.setFont(font3);
 		ra2.setBackground(background);
-		ButtonGroup group = new ButtonGroup();
 		
 		group.add(ra1);
 		group.add(ra2);
 
-		staff.add(ra1);
-		staff.add(ra2);
-		form.add(blankL5);
-		form.add(label5);
-		form.add(staff);
-		form.add(blankR5);
+		radiobtn.add(ra1);
+		radiobtn.add(ra2);
+		radiobtn.setBorder(BorderFactory.createEmptyBorder(-10, 0, 0, 0));
+		radiobtn.setBackground(background);
 		
-		JLabel blankL6 = new JLabel();
-		JLabel blankR6 = new JLabel();
-		final JLabel label6 = new JLabel("직원 월급");
-		label6.setFont(font3);
-		final TextField tf6 = new TextField("", 15);
-		tf6.selectAll(); 
 		form.add(blankL6);
 		form.add(label6);
-		form.add(tf6);
+		form.add(radiobtn);
 		form.add(blankR6);
+		
+		JLabel blankL7 = new JLabel();
+		JLabel blankR7 = new JLabel();
+		final JLabel label7 = new JLabel("직원 월급");
+		label7.setFont(font3);
+		final TextField tf7 = new TextField("", 15);
+		tf7.selectAll(); 
+		form.add(blankL7);
+		form.add(label7);
+		form.add(tf7);
+		form.add(blankR7);
 
 		// 버튼 생성
 		JPanel btns = new JPanel(new FlowLayout());
@@ -190,14 +203,14 @@ class join extends Setting{
 	    // 직원 유무 radio 이벤트
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				label6.setVisible(true);
-				tf6.setVisible(true);
+				label7.setVisible(true);
+				tf7.setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				label6.setVisible(false);
-				tf6.setVisible(false);
+				label7.setVisible(false);
+				tf7.setVisible(false);
 			}
 		});
 	    
@@ -209,7 +222,7 @@ class join extends Setting{
 	 			String id = tf2.getText();
 	 			String pw = tf3.getText();
 	 			String brand = tf4.getText();
-	 			Double percent;
+	 			String location = tf5.getText();
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
 	 			int empsal;
 	 		
@@ -293,7 +306,7 @@ class join extends Setting{
 					);
  	            } else if(brand.length() == 0) {		
  					JOptionPane.showMessageDialog(null
-						, "브랜드를 입력해주세요."
+						, "지점명을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
@@ -303,19 +316,25 @@ class join extends Setting{
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(brand.length() == 0) {
+ 				} else if(location.length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(ra1.isSelected() == true && (tf6.getText()).length() == 0) {	
+ 				} else if(location.length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(ra1.isSelected() == true && (tf7.getText()).length() == 0) {	
 					JOptionPane.showMessageDialog(null
 						, "직원 월급을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 					);
- 				} else if(ra1.isSelected() == true && !is.isNum(tf6.getText())) {
+ 				} else if(ra1.isSelected() == true && !is.isNum(tf7.getText())) {
  					JOptionPane.showMessageDialog(null
 						, "직원 월급은 숫자만 입력해주세요."
 						, "박리다매 무인가게"
@@ -323,7 +342,7 @@ class join extends Setting{
  					);
 	 			} else {
 		 			emp = (ra1.isSelected() == true) ? true : false;
-		 			empsal = (emp) ? Integer.parseInt(tf6.getText()) : 0;
+		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
 		 		
 		 			// 데이터 저장
 		 			
@@ -350,12 +369,12 @@ class join extends Setting{
 	    JPanel center = new JPanel();
 	    center.add(form);
 	    center.setBackground(background);
-	    center.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));	// 위 왼 아 오
+	    center.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
 	    
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));	// 위 왼 아 오
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(center, BorderLayout.CENTER);
 	    subpanel.add(btns, BorderLayout.SOUTH);

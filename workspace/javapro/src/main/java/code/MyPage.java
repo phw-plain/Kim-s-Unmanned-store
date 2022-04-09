@@ -52,7 +52,6 @@ public class MyPage extends Setting {
 		
 		// home 버튼 생성
 		homebtn1.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
-		homebtn1.setPressedIcon(img); 	// rolloverIcon용 이미지 등록
 		homebtn1.setContentAreaFilled(false); 	// 배경 채우기
 		homebtn1.setBorderPainted(false); 		// 외각선
 		homebtn1.setFocusPainted(false); 		// 선택 외각선
@@ -82,24 +81,26 @@ public class MyPage extends Setting {
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
 
-		JLabel L[] = new JLabel[6];
-		JLabel R[] = new JLabel[6];
+		JLabel L[] = new JLabel[7];
+		JLabel R[] = new JLabel[7];
 		
 		L[0] = new JLabel("이름");
 		L[1] = new JLabel("아이디");
 		L[2] = new JLabel("비밀번호");
 		L[3] = new JLabel("지점명");
-		L[4] = new JLabel("직원");
-		L[5] = new JLabel("직원 월급");
+		L[4] = new JLabel("위치");
+		L[5] = new JLabel("직원");
+		L[6] = new JLabel("직원 월급");
 		
 		R[0] = new JLabel(name);
 		R[1] = new JLabel(id);
 		R[2] = new JLabel(pw);
 		R[3] = new JLabel(brand);
-		R[4] = new JLabel((emp)?"유":"무");
-		R[5] = new JLabel(Integer.toString(empsal));
+		R[4] = new JLabel(location);
+		R[5] = new JLabel((emp)?"유":"무");
+		R[6] = new JLabel(Integer.toString(empsal));
 		
-		for(int i=0; i<6; i++ ) {
+		for(int i=0; i<L.length; i++ ) {
 			R[i].setFont(font3);
 			L[i].setFont(font3);
 			data.add(L[i]);
@@ -172,7 +173,7 @@ public class MyPage extends Setting {
 		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		JPanel data = new JPanel(new GridLayout(9, 2, 180, 15));
+		JPanel data = new JPanel(new GridLayout(9, 2, 130, 15));
 		data.setBackground(background);
 		
 		JPanel btns = new JPanel();
@@ -180,29 +181,39 @@ public class MyPage extends Setting {
 		JPanel btn = new JPanel(new GridLayout(1, 2, 30, 0));
 		btn.setBackground(background);
 
-		JLabel L1 = new JLabel("이름");
-		L1.setFont(font3);
-		JLabel L2 = new JLabel("아이디");
-		L2.setFont(font3);
-		JLabel L3 = new JLabel("비밀번호");
-		L3.setFont(font3);
-		JLabel L4 = new JLabel("지점명");
-		L4.setFont(font3);
-		JLabel L5 = new JLabel("직원");
-		L5.setFont(font3);
-		JLabel L6 = new JLabel("직원 월급");
-		L6.setFont(font3);
+		JLabel L[] = new JLabel[7];	
+		L[0] = new JLabel("이름");
+		L[1] = new JLabel("아이디");
+		L[2] = new JLabel("비밀번호");
+		L[3] = new JLabel("지점명");
+		L[4] = new JLabel("위치");
+		L[5] = new JLabel("직원");
+		L[6] = new JLabel("직원 월급");
+//		
+//		R[0] = new JLabel(name);
+//		R[1] = new JLabel(id);
+//		R[2] = new JLabel(pw);
+//		R[3] = new JLabel(brand);
+//		R[4] = new JLabel(location);
+//		R[5] = new JLabel((emp)?"유":"무");
+//		R[6] = new JLabel(Integer.toString(empsal));
 		
-		TextField R1 = new TextField(name);
+		for(int i=0; i<L.length; i++ ) {
+			L[i].setFont(font3);
+		}
+		
+		TextField R1 = new TextField(name, 15);
 		R1.setFont(font6);
 		JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
-		TextField R3 = new TextField(pw);
+		TextField R3 = new TextField(pw, 15);
 		R3.setFont(font6);
-		TextField R4 = new TextField(brand);
+		TextField R4 = new TextField(brand, 15);
 		R4.setFont(font6);
-		TextField R6 = new TextField(Integer.toString(empsal));
-		R6.setFont(font6);
+		TextField R5 = new TextField(location, 15);
+		R5.setFont(font6);
+		TextField R7 = new TextField(Integer.toString(empsal), 15);
+		R7.setFont(font6);
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
@@ -214,8 +225,8 @@ public class MyPage extends Setting {
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		if(emp == false) {
-			L6.setVisible(false);
-			R6.setVisible(false);
+			L[6].setVisible(false);
+			R7.setVisible(false);
 		}
 		
 		group.add(ra1);
@@ -226,29 +237,31 @@ public class MyPage extends Setting {
 		// 직원 유무 radio 이벤트
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L6.setVisible(true);
-				R6.setVisible(true);
+				L[6].setVisible(true);
+				R7.setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L6.setVisible(false);
-				R6.setVisible(false);
+				L[6].setVisible(false);
+				R7.setVisible(false);
 			}
 		});
 		
-		data.add(L1);
+		data.add(L[0]);
 		data.add(R1);
-		data.add(L2);
+		data.add(L[1]);
 		data.add(R2);
-		data.add(L3);
+		data.add(L[2]);
 		data.add(R3);
-		data.add(L4);
+		data.add(L[3]);
 		data.add(R4);
-		data.add(L5);
+		data.add(L[4]);
+		data.add(R5);
+		data.add(L[5]);
 		data.add(staff);
-		data.add(L6);
-		data.add(R6);
+		data.add(L[6]);
+		data.add(R7);
 		
 		datas.add(data);
 		
@@ -316,17 +329,29 @@ public class MyPage extends Setting {
 					);
 				} else if(R4.getText().length() > 16) {
  					JOptionPane.showMessageDialog(null
-						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
-						, "박리다매 무인가게"
-						, JOptionPane.ERROR_MESSAGE
+							, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(ra1.isSelected() && (R6.getText()).length() == 0) {		// 예외 처리 직원 월급
+ 				} else if(R5.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+							, "위치를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R5.getText().length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+							, "위치가 너무 깁니다. 16자 이내로 입력해 주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+ 					);
+ 				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// 예외 처리 직원 월급
 					JOptionPane.showMessageDialog(null
 							, "직원 월급을 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(ra1.isSelected() && !is.isNum(R6.getText())) {
+				} else if(ra1.isSelected() && !is.isNum(R7.getText())) {
 					JOptionPane.showMessageDialog(null
 							, "직원 월급은 숫자만 입력해주세요."
 							, "박리다매 무인가게"
@@ -347,8 +372,9 @@ public class MyPage extends Setting {
 						id = R2.getText();
 						pw = R3.getText();
 						brand = R4.getText();
+						location = R5.getText();
 						emp = (ra1.isSelected() == true) ? true : false;
-						empsal = (R6.getText().length() != 0) ? Integer.parseInt(R6.getText()) : 0;
+						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
 
 						// reloading
 						panel.remove(0);   
@@ -360,8 +386,6 @@ public class MyPage extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-
-						print();
 						
 						Read.setVisible(true);
 						Write.setVisible(false);

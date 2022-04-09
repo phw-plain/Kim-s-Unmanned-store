@@ -54,6 +54,7 @@ public class Setting {
 	public static String id;
 	public static String pw;
 	public static String brand;
+	public static String location;
 	public static boolean emp;
 	public static int empsal;
 

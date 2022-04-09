@@ -165,7 +165,8 @@ class login extends Setting {
 				// 로그인 정보 저장
 		    	// 테스트 계정용
 				name = "고고곡";
-				brand = "은행나무사거리점";
+				brand = "신림사거리점";
+				location = "관악구";
 				emp = false;
 				empsal = 0;
 						

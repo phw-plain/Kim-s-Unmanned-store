@@ -150,3 +150,4 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
 workspace/.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log
+workspace/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi

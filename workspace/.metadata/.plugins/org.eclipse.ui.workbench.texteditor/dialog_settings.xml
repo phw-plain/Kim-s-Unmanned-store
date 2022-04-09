@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+<<<<<<< HEAD
 		<item key="selection" value="View"/>
+=======
+		<item key="selection" value=""/>
+>>>>>>> origin/front-end
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+<<<<<<< HEAD
 			<item value="View"/>
 			<item value="homebtn1"/>
 			<item value="homebtn2"/>
+=======
+			<item value="print"/>
+			<item value="name"/>
+			<item value="staff"/>
+			<item value="g"/>
+			<item value="910"/>
+			<item value="9"/>
+			<item value="wjwkd"/>
+			<item value="btnR11"/>
+			<item value="btnR1111"/>
+			<item value="btn11"/>
+			<item value="gridlayout"/>
+			<item value="AdD()"/>
+			<item value="4"/>
+			<item value="Add()"/>
+			<item value="ADD"/>
+>>>>>>> origin/front-end
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+<<<<<<< HEAD
 		<item key="DIALOG_X_ORIGIN" value="910"/>
 		<item key="DIALOG_Y_ORIGIN" value="329"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+=======
+		<item key="DIALOG_X_ORIGIN" value="1125"/>
+		<item key="DIALOG_Y_ORIGIN" value="339"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+>>>>>>> origin/front-end
 	</section>
 </section>

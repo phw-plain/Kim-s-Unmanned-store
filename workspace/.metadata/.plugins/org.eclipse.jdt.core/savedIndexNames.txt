@@ -3,7 +3,11 @@ INDEX VERSION 1.131+C:\github\ParkLee-unmanned-store\workspace\.metadata\.plugin
 3929570384.index
 1263833462.index
 1624900341.index
+<<<<<<< HEAD
 1224860608.index
+=======
+354017189.index
+>>>>>>> origin/front-end
 1081486893.index
 2776768632.index
 1913901585.index

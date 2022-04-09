@@ -53,7 +53,11 @@ public class Setting {
 	public static String id;
 	public static String pw;
 	public static String brand;
+<<<<<<< HEAD
 	public static double percent;
+=======
+	public static String location;
+>>>>>>> origin/front-end
 	public static boolean emp;
 	public static int empsal;
 

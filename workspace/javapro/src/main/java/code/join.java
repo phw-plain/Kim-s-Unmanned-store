@@ -5,7 +5,6 @@ import java.net.URL;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import mysql.*;
 
 class join extends Setting{
 	private Frame mainFrame;
@@ -25,7 +24,7 @@ class join extends Setting{
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(width, height);
-		mainFrame.setResizable(false);
+		mainFrame.setResizable(adjustment);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {
@@ -43,8 +42,8 @@ class join extends Setting{
 		headerLabel.setForeground(title);
 
 		// 회원가입 정보 입력
-		form = new Panel(new GridLayout(7,4,0,18));
-		form.setPreferredSize(new Dimension(800,300));
+		form = new Panel(new GridLayout(8,4,0,30));
+		form.setPreferredSize(new Dimension(800,400));
 		
 		JLabel blankL1 = new JLabel();
 		JLabel blankR1 = new JLabel();
@@ -94,10 +93,10 @@ class join extends Setting{
 		form.add(label4);
 		form.add(tf4);
 		form.add(blankR4);
-
+		
 		JLabel blankL5 = new JLabel();
 		JLabel blankR5 = new JLabel();
-		JLabel label5 = new JLabel("매출대비지급액(%)");
+		JLabel label5 = new JLabel("위치");
 		label5.setFont(font3);
 		final TextField tf5 = new TextField("", 15);
 		tf5.selectAll(); 
@@ -108,26 +107,28 @@ class join extends Setting{
 
 		JLabel blankL6 = new JLabel();
 		JLabel blankR6 = new JLabel();
-		Panel staff = new Panel();
+		JPanel radiobtn = new JPanel();
 		JLabel label6 = new JLabel("직원");
 		label6.setFont(font3);
-		CheckboxGroup g = new CheckboxGroup();
+		ButtonGroup group = new ButtonGroup();
 		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font3);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", false);
 		ra2.setFont(font3);
 		ra2.setBackground(background);
-		ButtonGroup group = new ButtonGroup();
 		
 		group.add(ra1);
 		group.add(ra2);
 
-		staff.add(ra1);
-		staff.add(ra2);
+		radiobtn.add(ra1);
+		radiobtn.add(ra2);
+		radiobtn.setBorder(BorderFactory.createEmptyBorder(-10, 0, 0, 0));
+		radiobtn.setBackground(background);
+		
 		form.add(blankL6);
 		form.add(label6);
-		form.add(staff);
+		form.add(radiobtn);
 		form.add(blankR6);
 		
 		JLabel blankL7 = new JLabel();
@@ -221,8 +222,9 @@ class join extends Setting{
 	 			String id = tf2.getText();
 	 			String pw = tf3.getText();
 	 			String brand = tf4.getText();
-	 			//위치(~~점) 안 넣으심 넣어주세오
+	 			String location = tf5.getText();
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
+	 			int empsal;
 	 		
 	 			// 회원가입 예외 처리
 	 			if(name.length() == 0) {				
@@ -304,7 +306,7 @@ class join extends Setting{
 					);
  	            } else if(brand.length() == 0) {		
  					JOptionPane.showMessageDialog(null
-						, "브랜드를 입력해주세요."
+						, "지점명을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
@@ -314,15 +316,15 @@ class join extends Setting{
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(brand.length() == 0) {
+ 				} else if(location.length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isNum(tf5.getText())) {
+ 				} else if(location.length() > 16) {
  					JOptionPane.showMessageDialog(null
-						, "매출대비지급액은 숫자만 입력해주세요."
+						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
@@ -339,7 +341,6 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
-		 			percent = Double.parseDouble(tf5.getText());
 		 			emp = (ra1.isSelected() == true) ? true : false;
 		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
 		 		
@@ -368,12 +369,12 @@ class join extends Setting{
 	    JPanel center = new JPanel();
 	    center.add(form);
 	    center.setBackground(background);
-	    center.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));	// 위 왼 아 오
+	    center.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
 	    
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));	// 위 왼 아 오
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(center, BorderLayout.CENTER);
 	    subpanel.add(btns, BorderLayout.SOUTH);

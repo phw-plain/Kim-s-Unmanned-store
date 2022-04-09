@@ -7,4 +7,5 @@
     <fullyQualifiedTypeName name="code.RoundedButton2"/>
     <fullyQualifiedTypeName name="code.HalfRoundedButton"/>
     <fullyQualifiedTypeName name="org.jfree.chart.util.RelativeDateFormat"/>
+    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
 </qualifiedTypeNameHistroy>

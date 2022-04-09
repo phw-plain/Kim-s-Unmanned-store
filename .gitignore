@@ -149,3 +149,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
+workspace/.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log

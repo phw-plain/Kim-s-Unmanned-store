@@ -44,16 +44,16 @@ public class Inventory extends Setting {
 	private JLabel btnAdd[] = new JLabel[3];
 	
 	private DefaultTableModel model;
-	private Vector<Vector> dataSet = new Vector<>();
-	private Vector<String> colNames = new Vector<>();
+	private Vector<Vector> dataSet = new Vector<Vector>();
+	private Vector<String> colNames = new Vector<String>();
 
-	private Vector<String> code = new Vector<>();
-	private Vector<String> name = new Vector<>();
-	private Vector<String> category = new Vector<>();
-	private Vector<String> standard = new Vector<>();
-	private Vector<Integer> cnt = new Vector<>();
-	private Vector<Integer> price = new Vector<>();
-	private Vector<String> note = new Vector<>();
+	private Vector<String> code = new Vector<String>();
+	private Vector<String> name = new Vector<String>();
+	private Vector<String> category = new Vector<String>();
+	private Vector<String> standard = new Vector<String>();
+	private Vector<Integer> cnt = new Vector<Integer>();
+	private Vector<Integer> price = new Vector<Integer>();
+	private Vector<String> note = new Vector<String>();
 	
 	public Inventory() {
 		panel = new JPanel(new CardLayout());
@@ -175,7 +175,7 @@ public class Inventory extends Setting {
 		JPanel search = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		search.setBackground(background);
 		search.setBorder(BorderFactory.createEmptyBorder(50, 240, 0, 0));
-		TextField input = new TextField(" ", 20);
+		final TextField input = new TextField(" ", 20);
 		HalfRoundedButton check = new HalfRoundedButton("🔍");
 
 		search.add(input);
@@ -299,7 +299,7 @@ public class Inventory extends Setting {
 		nav.add(menubar, BorderLayout.SOUTH);
 		
 		// inventory modify
-		JPanel inventory = new JPanel(new BorderLayout());
+		final JPanel inventory = new JPanel(new BorderLayout());
 		inventory.setBackground(background);
 		
 		JLabel subtitle1 = new JLabel("재고 편집");
@@ -312,7 +312,7 @@ public class Inventory extends Setting {
 		choose.setBackground(background);
 		choose.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
-		Choice ch = new Choice();
+		final Choice ch = new Choice();
 		
 		for(int i=0; i<name.size(); i++) {
 			ch.add(name.get(i));
@@ -337,7 +337,7 @@ public class Inventory extends Setting {
 		inventory.add(btns1, BorderLayout.SOUTH);
 		
 		// inventory replace
-		JPanel replace = new JPanel(new BorderLayout());
+		final JPanel replace = new JPanel(new BorderLayout());
 		replace.setBackground(background);
 
 		JPanel btns2 = new JPanel();
@@ -377,19 +377,19 @@ public class Inventory extends Setting {
 		JLabel L7 = new JLabel(colNames.get(6));
 		L7.setFont(font3);
 		
-		JLabel R1 = new JLabel("");
+		final JLabel R1 = new JLabel("");
 		R1.setFont(font6);
-		TextField R2 = new TextField("", 20);
+		final TextField R2 = new TextField("", 20);
 		R2.setFont(font6);
-		TextField R3 = new TextField("", 20);
+		final TextField R3 = new TextField("", 20);
 		R3.setFont(font6);
-		TextField R4 = new TextField("", 20);
+		final TextField R4 = new TextField("", 20);
 		R4.setFont(font6);
-		TextField R5 = new TextField("", 20);
+		final TextField R5 = new TextField("", 20);
 		R5.setFont(font6);
-		TextField R6 = new TextField("", 20);
+		final TextField R6 = new TextField("", 20);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
+		final TextField R7 = new TextField("/", 20);
 		R6.setFont(font6);
 		
 		data.add(L1);
@@ -680,19 +680,19 @@ public class Inventory extends Setting {
 		JLabel L7 = new JLabel(colNames.get(6));
 		L7.setFont(font3);
 		
-		TextField R1 = new TextField("", 20);
+		final TextField R1 = new TextField("", 20);
 		R1.setFont(font6);
-		TextField R2 = new TextField("", 20);
+		final TextField R2 = new TextField("", 20);
 		R2.setFont(font6);
-		TextField R3 = new TextField("", 20);
+		final TextField R3 = new TextField("", 20);
 		R3.setFont(font6);
-		TextField R4 = new TextField("", 20);
+		final TextField R4 = new TextField("", 20);
 		R4.setFont(font6);
-		TextField R5 = new TextField("", 20);
+		final TextField R5 = new TextField("", 20);
 		R5.setFont(font6);
-		TextField R6 = new TextField("", 20);
+		final TextField R6 = new TextField("", 20);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
+		final TextField R7 = new TextField("/", 20);
 		R6.setFont(font6);
 		
 		data.add(L1);
@@ -855,7 +855,7 @@ public class Inventory extends Setting {
 		
 		// 데이터 입력
 		for (int i = 0; i < code.size(); i++) {
-			rows = new Vector<>();
+			rows = new Vector<String>();
 			rows.add(code.get(i));
 			rows.add(name.get(i));
 			rows.add(category.get(i));
@@ -873,7 +873,7 @@ public class Inventory extends Setting {
 		
 		// 검색 데이터 입력
 		for (int i = 0; i < code.size(); i++) {
-			rows = new Vector<>();
+			rows = new Vector<String>();
 			rows.add(code.get(i));
 			rows.add(name.get(i));
 			rows.add(category.get(i));

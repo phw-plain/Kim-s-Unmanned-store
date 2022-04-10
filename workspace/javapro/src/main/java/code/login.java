@@ -164,13 +164,8 @@ class login extends Setting {
 				
 				// 로그인 정보 저장
 				name = "고고곡";
-<<<<<<< HEAD
-				brand = "은행나무사거리점";
-				percent = 0.5;
-=======
 				brand = "신림사거리점";
 				location = "관악구";
->>>>>>> origin/front-end
 				emp = false;
 				empsal = 0;
 				

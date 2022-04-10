@@ -97,11 +97,7 @@ class join extends Setting{
 		
 		JLabel blankL5 = new JLabel();
 		JLabel blankR5 = new JLabel();
-<<<<<<< HEAD
-		JLabel label5 = new JLabel("매출대비지급액(%)");
-=======
 		JLabel label5 = new JLabel("위치");
->>>>>>> origin/front-end
 		label5.setFont(font3);
 		final TextField tf5 = new TextField("", 15);
 		tf5.selectAll(); 
@@ -112,17 +108,10 @@ class join extends Setting{
 
 		JLabel blankL6 = new JLabel();
 		JLabel blankR6 = new JLabel();
-<<<<<<< HEAD
-		Panel staff = new Panel();
-		JLabel label6 = new JLabel("직원");
-		label6.setFont(font3);
-		CheckboxGroup g = new CheckboxGroup();
-=======
 		JPanel radiobtn = new JPanel();
 		JLabel label6 = new JLabel("직원");
 		label6.setFont(font3);
 		ButtonGroup group = new ButtonGroup();
->>>>>>> origin/front-end
 		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font3);
 		ra1.setBackground(background);
@@ -133,13 +122,6 @@ class join extends Setting{
 		group.add(ra1);
 		group.add(ra2);
 
-<<<<<<< HEAD
-		staff.add(ra1);
-		staff.add(ra2);
-		form.add(blankL6);
-		form.add(label6);
-		form.add(staff);
-=======
 		radiobtn.add(ra1);
 		radiobtn.add(ra2);
 		radiobtn.setBorder(BorderFactory.createEmptyBorder(-10, 0, 0, 0));
@@ -148,7 +130,6 @@ class join extends Setting{
 		form.add(blankL6);
 		form.add(label6);
 		form.add(radiobtn);
->>>>>>> origin/front-end
 		form.add(blankR6);
 		
 		JLabel blankL7 = new JLabel();
@@ -242,11 +223,7 @@ class join extends Setting{
 	 			String id = tf2.getText();
 	 			String pw = tf3.getText();
 	 			String brand = tf4.getText();
-<<<<<<< HEAD
-	 			//위치(~~점) 안 넣으심 넣어주세오
-=======
 	 			String location = tf5.getText();
->>>>>>> origin/front-end
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
 	 		
 	 			// 회원가입 예외 처리
@@ -345,15 +322,9 @@ class join extends Setting{
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
-<<<<<<< HEAD
- 				} else if(!is.isNum(tf5.getText())) {
- 					JOptionPane.showMessageDialog(null
-						, "매출대비지급액은 숫자만 입력해주세요."
-=======
  				} else if(location.length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
->>>>>>> origin/front-end
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
@@ -370,7 +341,7 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
-		 			percent = Double.parseDouble(tf5.getText());
+		 			location = tf5.getText();
 		 			emp = (ra1.isSelected() == true) ? true : false;
 		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
 		 		

@@ -53,11 +53,7 @@ public class Setting {
 	public static String id;
 	public static String pw;
 	public static String brand;
-<<<<<<< HEAD
-	public static double percent;
-=======
 	public static String location;
->>>>>>> origin/front-end
 	public static boolean emp;
 	public static int empsal;
 
@@ -71,6 +67,6 @@ public class Setting {
 		System.out.println("pw : " + pw);
 		System.out.println("name : " + name);
 		System.out.println("brand : " + brand);
-		System.out.println("percent : " + percent);
+		System.out.println("location : " + location);
 	}
 }

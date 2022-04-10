@@ -25,7 +25,7 @@ class join extends Setting{
 		// Frame 에 대한 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(width, height);
-		mainFrame.setResizable(false);
+		mainFrame.setResizable(resizable);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {

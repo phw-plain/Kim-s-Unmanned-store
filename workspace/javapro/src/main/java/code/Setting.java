@@ -2,7 +2,10 @@ package code;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -12,8 +15,10 @@ import javax.swing.UIManager;
 
 public class Setting {
 	// 기본 정보
-	public int width = 1280;
-	public int height = 1024;
+//	public int width = 1280;
+//	public int height = 1024;
+	public static int width = 1024;
+	public static int height = 768;
 	public boolean resizable = true;
 
 	// color
@@ -24,12 +29,13 @@ public class Setting {
 	public Color menu_over = new Color(253, 206, 83);
 	
 	// Font
-	public Font font1 = new Font("배달의민족 주아", Font.PLAIN, 50);
-	public Font font2 = new Font("배달의민족 주아", Font.PLAIN, 26);
-	public Font font3 = new Font("배달의민족 주아", Font.PLAIN, 18);
-	public Font font4 = new Font("배달의민족 주아", Font.PLAIN, 16);
-	public Font font5 = new Font("배달의민족 주아", Font.PLAIN, 14);
-	public Font font6 = new Font("배달의민족 주아", Font.PLAIN, 11);
+	static String font = "배달의민족 주아";
+	public Font font1 = new Font(font, Font.PLAIN, 50);
+	public Font font2 = new Font(font, Font.PLAIN, 26);
+	public Font font3 = new Font(font, Font.PLAIN, 18);
+	public Font font4 = new Font(font, Font.PLAIN, 16);
+	public Font font5 = new Font(font, Font.PLAIN, 14);
+	public Font font6 = new Font(font, Font.PLAIN, 11);
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
@@ -58,6 +64,8 @@ public class Setting {
 	public static boolean emp;
 	public static int empsal;
 
+	public static Frame startFrame;
+	
 	public Setting(){
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);

@@ -13,7 +13,7 @@ public class Main extends Setting{
 		location = "관악구";
 		emp = false;
 		empsal = 0;
-		
+		Setting.lightMode();
     	new Start();
     } 
 }

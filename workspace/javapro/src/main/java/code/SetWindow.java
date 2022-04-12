@@ -42,17 +42,19 @@ public class SetWindow extends Setting {
     	
     	JPanel center = new JPanel(new GridLayout(4, 1, 0 ,0));
     	center.setBackground(background);
+    	center.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
     	// 해상도
     	JPanel resolution = new JPanel();
-    	JPanel reso_sub = new JPanel(new GridLayout(1,2,0,0));
+    	resolution.setBackground(background);
+    	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
+    	reso_sub.setBackground(background);
     	JLabel reso_title =  new JLabel("해상도");
     	Choice reso = new Choice();
     	
     	for(int i=0; i<resoArr.length; i++) {
     		reso.add(resoArr[i][0]+"X"+resoArr[i][1]);
     	}
-    	reso_sub.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 200));
     	
     	reso_sub.add(reso_title);
     	reso_sub.add(reso);
@@ -60,22 +62,45 @@ public class SetWindow extends Setting {
 
     	// 글꼴
     	JPanel font = new JPanel();
+    	font.setBackground(background);
     	JPanel font_sub = new JPanel(new GridLayout(1,2,0,0));
+    	font_sub.setBackground(background);
     	JLabel font_title =  new JLabel("글꼴");
     	Choice fonts = new Choice();
-
-    	fontArr.add("배달의민족 주아");
-    	fontArr.add("돋움체");
+    	
+    	addFont();
     	
     	for(int i=0; i<fontArr.size(); i++) {
     		fonts.add(fontArr.get(i));
     	}
-    	font_sub.setBorder(BorderFactory.createEmptyBorder(0, 75, 0, 180));
-    	
 
     	font_sub.add(font_title);
     	font_sub.add(fonts);
     	font.add(font_sub);
+    	
+    	// 테마
+    	JPanel theme = new JPanel();
+    	theme.setBackground(background);
+    	JPanel theme_sub = new JPanel(new GridLayout(1,2,0,0));
+    	theme_sub.setBackground(background);
+    	JLabel theme_title =  new JLabel("테마");
+		JPanel themes = new JPanel();
+    	
+    	ButtonGroup group = new ButtonGroup();
+		final JRadioButton ra1 = new JRadioButton("light", true);
+		ra1.setBackground(background);
+		JRadioButton ra2 = new JRadioButton("dark", false);
+		ra2.setBackground(background);
+		
+		group.add(ra1);
+		group.add(ra2);
+
+		themes.add(ra1);
+		themes.add(ra2);
+    	
+    	theme_sub.add(theme_title);
+    	theme_sub.add(themes);
+    	theme.add(theme_sub);
     	
     	// 버튼
 		JPanel btns = new JPanel(new FlowLayout());
@@ -96,6 +121,12 @@ public class SetWindow extends Setting {
 	    		width = resoArr[reso.getSelectedIndex()][0];
 	    		height = resoArr[reso.getSelectedIndex()][1];
 	    		Setting.font = fontArr.get(fonts.getSelectedIndex());
+	    		if(ra1.isSelected() == true) {
+	    			lightMode();
+	    		} else {
+	    			darkMode();
+	    		}
+	    		
 				startFrame.dispose();
 				new Start();
 	    		mainFrame.dispose();
@@ -107,14 +138,44 @@ public class SetWindow extends Setting {
 	       }
 	    });
 	    
-    	center.add(reso_sub);
+    	center.add(resolution);
     	center.add(font);
+    	center.add(theme);
     	center.add(btns);
     	
     	panel.add(title, BorderLayout.NORTH);
     	panel.add(center, BorderLayout.CENTER);
     	
     	mainFrame.add(panel);
+	}
+
+	private void addFont() {
+		// font 추가
+		fontArr.add("배달의민족 주아");
+    	fontArr.add("굴림");
+    	fontArr.add("굴림체");
+    	fontArr.add("궁서");
+    	fontArr.add("궁서체");
+    	fontArr.add("돋움");
+    	fontArr.add("돋움체");
+    	fontArr.add("맑은 고딕");
+    	fontArr.add("바탕");
+    	fontArr.add("바탕체");
+    	fontArr.add("새굴림");
+    	fontArr.add("한컴 고딕");
+    	fontArr.add("한컴산뜻돋움");
+    	fontArr.add("함초롬돋움");
+    	fontArr.add("함초롬돋움 확장");
+    	fontArr.add("함초롬바탕");
+    	fontArr.add("함초롬바탕 확장");
+    	fontArr.add("함초롬바탕 확장B");
+    	fontArr.add("휴먼둥근헤드라인");
+    	fontArr.add("휴먼매직체");
+    	fontArr.add("휴먼모음T");
+    	fontArr.add("휴먼아미체");
+    	fontArr.add("휴먼엑스포");
+    	fontArr.add("휴먼옛체");
+    	fontArr.add("휴먼편지체");
 	}
 	
 }

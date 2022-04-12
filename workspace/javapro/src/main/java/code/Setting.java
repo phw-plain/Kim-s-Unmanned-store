@@ -15,18 +15,20 @@ import javax.swing.UIManager;
 
 public class Setting {
 	// 기본 정보
-//	public int width = 1280;
-//	public int height = 1024;
+//	public static int width = 1280;
+//	public static int height = 1024;
 	public static int width = 1024;
-	public static int height = 768;
-	public boolean resizable = true;
+	public static int height = 786;
+	public boolean resizable = false;
 
 	// color
-	public Color title = new Color(0, 0, 0);
-	public Color background = new Color(255, 255, 255);
-	public Color header_back = new Color(254, 235, 182);
-	public Color menu_back = new Color(214, 174, 242);
-	public Color menu_over = new Color(253, 206, 83);
+	public static Color title;
+	public static Color background;
+	public static Color header_back;
+	public static Color menu_back;
+	public static Color menu_over;
+	public static Color fontcolor;
+	public static Color maincolor;
 	
 	// Font
 	static String font = "배달의민족 주아";
@@ -67,6 +69,10 @@ public class Setting {
 	public static Frame startFrame;
 	
 	public Setting(){
+		header_back = new Color(254, 235, 182);
+		menu_back = new Color(214, 174, 242);
+		menu_over = new Color(253, 206, 83);
+		maincolor = new Color(254, 235, 182);
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
 	}
@@ -77,5 +83,17 @@ public class Setting {
 		System.out.println("name : " + name);
 		System.out.println("brand : " + brand);
 		System.out.println("location : " + location);
+	}
+	
+	public static void darkMode() {
+		title = new Color(255, 255, 255);
+		background = new Color(58, 58, 58);
+		fontcolor = new Color(255, 255, 255);
+	}
+	
+	public static void lightMode() {
+		title = new Color(0, 0, 0);
+		background = new Color(255, 255, 255);
+		fontcolor = new Color(0, 0, 0);
 	}
 }

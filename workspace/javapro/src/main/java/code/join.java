@@ -50,6 +50,7 @@ class join extends Setting{
 		JLabel blankR1 = new JLabel();
 		JLabel label1 = new JLabel("이름");
 		label1.setFont(font3);
+		label1.setForeground(fontcolor);
 		final TextField tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(blankL1);
@@ -66,6 +67,7 @@ class join extends Setting{
 		btnlabel.add(b1, BorderLayout.WEST);
 		JLabel label2 = new JLabel("아이디");
 		label2.setFont(font3);
+		label2.setForeground(fontcolor);
 		final TextField tf2 = new TextField("", 15);
 		tf2.selectAll();
 		form.add(blankL2);
@@ -77,6 +79,7 @@ class join extends Setting{
 		JLabel blankR3 = new JLabel();
 		JLabel label3 = new JLabel("비밀번호");
 		label3.setFont(font3);
+		label3.setForeground(fontcolor);
 		final TextField tf3 = new TextField("", 15);
 		tf3.selectAll(); // tf2.setEchoChar('*');
 		form.add(blankL3);
@@ -88,6 +91,7 @@ class join extends Setting{
 		JLabel blankR4 = new JLabel();
 		JLabel label4 = new JLabel("지점명");
 		label4.setFont(font3);
+		label4.setForeground(fontcolor);
 		final TextField tf4 = new TextField("", 15);
 		tf4.selectAll(); 
 		form.add(blankL4);
@@ -99,6 +103,7 @@ class join extends Setting{
 		JLabel blankR5 = new JLabel();
 		JLabel label5 = new JLabel("위치");
 		label5.setFont(font3);
+		label5.setForeground(fontcolor);
 		final TextField tf5 = new TextField("", 15);
 		tf5.selectAll(); 
 		form.add(blankL5);
@@ -111,12 +116,15 @@ class join extends Setting{
 		JPanel radiobtn = new JPanel();
 		JLabel label6 = new JLabel("직원");
 		label6.setFont(font3);
+		label6.setForeground(fontcolor);
 		ButtonGroup group = new ButtonGroup();
 		final JRadioButton ra1 = new JRadioButton("유", true);
 		ra1.setFont(font3);
+		ra1.setForeground(fontcolor);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", false);
 		ra2.setFont(font3);
+		ra2.setForeground(fontcolor);
 		ra2.setBackground(background);
 		
 		group.add(ra1);
@@ -136,6 +144,7 @@ class join extends Setting{
 		JLabel blankR7 = new JLabel();
 		final JLabel label7 = new JLabel("직원 월급");
 		label7.setFont(font3);
+		label7.setForeground(fontcolor);
 		final TextField tf7 = new TextField("", 15);
 		tf7.selectAll(); 
 		form.add(blankL7);
@@ -366,16 +375,17 @@ class join extends Setting{
 	           mainFrame.setVisible(false);
 	       }
 	    });
-	      
+
 	    JPanel center = new JPanel();
 	    center.add(form);
 	    center.setBackground(background);
-	    center.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
+	    int margin = (height < 1000) ? (height/15) : 50+(height/15);
+	    center.setBorder(BorderFactory.createEmptyBorder(margin, 0, 0, 0));
 	    
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
-	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+	    subpanel.setLayout(new BorderLayout(0, 0));
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(50+(height/15), 0, 50+(height/15), 0));
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(center, BorderLayout.CENTER);
 	    subpanel.add(btns, BorderLayout.SOUTH);

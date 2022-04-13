@@ -101,7 +101,7 @@ public class Manage extends Setting {
 		
 		pWest = new JPanel();
 		pEast = new JPanel();
-		pWest.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		pWest.setBorder(BorderFactory.createEmptyBorder(width/25, 0, 0, 0));
 
 		pWest.setBackground(background);
 		pEast.setBackground(background);

@@ -58,6 +58,7 @@ class login extends Setting {
 		
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font3);
+		label1.setForeground(fontcolor);
 		tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(label1);
@@ -65,6 +66,7 @@ class login extends Setting {
 
 		JLabel label2 = new JLabel("비밀번호");
 		label2.setFont(font3);
+		label2.setForeground(fontcolor);
 		tf2 = new TextField("", 15);
 		tf2.setEchoChar('●');
 		form.add(label2);
@@ -134,8 +136,8 @@ class login extends Setting {
  	   	String input_pw = tf2.getText();
  	   
  	   // 데이터 불러오기
-// 	   	String id = "1";
-// 	   	String pw = "1";
+ 	   	String id = "1";
+ 	   	String pw = "1";
  	   
  	   if(input_id.length() == 0) {
  		   JOptionPane.showMessageDialog(null

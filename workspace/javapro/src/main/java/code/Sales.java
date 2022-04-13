@@ -59,6 +59,7 @@ public class Sales extends Setting{
 
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -90,6 +91,7 @@ public class Sales extends Setting{
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 102)); // 위 왼 아 오
 		JLabel stitle = new JLabel("Today");
 		stitle.setFont(font3);
+		stitle.setForeground(fontcolor);
 		JLabel sales = new JLabel("▲ 350,000");
 		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
 		sales.setForeground(Color.red);
@@ -181,6 +183,7 @@ public class Sales extends Setting{
 
 		JLabel stitle = new JLabel("Month");
 		stitle.setFont(font3);
+		stitle.setForeground(fontcolor);
 		JLabel sales = new JLabel("▲ 780,000");
 		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
 		sales.setForeground(Color.red);
@@ -200,11 +203,11 @@ public class Sales extends Setting{
 		}
 
 		JPanel chbox = new JPanel(new BorderLayout());
-		chbox.setBackground(Color.white);
+		chbox.setBackground(background);
 		JPanel chp = new JPanel();
 		chp.add(yearCh);
 		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // 위 왼 아 오
-		chp.setBackground(Color.white);
+		chp.setBackground(background);
 
 		chbox.add(chp, BorderLayout.WEST);
 		chbox.add(yearbtn, BorderLayout.EAST);

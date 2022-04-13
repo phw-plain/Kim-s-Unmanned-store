@@ -3,6 +3,7 @@ package code;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.CheckboxGroup;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
@@ -71,12 +72,14 @@ public class MyPage extends Setting {
 		header.add(text, BorderLayout.CENTER);
 		
 		// 정보 보기
-		JPanel center = new JPanel(new GridLayout(2, 1));
+		JPanel center = new JPanel();
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		JPanel data = new JPanel(new GridLayout(7, 2, 180, 27));
+	    int margin = (height < 1000) ? 50+(height/30) : 100+(height/30);
+		datas.setBorder(BorderFactory.createEmptyBorder(margin, 0, 0, 0));
+		int spacing = (height < 1000) ? 25 : 27;
+		JPanel data = new JPanel(new GridLayout(7, 2, 180, spacing));
 		data.setBackground(background);
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
@@ -102,7 +105,9 @@ public class MyPage extends Setting {
 		
 		for(int i=0; i<L.length; i++ ) {
 			R[i].setFont(font3);
+			R[i].setForeground(fontcolor);
 			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
 			data.add(L[i]);
 			data.add(R[i]);
 		}
@@ -112,7 +117,8 @@ public class MyPage extends Setting {
 		RoundedButton change = new RoundedButton("정보수정");
 		change.setFont(font3);
 		btn.add(change);
-		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
+		int margin2 = (height < 1000) ? 10 : 5;
+		btn.setBorder(BorderFactory.createEmptyBorder(0, 0, height/margin2, 0));
 		
 		// 버튼 이벤트
 		change.addActionListener(new ActionListener() {
@@ -127,11 +133,11 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.CENTER);
-		center.add(btn, BorderLayout.SOUTH);
+		center.add(datas, BorderLayout.NORTH);
 		
 		Read.add(header, BorderLayout.NORTH);
 		Read.add(center, BorderLayout.CENTER);
+		Read.add(btn, BorderLayout.SOUTH);
 
 		Read.setVisible(true);
 		panel.add(Read);
@@ -168,13 +174,15 @@ public class MyPage extends Setting {
 		header.add(text, BorderLayout.CENTER);
 		
 		// 정보 보기
-		JPanel center = new JPanel(new GridLayout(2, 1));
+		JPanel center = new JPanel();
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		JPanel data = new JPanel(new GridLayout(9, 2, 130, 15));
+		JPanel data = new JPanel(new GridLayout(9, 2, 100, 15));
 		data.setBackground(background);
+
+	    int margin = (height < 1000) ? 50+(height/30) : 100+(height/30);
+		datas.setBorder(BorderFactory.createEmptyBorder(margin, 0, 0, 0));
 		
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
@@ -200,12 +208,14 @@ public class MyPage extends Setting {
 		
 		for(int i=0; i<L.length; i++ ) {
 			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
 		}
 		
 		final TextField R1 = new TextField(name, 15);
 		R1.setFont(font6);
 		final JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
+		R2.setForeground(fontcolor);
 		final TextField R3 = new TextField(pw, 15);
 		R3.setFont(font6);
 		final TextField R4 = new TextField(brand, 15);
@@ -219,9 +229,11 @@ public class MyPage extends Setting {
 		CheckboxGroup g = new CheckboxGroup();
 		final JRadioButton ra1 = new JRadioButton("유", (emp)? true:false);
 		ra1.setFont(font6);
+		ra1.setForeground(fontcolor);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", (emp) ? false:true);
 		ra2.setFont(font6);
+		ra2.setForeground(fontcolor);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		if(emp == false) {
@@ -271,8 +283,8 @@ public class MyPage extends Setting {
 		cancel.setFont(font3);
 		btn.add(check);
 		btn.add(cancel);
-		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
-		
+		int margin2 = (height < 1000) ? 10 : 5;
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, height/margin2, 0));
 		btns.add(btn);
 		
 		// 버튼 이벤트
@@ -400,11 +412,11 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.CENTER);
-		center.add(btns, BorderLayout.SOUTH);
+		center.add(datas, BorderLayout.NORTH);
 		
 		Write.add(header, BorderLayout.NORTH);
 		Write.add(center, BorderLayout.CENTER);
+		Write.add(btns, BorderLayout.SOUTH);
 
 		Write.setVisible(false);
 		panel.add(Write);

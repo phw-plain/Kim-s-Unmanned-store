@@ -375,7 +375,7 @@ class join extends Setting{
 	    subpanel = new JPanel();
 	    subpanel.setBackground(background);
 	    subpanel.setLayout(new BorderLayout(0, 100));
-	    subpanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));
+	    subpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 	    subpanel.add(headerLabel, BorderLayout.NORTH);
 	    subpanel.add(center, BorderLayout.CENTER);
 	    subpanel.add(btns, BorderLayout.SOUTH);

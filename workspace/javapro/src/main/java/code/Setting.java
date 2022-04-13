@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 public class Setting {
 	// 기본 정보
 	public int width = 1280;
-	public int height = 1024;
+	public int height = 800;
 	public boolean resizable = true;
 
 	// color

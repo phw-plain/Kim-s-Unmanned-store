@@ -306,8 +306,8 @@ public class Customer extends Setting {
 		imformation.setBackground(background);
 		JPanel form = new JPanel(new GridLayout(6,2,0,30));
 		form.setBackground(background);
-		form.setPreferredSize(new Dimension(800,500));
-		form.setBorder(BorderFactory.createEmptyBorder(100, 100, 0, 100));
+		form.setPreferredSize(new Dimension(800,(int)(height*0.5)));
+		form.setBorder(BorderFactory.createEmptyBorder((int)(height*0.01), 100, 0, 100));
 		
 		JLabel L[] = new JLabel[6];
 		R = new TextField[5];
@@ -352,7 +352,8 @@ public class Customer extends Setting {
 		// btn
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
-		btns.setBorder(BorderFactory.createEmptyBorder(50, 0, 100, 0));
+		double margin2 = (height < 1000) ? 0.03 : 0.1;
+		btns.setBorder(BorderFactory.createEmptyBorder(50, 0, (int)(height*margin2), 0));
 		RoundedButton change = new RoundedButton("확인");
 		change.setFont(font3);
 		

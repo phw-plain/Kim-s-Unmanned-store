@@ -12,14 +12,17 @@ public class isType {
 		return true;
 	}
 	public static boolean isString1(String str) {
-		boolean result;
 		if(!str.matches("[0-9|a-z|A-Z|]*"))
 			return false;
 		return true;
 	}
 	public static boolean isString2(String str) {
-		boolean result;
 		if(!str.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) 
+			return false;
+		return true;
+	}
+	public static boolean isMail(String str) {
+		if(str.indexOf("@") == -1)
 			return false;
 		return true;
 	}

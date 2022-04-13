@@ -302,12 +302,12 @@ public class Manage extends Setting {
 				customer.setVisible(false);
 			}
 		});
-//		customer.homebtn2.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				menu.setVisible(true);
-//				customer.setVisible(false);
-//			}
-//		});
+		customer.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				customer.setVisible(false);
+			}
+		});
 	}
 	
 	class MyPanel extends JPanel {

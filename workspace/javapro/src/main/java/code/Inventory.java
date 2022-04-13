@@ -216,15 +216,10 @@ public class Inventory extends Setting {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() != 0) {
-					System.out.println("입력된 문자열 : " + input.getText());
-					
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
 					
-					System.out.println("데이터 수정 완료!");
-				} else {
-					System.out.println("입력된 문자열 없음");
-				}
+				} 
 			}
 		});
 

@@ -85,7 +85,7 @@ public class Inventory extends Setting {
 		colNames.add("판매량");
 		colNames.add("제품설명");
 		
-		// 데이터 불러오기	(for문 사용하기)
+		// 데이터 불러오기
 		code.add("AD1004");
 		code.add("BC2075");
 		code.add("TR1200");

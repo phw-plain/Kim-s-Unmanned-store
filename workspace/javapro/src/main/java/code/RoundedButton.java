@@ -7,9 +7,7 @@ import javax.swing.event.*;
 public class RoundedButton extends JButton { 
 
 	// color
-	Color normal = new Color(253, 206, 83);
-	Color over = new Color(201, 165, 124);
-	Color click = new Color(190, 147, 99);
+	public Color nomal = new Color(253, 206, 83);
 	
 	public RoundedButton() { 
 		super();
@@ -51,11 +49,11 @@ public class RoundedButton extends JButton {
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
 		
 		if (getModel().isArmed()) { 
-			graphics.setColor(normal.darker()); 
+			graphics.setColor(nomal.darker()); 
 		} else if (getModel().isRollover()) {
-			graphics.setColor(normal.brighter()); 
+			graphics.setColor(nomal.brighter()); 
 		} else { 
-			graphics.setColor(normal); 
+			graphics.setColor(nomal); 
 		} 
 		
 		graphics.fillRoundRect(0, 0, width, height, 10, 10); 

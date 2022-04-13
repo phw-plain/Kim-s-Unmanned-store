@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
+import java.awt.TextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
@@ -67,6 +68,7 @@ public class Setting {
 	public static int empsal;
 
 	public static Frame startFrame;
+	
 	
 	public Setting(){
 		header_back = new Color(254, 235, 182);

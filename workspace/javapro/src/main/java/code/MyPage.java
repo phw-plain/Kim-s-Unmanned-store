@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class MyPage extends Setting {
 	public JPanel panel;
@@ -211,18 +211,18 @@ public class MyPage extends Setting {
 			L[i].setForeground(fontcolor);
 		}
 		
-		final TextField R1 = new TextField(name, 15);
+		final JTextField R1 = new JTextField(name, 15);
 		R1.setFont(font6);
 		final JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
 		R2.setForeground(fontcolor);
-		final TextField R3 = new TextField(pw, 15);
+		final JTextField R3 = new JTextField(pw, 15);
 		R3.setFont(font6);
-		final TextField R4 = new TextField(brand, 15);
+		final JTextField R4 = new JTextField(brand, 15);
 		R4.setFont(font6);
-		final TextField R5 = new TextField(location, 15);
+		final JTextField R5 = new JTextField(location, 15);
 		R5.setFont(font6);
-		final TextField R7 = new TextField(Integer.toString(empsal), 15);
+		final JTextField R7 = new JTextField(Integer.toString(empsal), 15);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();

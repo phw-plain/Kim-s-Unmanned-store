@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +39,7 @@ public class Customer extends Setting {
 	private Vector<String> colNames = new Vector<String>();
 	
 	int index;
-	TextField R[];
+	JTextField R[];
 	JLabel R0;
 	
 	// 고객 DB 참조
@@ -124,7 +124,7 @@ public class Customer extends Setting {
 		search.setBackground(background);
 		double margin = (height < 1000) ? 0.12 : 0.2;
 		search.setBorder(BorderFactory.createEmptyBorder(50, (int)(width*margin), 0, 0));
-		final TextField input = new TextField(" ", 20);
+		final JTextField input = new JTextField(" ", 20);
 		HalfRoundedButton check = new HalfRoundedButton("🔍");
 
 		// search 이벤트
@@ -310,14 +310,14 @@ public class Customer extends Setting {
 		form.setBorder(BorderFactory.createEmptyBorder((int)(height*0.01), 100, 0, 100));
 		
 		JLabel L[] = new JLabel[6];
-		R = new TextField[5];
+		R = new JTextField[5];
 		
 		for(int i=0; i<L.length; i++) {
 			L[i] = new JLabel();
 			L[i].setFont(font3);
 			L[i].setForeground(fontcolor);
 			if(i<R.length) {
-				R[i] = new TextField();
+				R[i] = new JTextField();
 				R[i].setFont(font3);
 				R[i].setForeground(fontcolor);
 			}

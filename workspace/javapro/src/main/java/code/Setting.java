@@ -15,10 +15,8 @@ import javax.swing.UIManager;
 
 public class Setting {
 	// 기본 정보
-//	public static int width = 1280;
-//	public static int height = 1024;
-	public static int width = 1024;
-	public static int height = 786;
+	public static int width = 1280;
+	public static int height = 1024;
 	public boolean resizable = false;
 
 	// color

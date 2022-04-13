@@ -175,7 +175,7 @@ class login extends Setting {
 		    	print();
 						
 				new Manage(id, pw);
-				mainFrame.setVisible(false);
+	    		mainFrame.dispose();
 			}
 	}
 	

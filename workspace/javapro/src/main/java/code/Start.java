@@ -75,14 +75,14 @@ public class Start extends Setting {
 	    loginbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
 	           new login(); //프레임 전환
-	           startFrame.setVisible(false);
+	           startFrame.dispose();
 	       }
 	    });
 	      
 	    joinbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
 	           new join(); //프레임 전환
-	           startFrame.setVisible(false);
+	           startFrame.dispose();
 	       }
 	    });
 

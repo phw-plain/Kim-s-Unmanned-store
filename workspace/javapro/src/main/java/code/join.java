@@ -362,7 +362,7 @@ class join extends Setting{
 	 						, JOptionPane.PLAIN_MESSAGE
 	 				);
 	 				new Start();
-	 		        mainFrame.setVisible(false);
+		    		mainFrame.dispose();
 	
 	 			}
 	 		}

@@ -9,8 +9,9 @@ import java.util.List;
 @RestController
 public class marketController {
 
-    @GetMapping("hello")
-    public List<String> hello() {
-        return Arrays.asList("안녕하세요", "Hello");
+    @GetMapping("/home")
+    public String hello() {
+        return "Hello World!";
     }
+    
 }

@@ -50,7 +50,7 @@ public class SetWindow extends Setting {
     	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
     	reso_sub.setBackground(background);
     	JLabel reso_title =  new JLabel("해상도");
-    	Choice reso = new Choice();
+    	final Choice reso = new Choice();
     	
     	for(int i=0; i<resoArr.length; i++) {
     		reso.add(resoArr[i][0]+"X"+resoArr[i][1]);
@@ -66,7 +66,7 @@ public class SetWindow extends Setting {
     	JPanel font_sub = new JPanel(new GridLayout(1,2,0,0));
     	font_sub.setBackground(background);
     	JLabel font_title =  new JLabel("글꼴");
-    	Choice fonts = new Choice();
+    	final Choice fonts = new Choice();
     	
     	addFont();
     	

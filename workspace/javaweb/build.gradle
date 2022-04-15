@@ -21,7 +21,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-def reactDir = "$projectDir/src/main/webapp/react프로젝트명";
+def reactDir = "$projectDir/src/main/webapp/reactjs";
 
 sourceSets{
 	main{

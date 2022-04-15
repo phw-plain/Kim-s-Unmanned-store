@@ -1,5 +1,6 @@
 package code;
 import java.awt.*;
+
 import java.awt.event.*;
 import java.net.URL;
 
@@ -41,7 +42,6 @@ class join extends Setting{
 		headerLabel.setText("회원가입");
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
-
 		// 회원가입 정보 입력
 		form = new Panel(new GridLayout(8,4,0,30));
 		form.setPreferredSize(new Dimension(800,400));
@@ -363,7 +363,8 @@ class join extends Setting{
 	 				);
 	 				new Start();
 		    		mainFrame.dispose();
-	
+		    		mysql_join m = new mysql_join();
+		    		m.tableInsert(id,pw,name,brand,location,empsal);
 	 			}
 	 		}
 	 	});

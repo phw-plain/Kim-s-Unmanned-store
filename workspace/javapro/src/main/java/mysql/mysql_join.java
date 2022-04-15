@@ -52,7 +52,7 @@ public class mysql_join extends mysql_main{
 			public void tableInsert(String ID, String PW, String name, String brand, String location, int salary){ 
 				System.out.println("-------");
 				Table_name tn = new Table_name(ID,PW, name, brand, location, salary); //외부에서 매개변수로 데이터를 받아 Qurey문을 만들어 줍니다. 
-				String query = "INSERT INTO user(cl_id,cl_password, cl_name, cl_brand, cl_location, cl_salary)values('" + tn.getName() + "', '" + tn.getID() +"','"+tn.getPW() +"','"+tn.getBrand() +"',"+tn.getLocation() +","+tn.getSalary()+");";
+				String query = "INSERT INTO user(cl_id,cl_password, cl_name, cl_brand, cl_location, cl_salary)values('" + tn.getName() + "', '" + tn.getID() +"','"+tn.getPW() +"','"+tn.getBrand() +"','"+tn.getLocation() +"',"+tn.getSalary()+");";
 				System.out.println(query); // Qurey문 확인 
 				try { // 데이터베이스에 접속합니다. 
 					Class.forName(super.JDBC_DRIVER); 

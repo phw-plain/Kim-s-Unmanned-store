@@ -3,6 +3,7 @@ package code;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.CheckboxGroup;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
@@ -52,7 +53,6 @@ public class MyPage extends Setting {
 		
 		// home 버튼 생성
 		homebtn1.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
-		homebtn1.setPressedIcon(img); 	// rolloverIcon용 이미지 등록
 		homebtn1.setContentAreaFilled(false); 	// 배경 채우기
 		homebtn1.setBorderPainted(false); 		// 외각선
 		homebtn1.setFocusPainted(false); 		// 선택 외각선
@@ -72,12 +72,14 @@ public class MyPage extends Setting {
 		header.add(text, BorderLayout.CENTER);
 		
 		// 정보 보기
-		JPanel center = new JPanel(new GridLayout(2, 1));
+		JPanel center = new JPanel();
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		JPanel data = new JPanel(new GridLayout(7, 2, 180, 27));
+	    int margin = (height < 1000) ? 50+(height/30) : 100+(height/30);
+		datas.setBorder(BorderFactory.createEmptyBorder(margin, 0, 0, 0));
+		int spacing = (height < 1000) ? 25 : 27;
+		JPanel data = new JPanel(new GridLayout(7, 2, 180, spacing));
 		data.setBackground(background);
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
@@ -89,7 +91,7 @@ public class MyPage extends Setting {
 		L[1] = new JLabel("아이디");
 		L[2] = new JLabel("비밀번호");
 		L[3] = new JLabel("지점명");
-		L[4] = new JLabel("매출대비지급액(%)");
+		L[4] = new JLabel("위치");
 		L[5] = new JLabel("직원");
 		L[6] = new JLabel("직원 월급");
 		
@@ -97,13 +99,15 @@ public class MyPage extends Setting {
 		R[1] = new JLabel(id);
 		R[2] = new JLabel(pw);
 		R[3] = new JLabel(brand);
-		R[4] = new JLabel(Double.toString(percent));
+		R[4] = new JLabel(location);
 		R[5] = new JLabel((emp)?"유":"무");
 		R[6] = new JLabel(Integer.toString(empsal));
 		
-		for(int i=0; i<7; i++ ) {
+		for(int i=0; i<L.length; i++ ) {
 			R[i].setFont(font3);
+			R[i].setForeground(fontcolor);
 			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
 			data.add(L[i]);
 			data.add(R[i]);
 		}
@@ -113,7 +117,8 @@ public class MyPage extends Setting {
 		RoundedButton change = new RoundedButton("정보수정");
 		change.setFont(font3);
 		btn.add(change);
-		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
+		int margin2 = (height < 1000) ? 10 : 5;
+		btn.setBorder(BorderFactory.createEmptyBorder(0, 0, height/margin2, 0));
 		
 		// 버튼 이벤트
 		change.addActionListener(new ActionListener() {
@@ -128,11 +133,11 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.CENTER);
-		center.add(btn, BorderLayout.SOUTH);
+		center.add(datas, BorderLayout.NORTH);
 		
 		Read.add(header, BorderLayout.NORTH);
 		Read.add(center, BorderLayout.CENTER);
+		Read.add(btn, BorderLayout.SOUTH);
 
 		Read.setVisible(true);
 		panel.add(Read);
@@ -169,58 +174,70 @@ public class MyPage extends Setting {
 		header.add(text, BorderLayout.CENTER);
 		
 		// 정보 보기
-		JPanel center = new JPanel(new GridLayout(2, 1));
+		JPanel center = new JPanel();
 		center.setBackground(background);
-		center.setBorder(BorderFactory.createEmptyBorder(height/7, 0, 0, 0));
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		JPanel data = new JPanel(new GridLayout(9, 2, 180, 15));
+		JPanel data = new JPanel(new GridLayout(9, 2, 100, 15));
 		data.setBackground(background);
+
+	    int margin = (height < 1000) ? 50+(height/30) : 100+(height/30);
+		datas.setBorder(BorderFactory.createEmptyBorder(margin, 0, 0, 0));
 		
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
 		JPanel btn = new JPanel(new GridLayout(1, 2, 30, 0));
 		btn.setBackground(background);
 
-		JLabel L1 = new JLabel("이름");
-		L1.setFont(font3);
-		JLabel L2 = new JLabel("아이디");
-		L2.setFont(font3);
-		JLabel L3 = new JLabel("비밀번호");
-		L3.setFont(font3);
-		JLabel L4 = new JLabel("지점명");
-		L4.setFont(font3);
-		JLabel L5 = new JLabel("매출대비지급액(%)");
-		L5.setFont(font3);
-		JLabel L6 = new JLabel("직원");
-		L6.setFont(font3);
-		JLabel L7 = new JLabel("직원 월급");
-		L7.setFont(font3);
+		final JLabel L[] = new JLabel[7];	
+		L[0] = new JLabel("이름");
+		L[1] = new JLabel("아이디");
+		L[2] = new JLabel("비밀번호");
+		L[3] = new JLabel("지점명");
+		L[4] = new JLabel("위치");
+		L[5] = new JLabel("직원");
+		L[6] = new JLabel("직원 월급");
 		
-		TextField R1 = new TextField(name);
+//		R[0] = new JLabel(name);
+//		R[1] = new JLabel(id);
+//		R[2] = new JLabel(pw);
+//		R[3] = new JLabel(brand);
+//		R[4] = new JLabel(location);
+//		R[5] = new JLabel((emp)?"유":"무");
+//		R[6] = new JLabel(Integer.toString(empsal));
+		
+		for(int i=0; i<L.length; i++ ) {
+			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
+		}
+		
+		final TextField R1 = new TextField(name, 15);
 		R1.setFont(font6);
-		JLabel R2 = new JLabel(id);
+		final JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
-		TextField R3 = new TextField(pw);
+		R2.setForeground(fontcolor);
+		final TextField R3 = new TextField(pw, 15);
 		R3.setFont(font6);
-		TextField R4 = new TextField(brand);
+		final TextField R4 = new TextField(brand, 15);
 		R4.setFont(font6);
-		TextField R5 = new TextField(Double.toString(percent));
+		final TextField R5 = new TextField(location, 15);
 		R5.setFont(font6);
-		TextField R7 = new TextField(Integer.toString(empsal));
+		final TextField R7 = new TextField(Integer.toString(empsal), 15);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
 		final JRadioButton ra1 = new JRadioButton("유", (emp)? true:false);
 		ra1.setFont(font6);
+		ra1.setForeground(fontcolor);
 		ra1.setBackground(background);
 		JRadioButton ra2 = new JRadioButton("무", (emp) ? false:true);
 		ra2.setFont(font6);
+		ra2.setForeground(fontcolor);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
 		if(emp == false) {
-			L7.setVisible(false);
+			L[6].setVisible(false);
 			R7.setVisible(false);
 		}
 		
@@ -232,30 +249,30 @@ public class MyPage extends Setting {
 		// 직원 유무 radio 이벤트
 	    ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L7.setVisible(true);
+				L[6].setVisible(true);
 				R7.setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L7.setVisible(false);
+				L[6].setVisible(false);
 				R7.setVisible(false);
 			}
 		});
 		
-		data.add(L1);
+		data.add(L[0]);
 		data.add(R1);
-		data.add(L2);
+		data.add(L[1]);
 		data.add(R2);
-		data.add(L3);
+		data.add(L[2]);
 		data.add(R3);
-		data.add(L4);
+		data.add(L[3]);
 		data.add(R4);
-		data.add(L5);
+		data.add(L[4]);
 		data.add(R5);
-		data.add(L6);
+		data.add(L[5]);
 		data.add(staff);
-		data.add(L7);
+		data.add(L[6]);
 		data.add(R7);
 		
 		datas.add(data);
@@ -266,8 +283,8 @@ public class MyPage extends Setting {
 		cancel.setFont(font3);
 		btn.add(check);
 		btn.add(cancel);
-		btn.setBorder(BorderFactory.createEmptyBorder(height/10, 0, 0, 0));
-		
+		int margin2 = (height < 1000) ? 10 : 5;
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, height/margin2, 0));
 		btns.add(btn);
 		
 		// 버튼 이벤트
@@ -324,23 +341,23 @@ public class MyPage extends Setting {
 					);
 				} else if(R4.getText().length() > 16) {
  					JOptionPane.showMessageDialog(null
-						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
-						, "박리다매 무인가게"
-						, JOptionPane.ERROR_MESSAGE
+							, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(ra1.isSelected() == true && R5.getText().length() == 0) {	// 예외 처리 매출대비지급액
+ 				} else if(R5.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
-							, "매출대비지급액을 입력해주세요."
+							, "위치를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(!is.isNum(R5.getText())) {
-					JOptionPane.showMessageDialog(null
-							, "매출대비지급액은 숫자만 입력해주세요."
+				} else if(R5.getText().length() > 16) {
+ 					JOptionPane.showMessageDialog(null
+							, "위치가 너무 깁니다. 16자 이내로 입력해 주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
-					);
-				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// 예외 처리 직원 월급
+ 					);
+ 				} else if(ra1.isSelected() && (R7.getText()).length() == 0) {		// 예외 처리 직원 월급
 					JOptionPane.showMessageDialog(null
 							, "직원 월급을 입력해주세요."
 							, "박리다매 무인가게"
@@ -367,7 +384,7 @@ public class MyPage extends Setting {
 						id = R2.getText();
 						pw = R3.getText();
 						brand = R4.getText();
-						percent = Double.parseDouble(R5.getText());
+						location = R5.getText();
 						emp = (ra1.isSelected() == true) ? true : false;
 						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
 
@@ -381,8 +398,6 @@ public class MyPage extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-
-						print();
 						
 						Read.setVisible(true);
 						Write.setVisible(false);
@@ -397,11 +412,11 @@ public class MyPage extends Setting {
 			}
 		});
 		
-		center.add(datas, BorderLayout.CENTER);
-		center.add(btns, BorderLayout.SOUTH);
+		center.add(datas, BorderLayout.NORTH);
 		
 		Write.add(header, BorderLayout.NORTH);
 		Write.add(center, BorderLayout.CENTER);
+		Write.add(btns, BorderLayout.SOUTH);
 
 		Write.setVisible(false);
 		panel.add(Write);

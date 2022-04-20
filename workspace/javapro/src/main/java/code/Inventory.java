@@ -13,10 +13,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -44,31 +48,44 @@ public class Inventory extends Setting {
 	private JLabel btnAdd[] = new JLabel[3];
 	
 	private DefaultTableModel model;
-	private Vector<Vector> dataSet = new Vector<>();
-	private Vector<String> colNames = new Vector<>();
+	private Vector<Vector> dataSet = new Vector<Vector>();
+	private Vector<String> colNames = new Vector<String>();
 
-	private Vector<String> code = new Vector<>();
-	private Vector<String> name = new Vector<>();
-	private Vector<String> category = new Vector<>();
-	private Vector<String> standard = new Vector<>();
-	private Vector<Integer> cnt = new Vector<>();
-	private Vector<Integer> price = new Vector<>();
-	private Vector<String> note = new Vector<>();
+	private Vector<String> code = new Vector<String>();
+	private Vector<String> name = new Vector<String>();
+	private Vector<String> category = new Vector<String>();
+	private Vector<String> standard = new Vector<String>();
+	private Vector<Integer> cnt = new Vector<Integer>();
+	private Vector<Integer> price = new Vector<Integer>();
+	private Vector<Integer> cost = new Vector<Integer>();
+	private Vector<Integer> amount = new Vector<Integer>();
+	private Vector<String> explain = new Vector<String>();
+	private Vector<String> picture = new Vector<String>();
+
+	int spacing;
+	int margin1;
+	int margin2;
 	
 	public Inventory() {
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
-
+		
+		spacing = (height < 1000) ? 15 : 30;
+		margin1 = (height < 1000) ? 25 : 50;
+		margin2 = (height < 1000) ? 15 : 30;
+		
 		// 제고관리 cloumn 설정
 		colNames.add("제품코드");
 		colNames.add("상품명");
 		colNames.add("분 류");
 		colNames.add("규 격");
 		colNames.add("수 량");
-		colNames.add("금 액");
-		colNames.add("비 고");
+		colNames.add("단 가");
+		colNames.add("원 가");
+		colNames.add("판매량");
+		colNames.add("제품설명");
 		
-		// 데이터 불러오기	(for문 사용하기)
+		// 데이터 불러오기
 		code.add("AD1004");
 		code.add("BC2075");
 		code.add("TR1200");
@@ -87,9 +104,18 @@ public class Inventory extends Setting {
 		price.add(1200);
 		price.add(2700);
 		price.add(1600);
-		note.add("/");
-		note.add("/");
-		note.add("/");
+		cost.add(1000);
+		cost.add(2500);
+		cost.add(1300);
+		amount.add(10);
+		amount.add(5);
+		amount.add(3);
+		explain.add("가나다라마바사아자차카타파하");
+		explain.add("/");
+		explain.add("/");
+		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures1");
+		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures2");
+		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures3");
 		
 		for(int i=0; i<100; i++) {
 			code.add("test");
@@ -98,7 +124,10 @@ public class Inventory extends Setting {
 			standard.add("test4");
 			cnt.add(1);
 			price.add(1);
-			note.add("/");
+			cost.add(1);
+			amount.add(1);
+			explain.add("/");
+			picture.add("이미지 없음");
 		}
 		
 		View();
@@ -133,6 +162,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -174,8 +204,9 @@ public class Inventory extends Setting {
 		// search
 		JPanel search = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		search.setBackground(background);
-		search.setBorder(BorderFactory.createEmptyBorder(50, 240, 0, 0));
-		TextField input = new TextField(" ", 20);
+		double margin = (height < 1000) ? 0.12 : 0.2;
+		search.setBorder(BorderFactory.createEmptyBorder(50, (int)(width*margin), 0, 0));
+		final TextField input = new TextField(" ", 20);
 		HalfRoundedButton check = new HalfRoundedButton("🔍");
 
 		search.add(input);
@@ -213,7 +244,7 @@ public class Inventory extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, 600));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension(800, (int)(height*0.5)));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -263,6 +294,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -299,20 +331,21 @@ public class Inventory extends Setting {
 		nav.add(menubar, BorderLayout.SOUTH);
 		
 		// inventory modify
-		JPanel inventory = new JPanel(new BorderLayout());
+		final JPanel inventory = new JPanel(new BorderLayout());
 		inventory.setBackground(background);
 		
 		JLabel subtitle1 = new JLabel("재고 편집");
 		subtitle1.setFont(font2);
+		subtitle1.setForeground(fontcolor);
 		subtitle1.setHorizontalAlignment(JLabel.CENTER);
-		subtitle1.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		subtitle1.setBorder(BorderFactory.createEmptyBorder(margin1, 0, 0, 0));
 		
 		// 재고 선택
 		JPanel choose = new JPanel();
 		choose.setBackground(background);
-		choose.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		choose.setBorder(BorderFactory.createEmptyBorder(margin2, 0, 0, 0));
 
-		Choice ch = new Choice();
+		final Choice ch = new Choice();
 		
 		for(int i=0; i<name.size(); i++) {
 			ch.add(name.get(i));
@@ -337,12 +370,12 @@ public class Inventory extends Setting {
 		inventory.add(btns1, BorderLayout.SOUTH);
 		
 		// inventory replace
-		JPanel replace = new JPanel(new BorderLayout());
+		final JPanel replace = new JPanel(new BorderLayout());
 		replace.setBackground(background);
 
 		JPanel btns2 = new JPanel();
 		btns2.setBackground(background);
-		btns2.setBorder(BorderFactory.createEmptyBorder(0, 0, height/10, 0));
+		btns2.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.06), 0));
 		RoundedButton check1 = new RoundedButton("확인");
 		check1.setFont(font3);
 		RoundedButton cancel1 = new RoundedButton("취소");
@@ -351,65 +384,73 @@ public class Inventory extends Setting {
 		btns2.add(check1);
 		btns2.add(cancel1);
 		
-		JLabel subtitle2 = new JLabel("재고 수정");
-		subtitle2.setFont(font2);
-		subtitle2.setHorizontalAlignment(JLabel.CENTER);
-		subtitle2.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
-		
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		datas.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+		datas.setBorder(BorderFactory.createEmptyBorder((int)(height*0.08), 0, 0, 0));
 		
-		JPanel data = new JPanel(new GridLayout(7, 2, 0, 30));
+		JPanel data = new JPanel(new GridLayout(10, 2, 0, spacing));
 		data.setBackground(background);
-		JLabel L1 = new JLabel(colNames.get(0));
-		L1.setFont(font3);
-		JLabel L2 = new JLabel(colNames.get(1));
-		L2.setFont(font3);
-		JLabel L3 = new JLabel(colNames.get(2));
-		L3.setFont(font3);
-		JLabel L4 = new JLabel(colNames.get(3));
-		L4.setFont(font3);
-		JLabel L5 = new JLabel(colNames.get(4));
-		L5.setFont(font3);
-		JLabel L6 = new JLabel(colNames.get(5));
-		L6.setFont(font3);
-		JLabel L7 = new JLabel(colNames.get(6));
-		L7.setFont(font3);
+		JLabel L[] = new JLabel[9];
+		for(int i=0; i<L.length; i++) {
+			L[i] = new JLabel(colNames.get(i));
+			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
+		}
+		JLabel L10 = new JLabel("이미지");
+		L10.setFont(font3);
+		L10.setForeground(fontcolor);
 		
-		JLabel R1 = new JLabel("");
+		final JLabel R1 = new JLabel("");
 		R1.setFont(font6);
-		TextField R2 = new TextField("", 20);
+		R1.setForeground(fontcolor);
+		final TextField R2 = new TextField("", 20);
 		R2.setFont(font6);
-		TextField R3 = new TextField("", 20);
+		final TextField R3 = new TextField("", 20);
 		R3.setFont(font6);
-		TextField R4 = new TextField("", 20);
+		final TextField R4 = new TextField("", 20);
 		R4.setFont(font6);
-		TextField R5 = new TextField("", 20);
+		final TextField R5 = new TextField("", 20);
 		R5.setFont(font6);
-		TextField R6 = new TextField("", 20);
+		final TextField R6 = new TextField("", 20);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
-		R6.setFont(font6);
+		final TextField R7 = new TextField("/", 20);
+		R7.setFont(font6);
+		final TextField R8 = new TextField("/", 20);
+		R8.setFont(font6);
+		final TextField R9 = new TextField("/", 20);
+		R9.setFont(font6);
+
+		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		TextField R10 = new TextField("", 20);
+		R10.setFont(font6);
+		JButton btnR10 = new JButton("파일찾기");
+		btnR10.setFont(font6);
+		imglayer.add(R10);
+		imglayer.add(btnR10);
 		
-		data.add(L1);
+		data.add(L[0]);
 		data.add(R1);
-		data.add(L2);
+		data.add(L[1]);
 		data.add(R2);
-		data.add(L3);
+		data.add(L[2]);
 		data.add(R3);
-		data.add(L4);
+		data.add(L[3]);
 		data.add(R4);
-		data.add(L5);
+		data.add(L[4]);
 		data.add(R5);
-		data.add(L6);
+		data.add(L[5]);
 		data.add(R6);
-		data.add(L7);
+		data.add(L[6]);
 		data.add(R7);
+		data.add(L[7]);
+		data.add(R8);
+		data.add(L[8]);
+		data.add(R9);
+		data.add(L10);
+		data.add(imglayer);
 		
 		datas.add(data);
-		
-		replace.add(subtitle2, BorderLayout.NORTH);		
+			
 		replace.add(datas, BorderLayout.CENTER);
 		replace.add(btns2, BorderLayout.SOUTH);
 		
@@ -426,8 +467,10 @@ public class Inventory extends Setting {
 				R4.setText(standard.get(index));
 				R5.setText(Integer.toString(cnt.get(index)));
 				R6.setText(Integer.toString(price.get(index)));
-				R7.setText(note.get(index));
-				
+				R7.setText(Integer.toString(cost.get(index)));
+				R8.setText(Integer.toString(amount.get(index)));
+				R9.setText(explain.get(index));
+				R10.setText(picture.get(index));
 			}
 		});
 		rm.addActionListener(new ActionListener() {
@@ -443,7 +486,6 @@ public class Inventory extends Setting {
 				if(n == 0) {
 					// 데이터 삭제
 					int index = ch.getSelectedIndex();
-					
 					dataSet.remove(index);
 					code.remove(index);
 					name.remove(index);
@@ -451,7 +493,10 @@ public class Inventory extends Setting {
 					standard.remove(index);
 					cnt.remove(index);
 					price.remove(index);
-					note.remove(index);
+					cost.remove(index);
+					amount.remove(index);
+					explain.remove(index);
+					picture.remove(index);
 					
 					// repaint
 					ch.remove(index);
@@ -520,7 +565,7 @@ public class Inventory extends Setting {
 						&&  R4.getText().equals(standard.get(index))
 						&&  Integer.parseInt(R5.getText()) == cnt.get(index)
 						&&  Integer.parseInt(R6.getText()) == price.get(index)
-						&&  R7.getText().equals(note.get(index))) {
+						&&  R7.getText().equals(explain.get(index))) {
 					JOptionPane.showMessageDialog(null
 							, "변경사항이 없습니다!"
 							, "박리다매 무인가게"
@@ -547,7 +592,7 @@ public class Inventory extends Setting {
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
 						price.set(index, Integer.parseInt(R6.getText()));
-						note.set(index, R7.getText());
+						explain.set(index, R7.getText());
 						
 						// repaint
 						dataLoad();		
@@ -608,6 +653,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -649,70 +695,90 @@ public class Inventory extends Setting {
 		
 		JLabel subtitle = new JLabel("재고 추가");
 		subtitle.setFont(font2);
+		subtitle.setForeground(fontcolor);
 		subtitle.setHorizontalAlignment(JLabel.CENTER);
-		subtitle.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		subtitle.setBorder(BorderFactory.createEmptyBorder(margin1, 0, 0, 0));
 
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
-		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, height/10, 0));
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.04), 0));
 		RoundedButton add = new RoundedButton("추가");
 		add.setFont(font3);
 		btns.add(add);
 		
 		JPanel datas = new JPanel();
 		datas.setBackground(background);
-		datas.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+		datas.setBorder(BorderFactory.createEmptyBorder((int)(height*0.04), 0, 0, 0));
 		
-		JPanel data = new JPanel(new GridLayout(7, 2, 0, 30));
+		
+		JPanel data = new JPanel(new GridLayout(10, 2, 0, spacing));
 		data.setBackground(background);
-		JLabel L1 = new JLabel(colNames.get(0));
-		L1.setFont(font3);
-		JLabel L2 = new JLabel(colNames.get(1));
-		L2.setFont(font3);
-		JLabel L3 = new JLabel(colNames.get(2));
-		L3.setFont(font3);
-		JLabel L4 = new JLabel(colNames.get(3));
-		L4.setFont(font3);
-		JLabel L5 = new JLabel(colNames.get(4));
-		L5.setFont(font3);
-		JLabel L6 = new JLabel(colNames.get(5));
-		L6.setFont(font3);
-		JLabel L7 = new JLabel(colNames.get(6));
-		L7.setFont(font3);
+		JLabel L[] = new JLabel[9];
+		for(int i=0; i<L.length; i++) {
+			L[i] = new JLabel(colNames.get(i));
+			L[i].setFont(font3);
+			L[i].setForeground(fontcolor);
+		}
+		JLabel L10 = new JLabel("이미지");
+		L10.setFont(font3);
+		L10.setForeground(fontcolor);
 		
-		TextField R1 = new TextField("", 20);
+		final TextField R1 = new TextField("", 20);
 		R1.setFont(font6);
-		TextField R2 = new TextField("", 20);
+		final TextField R2 = new TextField("", 20);
 		R2.setFont(font6);
-		TextField R3 = new TextField("", 20);
+		final TextField R3 = new TextField("", 20);
 		R3.setFont(font6);
-		TextField R4 = new TextField("", 20);
+		final TextField R4 = new TextField("", 20);
 		R4.setFont(font6);
-		TextField R5 = new TextField("", 20);
+		final TextField R5 = new TextField("", 20);
 		R5.setFont(font6);
-		TextField R6 = new TextField("", 20);
+		final TextField R6 = new TextField("", 20);
 		R6.setFont(font6);
-		TextField R7 = new TextField("/", 20);
-		R6.setFont(font6);
+		final TextField R7 = new TextField("", 20);
+		R7.setFont(font6);
+		final TextField R8 = new TextField("", 20);
+		R8.setFont(font6);
+		final TextField R9 = new TextField("/", 20);
+		R9.setFont(font6);
 		
-		data.add(L1);
+		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		TextField R10 = new TextField("", 20);
+		R10.setFont(font6);
+		JButton btnR10 = new JButton("파일찾기");
+		btnR10.setFont(font6);
+		imglayer.add(R10);
+		imglayer.add(btnR10);
+		
+		data.add(L[0]);
 		data.add(R1);
-		data.add(L2);
+		data.add(L[1]);
 		data.add(R2);
-		data.add(L3);
+		data.add(L[2]);
 		data.add(R3);
-		data.add(L4);
+		data.add(L[3]);
 		data.add(R4);
-		data.add(L5);
+		data.add(L[4]);
 		data.add(R5);
-		data.add(L6);
+		data.add(L[5]);
 		data.add(R6);
-		data.add(L7);
+		data.add(L[6]);
 		data.add(R7);
+		data.add(L[7]);
+		data.add(R8);
+		data.add(L[8]);
+		data.add(R9);
+		data.add(L10);
+		data.add(imglayer);
 		
 		datas.add(data);
 		
-		// 버튼 이벤튼
+		// 버튼 이벤트
+		btnR10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				R8.setText(FileUpload());
+			}
+		});
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 예외 처리
@@ -808,7 +874,10 @@ public class Inventory extends Setting {
 						standard.add(R4.getText());
 						cnt.add(Integer.parseInt(R5.getText()));
 						price.add(Integer.parseInt(R6.getText()));
-						note.add(R7.getText());
+						cost.add(Integer.parseInt(R7.getText()));
+						amount.add(Integer.parseInt(R8.getText()));
+						explain.add(R9.getText());
+						picture.add(R10.getText());
 						
 						// 데이터 변경 사항 저장
 						
@@ -855,14 +924,16 @@ public class Inventory extends Setting {
 		
 		// 데이터 입력
 		for (int i = 0; i < code.size(); i++) {
-			rows = new Vector<>();
+			rows = new Vector<String>();
 			rows.add(code.get(i));
 			rows.add(name.get(i));
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(price.get(i)));
-			rows.add(note.get(i));
+			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(amount.get(i)));
+			rows.add(explain.get(i));
 			dataSet.add(rows);
 		}
 	}
@@ -873,18 +944,46 @@ public class Inventory extends Setting {
 		
 		// 검색 데이터 입력
 		for (int i = 0; i < code.size(); i++) {
-			rows = new Vector<>();
+			rows = new Vector<String>();
 			rows.add(code.get(i));
 			rows.add(name.get(i));
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(price.get(i)));
-			rows.add(note.get(i));
+			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(amount.get(i)));
+			rows.add(explain.get(i));
 
 			if(name.get(i).indexOf(str) != -1)
 				dataSet.add(rows);
 		}
+	}
+	
+	private String FileUpload() {
+		JFileChooser jfc = new JFileChooser();
+        int returnVal = jfc.showSaveDialog(null);
+        if(returnVal == 0) {
+            File file = jfc.getSelectedFile();
+            try {
+                String tmp, str = null;
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                while((tmp = br.readLine()) != null)
+                {
+                    str += tmp;
+                }
+                return jfc.getSelectedFile().getPath();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+             
+        }
+        else
+        {
+            System.out.println("파일 열기를 취소하였습니다.");
+        }
+        return null;
+
 	}
 	
 	class MouseExitedListener1 extends MouseAdapter {

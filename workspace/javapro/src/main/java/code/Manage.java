@@ -38,6 +38,7 @@ public class Manage extends Setting {
 	private Sales sales; 				// 매출 & 지출 기록 및 그래프
 	private NetIncome netincome;	 	// 실수령액 그래프
 	private Inventory inventory; 		// 재고 관리
+	private Customer customer; 		// 재고 관리
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage(String id, String pw) {
@@ -51,7 +52,7 @@ public class Manage extends Setting {
 		mainFrame = new Frame("박리다매 무인가게");
 		mainFrame.setSize(width, height);
 		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setResizable(false);
+		mainFrame.setResizable(resizable);
 		mainFrame.setVisible(true);
 		mainFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
@@ -72,6 +73,7 @@ public class Manage extends Setting {
 		netincome = new NetIncome();
 		mypage = new MyPage();
 		inventory = new Inventory();
+		customer = new Customer();
 		
 		// 홈 버튼 이벤트 적용
 		homeevt();
@@ -79,12 +81,14 @@ public class Manage extends Setting {
 		sales.setVisible(false);
 		netincome.setVisible(false);
 		inventory.setVisible(false);
+		customer.setVisible(false);
 		mypage.setVisible(false);
 
 		subpanel.add(menu);
 		subpanel.add(sales.panel);
 		subpanel.add(netincome.panel);
 		subpanel.add(inventory.panel);
+		subpanel.add(customer.panel);
 		subpanel.add(mypage.panel);
 
 		mainFrame.add(subpanel);
@@ -101,7 +105,7 @@ public class Manage extends Setting {
 		
 		pWest = new JPanel();
 		pEast = new JPanel();
-		pWest.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
+		pWest.setBorder(BorderFactory.createEmptyBorder(width/25, 0, 0, 0));
 
 		pWest.setBackground(background);
 		pEast.setBackground(background);
@@ -130,7 +134,7 @@ public class Manage extends Setting {
 		btn2.setBorderPainted(false);
 		btn2.setFocusPainted(false);
 
-		// btn3 : 재고관리
+		// btn3 : 마이페이지
 		JButton btn3 = new JButton("", mBtn_img1);
 		btn3.setRolloverIcon(mBtn_img2);
 		btn3.setPressedIcon(mBtn_img3);
@@ -138,7 +142,7 @@ public class Manage extends Setting {
 		btn3.setBorderPainted(false);
 		btn3.setFocusPainted(false);
 
-		// btn4 : 마이페이지
+		// btn4 : 재고관리
 		JButton btn4 = new JButton("", mBtn_img1);
 		btn4.setRolloverIcon(mBtn_img2);
 		btn4.setPressedIcon(mBtn_img3);
@@ -146,13 +150,21 @@ public class Manage extends Setting {
 		btn4.setBorderPainted(false);
 		btn4.setFocusPainted(false);
 
-		// btn5 : 로그아웃
-		JButton btn5 = new JButton("", mBtn5_img1);
-		btn5.setRolloverIcon(mBtn5_img2);
-		btn5.setPressedIcon(mBtn5_img3);
+		// btn5 : 고객관리
+		JButton btn5 = new JButton("", mBtn_img1);
+		btn5.setRolloverIcon(mBtn_img2);
+		btn5.setPressedIcon(mBtn_img3);
 		btn5.setContentAreaFilled(false);
 		btn5.setBorderPainted(false);
 		btn5.setFocusPainted(false);
+		
+		// btn6 : 로그아웃
+		JButton btn6 = new JButton("", mBtn5_img1);
+		btn6.setRolloverIcon(mBtn5_img2);
+		btn6.setPressedIcon(mBtn5_img3);
+		btn6.setContentAreaFilled(false);
+		btn6.setBorderPainted(false);
+		btn6.setFocusPainted(false);
 
 		// 버튼 이벤트
 		btn1.addActionListener(new ActionListener() {
@@ -161,6 +173,7 @@ public class Manage extends Setting {
 				sales.setVisible(true);
 				netincome.setVisible(false);
 				inventory.setVisible(false);
+				customer.setVisible(false);
 				mypage.setVisible(false);
 			}
 		});
@@ -170,33 +183,47 @@ public class Manage extends Setting {
 				sales.setVisible(false);
 				netincome.setVisible(true);
 				inventory.setVisible(false);
+				customer.setVisible(false);
 				mypage.setVisible(false);
 			}
 		});
 		btn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(false);
+				inventory.setVisible(false);
+				customer.setVisible(false);
+				mypage.setVisible(true);
+				print();
+			}
+		});
+		btn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inventory.reLoad();
 				menu.setVisible(false);
 				sales.setVisible(false);
 				netincome.setVisible(false);
 				inventory.setVisible(true);
+				customer.setVisible(false);
 				mypage.setVisible(false);
-			}
-		});
-		btn4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				menu.setVisible(false);
-				sales.setVisible(false);
-				netincome.setVisible(false);
-				inventory.setVisible(false);
-				mypage.setVisible(true);
-				print();
 			}
 		});
 		btn5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				customer.reLoad();
+				menu.setVisible(false);
+				sales.setVisible(false);
+				netincome.setVisible(false);
+				inventory.setVisible(false);
+				customer.setVisible(true);
+				mypage.setVisible(false);
+			}
+		});
+		btn6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				new Start(); // 프레임 전환
-				mainFrame.setVisible(false);
+	    		mainFrame.dispose();
 			}
 		});
 
@@ -205,6 +232,7 @@ public class Manage extends Setting {
 		pWest.add(btn3);
 		pEast.add(btn4);
 		pEast.add(btn5);
+		pEast.add(btn6);
 
 		menu.add(pWest, BorderLayout.EAST);
 		menu.add(pEast, BorderLayout.EAST);
@@ -268,6 +296,18 @@ public class Manage extends Setting {
 				inventory.setVisible(false);
 			}
 		});
+		customer.homebtn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				customer.setVisible(false);
+			}
+		});
+//		customer.homebtn2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				menu.setVisible(true);
+//				customer.setVisible(false);
+//			}
+//		});
 	}
 	
 	class MyPanel extends JPanel {

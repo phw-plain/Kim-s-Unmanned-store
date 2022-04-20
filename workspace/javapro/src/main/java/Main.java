@@ -1,5 +1,6 @@
 import java.net.URL;
 
+
 import code.Setting;
 import code.Start;
 
@@ -9,11 +10,11 @@ public class Main extends Setting{
 		name = "test";
 		id = "1";
 		pw = "1";
-		brand = "은행나무사거리";
-		percent = 0.5;
+		brand = "신림사거리";
+		location = "관악구";
 		emp = false;
 		empsal = 0;
-		
+		Setting.lightMode();
     	new Start();
     } 
 }

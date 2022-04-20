@@ -57,6 +57,7 @@ public class NetIncome extends Setting{
 
 		JLabel title = new JLabel("실수령액 그래프");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -139,6 +140,7 @@ public class NetIncome extends Setting{
 
 		JLabel title = new JLabel("실수령액 그래프");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -184,11 +186,11 @@ public class NetIncome extends Setting{
 		}
 
 		JPanel chbox = new JPanel(new BorderLayout());
-		chbox.setBackground(Color.white);
+		chbox.setBackground(background);
 		JPanel chp = new JPanel();
 		chp.add(yearCh);
 		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // 위 왼 아 오
-		chp.setBackground(Color.white);
+		chp.setBackground(background);
 
 		chbox.add(chp, BorderLayout.WEST);
 		chbox.add(yearbtn, BorderLayout.EAST);

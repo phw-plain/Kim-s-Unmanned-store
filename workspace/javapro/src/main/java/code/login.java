@@ -29,7 +29,7 @@ class login extends Setting {
 		mainFrame = new Frame("박리다매 무인가게");
 	    mainFrame.setSize(width ,height);
 		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setResizable(false);
+		mainFrame.setResizable(resizable);
 	    mainFrame.setVisible(true);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.addWindowListener(new WindowAdapter() {
@@ -58,6 +58,7 @@ class login extends Setting {
 		
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font3);
+		label1.setForeground(fontcolor);
 		tf1 = new TextField("", 15);
 		tf1.selectAll();
 		form.add(label1);
@@ -65,6 +66,7 @@ class login extends Setting {
 
 		JLabel label2 = new JLabel("비밀번호");
 		label2.setFont(font3);
+		label2.setForeground(fontcolor);
 		tf2 = new TextField("", 15);
 		tf2.setEchoChar('●');
 		form.add(label2);
@@ -134,8 +136,8 @@ class login extends Setting {
  	   	String input_pw = tf2.getText();
  	   
  	   // 데이터 불러오기
-// 	   	String id = "1";
-// 	   	String pw = "1";
+ 	   	String id = "1";
+ 	   	String pw = "1";
  	   
  	   if(input_id.length() == 0) {
  		   JOptionPane.showMessageDialog(null
@@ -164,8 +166,8 @@ class login extends Setting {
 				
 				// 로그인 정보 저장
 				name = "고고곡";
-				brand = "은행나무사거리점";
-				percent = 0.5;
+				brand = "신림사거리점";
+				location = "관악구";
 				emp = false;
 				empsal = 0;
 				
@@ -173,7 +175,7 @@ class login extends Setting {
 		    	print();
 						
 				new Manage(id, pw);
-				mainFrame.setVisible(false);
+	    		mainFrame.dispose();
 			}
 	}
 	

@@ -1,14 +1,10 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom';
+import './css/Main.css';
 
 const Main = () => { 
     return ( 
-        <div style={ {
-            backgroundImage:'url(./img/background.png)',
-            backgroundSize:'cover', 
-            width:'100%',
-            height:'100vh'
-        }}>
+        <div class="main">
             <h1 style={ {
                 paddingTop:'80%'
             }}> 안녕하세요. 메인페이지 입니다.</h1>

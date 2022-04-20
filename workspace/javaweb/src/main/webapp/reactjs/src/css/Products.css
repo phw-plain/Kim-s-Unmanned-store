@@ -1,15 +1,18 @@
 * {
     list-style-type : none
 }
-.frame{
+body {
+    overflow: hidden;
+}
+.Products{
     width: 100%;
-    height: 100vh;
+    height: 80vh;
 }
 .benner{
-    background-image:url('../public/img/benner1.png');
+    background-image:url('../../public/img/benner1.png');
     background-size: cover;
     width: 100%;
-    height: 20%;
+    height: 25%;
 }
 .category-box{
     padding-left: 10%;
@@ -19,7 +22,6 @@
     width: 90%;    
     display: flex;
     justify-content: space-between;
-
     font-size: 2.2vh;
 }
 .scrollbtn{
@@ -27,7 +29,7 @@
     outline: 0;
     background-color: gray;
 }
-.product-box{
+.products-box{
     padding: 0% 15% 10% 15%;
 }
 .products{

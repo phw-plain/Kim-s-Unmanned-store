@@ -26,7 +26,9 @@ function Footer(props) {
                     <button class="icon">▲</button>
                 </div>
                 <div class="right">
-                    <button class="button">취소하기</button>
+                    <Link to="/">
+                        <button class="button">취소하기</button>
+                    </Link>
                     <button class="button">결재하기</button>
                 </div>
             </div>

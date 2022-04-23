@@ -31,11 +31,10 @@ body {
 }
 .products-box{
     padding: 0% 15% 10% 15%;
+    height: 55vh;
+    overflow-y: auto;
 }
 .products{
     width: 100%;
-    display: flex;
-    justify-content: center;
-    justify-content: space-between;
-    padding-top: 10%;
+    padding: 5%;
 }

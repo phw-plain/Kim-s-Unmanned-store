@@ -1,12 +1,28 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom';
+import { Carousel } from "react-bootstrap";
 
 import  './css/Products.css';
 
 const Product = () => { 
     return ( 
         <div class="Products"> 
-            <div class="benner"></div>
+            <Carousel slide  class="banner">
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src="./img/banner1.png"
+                    alt="First slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                    className="d-block w-100"
+                    src="./img/banner1.png"
+                    alt="Second slide"
+                    />
+                </Carousel.Item>
+            </Carousel>
             <div class="category-box">
                 <ui class="category">
                     <button class="scrollbtn"><a>◀</a></button>
@@ -51,7 +67,7 @@ const Product = () => {
                     </Link>
                 </div>
             </div>
-        </ div>
+        </div>
     ); 
 }
 

@@ -14,8 +14,8 @@ class login extends Setting {
 	private JLabel headerLabel;
 	private Button b1;
 	
-	private TextField tf1;
-	private TextField tf2;
+	private JTextField tf1;
+	private JTextField tf2;
 	
 	public login() {
 		i = new ImageIcon("src/img/login_img.png");
@@ -59,7 +59,8 @@ class login extends Setting {
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font3);
 		label1.setForeground(fontcolor);
-		tf1 = new TextField("", 15);
+		tf1 = new JTextField("", 15);
+		
 		tf1.selectAll();
 		form.add(label1);
 		form.add(tf1);
@@ -67,8 +68,8 @@ class login extends Setting {
 		JLabel label2 = new JLabel("비밀번호");
 		label2.setFont(font3);
 		label2.setForeground(fontcolor);
-		tf2 = new TextField("", 15);
-		tf2.setEchoChar('●');
+		tf2 = new JTextField("", 15);
+		//tf2.setEchoChar('●');
 		form.add(label2);
 		form.add(tf2);
 

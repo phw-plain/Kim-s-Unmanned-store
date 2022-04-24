@@ -6,7 +6,8 @@ import java.net.URL;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import mysql.*;
+
+import firebase.*;
 
 class join extends Setting{
 	private Frame mainFrame;
@@ -363,8 +364,8 @@ class join extends Setting{
 	 				);
 	 				new Start();
 		    		mainFrame.dispose();
-		    		mysql_join m = new mysql_join();
-		    		m.tableInsert(id,pw,name,brand,location,empsal);
+		    		App m = new App();
+		    		m.insert(id,pw,name,brand,location,empsal);
 	 			}
 	 		}
 	 	});

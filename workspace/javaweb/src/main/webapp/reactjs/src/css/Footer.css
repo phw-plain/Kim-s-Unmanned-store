@@ -1,0 +1,54 @@
+* {
+    list-style: none;
+}
+.footer{
+    height: 100vh;
+    background-color: gray;
+}
+.top{
+    height: 4%;
+
+    display: flex;
+    justify-content: space-around;
+
+    font-size: 2.0vh;
+    background-color: lightgray;
+}
+.center{
+    height: 12.1%;
+}
+.bottom{
+    height: 4%;
+    background-color: lightgray;
+}
+.list{
+    height: 100%;
+    font-size: 1.7vh;
+    overflow-y: auto;
+}
+.red{
+    color: red;
+    display: contents;
+}
+.item{
+    text-align: right;
+    padding-top: 2%;
+    padding-right: 5%;
+}
+.bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.icon{
+    border: 0;
+    outline: 0;
+    padding-left: 30%;
+    background-color: rgba( 255, 255, 255, 0 );
+    font-size: 2vh;
+}
+.icon:active{
+    color:red;
+}
+.button{
+    font-size: 2vh;
+}

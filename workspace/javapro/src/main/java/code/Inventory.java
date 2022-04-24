@@ -417,6 +417,7 @@ public class Inventory extends Setting {
 
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		JTextField R10 = new JTextField("", 20);
+		final TextField R10 = new TextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);

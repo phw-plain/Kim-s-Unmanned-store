@@ -1,5 +1,3 @@
-import java.net.URL;
-
 import code.Setting;
 import code.Start;
 

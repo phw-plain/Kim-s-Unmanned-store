@@ -4,6 +4,21 @@ body {
 .product{
     height: 80vh;
 }
-.itemimg{
+.navigation{
+    height: 4vh;
+    background-color: orange;
+    padding-top: 1vh;
+}
+.left{
+
+}
+.rigth{
     
+}
+.product_img{
+    width: 30vh;
+    height: 30vh;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
 }

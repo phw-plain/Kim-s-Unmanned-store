@@ -4,7 +4,7 @@ import { Carousel, Col, Row, Modal, Button} from "react-bootstrap";
 
 import  './css/Products.css';
 
-const Product = () => { 
+const Products = () => { 
   
     const [products, setProducts] = useState([]);
 
@@ -117,4 +117,4 @@ const Product = () => {
     ); 
 }
 
-export default Product;
+export default Products;

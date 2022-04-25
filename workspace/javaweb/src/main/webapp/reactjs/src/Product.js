@@ -30,23 +30,22 @@ const Product = () => {
             <div className="product_img left" style={{  
                 backgroundImage:`url(${url})`
             }}></div>
-            <div className=" right">
+            <div>
                 {products.map((text, index) =>
-                    <div>
+                    <div className='product_text'>
                         {
                             (index == productId)
                             ? <div>
-                                <h2>{text[0]}</h2>
-                                <h2>{text[1]}</h2>
-                                <h2>{text[2]}</h2>
+                                <div>상품명 : {text[0]}</div>
+                                <div>상품설명 : {text[1]}</div>
+                                <div>가격 : {text[2]}</div>
                             </div>
                             : null
                         }
                     </div>
                 )}
-            </div>
-            <div>
-                    <button>장바구니 담기</button>
+
+                <button className='product_btn'>장바구니 담기</button>
             </div>
          
         </div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, Component } from 'react';
 import Logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -13,7 +13,7 @@ import NotFound from './NotFound';
 import Footer from './Footer';
 
 function App() {
-
+  
   // 디바이스 제한
   const Tablet = ({ children }) => {
     const isTabletWitdh = useMediaQuery({ minWidth: 1500, maxWidth: 2550 })

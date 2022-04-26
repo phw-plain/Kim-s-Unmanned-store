@@ -46,7 +46,7 @@ const Main = () => {
     }
 
     localStorage.setItem('products', JSON.stringify(products));
-    console.log(JSON.parse(localStorage.getItem('products')));
+    // console.log(JSON.parse(localStorage.getItem('products')));
 
     return ( 
         <div className="main">
@@ -55,7 +55,6 @@ const Main = () => {
             }}> 안녕하세요. 메인페이지 입니다.</h1>
             <ul> 
                 <Link to="/products"><button>계산하러가기</button></Link> 
-                {/* <Link to="/product/2"><li>2번상품</li></Link>  */}
             </ul>
         </div> 
     ); 

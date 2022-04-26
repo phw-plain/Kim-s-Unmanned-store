@@ -5,7 +5,7 @@ import { ListGroup } from "react-bootstrap";
 import './css/Shopping.css';
 
 const Shopping = () => {
-    const [products, setProducts] = useState(JSON.parse(localStorage.getItem('products')));
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         fetch("/products")
@@ -26,7 +26,7 @@ const Shopping = () => {
                 product.cnt = 0;
             }
         });
-        setProducts({...Cart});
+        setCarts({...Cart});
         setData();
     };
 
@@ -35,10 +35,11 @@ const Shopping = () => {
         Cart.products.map( product => {
             if(productId == product.id && product.cnt < product.stock){
                 product.cnt++;
-                product.price*=2;
+                product.price = +product.price + +products[productId][2];
+                console.log(+products[productId][2]);
             }
         });
-        setProducts({...Cart});
+        setCarts({...Cart});
     };
     const handleMinus = productId => {
         Cart.products.map( product => {
@@ -47,20 +48,18 @@ const Shopping = () => {
                 product.price-=product.price;
             }
         });
-        setProducts({...Cart});
+        setCarts({...Cart});
     };
 
     // localstorage 데이터 저장
     function setData() {
         Cart.products.map((product, idx) => {
             if(product.cnt == 0){
-                console.log(idx)
                 Cart.products.splice(idx, idx+1);
             } 
         });
-        setProducts({...Cart});
+        setCarts({...Cart});
         localStorage.setItem('products', JSON.stringify(Cart));
-        console.log(JSON.parse(localStorage.getItem('products')));
     }
 
     return ( 

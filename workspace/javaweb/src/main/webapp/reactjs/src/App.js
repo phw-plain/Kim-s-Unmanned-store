@@ -8,6 +8,7 @@ import Header from './Header';
 import Main from './Main'; 
 import Products from './Products';
 import Product from './Product';
+import Shopping from './Shopping';
 import NotFound from './NotFound';
 import Footer from './Footer';
 
@@ -39,6 +40,7 @@ function App() {
             <Route path='/' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
             <Route path='/product/:productId' element={<Product />}></Route>
+            <Route path='/shopping' element={<Shopping />}></Route>
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
             <Route path="*" element={<NotFound />}></Route>
         </Routes>

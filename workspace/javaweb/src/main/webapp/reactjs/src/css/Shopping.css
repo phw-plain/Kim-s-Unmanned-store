@@ -1,0 +1,27 @@
+.Shopping{
+    height: 100vh;
+}
+.sh_center{
+    height: 72vh;
+}
+.sh_footer{
+    height: 30vh;
+    background-color: gray;
+}
+.shopimg{
+    width: 17vh;
+    height: 17vh;
+    float: left;
+    margin-left: 5%;
+}
+.shoptext{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    float: right;
+    margin-right: 5%;
+    font-size: 2vh;
+}
+.count{
+    display: flex;;
+}

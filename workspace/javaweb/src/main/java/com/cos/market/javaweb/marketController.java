@@ -23,11 +23,12 @@ public class marketController {
     	List<String> name = new ArrayList<>();
     	List<String> text = new ArrayList<>();
     	List<Integer> price = new ArrayList<>();
+    	List<String> img = new ArrayList<>();
     	
-    	name.add("상품명1");
-    	name.add("상품명2");
-    	name.add("상품명3");
-    	name.add("상품명4");
+    	name.add("토종 햇 당근");
+    	name.add("야이셔 레몬");
+    	name.add("바나나는 길어");
+    	name.add("사과는 맛있어");
     	name.add("상품명5");
     	name.add("상품명6");
     	name.add("상품명7");
@@ -50,12 +51,22 @@ public class marketController {
     	price.add(6000);
     	price.add(7000);
     	price.add(8000);
+
+    	img.add("https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg");
+    	img.add("https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg");
+    	img.add("https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg");
+    	img.add("https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_960_720.jpg");
+    	img.add("http://image.mujikorea.net/goods/31/13/25/24/4550182146691_N_N_400.jpg");
+    	img.add("http://image.mujikorea.net/goods/31/13/25/24/4550182146691_N_N_400.jpg");
+    	img.add("http://image.mujikorea.net/goods/31/13/25/24/4550182146691_N_N_400.jpg");
+    	img.add("http://image.mujikorea.net/goods/31/13/25/24/4550182146691_N_N_400.jpg");
     	
     	for(int i=0; i<name.size(); i++) {
         	list = new ArrayList<>();
         	list.add(name.get(i));
         	list.add(text.get(i));
         	list.add(Integer.toString(price.get(i)));
+        	list.add(img.get(i));
         	lists.add(list);
     	}
 

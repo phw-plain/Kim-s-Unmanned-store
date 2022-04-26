@@ -35,7 +35,9 @@ function Footer(props) {
             </div>
             <div className="bottom">
                 <div className="left">
-                    <button className="icon">▲</button>
+                    <Link  to="/shopping">
+                        <button className="icon">▲</button>
+                    </Link>
                 </div>
                 <div className="right">
                     <button className="button" variant="primary" onClick={handleShow}>

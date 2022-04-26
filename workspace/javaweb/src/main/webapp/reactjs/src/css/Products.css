@@ -9,8 +9,6 @@ body {
     height: 80vh;
 }
 .banner{
-    /* background-image:url('../../public/img/benner1.png');
-    background-size: cover; */
     width: 100%;
 }
 .category-box{
@@ -36,4 +34,8 @@ body {
 .products{
     width: 100%;
     padding: 5%;
+}
+.products_img{
+    width: 22vh;
+    height: 22vh;
 }

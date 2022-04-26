@@ -6,7 +6,7 @@ body {
 }
 .navigation{
     height: 4vh;
-    background-color: orange;
+    background-color: gray;
     padding-top: 1vh;
 }
 .product_img{
@@ -21,7 +21,7 @@ body {
     -khtml-border-radius: 100px;
     -webkit-border-radius: 100px;
 
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 .product_text{

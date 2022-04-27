@@ -4,9 +4,10 @@ import { Modal, Button } from "react-bootstrap";
 
 import './css/Footer.css'
 
-function Footer(props) { 
-    const cnt = 0;
-    const price = 0;
+function Footer() { 
+    // 데이터 가져오기
+    const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
+    localStorage.setItem('purchase', JSON.stringify(purchase));
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -21,8 +22,8 @@ function Footer(props) {
         <div className="footer"> 
             <div className="top">
                 <div>총 내역</div>
-                <div><div className="red">{ cnt }</div>개</div>
-                <div><div className="red">{ price }</div>원</div>
+                <div><div className="red">{ purchase.cnt }</div>개</div>
+                <div><div className="red">{ purchase.price }</div>원</div>
             </div>
             <div className="center">
                 <div className="list">
@@ -36,11 +37,11 @@ function Footer(props) {
             <div className="bottom">
                 <div className="left">
                     <Link  to="/shopping">
-                        <button className="icon">▲</button>
+                        <button className="icon">🛒</button>
                     </Link>
                 </div>
                 <div className="right">
-                    <button className="button" variant="primary" onClick={handleShow}>
+                    <button className='button' onClick={handleShow} >
                         취소하기
                     </button>
 
@@ -63,7 +64,7 @@ function Footer(props) {
                             </Button>
                         </Modal.Footer>
                     </Modal>
-                    <button className="button">결재하기</button>
+                    <button className='button'>결재하기</button>
                 </div>
             </div>
         </div> 

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ListGroup } from "react-bootstrap";
+import { ListGroup,  Modal, Button } from "react-bootstrap";
 
+import footer from './Footer.js';
 import './css/Shopping.css';
 
 const Shopping = () => {
+    
+    // 데이터 가져오기
     const [products, setProducts] = useState([]);
+    const [Cart, setCarts] = useState(JSON.parse(localStorage.getItem('products')));
+    const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
 
     useEffect(() => {
         fetch("/products")
@@ -17,12 +22,13 @@ const Shopping = () => {
             });
     }, []);
 
-    const [Cart, setCarts] = useState(JSON.parse(localStorage.getItem('products')));
     
     // 목록 제거
     const handleDelete = productId => {
         Cart.products.map( product => {
-            if(productId == product.id){
+            if(productId === product.id){
+                purchase.cnt -= product.cnt;
+                purchase.price = +purchase.price - (+products[productId][3]) * product.cnt;
                 product.cnt = 0;
             }
         });
@@ -33,19 +39,23 @@ const Shopping = () => {
     // 구매 갯수 Up&Down
     const handleAdd = productId => {
         Cart.products.map( product => {
-            if(productId == product.id && product.cnt < product.stock){
+            if(productId === product.id && product.cnt < product.stock){
                 product.cnt++;
-                product.price = +product.price + +products[productId][2];
-                console.log(+products[productId][2]);
+                product.price = +product.price + +products[productId][3];
+                purchase.cnt++;
+                purchase.price = +purchase.price + +products[productId][3];
             }
         });
         setCarts({...Cart});
     };
+
     const handleMinus = productId => {
         Cart.products.map( product => {
-            if(productId == product.id && product.cnt > 1){
+            if(productId === product.id && product.cnt > 1){
                 product.cnt--;
-                product.price-=product.price;
+                product.price = +product.price - +products[productId][3];
+                purchase.cnt--;
+                purchase.price = +purchase.price - +products[productId][3];
             }
         });
         setCarts({...Cart});
@@ -54,12 +64,30 @@ const Shopping = () => {
     // localstorage 데이터 저장
     function setData() {
         Cart.products.map((product, idx) => {
-            if(product.cnt == 0){
+            if(product.cnt === 0){
                 Cart.products.splice(idx, idx+1);
             } 
         });
         setCarts({...Cart});
         localStorage.setItem('products', JSON.stringify(Cart));
+    }
+
+    // ⚠ (추가 예정) localstorage를 이용해 총 갯수와 총 결재금액 보이기
+    const setAll = () => {
+        window.location = '/Products';
+        localStorage.setItem('purchase', JSON.stringify(purchase));
+        setData();
+    }
+
+    // cancle 창
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const Close = () => {
+        setShow(false);
+        setData();
+        window.location = '/';
     }
 
     return ( 
@@ -112,7 +140,47 @@ const Shopping = () => {
                 </ListGroup>
             </div>
             <div className="sh_footer">
+                <div className='footer_text'>
+                    <div className='inline'>
+                        <div className='rm'>총 갯수</div>
+                        <div><div className="red">{ purchase.cnt }</div>개</div>
+                    </div>
+                    <div className='inline'>
+                        <div className='rm'>총 결재금액</div>
+                        <div><div className="red">{  purchase.price }</div>원</div>
+                    </div>
+                </div>
+                <div className='footer_btns'>
+                    <div className="left">
+                        <button className="icon" onClick={setAll}>🏠</button>
+                    </div>
+                    <div className="right">
+                        <button className='button' onClick={handleShow} >
+                            취소하기
+                        </button>
 
+                        <Modal 
+                            show={show} 
+                            onHide={handleClose} 
+                            size="lg" 
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                        >
+                            <Modal.Header closeButton style={{borderBottom:"none"}}>
+                                <Modal.Title>계산을 취소 하시겠습니까?</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Footer style={{borderTop:"none"}}>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    취소
+                                </Button>
+                                <Button variant="primary" onClick={Close}>
+                                    확인
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <button className='button'>결재하기</button>
+                    </div>
+                </div>
             </div>
         </div> 
     );

@@ -22,6 +22,7 @@ public class marketController {
     	
     	List<String> name = new ArrayList<>();
     	List<String> text = new ArrayList<>();
+    	List<Integer> cnt = new ArrayList<>();
     	List<Integer> price = new ArrayList<>();
     	List<String> img = new ArrayList<>();
     	
@@ -43,6 +44,17 @@ public class marketController {
     	text.add("상품설명7");
     	text.add("상품설명8");
 
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	cnt.add(10);
+    	
     	price.add(1000);
     	price.add(2000);
     	price.add(3000);
@@ -65,6 +77,7 @@ public class marketController {
         	list = new ArrayList<>();
         	list.add(name.get(i));
         	list.add(text.get(i));
+        	list.add(Integer.toString(cnt.get(i)));
         	list.add(Integer.toString(price.get(i)));
         	list.add(img.get(i));
         	lists.add(list);

@@ -37,30 +37,32 @@ const Products = () => {
                 </Carousel.Item>
             </Carousel>
             <div className="category-box">
-                <ui className="category">
-                    <button className="scrollbtn"><a>◀</a></button>
+                <ul className="category">
+                    <button className="scrollbtn">◀</button>
                     <li>과자</li>
                     <li>캔디</li>
                     <li>음료</li>
                     <li>행사</li>
-                    <button className="scrollbtn"><a>▶</a></button>
-                </ui>
+                    <button className="scrollbtn">▶</button>
+                </ul>
             </div>
             <div className="products-box">
-                <Carousel fade indicators={false} interval={null}>
+                <Carousel fade indicators={false} interval={null}  className="w-100">
                     <Carousel.Item>
                         <Row>
                             {products.map((text, index) =>
-                                <Col sm={5}>
+                                <Col md={6}>
                                    <Link to={`/product/${index}`}>
                                         <div className="products">
-                                            <img className={"products_img"} src={text[3]} alt={"product-img"}/>
-                                            <h4>{text[0]}</h4>
-                                            <p>
-                                                {text[1]}
-                                                <br/>
-                                                {text[2]}
-                                            </p>
+                                            <img className={"products_img"} src={text[4]} alt={"product-img"}/>
+                                            <div className="products-text">
+                                                <h1>{text[0]}</h1>
+                                                <h2>
+                                                    {text[1]}
+                                                    <br/>
+                                                    {text[3]}
+                                                </h2>
+                                            </div>
                                         </div>
                                     </Link> 
                                 </Col>  

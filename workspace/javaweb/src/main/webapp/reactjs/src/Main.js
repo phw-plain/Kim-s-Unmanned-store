@@ -9,43 +9,19 @@ const Main = () => {
                 "id": "0", 
                 "name": "사과", 
                 "cnt": "1", 
+                "stock": "10",
                 "price": "1000",
-                "stock": "10"
-            }, {
-                "id": "1", 
-                "name": "오렌지", 
-                "cnt": "1", 
-                "price": "2000",
-                "stock": "10"
-            }, {
-                "id": "2",
-                "name": "오렌지", 
-                "cnt": "1", 
-                "price": "2000",
-                "stock": "10"
-            }, {
-                "id": "3",
-                "name": "오렌지", 
-                "cnt": "1", 
-                "price": "3000",
-                "stock": "10"
-            }, {
-                "id": "4",
-                "name": "오렌지", 
-                "cnt": "1", 
-                "price": "4000",
-                "stock": "10"
-            }, {
-                "id": "5",
-                "name": "오렌지", 
-                "cnt": "1", 
-                "price": "5000",
-                "stock": "10"
             }
         ]
     }
 
-    localStorage.setItem('products', JSON.stringify(products));
+    const purchase = {
+        "cnt": "1", 
+        "price": "1000", 
+    }
+
+    localStorage.setItem('products', JSON.stringify(products)); // 장바구니 목록
+    localStorage.setItem('purchase', JSON.stringify(purchase)); // 장바구니 물품 갯수, 가격
     // console.log(JSON.parse(localStorage.getItem('products')));
 
     return ( 

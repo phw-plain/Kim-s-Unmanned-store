@@ -1,12 +1,15 @@
 * {
     list-style-type : none
 }
+a {
+    text-decoration: none;
+}
 body {
     overflow: hidden;
 }
 .Products{
     width: 100%;
-    height: 80vh;
+    height: 78.9vh;
 }
 .banner{
     width: 100%;
@@ -27,7 +30,7 @@ body {
     background-color: gray;
 }
 .products-box{
-    padding: 0% 15% 10% 15%;
+    padding: 0% 5% 10% 5%;
     height: 55vh;
     overflow-y: auto;
 }
@@ -36,6 +39,14 @@ body {
     padding: 5%;
 }
 .products_img{
-    width: 22vh;
-    height: 22vh;
+    width: 20vh;
+    height: 20vh;
+
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -khtml-border-radius: 100px;
+    -webkit-border-radius: 100px;
+}
+.products-text{
+    color: black;
 }

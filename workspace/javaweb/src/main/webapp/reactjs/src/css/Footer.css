@@ -30,10 +30,32 @@
     color: red;
     display: contents;
 }
-.item{
-    text-align: right;
+.items{
+    display: flex;
+    justify-content: space-between;
     padding-top: 2%;
     padding-right: 5%;
+}
+.item_left{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+.item_text{
+    text-align: left;
+}
+.item_price{
+    text-align: right;
+}
+.roundBtn{
+    width: 2vh;
+    height: 2vh;
+    font-size: 1.3vh;
+    color: #000;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    outline: none;
 }
 .bottom{
     display: flex;
@@ -63,7 +85,6 @@
     border: none;
     border-radius: 25px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
 }

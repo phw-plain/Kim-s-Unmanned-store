@@ -15,6 +15,11 @@
     height: 17vh;
     float: left;
     margin-left: 5%;
+
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -khtml-border-radius: 100px;
+    -webkit-border-radius: 100px;
 }
 .shoptext{
     width: 50%;
@@ -45,4 +50,7 @@
 }
 .rm{
     padding-right: 10%;
+}
+h1{
+    color:black;
 }

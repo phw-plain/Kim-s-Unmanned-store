@@ -5,24 +5,15 @@ import './css/Main.css';
 const Main = () => { 
     const products = {
         "products": [
-            {
-                "id": "0", 
-                "name": "사과", 
-                "cnt": "1", 
-                "stock": "10",
-                "price": "1000",
-            }
         ]
     }
-
     const purchase = {
-        "cnt": "1", 
-        "price": "1000", 
+        "cnt": "0", 
+        "price": "0", 
     }
 
     localStorage.setItem('products', JSON.stringify(products)); // 장바구니 목록
-    localStorage.setItem('purchase', JSON.stringify(purchase)); // 장바구니 물품 갯수, 가격
-    // console.log(JSON.parse(localStorage.getItem('products')));
+    localStorage.setItem('purchase', JSON.stringify(purchase)); // 장바구니 물품 
 
     return ( 
         <div className="main">

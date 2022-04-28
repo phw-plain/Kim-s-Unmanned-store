@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ListGroup,  Modal, Button } from "react-bootstrap";
 
-import footer from './Footer.js';
 import './css/Shopping.css';
 
 const Shopping = () => {
@@ -48,7 +47,6 @@ const Shopping = () => {
         });
         setCarts({...Cart});
     };
-
     const handleMinus = productId => {
         Cart.products.map( product => {
             if(productId === product.id && product.cnt > 1){
@@ -71,8 +69,7 @@ const Shopping = () => {
         setCarts({...Cart});
         localStorage.setItem('products', JSON.stringify(Cart));
     }
-
-    // ⚠ (추가 예정) localstorage를 이용해 총 갯수와 총 결재금액 보이기
+    
     const setAll = () => {
         window.location = '/Products';
         localStorage.setItem('purchase', JSON.stringify(purchase));
@@ -98,15 +95,14 @@ const Shopping = () => {
                 </Link>
             </div>
             <div className="sh_center">
-                <h1>장바구니 물품</h1>
+                <h1>장바구니</h1>
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {Cart.products.map((text,idx)  =>
-                        <>{
-                            
-                        (text.cnt != 0)
+                        <> {
+                            (text.cnt !== 0)
                         ?
                         <ListGroup.Item>
-                            <img className="shopimg" src="https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_960_720.jpg" />
+                            <img className="shopimg" src={ text.img } alt="이미지 불러오기 실패" />
                                 <div className='shoptext'>
                                     <p>{text.name}</p>
                                     <button
@@ -134,7 +130,6 @@ const Shopping = () => {
                                 </div>
                         </ListGroup.Item>
                         :null
-                        
                     }</>
                     )}
                 </ListGroup>

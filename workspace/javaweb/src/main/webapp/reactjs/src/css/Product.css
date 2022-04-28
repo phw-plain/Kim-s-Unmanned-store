@@ -2,6 +2,9 @@ body {
     overflow: hidden;
 }
 .product{
+    height: 100vh;
+}
+.header{
     height: 78.9vh;
 }
 .navigation{
@@ -41,4 +44,11 @@ body {
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
+}
+.alt{
+    width: 80%;
+    margin: 10%;
+    font-size: 2vh;
+    position: absolute;
+    opacity: 0;
 }

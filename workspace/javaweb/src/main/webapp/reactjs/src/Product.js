@@ -69,15 +69,15 @@ const Product = () => {
             }
             data.id = productId;
             data.name = products[productId][0];
-            data.cnt = 1;
+            data.cnt = count;
             data.stock = products[productId][2];
-            data.price = products[productId][3] * 1;
+            data.price = products[productId][3] * count;
             data.img = products[productId][4];
             Cart.products.push(data);
         }
         if(stock) {
-            purchase.cnt++;
-            purchase.price = +purchase.price + +products[productId][3];
+            purchase.cnt = +purchase.cnt + count;
+            purchase.price = +purchase.price + (+products[productId][3] * count);
             setCarts({...Cart});
             localStorage.setItem('products', JSON.stringify(Cart));
             localStorage.setItem('purchase', JSON.stringify(purchase));

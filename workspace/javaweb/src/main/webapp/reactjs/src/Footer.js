@@ -80,7 +80,7 @@ function Footer() {
                                 <div className='item_text'>{text.name}</div>
                                 <div className='item_cnt'>
                                     <button className="roundBtn"  onClick={() => { MinusItem(idx) }}>-</button>
-                                    {text.cnt}
+                                    &nbsp;{text.cnt}&nbsp;
                                     <button className="roundBtn"  onClick={() => { addItem(idx) }}>+</button>
                                 </div>
                             </div>

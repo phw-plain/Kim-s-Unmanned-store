@@ -6,6 +6,8 @@ import  './css/Product.css';
 import * as footer from './Footer.js';
 
 const Product = () => { 
+    const [count, setCount] = useState(1);
+
     // 데이터 가져오기
     const { productId } = useParams();
     const [products, setProducts] = useState([]);
@@ -50,8 +52,9 @@ const Product = () => {
             }
         })
         if(index !== -1) {
-            if(products[productId][2] > Cart.products[index].cnt){
-                Cart.products[index].cnt++;
+            if(products[productId][2] >= (Cart.products[index].cnt + count)){
+                Cart.products[index].cnt =  +Cart.products[index].cnt + count;
+                Cart.products[index].price = +Cart.products[index].price + (+products[productId][3] * count);
             } else {
                 stock = false;
             }
@@ -83,7 +86,7 @@ const Product = () => {
             alertShow('danger');
         }
     }
-    
+
     const addItem = productId => {
         Cart.products.map( product => {
             if(productId == product.id && product.cnt < product.stock){
@@ -106,6 +109,21 @@ const Product = () => {
         });
         setCarts({...Cart});
     }
+
+    const countUP = productId => {
+        products.map((text, index) => {
+            if(productId == index && products[productId][2] > count){
+                setCount(count + 1);
+            }
+        });
+    }
+    const countDown = productId => {
+        Cart.products.map( product => {
+            if(productId == product.id && count > 1){
+                setCount(count - 1);
+            }
+        });
+    }
     
     return ( 
         <div className="product"> 
@@ -124,23 +142,26 @@ const Product = () => {
                                         <div className="product_img left" style={{  
                                             backgroundImage:`url(${text[4]})`
                                         }}></div>
-
                                         <div className='product_text'>
                                             <div>상품명 : {text[0]}</div>
                                             <div>상품설명 : {text[1]}</div>
                                             <div>가격 : {text[3]}</div>
+                                            <div className="count">
+                                                <button className="roundBtn2" onClick={() => { countDown(index) }}>-</button>
+                                                &nbsp;{count}&nbsp;
+                                                <button className="roundBtn2" onClick={() => { countUP(index) }}>+</button>
+                                            </div>
                                         </div>
-                                    
                                         <button className='product_btn' onClick={cartAdd}>장바구니 담기</button>
                                     </div>
                                 : null
                             }
                     </div>
                 )}
-                <Alert id="add" variant="success"  className="alt">
+                <Alert id="add" variant="success"  className="alt"  style={{position:"absolute"}}>
                         상품이 장바구니에 추가되었습니다!
                 </Alert>
-                <Alert id="danger" variant="danger"  className="alt">
+                <Alert id="danger" variant="danger"  className="alt" style={{position:"absolute"}}>
                         재고가 부족합니다!!
                 </Alert>
             </div>
@@ -157,9 +178,9 @@ const Product = () => {
                                 <div className="item_left">
                                     <div className='item_text'>{text.name}</div>
                                     <div className='item_cnt'>
-                                        <button className="roundBtn"  onClick={() => { MinusItem(idx) }}>-</button>
-                                     {text.cnt}
-                                        <button className="roundBtn"  onClick={() => { addItem(idx) }}>+</button>
+                                        <button className="roundBtn"  onClick={() => { MinusItem(text.id) }}>-</button>
+                                        &nbsp;{text.cnt}&nbsp;
+                                        <button className="roundBtn"  onClick={() => { addItem(text.id) }}>+</button>
                                     </div>
                                 </div>
                                 <div className='item_price'>{text.price}원</div>

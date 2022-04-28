@@ -30,7 +30,7 @@ body {
 .product_text{
     text-align: left;
     font-size: 2vh;
-    margin: 5% 25% 5% 25%;
+    margin: 5% 25% 7% 25%;
 }
 .product_btn{
     width: 15vh;
@@ -49,6 +49,19 @@ body {
     width: 80%;
     margin: 10%;
     font-size: 2vh;
-    position: absolute;
     opacity: 0;
+}
+.count{
+    margin-top: 10%;
+    place-content: center;
+}
+.roundBtn2{
+    width: 3vh;
+    height: 3vh;
+    font-size: 1.7vh;
+    color: #000;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    outline: none;
 }

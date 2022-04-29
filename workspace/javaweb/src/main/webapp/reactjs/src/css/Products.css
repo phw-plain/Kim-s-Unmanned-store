@@ -31,7 +31,7 @@ body {
 }
 .products-box{
     padding: 0% 5% 10% 5%;
-    height: 55vh;
+    height: 80vh;
     overflow-y: auto;
 }
 .products{

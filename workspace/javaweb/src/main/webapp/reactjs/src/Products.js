@@ -37,14 +37,14 @@ const Products = () => {
                 </Carousel.Item>
             </Carousel>
             <div className="category-box">
-                <ul className="category">
+                <div className="category">
                     <button className="scrollbtn">◀</button>
-                    <li>과자</li>
-                    <li>캔디</li>
-                    <li>음료</li>
-                    <li>행사</li>
+                    <div>과자</div>
+                    <div>캔디</div>
+                    <div>음료</div>
+                    <div>행사</div>
                     <button className="scrollbtn">▶</button>
-                </ul>
+                </div>
             </div>
             <div className="products-box">
                 <Carousel fade indicators={false} interval={null}  className="w-100">

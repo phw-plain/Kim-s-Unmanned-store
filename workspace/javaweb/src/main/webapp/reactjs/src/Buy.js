@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ListGroup,  Modal, Button } from "react-bootstrap";
 
-import './css/Shopping.css';
+import './css/Buy.css';
 
-const Shopping = () => {
+const Buy = () => {
     
     // 데이터 가져오기
     const [products, setProducts] = useState([]);
@@ -95,7 +95,6 @@ const Shopping = () => {
                 </Link>
             </div>
             <div className="sh_center">
-                <h1>장바구니</h1>
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {Cart.products.map((text,idx)  =>
                         <> {
@@ -146,9 +145,6 @@ const Shopping = () => {
                     </div>
                 </div>
                 <div className='footer_btns'>
-                    <div className="left">
-                        <button className="icon" onClick={setAll}>🏠</button>
-                    </div>
                     <div className="right">
                         <button className='button' onClick={handleShow} >
                             취소하기
@@ -182,4 +178,4 @@ const Shopping = () => {
 }
 
 
-export default Shopping;
+export default Buy;

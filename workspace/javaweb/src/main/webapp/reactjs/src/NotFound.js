@@ -2,7 +2,7 @@ import React from 'react';
 
 const NotFound = () => { 
     return ( 
-        <div> 404 Error </div> 
+        <h1 style={{height:"100vh", marginTop:"40vh"}}> 404 Error </h1> 
     ); 
 }; 
 

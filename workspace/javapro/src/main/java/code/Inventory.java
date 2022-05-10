@@ -8,6 +8,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -416,8 +417,7 @@ public class Inventory extends Setting {
 		R9.setFont(font6);
 
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		JTextField R10 = new JTextField("", 20);
-		final TextField R10 = new TextField("", 20);
+		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);

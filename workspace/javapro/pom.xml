@@ -30,14 +30,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 	   <dependency>
     		<groupId>com.google.firebase</groupId>
     		<artifactId>firebase-admin</artifactId>
-    		<version>6.8.1</version>
+    		<version>8.1.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.gms/google-services -->
+<dependency>
+    <groupId>com.google.gms</groupId>
+    <artifactId>google-services</artifactId>
+    <version>4.2.0</version>
+    <scope>runtime</scope>
+</dependency>
+		
 
 		<dependency>
     		<groupId>com.google.auto.value</groupId>
     		<artifactId>auto-value</artifactId>
     		<version>1.6.5</version>
     		<scope>provided</scope>
+		</dependency>
+		<dependency>
+   			<groupId>org.slf4j</groupId>
+   			<artifactId>slf4j-simple</artifactId>
+   			<version>1.7.25</version>
 		</dependency>
 		</dependencies>
 </project>

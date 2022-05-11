@@ -24,10 +24,6 @@ const Products = () => {
         window.location = '/';
     }
 
-    // function moveScrollRight() {
-    //     var _scrollX = $('.container').scrollLeft();
-    //     $('.container').scrollLeft(_scrollX + 50);
-    // };
     const moveScrollRight = () => {
         let scrollX = document.getElementById('container').scrollLeft;
         document.getElementById('container').scrollLeft = scrollX + 170;
@@ -52,7 +48,7 @@ const Products = () => {
                 <button className='category'>과일</button>
                 <button className='category'>채소</button>
                 <button className='category'>냉장</button>
-                <button className='category'>정육</button>
+                <button className='category' style={{marginRight:"0px"}}>정육</button>
             </div>
             <div class="controller">
                 <button class="controller-a" onClick={moveScrollRight}>▶</button>

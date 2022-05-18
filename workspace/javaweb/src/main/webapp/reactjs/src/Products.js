@@ -25,6 +25,7 @@ const Products = () => {
     }
 
     const moveScrollRight = () => {
+        console.log(products)
         let scrollX = document.getElementById('container').scrollLeft;
         document.getElementById('container').scrollLeft = scrollX + 170;
     }

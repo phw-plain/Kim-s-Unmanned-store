@@ -37,11 +37,11 @@ const Products = () => {
 
     function Navigation() {
         return  (
-            <div class="grid">
-            <div class="controller">
-                <button class="controller-b" onClick={moveScrollLeft}>◀</button>
+            <div className="grid">
+            <div className="controller">
+                <button className="controller-b" onClick={moveScrollLeft}>◀</button>
             </div> 
-            <div class="category-box" id="container">
+            <div className="category-box" id="container">
                 <button className='category'>과자</button>
                 <button className='category'>사탕</button>
                 <button className='category'>음료</button>
@@ -51,8 +51,8 @@ const Products = () => {
                 <button className='category'>냉장</button>
                 <button className='category' style={{marginRight:"0px"}}>정육</button>
             </div>
-            <div class="controller">
-                <button class="controller-a" onClick={moveScrollRight}>▶</button>
+            <div className="controller">
+                <button className="controller-a" onClick={moveScrollRight}>▶</button>
             </div>
         </div>
         );

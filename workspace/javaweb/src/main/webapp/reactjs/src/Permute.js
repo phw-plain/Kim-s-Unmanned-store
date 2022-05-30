@@ -15,14 +15,18 @@ const Permute = () => {
                 </a>
             </div>
             <div className='per_menus'>
-                <div className='shadow per_menu' style={{ marginTop: "15vh" }}>
-                    <div className='left per_title'>환불하기</div>
-                    <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
-                </div>
-                <div className='shadow per_menu'>
-                    <div className='left per_title'>교환하기</div>
-                    <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
-                </div>
+                <Link  to="0">
+                    <div className='shadow per_menu' style={{ marginTop: "15vh" }}>
+                        <div className='left per_title'>환불하기</div>
+                        <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
+                    </div>
+                </Link>
+                <Link  to="교환">
+                    <div className='shadow per_menu'>
+                        <div className='left per_title'>교환하기</div>
+                        <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
+                    </div>
+                </Link>
             </div>
             <div className="per_bottom">
                 <div className="right">

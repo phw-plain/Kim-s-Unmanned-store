@@ -10,10 +10,13 @@
 .per_title{
     padding: 5%;
     font-size: 2.5vh;
+    color: black;
 }
 .per_img{
     float: right;
     width: 15vh;
+    margin-right: 1vh;
+    margin-bottom: 1vh;
 }
 .per_bottom{
     height: 5vh;

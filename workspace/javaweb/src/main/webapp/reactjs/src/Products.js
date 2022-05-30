@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'; 
 import { Link } from 'react-router-dom';
-import { Carousel, Col, Row} from "react-bootstrap";
+import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
+import $ from "jquery";
 
 import  './css/Products.css';
 
-const Product = () => { 
-
+const Products = () => { 
+  
     const [products, setProducts] = useState([]);
+    const BUTTONS = ['기본'];
 
     useEffect(() => {
         fetch("/products")
@@ -18,9 +20,47 @@ const Product = () => {
             });
     }, []);
 
+    const handleClose = () => {
+        window.location = '/';
+    }
+
+    const moveScrollRight = () => {
+        console.log(products)
+        let scrollX = document.getElementById('container').scrollLeft;
+        document.getElementById('container').scrollLeft = scrollX + 170;
+    }
+
+    const moveScrollLeft = () =>  {
+        let scrollX = document.getElementById('container').scrollLeft;
+        document.getElementById('container').scrollLeft = scrollX - 170;
+    };
+
+    function Navigation() {
+        return  (
+            <div className="grid">
+            <div className="controller">
+                <button className="controller-b" onClick={moveScrollLeft}>◀</button>
+            </div> 
+            <div className="category-box" id="container">
+                <button className='category'>과자</button>
+                <button className='category'>사탕</button>
+                <button className='category'>음료</button>
+                <button className='category'>행사</button>
+                <button className='category'>과일</button>
+                <button className='category'>채소</button>
+                <button className='category'>냉장</button>
+                <button className='category' style={{marginRight:"0px"}}>정육</button>
+            </div>
+            <div className="controller">
+                <button className="controller-a" onClick={moveScrollRight}>▶</button>
+            </div>
+        </div>
+        );
+    }
+    
     return ( 
-        <div class="Products"> 
-            <Carousel slide class="banner">
+        <div className="Products"> 
+            <Carousel slide className="banner">
                 <Carousel.Item>
                     <img
                     className="d-block w-100"
@@ -36,31 +76,35 @@ const Product = () => {
                     />
                 </Carousel.Item>
             </Carousel>
-            <div class="category-box">
-                <ui class="category">
-                    <button class="scrollbtn"><a>◀</a></button>
-                    <li>과자</li>
-                    <li>캔디</li>
-                    <li>음료</li>
-                    <li>행사</li>
-                    <button class="scrollbtn"><a>▶</a></button>
-                </ui>
+            <Navigation/>
+            <div className="tools">
+                <div>
+                    <Button variant='success' style={{fontSize:"1.3vh"}}>바코드 검색</Button>
+                </div>
+                <div>
+                    <form id="form" className="search" method='get'>
+                        <input type="text" id="search" name="search" placeholder='Search'/>
+                        <input type="submit" value="Search"/>
+                    </form>
+                </div>
             </div>
-            <div class="products-box">
-                <Carousel fade indicators={false} interval={null}>
+            <div className="products-box">
+                <Carousel fade indicators={false} interval={null}  className="w-100">
                     <Carousel.Item>
                         <Row>
                             {products.map((text, index) =>
-                                <Col sm={5}>
-                                    <Link to={`/product/${index}`}>
-                                        <div class="products">
-                                            <img style={{width:"22vh"}} src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?201812022340" />
-                                            <h4>{text[0]}</h4>
-                                            <p>
-                                                {text[1]}
-                                                <br/>
-                                                {text[2]}
-                                            </p>
+                                <Col md={6}>
+                                   <Link to={`/product/${index}`}>
+                                        <div className="products">
+                                            <img className={"products_img"} src={text[4]} alt={"product-img"}/>
+                                            <div className="products-text">
+                                                <h1>{text[0]}</h1>
+                                                <h2>
+                                                    {text[1]}
+                                                    <br/>
+                                                    {text[3]}
+                                                </h2>
+                                            </div>
                                         </div>
                                     </Link> 
                                 </Col>  
@@ -69,8 +113,11 @@ const Product = () => {
                     </Carousel.Item>
                 </Carousel>
             </div>
+            <div className='nav_close'>
+                <Button variant="secondary" onClick={handleClose} style={{ fontSize:"1.5vh"}}>메인으로</Button>
+            </div>
         </div>
     ); 
 }
 
-export default Product;
+export default Products;

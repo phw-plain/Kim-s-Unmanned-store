@@ -38,7 +38,7 @@ public class Manage extends Setting {
 	private Sales sales; 				// 매출 & 지출 기록 및 그래프
 	private NetIncome netincome;	 	// 실수령액 그래프
 	private Inventory inventory; 		// 재고 관리
-	private Customer customer; 		// 재고 관리
+	private Customer customer; 			// 고객 관리
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage(String id, String pw) {

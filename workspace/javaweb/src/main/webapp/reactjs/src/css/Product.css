@@ -2,8 +2,70 @@ body {
     overflow: hidden;
 }
 .product{
-    height: 80vh;
+    height: 100vh;
 }
-.itemimg{
-    
+.header{
+    height: 78.9vh;
+}
+.navigation{
+    height: 4vh;
+    background-color: gray;
+    padding-top: 1vh;
+}
+.nav_title{
+    font-size: 1.5vh;
+    color: black;
+}
+.product_img{
+    width: 30vh;
+    height: 30vh;
+    display: inline-block;
+    align-items: center;
+    margin-top: 5%;;
+
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -khtml-border-radius: 100px;
+    -webkit-border-radius: 100px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.product_text{
+    text-align: left;
+    font-size: 2vh;
+    margin: 5% 25% 7% 25%;
+}
+.product_btn{
+    width: 15vh;
+    height: 4vh;
+    font-size: 1.3vh;
+    color: #000;
+    background-color: rgb(255, 189, 68);
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+.alt{
+    width: 80%;
+    margin: 10%;
+    font-size: 2vh;
+    opacity: 0;
+}
+.count{
+    margin-top: 10%;
+    place-content: center;
+}
+.roundBtn2{
+    width: 3vh;
+    height: 3vh;
+    font-size: 1.7vh;
+    color: #000;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    outline: none;
 }

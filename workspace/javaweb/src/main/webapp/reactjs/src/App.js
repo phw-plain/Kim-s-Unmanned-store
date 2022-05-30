@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, Component } from 'react';
+import Logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -8,11 +8,14 @@ import Header from './Header';
 import Main from './Main'; 
 import Products from './Products';
 import Product from './Product';
+import Buy from './Buy';
+import Permute from './Permute';
+import Change  from './Change';
 import NotFound from './NotFound';
 import Footer from './Footer';
 
 function App() {
-
+  
   // 디바이스 제한
   const Tablet = ({ children }) => {
     const isTabletWitdh = useMediaQuery({ minWidth: 1500, maxWidth: 2550 })
@@ -39,10 +42,12 @@ function App() {
             <Route path='/' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
             <Route path='/product/:productId' element={<Product />}></Route>
+            <Route path='/buy' element={<Buy />}></Route>
+            <Route path='/permute' element={<Permute />}></Route>
+            <Route exact  path='/permute/:permuteId' element={<Change />}></Route>
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
             <Route path="*" element={<NotFound />}></Route>
         </Routes>
-        <Footer/>
       </BrowserRouter>
     </Tablet>
 

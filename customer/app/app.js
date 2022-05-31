@@ -37,9 +37,28 @@ const server = require('http').createServer(app);
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
 app.get("/", (req, res) => {
-    res.sendFile('index.html')
-    res.json({ test: "success!", data: "okok" });
+  res.sendFile('index.html')
 });
+
+app.get("/products", (req, res) => {
+  let data = [
+    { 
+      name : "토종 햇 당근",
+      text : "상품 설명1",
+      cnt : "10",
+      price : "1000",
+      img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
+    }, { 
+      name : "야이셔 레몬",
+      text : "상품 설명2",
+      cnt : "10",
+      price : "2000",
+      img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
+    }
+  ]
+
+  res.json(data);
+})
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

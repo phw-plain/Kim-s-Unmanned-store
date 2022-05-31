@@ -1,30 +1,16 @@
 import React, { useEffect, useState } from 'react'; 
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
 
 import  './css/Products.css';
+import { ProductList } from './component/ProductList.jsx'
 
 const Products = () => { 
-   const [hotelName, setHotelName] = useState(null);
   
-  const handleSearch = (e) => {
-    setHotelName(e.value);
-    
-    fetchHotelName();
-  };
+  return ( 
+    <div className="Products">
+      <ProductList />
+    </div>
+  ); 
 
-  const fetchHotelName = async() => {
-    const response = await axios('/products');
-    console.log(response.data);
-    // data속에 담겨져 나온다.
-  };
-    
-    return ( 
-        <div className="Products"> 
-            <button onClick={ ()=>{ handleSearch() }}>보내기</button>
-        </div>
-    ); 
 }
 
 export default Products;

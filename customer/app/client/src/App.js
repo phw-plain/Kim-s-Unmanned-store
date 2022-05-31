@@ -9,16 +9,6 @@ import NotFound from './NotFound';
 
 function App() {
 
-  const sendRequest = async() => {
-    const response = await axios.get('http://localhost:5000');
-    console.log(response);
-    console.log(response.data);
-  };
-
-  useEffect(()=>{
-    sendRequest();    
-  });
-
   return (
     <div className="App" style={{margin: "0px"}}>      
       <BrowserRouter>

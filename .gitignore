@@ -313,6 +313,7 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 parklee-firebase.json
+App.java
 
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,maven,windows,eclipse,firebase,androidstudio,android

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Main from './Main'; 
 import Products from './Products'; 
+import Product from './Product'; 
 import NotFound from './NotFound'; 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Routes> 
             <Route path='/' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
+            <Route path='/product/:productId' element={<Product />}></Route>
             <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

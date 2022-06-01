@@ -312,5 +312,7 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+parklee-firebase.json
+
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,maven,windows,eclipse,firebase,androidstudio,android

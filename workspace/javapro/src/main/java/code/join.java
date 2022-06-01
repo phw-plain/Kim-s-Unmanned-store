@@ -3,9 +3,13 @@ import java.awt.*;
 
 import java.awt.event.*;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.*;
 import javax.swing.event.*;
+
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.cloud.FirestoreClient;
 
 import firebase.*;
 
@@ -15,6 +19,8 @@ class join extends Setting{
 	private JLabel headerLabel;
 	private Panel form;
 	private Button b1;
+	App Firebase = new App();
+	Firebase_join joinKey = new Firebase_join();
 	 
 	// 아이디 중복 체크용 변수
 	private boolean idcheck = false;
@@ -169,17 +175,26 @@ class join extends Setting{
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
+	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
+	 			try {
+					Firebase_join.getQuoteFormFirestore(tf2.getText());
+				} catch (ExecutionException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    	if(tf2.getText().length() == 0) {
 		    		JOptionPane.showMessageDialog(null
 							, "아이디를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-	                idcheck = false;
-				} else if(/* 중복인지 확인 */false) {
+				} 
+		    	else if(existence==true) {
 					JOptionPane.showMessageDialog(null
 							, "사용불가능한 아이디 입니다."
 		                    , "박리다매 무인가게"
@@ -362,10 +377,14 @@ class join extends Setting{
 	 						, "박리다매"
 	 						, JOptionPane.PLAIN_MESSAGE
 	 				);
+	 				try {
+						joinKey.join(id,pw,name,brand,location,empsal);
+					}  catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 	 				new Start();
 		    		mainFrame.dispose();
-		    		App m = new App();
-		    		m.insert(id,pw,name,brand,location,empsal);
 	 			}
 	 		}
 	 	});

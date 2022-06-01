@@ -60,12 +60,13 @@ public class Setting {
 	
 	// 회원 정보
 	public static String name;
-	public static String id;
+	public static String id = "sdf";
 	public static String pw;
 	public static String brand;
 	public static String location;
 	public static boolean emp;
 	public static int empsal;
+	public static boolean existence;
 
 	public static Frame startFrame;
 	

@@ -1,0 +1,11 @@
+{
+  "manager": {
+    "id": "admin1",
+    "pw": "admin1234",
+    "name": "관리자",
+    "brand": "샤로수길점",
+    "percent": 13.5,
+    "emp": true,
+    "empsal": 21000
+  }
+}

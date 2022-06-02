@@ -42,6 +42,7 @@ public class Manage extends Setting {
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage(String id, String pw) {
+		
 		this.id = id;
 		this.pw = pw;
 		

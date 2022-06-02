@@ -165,13 +165,6 @@ class login extends Setting {
 						, JOptionPane.PLAIN_MESSAGE
 						);
 				
-				// 로그인 정보 저장
-				name = "고고곡";
-				brand = "신림사거리점";
-				location = "관악구";
-				emp = false;
-				empsal = 0;
-				
 				// 테스트 계정 확인용
 		    	print();
 						

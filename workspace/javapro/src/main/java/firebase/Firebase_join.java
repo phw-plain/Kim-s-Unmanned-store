@@ -13,7 +13,9 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.database.FirebaseDatabase;  
+import com.google.firebase.database.FirebaseDatabase;
+
+import code.Setting;  
 
 public class Firebase_join extends App{
 	public static void getQuoteFormFirestore(String a) throws ExecutionException, InterruptedException{
@@ -34,12 +36,13 @@ public class Firebase_join extends App{
     public HashMap<String, String> getQuoteFormHTTP() throws IOException{
     	db = FirestoreClient.getFirestore();
     	HashMap<String,String> map = new HashMap();
-    	map.put("id", id);
-    	map.put("pw", pw);
-    	map.put("name", name);
-    	map.put("brand", brand);
-    	map.put("location", location);
-    	map.put("empsal", Integer.toString(empsal));
+    	Setting set = new Setting();
+    	map.put("id", set.getId());
+    	map.put("pw", set.getPw());
+    	map.put("name", set.getName());
+    	map.put("brand", set.getBrand());
+    	map.put("location", set.getLocation());
+    	map.put("empsal", Integer.toString(set.getEmpsal()));
     	//id,pw,name,brand,location,empsal
 		return map;
     }

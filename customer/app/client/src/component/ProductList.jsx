@@ -91,7 +91,7 @@ export const ProductList = () => {
                   <Col md={6} key={index}>
                     <Link to={`/product/${index}`}>
                       <div className="products">
-                        <img className={"products_img"} src={item.img} alt={"product-img"}/>
+                        <img className="products_img" src={item.img} alt={"product-img"}/>
                         <div className="products-text">
                           <h1>{item.name}</h1>
                           <h2>

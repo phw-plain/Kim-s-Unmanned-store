@@ -1,0 +1,56 @@
+.Shopping{
+    height: 100vh;
+}
+.sh_center{
+    height: 83vh;
+}
+.sh_footer{
+    position: absolute;
+    width: 100%;
+    height: 20vh;
+    background-color: gray;
+}
+.shopimg{
+    width: 17vh;
+    height: 17vh;
+    float: left;
+    margin-left: 5%;
+
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -khtml-border-radius: 100px;
+    -webkit-border-radius: 100px;
+}
+.shoptext{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    float: right;
+    margin-right: 5%;
+    font-size: 2vh;
+}
+.count{
+    display: flex;;
+}
+.footer_text{
+    display: flex;
+    justify-content: space-around;
+    height: 40%;
+    background-color: lightgray;
+    font-size: 2.0vh;
+}
+.footer_btns{
+    display: flex;
+    justify-content: space-between;
+}
+.inline{
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+.rm{
+    padding-right: 10%;
+}
+h1{
+    color:black;
+}

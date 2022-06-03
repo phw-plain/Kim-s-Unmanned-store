@@ -59,10 +59,14 @@
     right: -25.5%;
 
     width: 18.5vh;
-    height: 20vh;
+    height: 11vh;
 
     transition-duration: 0.5s;
 
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .Rank_tap:hover{
     right: 0%;
@@ -70,38 +74,26 @@
 }
 .tapCtrl{
     width: 3.5vh;
-    height: 11vh;
+    height: 100%;
     
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     font-size: 2vh;
-    background-color: darkgray;
+    background-color: white;
+
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+
 }
 .tapMain{
     width: 15vh;
-    height: 11vh;
+    height: 100%;
 
     padding: 5%;
-    font-size: 1.5vh;
 
-    background-color: darkgray;
-}
-.box {
-    border-style: solid;
-    border-width: 1px;
-    display: block;
-    width: 100px;
-    height: 100px;
-    background-color: #0000FF;
-    -webkit-transition:width 2s, height 2s, background-color 2s, -webkit-transform 2s;
-    transition:width 2s, height 2s, background-color 2s, transform 2s;
-}
-.box:hover {
-    background-color: #FFCCCC;
-    width:200px;
-    height:200px;
-    -webkit-transform:rotate(180deg);
-    transform:rotate(180deg);
+    font-size: 1.5vh;
+    background-color: white;
+
 }

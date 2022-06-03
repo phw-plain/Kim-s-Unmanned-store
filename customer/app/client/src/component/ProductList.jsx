@@ -109,7 +109,7 @@ export const ProductList = () => {
           </Carousel>
       </div>
       <div className='nav_close'>
-          <Button variant="secondary" onClick={handleClose} style={{ fontSize:"1.5vh"}}>메인으로</Button>
+          <Button variant="secondary" onClick={handleClose} style={{ fontSize:"1.7vh"}}>메인으로</Button>
       </div>
   </div>
   )

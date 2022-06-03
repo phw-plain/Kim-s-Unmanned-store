@@ -85,10 +85,12 @@ body {
     width: 20vh;
     height: 20vh;
 
-    border-radius: 100px;
-    -moz-border-radius: 100px;
-    -khtml-border-radius: 100px;
-    -webkit-border-radius: 100px;
+    border-radius: 4vh;
+    -moz-border-radius: 4vh;
+    -khtml-border-radius: 4vh;
+    -webkit-border-radius: 4vh;
+
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 .products-text{
     color: black;

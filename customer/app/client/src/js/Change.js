@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
-import {Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 function Change() { 
     let a = window.location.href;

@@ -2,7 +2,7 @@ import React, { useEffect, useState }  from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button  } from "react-bootstrap";
 
-import  './css/Product.css';
+import  '.././css/Product.css';
 
 const Product = () => { 
     // 데이터 가져오기

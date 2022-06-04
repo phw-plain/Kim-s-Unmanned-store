@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ListGroup,  Modal, Button } from "react-bootstrap";
 
-import './css/Buy.css';
+import '.././css/Buy.css';
 
 const Buy = () => {
     

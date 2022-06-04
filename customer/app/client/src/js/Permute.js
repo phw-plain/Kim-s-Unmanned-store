@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
 
-import  './css/Permute.css';
+import  '.././css/Permute.css';
 
 const Permute = () => { 
   

@@ -1,16 +1,16 @@
-import './App.css';
+import './css/App.css';
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Main from './Main'; 
-import Products from './Products'; 
-import Product from './Product'; 
-import Buy from './Buy';
-import Permute from './Permute';
-import Change  from './Change';
-import Rank  from './Rank';
-import NotFound from './NotFound'; 
+import Main from './js/Main'; 
+import Products from './js/Products'; 
+import Product from './js/Product'; 
+import Buy from './js/Buy';
+import Permute from './js/Permute';
+import Change  from './js/Change';
+import Rank  from './js/Rank';
+import NotFound from './js/NotFound'; 
 
 function App() {
 

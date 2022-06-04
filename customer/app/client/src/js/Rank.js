@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCrown } from 'react-icons/fa'
 
-import './css/Rank.css'
+import '.././css/Rank.css'
 
 function Rank() { 
     // 데이터 가져오기

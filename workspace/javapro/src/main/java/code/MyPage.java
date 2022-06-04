@@ -132,8 +132,6 @@ public class MyPage extends Setting {
 			}
 		});
 		
-				
-		
 		center.add(subTitle, BorderLayout.NORTH);
 		center.add(subCenter, BorderLayout.CENTER);
 		center.add(btn, BorderLayout.SOUTH);

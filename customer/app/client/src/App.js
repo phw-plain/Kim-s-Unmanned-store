@@ -1,24 +1,35 @@
-import './App.css';
+import './css/App.css';
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Main from './Main'; 
+import Main from './js/Main'; 
+import Products from './js/Products'; 
+import Product from './js/Product'; 
+import Buy from './js/Buy';
+import Permute from './js/Permute';
+import Change  from './js/Change';
+import Rank  from './js/Rank';
+import NotFound from './js/NotFound'; 
 
 function App() {
 
-  const sendRequest = async() => {
-    const response = await axios.get('http://localhost:5000');
-    console.log(response);
-    console.log(response.data);
-  };
-
-  useEffect(()=>{
-    sendRequest();    
-  });
-
   return (
-    <div className="App">      
-      <Main/>
+    <div className="App" style={{margin: "0px"}}>      
+      <BrowserRouter>
+        {/* <Header />  */}
+        <Routes> 
+            <Route path='/' element={<Main />}></Route>
+            <Route path='/products' element={<Products />}></Route>
+            <Route path='/product/:productId' element={<Product />}></Route>
+            <Route path='/buy' element={<Buy />}></Route>
+            <Route path='/permute' element={<Permute />}></Route>
+            <Route exact path='/permute/:permuteId' element={<Change />}></Route>
+            <Route path='/rank' element={<Rank />}></Route>
+            {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
+            <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

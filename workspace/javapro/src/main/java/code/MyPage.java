@@ -22,17 +22,21 @@ import javax.swing.JTextField;
 public class MyPage extends Setting {
 	public JPanel panel;
 
+	private JPanel Check;
 	public JPanel Read;
 	private JPanel Write;
 
+	public JButton homebtn0;
 	public JButton homebtn1;
 	public JButton homebtn2;
 	
 	public MyPage() {
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
+		homebtn0 = new JButton("", logo);
 		homebtn1 = new JButton("", logo);
 		homebtn2 = new JButton("", logo);
+		Check();
 		Read();
 		Write();
 	}
@@ -41,6 +45,104 @@ public class MyPage extends Setting {
 		panel.setVisible(tf);
 	}
 
+	public void Check() {
+		// Read 세팅
+		Check = new JPanel();
+		Check.setBackground(background);
+		Check.setLayout(new BorderLayout());
+		
+		// navigation
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(header_back);
+		
+		// home 버튼 생성
+		homebtn0.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
+		homebtn0.setContentAreaFilled(false); 	// 배경 채우기
+		homebtn0.setBorderPainted(false); 		// 외각선
+		homebtn0.setFocusPainted(false); 		// 선택 외각선
+
+		JPanel text = new JPanel(new GridLayout(2, 1, 0, -50));
+		text.setBackground(header_back);
+		
+		JLabel title = new JLabel("마이페이지");
+		title.setFont(font2);
+		title.setForeground(Setting.title);
+
+		text.add(title);
+		
+		header.add(homebtn0, BorderLayout.WEST);
+		header.add(text, BorderLayout.CENTER);
+		
+		// 본인 확인
+		JPanel center = new JPanel(new BorderLayout());
+		center.setBackground(background);
+		
+		JLabel subTitle = new JLabel("본인확인");
+		subTitle.setFont(font2);
+		subTitle.setForeground(Setting.title);
+		subTitle.setHorizontalAlignment(JLabel.CENTER);
+		subTitle.setBorder(BorderFactory.createEmptyBorder(100, 0, 200, 0));
+		
+		JPanel subCenter = new JPanel();
+		subCenter.setBackground(background);
+		JPanel textbox = new JPanel(new GridLayout(1,2,5,0));
+		textbox.setBackground(background);
+		JLabel password = new JLabel("비밀번호");
+		password.setFont(font3);
+		TextField pw = new TextField("", 15);
+		pw.setEchoChar('●');
+		pw.setFont(font4);
+
+		textbox.add(password);
+		textbox.add(pw);
+		subCenter.add(textbox);
+
+		JPanel btn = new JPanel();
+		btn.setBackground(background);
+	    btn.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		RoundedButton check = new RoundedButton("확인");
+	    check.setFont(font3);
+		btn.add(check);
+		
+		// 본인확인 체크 버튼 이벤트
+		check.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(pw.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null
+						, "비밀번호를 입력해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!pw.getText().equals(Setting.pw)) {
+					JOptionPane.showMessageDialog(null
+						, "비밀번호가 틀렸습니다! 다시 한번 확인 해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else {
+					JOptionPane.showMessageDialog(null
+						, "환영합니다!"
+						, "박리다매 무인가게"
+						, JOptionPane.PLAIN_MESSAGE
+					);
+					Check.setVisible(false);
+					Read.setVisible(true);
+				}
+			}
+		});
+		
+		center.add(subTitle, BorderLayout.NORTH);
+		center.add(subCenter, BorderLayout.CENTER);
+		center.add(btn, BorderLayout.SOUTH);
+		
+		Check.add(header, BorderLayout.NORTH);
+		Check.add(center, BorderLayout.CENTER);
+
+		Check.setVisible(true);
+		panel.add(Check);
+
+	}
+	
 	public void Read() {
 		// Read 세팅
 		Read = new JPanel();
@@ -139,7 +241,7 @@ public class MyPage extends Setting {
 		Read.add(center, BorderLayout.CENTER);
 		Read.add(btn, BorderLayout.SOUTH);
 
-		Read.setVisible(true);
+		Read.setVisible(false);
 		panel.add(Read);
 
 	}
@@ -197,14 +299,6 @@ public class MyPage extends Setting {
 		L[4] = new JLabel("위치");
 		L[5] = new JLabel("직원");
 		L[6] = new JLabel("직원 월급");
-		
-//		R[0] = new JLabel(name);
-//		R[1] = new JLabel(id);
-//		R[2] = new JLabel(pw);
-//		R[3] = new JLabel(brand);
-//		R[4] = new JLabel(location);
-//		R[5] = new JLabel((emp)?"유":"무");
-//		R[6] = new JLabel(Integer.toString(empsal));
 		
 		for(int i=0; i<L.length; i++ ) {
 			L[i].setFont(font3);

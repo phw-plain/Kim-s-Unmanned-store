@@ -1,0 +1,23 @@
+.Permute{
+    height: 100vh;
+    background-Image: url('../../public/img/main.png');
+    background-size: cover; 
+}
+.per_menu{
+    display: inline-block;
+    width: 50vh;
+    border-radius: 2.5%;
+    margin-top: 5vh;
+    background-color: white;
+}
+.per_title{
+    padding: 5%;
+    font-size: 2.5vh;
+    color: black;
+}
+.per_img{
+    float: right;
+    width: 15vh;
+    margin-right: 1vh;
+    margin-bottom: 1vh;
+}

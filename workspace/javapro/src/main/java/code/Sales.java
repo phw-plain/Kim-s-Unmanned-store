@@ -226,7 +226,7 @@ public class Sales extends Setting{
 		});
 
 		// graph
-		int[][] data1 = new int[7][4]; // 일, 월, 연, sales
+		int[][] data1 = new int[7][4]; // 일, 월, 연, sales, 요일
 		int[][] data2 = new int[7][4];
 
 		for (int i = 0; i < 7; i++) {

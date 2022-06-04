@@ -33,12 +33,12 @@ public class Setting {
 	
 	// Font
 	static String font = "배달의민족 주아";
-	public Font font1 = new Font(font, Font.PLAIN, 50);
-	public Font font2 = new Font(font, Font.PLAIN, 26);
-	public Font font3 = new Font(font, Font.PLAIN, 18);
-	public Font font4 = new Font(font, Font.PLAIN, 16);
-	public Font font5 = new Font(font, Font.PLAIN, 14);
-	public Font font6 = new Font(font, Font.PLAIN, 11);
+	public static Font font1 = new Font(font, Font.PLAIN, 50);
+	public static Font font2 = new Font(font, Font.PLAIN, 26);
+	public static Font font3 = new Font(font, Font.PLAIN, 18);
+	public static Font font4 = new Font(font, Font.PLAIN, 16);
+	public static Font font5 = new Font(font, Font.PLAIN, 14);
+	public static Font font6 = new Font(font, Font.PLAIN, 11);
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");

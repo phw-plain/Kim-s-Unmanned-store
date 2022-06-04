@@ -139,6 +139,7 @@ class login extends Setting {
  	  setPw(tf2.getText());
  	  Firebase_login login = new Firebase_login();
  	   
+
  	   if(getId().length() == 0) {
  		   JOptionPane.showMessageDialog(null
  				   , "아이디를 입력해주세요."

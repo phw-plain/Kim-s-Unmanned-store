@@ -1,7 +1,11 @@
 package code;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JPanel;
 
@@ -76,7 +80,7 @@ public class DotGraph {
 	private static JFreeChart createChart(XYDataset dataset) {
 		JFreeChart chart = ChartFactory.createTimeSeriesChart(str3, // title
 				"", // x-axis label
-				"", // y-axis label
+				"원", // y-axis label
 				dataset, // data
 				true, // create legend?
 				true, // generate tooltips?
@@ -95,14 +99,25 @@ public class DotGraph {
 		}
 
 		DateAxis axis = (DateAxis) plot.getDomainAxis();
-		Minute base = new Minute(0, 0, 24, 3, 2022); // 현재 날짜
-		RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
-		rdf.setSecondFormatter(new DecimalFormat(""));
-		axis.setDateFormatOverride(rdf);
+		axis.setDateFormatOverride(new SimpleDateFormat("   MM/dd E  "));
 
 		ChartUtilities.applyCurrentTheme(chart);
 
 		// 그래프 디자인
+		// Title
+		chart.getTitle().setFont(new Font("돋움체", Font.BOLD, 20));
+		chart.getLegend().setItemFont(new Font("돋움체", Font.PLAIN, 10));
+		
+		// x축
+		Font font = plot.getDomainAxis().getLabelFont();
+		plot.getDomainAxis().setLabelFont(new Font("돋움체", font.getStyle(), font.getSize()));
+		plot.getDomainAxis().setTickLabelFont(new Font("돋움체", font.getStyle(), 10));
+		
+		// y축
+		font = plot.getRangeAxis().getLabelFont();
+		plot.getRangeAxis().setLabelFont(new Font("돋움체", font.getStyle(), font.getSize()));
+		plot.getRangeAxis().setTickLabelFont(new Font("돋움체", font.getStyle(), 10));	
+		
 		plot.setBackgroundPaint(java.awt.Color.green);
 		chart.setBackgroundPaint(java.awt.Color.white);
 		chart.getPlot().setBackgroundPaint(java.awt.Color.white);

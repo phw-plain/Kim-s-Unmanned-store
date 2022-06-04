@@ -1,0 +1,99 @@
+.Rank_Header{
+    height: 15vh;
+    background-color: lightgray;
+    text-align: initial;
+    padding: 4vh 4vh 4vh 5vh;
+}
+.Rank_Main{
+    height: 100%;
+
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-top: 2.5vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+}
+.item{
+    text-align: start;
+    margin-bottom: 3.5vh;
+}
+.item_img{
+    width: 15vh;
+    height: 15vh;
+
+    border-radius: 100vh;
+    -moz-border-radius: 100vh;
+    -khtml-border-radius: 100vh;
+    -webkit-border-radius: 1.5vh;
+}
+.Rank_title{
+    font-size: 2.8vh;
+}
+.Rank_subTitle{
+    font-size: 1.8vh;
+}
+.crown0, .crown1, .crown2{
+    font-size: 2.5vh;
+}
+.crown0{
+    color: rgb(254, 195, 31);
+}
+.crown1{
+    color: rgb(210, 210, 210);
+}
+.crown2{
+    color: rgb(213, 172, 58);
+}
+.item_text1{
+    font-size: 1.8vh;
+}
+.item_text2{
+    font-size: 1.2vh;
+}
+.Rank_tap{
+    display: flex;
+    position: absolute;
+    top: 2%;
+    right: -25.5%;
+
+    width: 18.5vh;
+    height: 11vh;
+
+    transition-duration: 0.5s;
+
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.Rank_tap:hover{
+    right: 0%;
+
+}
+.tapCtrl{
+    width: 3.5vh;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 2vh;
+    background-color: white;
+
+    border-top-left-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+
+}
+.tapMain{
+    width: 15vh;
+    height: 100%;
+
+    padding: 5%;
+
+    font-size: 1.5vh;
+    background-color: white;
+
+}

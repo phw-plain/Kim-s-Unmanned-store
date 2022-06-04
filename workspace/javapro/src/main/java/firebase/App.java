@@ -17,6 +17,8 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firestore.v1.WriteRequest;
 
 import code.Setting;
@@ -28,7 +30,9 @@ public class App extends Setting {
 	public static FirebaseOptions options = null;
 	static Firestore db;
 	public App() {
+		
 		try {
+		
 			serviceAccount = new FileInputStream("./src/main/json/parklee-firebase.json");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -55,5 +59,6 @@ public class App extends Setting {
 				firebaseApp = FirebaseApp.initializeApp(options);
 			}
 	}
+	
 
 }

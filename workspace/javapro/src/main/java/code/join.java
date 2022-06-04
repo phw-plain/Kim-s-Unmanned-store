@@ -385,7 +385,10 @@ class join extends Setting{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+	 				Firebase_login a= new Firebase_login();
+	 				a.login();
 	 				new Start();
+	 				
 		    		mainFrame.dispose();
 	 			}
 	 		}

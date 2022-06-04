@@ -6,6 +6,8 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import firebase.Firebase_login;
+
 class login extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
@@ -133,26 +135,23 @@ class login extends Setting {
 	
 	private void event() {
 		// 데이터 저장 변수 선언
- 	   	String input_id = tf1.getText();
- 	   	String input_pw = tf2.getText();
+ 	  setId(tf1.getText());
+ 	  setPw(tf2.getText());
+ 	  Firebase_login login = new Firebase_login();
  	   
- 	   // 데이터 불러오기
- 	   	String id = "1";
- 	   	String pw = "1";
- 	   
- 	   if(input_id.length() == 0) {
+ 	   if(getId().length() == 0) {
  		   JOptionPane.showMessageDialog(null
  				   , "아이디를 입력해주세요."
  				   , "박리다매 무인가게"
  				   , JOptionPane.ERROR_MESSAGE
  				   );
-			} else if(input_pw.length() == 0) {
+			} else if(getPw().length() == 0) {
 				JOptionPane.showMessageDialog(null
 						, "비밀번호를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 						);
-			} else if(!id.equals(input_id) || !pw.equals(input_pw)) {
+			} else if(login.login()==false) {
 				JOptionPane.showMessageDialog(null
 						, "아이디 또는 비밀번호 입력 오류. 다시 한번 확인 해주세요."
 						, "박리다매 무인가게"

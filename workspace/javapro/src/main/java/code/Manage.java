@@ -266,6 +266,12 @@ public class Manage extends Setting {
 				netincome.setVisible(false);
 			}
 		});
+		mypage.homebtn0.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				mypage.setVisible(false);
+			}
+		});	
 		mypage.homebtn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);

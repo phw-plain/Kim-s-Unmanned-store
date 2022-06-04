@@ -56,57 +56,52 @@ export const ProductList = () => {
   return (
     <div className="Products"> 
       <Carousel slide className="banner">
-          <Carousel.Item>
-              <img
-              className="d-block w-100"
-              src="./img/banner1.png"
-              alt="First slide"
-              />
-          </Carousel.Item>
-          <Carousel.Item>
-              <img
-              className="d-block w-100"
-              src="./img/banner1.png"
-              alt="Second slide"
-              />
-          </Carousel.Item>
+        <Carousel.Item>
+          <img
+          className="d-block w-100"
+          src="./img/banner1.png"
+          alt="First slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+          className="d-block w-100"
+          src="./img/banner1.png"
+          alt="Second slide"
+          />
+        </Carousel.Item>
       </Carousel>
       <Navigation/>
       <div className="tools">
-          <div>
-              <Button variant='success' style={{fontSize:"1.3vh"}}>바코드 검색</Button>
-          </div>
-          <div>
-              <form id="form" className="search" method='get'>
-                  <input type="text" id="search" name="search" placeholder='Search'/>
-                  <input type="submit" value="Search"/>
-              </form>
-          </div>
+        <form id="form" className="search" method='get'>
+          <input type="text" id="search" name="search" placeholder='Search'/>
+          <input type="submit" value="Search"/>
+        </form>
       </div>
       <div className="products-box">
-          <Carousel fade indicators={false} interval={null}  className="w-100">
-            <Carousel.Item>
-              <Row>
-                {products.map((item, index) =>
-                  <Col md={6} key={index}>
-                    <Link to={`/product/${index}`}>
-                      <div className="products">
-                        <img className="products_img" src={item.img} alt={"product-img"}/>
-                        <div className="products-text">
-                          <h1>{item.name}</h1>
-                          <h2>
-                            {item.text}
-                            <br/>
-                            {item.price}
-                          </h2>
-                        </div>
+        <Carousel fade indicators={false} interval={null}  className="w-100">
+          <Carousel.Item>
+            <Row>
+              {products.map((item, index) =>
+                <Col md={6} key={index}>
+                  <Link to={`/product/${index}`}>
+                    <div className="products">
+                      <img className="products_img" src={item.img} alt={"product-img"}/>
+                      <div className="products-text">
+                        <h1>{item.name}</h1>
+                        <h2>
+                          {item.text}
+                          <br/>
+                          {item.price}
+                        </h2>
                       </div>
-                    </Link> 
-                  </Col>  
-                )}
-              </Row>
-            </Carousel.Item>
-          </Carousel>
+                    </div>
+                  </Link> 
+                </Col>  
+              )}
+            </Row>
+          </Carousel.Item>
+        </Carousel>
       </div>
       <div className='nav_close'>
           <Button variant="secondary" onClick={handleClose} style={{ fontSize:"1.7vh"}}>메인으로</Button>

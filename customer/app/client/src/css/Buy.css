@@ -2,7 +2,7 @@
     height: 100vh;
 }
 .sh_center{
-    height: 83vh;
+    height: 86.5vh;
 }
 .sh_footer{
     position: absolute;
@@ -53,4 +53,51 @@
 }
 h1{
     color:black;
+}
+
+.footer{
+    height: 100vh;
+    background-color: lightgray;
+}
+.top{
+    height: 4%;
+
+    display: flex;
+    justify-content: space-around;
+
+    font-size: 2.0vh;
+    background-color: gray;
+}
+.center{
+    height: 12.1%;
+}
+.bottom{
+    height: 5%;
+    background-color: gray;
+}
+.list{
+    height: 100%;
+    font-size: 1.7vh;
+    overflow-y: auto;
+}
+.red{
+    color: red;
+    display: contents;
+}
+.right{
+    width: 95%;
+    padding-top: 1%;
+}
+.button{
+    width: 10vh;
+    height: 4vh;
+    font-size: 1.3vh;
+    color: #000;
+    margin-left: 2%;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    outline: none;
 }

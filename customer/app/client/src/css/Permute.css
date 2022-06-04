@@ -1,11 +1,14 @@
-.per_menus{
-    height: 91vh;
-    display: grid;
+.Permute{
+    height: 100vh;
+    background-Image: url('../../public/img/main.png');
+    background-size: cover; 
 }
 .per_menu{
     display: inline-block;
     width: 50vh;
     border-radius: 2.5%;
+    margin-top: 5vh;
+    background-color: white;
 }
 .per_title{
     padding: 5%;
@@ -17,8 +20,4 @@
     width: 15vh;
     margin-right: 1vh;
     margin-bottom: 1vh;
-}
-.per_bottom{
-    height: 5vh;
-    background-color: gray;
 }

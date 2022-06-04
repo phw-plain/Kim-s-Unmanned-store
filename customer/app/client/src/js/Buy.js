@@ -5,7 +5,6 @@ import { ListGroup,  Modal, Button } from "react-bootstrap";
 import '.././css/Buy.css';
 
 const Buy = () => {
-    
     // 데이터 가져오기
     const [products, setProducts] = useState([]);
     const [Cart, setCarts] = useState(JSON.parse(localStorage.getItem('products')));
@@ -89,11 +88,6 @@ const Buy = () => {
 
     return ( 
         <div className='Shopping'>
-            <div className="navigation">
-                <Link to="/products">
-                    <h1>박리다매 무인가게</h1>
-                </Link>
-            </div>
             <div className="sh_center">
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {Cart.products.map((text,idx)  =>

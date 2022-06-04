@@ -45,9 +45,8 @@ body {
 }
 .controller-a, .controller-b{
     color: #5f6368;
-    border: solid 1px #dadce0;
-    border-radius: 1.5vh;
-    padding: 6px 8px 6px 8px; 
+    border: none;
+    padding: 10px 15px 10px 15px; 
     outline: 0;
     cursor: pointer;
     display: inline-block;
@@ -61,10 +60,9 @@ body {
     height: 6vh;
     margin: 1.5vh 6vh 0vh 6vh;
 }
-.sort{
-    font-size: 1.7vh;
-}
 .search{
+    width: 100%;
+    text-align: right;
     font-size: 1.4vh;
 }
 .scrollbtn{

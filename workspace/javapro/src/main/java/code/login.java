@@ -140,7 +140,7 @@ class login extends Setting {
  	   	String pw = "1";
  	   
  	   if(input_id.length() == 0) {
- 		   JOptionPane.showMessageDialog(null
+ 		   	JOptionPane.showMessageDialog(null
  				   , "아이디를 입력해주세요."
  				   , "박리다매 무인가게"
  				   , JOptionPane.ERROR_MESSAGE

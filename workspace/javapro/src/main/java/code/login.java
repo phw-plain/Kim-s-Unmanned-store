@@ -6,6 +6,8 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import firebase.Firebase_login;
+
 class login extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
@@ -14,8 +16,8 @@ class login extends Setting {
 	private JLabel headerLabel;
 	private Button b1;
 	
-	private TextField tf1;
-	private TextField tf2;
+	private JTextField tf1;
+	private JTextField tf2;
 	
 	public login() {
 		i = new ImageIcon("src/img/login_img.png");
@@ -59,7 +61,8 @@ class login extends Setting {
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font3);
 		label1.setForeground(fontcolor);
-		tf1 = new TextField("", 15);
+		tf1 = new JTextField("", 15);
+		
 		tf1.selectAll();
 		form.add(label1);
 		form.add(tf1);
@@ -67,8 +70,8 @@ class login extends Setting {
 		JLabel label2 = new JLabel("비밀번호");
 		label2.setFont(font3);
 		label2.setForeground(fontcolor);
-		tf2 = new TextField("", 15);
-		tf2.setEchoChar('●');
+		tf2 = new JTextField("", 15);
+		//tf2.setEchoChar('●');
 		form.add(label2);
 		form.add(tf2);
 
@@ -132,26 +135,24 @@ class login extends Setting {
 	
 	private void event() {
 		// 데이터 저장 변수 선언
- 	   	String input_id = tf1.getText();
- 	   	String input_pw = tf2.getText();
+ 	  setId(tf1.getText());
+ 	  setPw(tf2.getText());
+ 	  Firebase_login login = new Firebase_login();
  	   
- 	   // 데이터 불러오기
- 	   	String id = "1";
- 	   	String pw = "1";
- 	   
- 	   if(input_id.length() == 0) {
- 		   	JOptionPane.showMessageDialog(null
+
+ 	   if(getId().length() == 0) {
+ 		   JOptionPane.showMessageDialog(null
  				   , "아이디를 입력해주세요."
  				   , "박리다매 무인가게"
  				   , JOptionPane.ERROR_MESSAGE
  				   );
-			} else if(input_pw.length() == 0) {
+			} else if(getPw().length() == 0) {
 				JOptionPane.showMessageDialog(null
 						, "비밀번호를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 						);
-			} else if(!id.equals(input_id) || !pw.equals(input_pw)) {
+			} else if(login.login()==false) {
 				JOptionPane.showMessageDialog(null
 						, "아이디 또는 비밀번호 입력 오류. 다시 한번 확인 해주세요."
 						, "박리다매 무인가게"
@@ -163,13 +164,6 @@ class login extends Setting {
 						, "박리다매 무인가게"
 						, JOptionPane.PLAIN_MESSAGE
 						);
-				
-				// 로그인 정보 저장
-				name = "고고곡";
-				brand = "신림사거리점";
-				location = "관악구";
-				emp = false;
-				empsal = 0;
 				
 				// 테스트 계정 확인용
 		    	print();

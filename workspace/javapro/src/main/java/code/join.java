@@ -1,11 +1,17 @@
 package code;
 import java.awt.*;
+
 import java.awt.event.*;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import mysql.*;
+
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.cloud.FirestoreClient;
+
+import firebase.*;
 
 class join extends Setting{
 	private Frame mainFrame;
@@ -13,6 +19,8 @@ class join extends Setting{
 	private JLabel headerLabel;
 	private Panel form;
 	private Button b1;
+	App Firebase = new App();
+	Firebase_join joinKey = new Firebase_join();
 	 
 	// 아이디 중복 체크용 변수
 	private boolean idcheck = false;
@@ -41,22 +49,21 @@ class join extends Setting{
 		headerLabel.setText("회원가입");
 		headerLabel.setFont(font1);
 		headerLabel.setForeground(title);
-
 		// 회원가입 정보 입력
 		form = new Panel(new GridLayout(8,4,0,30));
 		form.setPreferredSize(new Dimension(800,400));
 		
 		JLabel blankL1 = new JLabel();
-		JLabel blankR1 = new JLabel();
+		JLabel blank = new JLabel();
 		JLabel label1 = new JLabel("이름");
 		label1.setFont(font3);
 		label1.setForeground(fontcolor);
-		final TextField tf1 = new TextField("", 15);
+		final JTextField tf1 = new JTextField("", 15);
 		tf1.selectAll();
 		form.add(blankL1);
 		form.add(label1);
 		form.add(tf1);
-		form.add(blankR1);
+		form.add(blank);
 		
 		JLabel blankL2 = new JLabel();
 		Panel btnlabel = new Panel();
@@ -68,7 +75,7 @@ class join extends Setting{
 		JLabel label2 = new JLabel("아이디");
 		label2.setFont(font3);
 		label2.setForeground(fontcolor);
-		final TextField tf2 = new TextField("", 15);
+		final JTextField tf2 = new JTextField("", 15);
 		tf2.selectAll();
 		form.add(blankL2);
 		form.add(label2);
@@ -80,7 +87,7 @@ class join extends Setting{
 		JLabel label3 = new JLabel("비밀번호");
 		label3.setFont(font3);
 		label3.setForeground(fontcolor);
-		final TextField tf3 = new TextField("", 15);
+		final JTextField tf3 = new JTextField("", 15);
 		tf3.selectAll(); // tf2.setEchoChar('*');
 		form.add(blankL3);
 		form.add(label3);
@@ -92,7 +99,7 @@ class join extends Setting{
 		JLabel label4 = new JLabel("지점명");
 		label4.setFont(font3);
 		label4.setForeground(fontcolor);
-		final TextField tf4 = new TextField("", 15);
+		final JTextField tf4 = new JTextField("", 15);
 		tf4.selectAll(); 
 		form.add(blankL4);
 		form.add(label4);
@@ -104,7 +111,7 @@ class join extends Setting{
 		JLabel label5 = new JLabel("위치");
 		label5.setFont(font3);
 		label5.setForeground(fontcolor);
-		final TextField tf5 = new TextField("", 15);
+		final JTextField tf5 = new JTextField("", 15);
 		tf5.selectAll(); 
 		form.add(blankL5);
 		form.add(label5);
@@ -145,7 +152,7 @@ class join extends Setting{
 		final JLabel label7 = new JLabel("직원 월급");
 		label7.setFont(font3);
 		label7.setForeground(fontcolor);
-		final TextField tf7 = new TextField("", 15);
+		final JTextField tf7 = new JTextField("", 15);
 		tf7.selectAll(); 
 		form.add(blankL7);
 		form.add(label7);
@@ -168,17 +175,26 @@ class join extends Setting{
 	    btns.add(cancel);
 	    btns.setBackground(background);
 	    
+	    
 	    // 아이디 중복 체크
 	    b1.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
+	 			try {
+					Firebase_join.getQuoteFormFirestore(tf2.getText());
+				} catch (ExecutionException e1) {
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    	if(tf2.getText().length() == 0) {
 		    		JOptionPane.showMessageDialog(null
 							, "아이디를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-	                idcheck = false;
-				} else if(/* 중복인지 확인 */false) {
+				} 
+		    	else if(existence==true) {
 					JOptionPane.showMessageDialog(null
 							, "사용불가능한 아이디 입니다."
 		                    , "박리다매 무인가게"
@@ -228,27 +244,29 @@ class join extends Setting{
  		check.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
 	 			// 데이터 저장 변수 선언
-	 			String name = tf1.getText();
-	 			String id = tf2.getText();
-	 			String pw = tf3.getText();
-	 			String brand = tf4.getText();
-	 			String location = tf5.getText();
+	 			setName(tf1.getText());
+				setId(tf2.getText());
+				setPw(tf3.getText());
+				setBrand(tf4.getText());
+				setLocation(tf5.getText());
+				setEmp((ra1.isSelected() == true) ? true : false);
+				setEmpsal((tf7.getText().length() != 0) ? Integer.parseInt(tf7.getText()) : 0);
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
 	 		
 	 			// 회원가입 예외 처리
-	 			if(name.length() == 0) {				
+	 			if(getName().length() == 0) {				
 	 				JOptionPane.showMessageDialog(null
 	 					, "이름을 입력해주세요."
 	 					, "박리다매 무인가게"
 	 					, JOptionPane.ERROR_MESSAGE
 	 				);
-	 			} else if(name.length() > 12) {
+	 			} else if(getName().length() > 12) {
 	 				JOptionPane.showMessageDialog(null
 	 					, "이름이 너무 깁니다. 12자 이내로 입력해 주세요."
 	 					, "박리다매 무인가게"
 	 					, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isString2(name)) {           
+ 				} else if(!is.isString2(getName())) {           
  					JOptionPane.showMessageDialog(null
 	 		            , "이름에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
 	 		            , "박리다매 무인가게"
@@ -313,25 +331,25 @@ class join extends Setting{
  						, "박리다매 무인가게"
  						, JOptionPane.ERROR_MESSAGE
 					);
- 	            } else if(brand.length() == 0) {		
+ 	            } else if(getBrand().length() == 0) {		
  					JOptionPane.showMessageDialog(null
 						, "지점명을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(brand.length() > 16) {
+ 				} else if(getBrand().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(location.length() == 0) {
+ 				} else if(getLocation().length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(location.length() > 16) {
+ 				} else if(getLocation().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
@@ -350,9 +368,9 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
-		 			location = tf5.getText();
-		 			emp = (ra1.isSelected() == true) ? true : false;
-		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
+		 			setLocation(tf5.getText());
+		 			setEmp((ra1.isSelected() == true) ? true : false);
+		 			setEmpsal((emp) ? Integer.parseInt(tf7.getText()) : 0);
 		 		
 		 			// 데이터 저장
 		 			
@@ -361,9 +379,17 @@ class join extends Setting{
 	 						, "박리다매"
 	 						, JOptionPane.PLAIN_MESSAGE
 	 				);
+	 				try {
+						joinKey.join(getId(),getPw(),getName(),getBrand(),getLocation(),getEmpsal());
+					}  catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	 				Firebase_login a= new Firebase_login();
+	 				a.login();
 	 				new Start();
+	 				
 		    		mainFrame.dispose();
-	
 	 			}
 	 		}
 	 	});

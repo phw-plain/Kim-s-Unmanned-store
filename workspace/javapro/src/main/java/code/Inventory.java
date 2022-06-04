@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -206,7 +207,7 @@ public class Inventory extends Setting {
 		search.setBackground(background);
 		double margin = (height < 1000) ? 0.12 : 0.2;
 		search.setBorder(BorderFactory.createEmptyBorder(50, (int)(width*margin), 0, 0));
-		final TextField input = new TextField(" ", 20);
+		final JTextField input = new JTextField(" ", 20);
 		HalfRoundedButton check = new HalfRoundedButton("🔍");
 
 		search.add(input);
@@ -216,15 +217,10 @@ public class Inventory extends Setting {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() != 0) {
-					System.out.println("입력된 문자열 : " + input.getText());
-					
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
 					
-					System.out.println("데이터 수정 완료!");
-				} else {
-					System.out.println("입력된 문자열 없음");
-				}
+				} 
 			}
 		});
 
@@ -403,25 +399,25 @@ public class Inventory extends Setting {
 		final JLabel R1 = new JLabel("");
 		R1.setFont(font6);
 		R1.setForeground(fontcolor);
-		final TextField R2 = new TextField("", 20);
+		final JTextField R2 = new JTextField("", 20);
 		R2.setFont(font6);
-		final TextField R3 = new TextField("", 20);
+		final JTextField R3 = new JTextField("", 20);
 		R3.setFont(font6);
-		final TextField R4 = new TextField("", 20);
+		final JTextField R4 = new JTextField("", 20);
 		R4.setFont(font6);
-		final TextField R5 = new TextField("", 20);
+		final JTextField R5 = new JTextField("", 20);
 		R5.setFont(font6);
-		final TextField R6 = new TextField("", 20);
+		final JTextField R6 = new JTextField("", 20);
 		R6.setFont(font6);
-		final TextField R7 = new TextField("/", 20);
+		final JTextField R7 = new JTextField("/", 20);
 		R7.setFont(font6);
-		final TextField R8 = new TextField("/", 20);
+		final JTextField R8 = new JTextField("/", 20);
 		R8.setFont(font6);
-		final TextField R9 = new TextField("/", 20);
+		final JTextField R9 = new JTextField("/", 20);
 		R9.setFont(font6);
 
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		final TextField R10 = new TextField("", 20);
+		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);
@@ -723,27 +719,27 @@ public class Inventory extends Setting {
 		L10.setFont(font3);
 		L10.setForeground(fontcolor);
 		
-		final TextField R1 = new TextField("", 20);
+		final JTextField R1 = new JTextField("", 20);
 		R1.setFont(font6);
-		final TextField R2 = new TextField("", 20);
+		final JTextField R2 = new JTextField("", 20);
 		R2.setFont(font6);
-		final TextField R3 = new TextField("", 20);
+		final JTextField R3 = new JTextField("", 20);
 		R3.setFont(font6);
-		final TextField R4 = new TextField("", 20);
+		final JTextField R4 = new JTextField("", 20);
 		R4.setFont(font6);
-		final TextField R5 = new TextField("", 20);
+		final JTextField R5 = new JTextField("", 20);
 		R5.setFont(font6);
-		final TextField R6 = new TextField("", 20);
+		final JTextField R6 = new JTextField("", 20);
 		R6.setFont(font6);
-		final TextField R7 = new TextField("", 20);
+		final JTextField R7 = new JTextField("", 20);
 		R7.setFont(font6);
-		final TextField R8 = new TextField("", 20);
+		final JTextField R8 = new JTextField("", 20);
 		R8.setFont(font6);
-		final TextField R9 = new TextField("/", 20);
+		final JTextField R9 = new JTextField("/", 20);
 		R9.setFont(font6);
 		
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		final TextField R10 = new TextField("", 20);
+		JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);
@@ -1022,3 +1018,4 @@ public class Inventory extends Setting {
 		}
 	}
 }
+

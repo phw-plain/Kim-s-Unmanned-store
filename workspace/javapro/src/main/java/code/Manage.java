@@ -42,6 +42,7 @@ public class Manage extends Setting {
 	private MyPage mypage; 				// 마이페이지
 
 	public Manage(String id, String pw) {
+		
 		this.id = id;
 		this.pw = pw;
 		
@@ -308,12 +309,12 @@ public class Manage extends Setting {
 				customer.setVisible(false);
 			}
 		});
-//		customer.homebtn2.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				menu.setVisible(true);
-//				customer.setVisible(false);
-//			}
-//		});
+		customer.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				customer.setVisible(false);
+			}
+		});
 	}
 	
 	class MyPanel extends JPanel {

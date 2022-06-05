@@ -45,6 +45,12 @@ public class MyPage extends Setting {
 	public void setVisible(boolean tf) {
 		panel.setVisible(tf);
 	}
+	
+	public void reLoad() {
+		Check.setVisible(true);
+		Read.setVisible(false);
+		Write.setVisible(false);
+	}
 
 	public void Check() {
 		// Read 세팅
@@ -82,7 +88,8 @@ public class MyPage extends Setting {
 		subTitle.setFont(font2);
 		subTitle.setForeground(Setting.title);
 		subTitle.setHorizontalAlignment(JLabel.CENTER);
-		subTitle.setBorder(BorderFactory.createEmptyBorder(100, 0, 200, 0));
+		int margin = (height < 1000) ? height/6 : height/5;
+		subTitle.setBorder(BorderFactory.createEmptyBorder(100, 0, margin, 0));
 		
 		JPanel subCenter = new JPanel();
 		subCenter.setBackground(background);
@@ -90,7 +97,7 @@ public class MyPage extends Setting {
 		textbox.setBackground(background);
 		JLabel password = new JLabel("비밀번호");
 		password.setFont(font3);
-		TextField pw = new TextField("", 15);
+		final TextField pw = new TextField("", 15);
 		pw.setEchoChar('●');
 		pw.setFont(font4);
 
@@ -128,6 +135,7 @@ public class MyPage extends Setting {
 					);
 					Check.setVisible(false);
 					Read.setVisible(true);
+					pw.setText("");
 				}
 			}
 		});
@@ -306,18 +314,18 @@ public class MyPage extends Setting {
 			L[i].setForeground(fontcolor);
 		}
 		
-		final TextField R1 = new TextField(name, 15);
+		final JTextField R1 = new JTextField(name, 15);
 		R1.setFont(font6);
 		final JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
 		R2.setForeground(fontcolor);
-		final TextField R3 = new TextField(pw, 15);
+		final JTextField R3 = new JTextField(pw, 15);
 		R3.setFont(font6);
-		final TextField R4 = new TextField(brand, 15);
+		final JTextField R4 = new JTextField(brand, 15);
 		R4.setFont(font6);
-		final TextField R5 = new TextField(location, 15);
+		final JTextField R5 = new JTextField(location, 15);
 		R5.setFont(font6);
-		final TextField R7 = new TextField(Integer.toString(empsal), 15);
+		final JTextField R7 = new JTextField(Integer.toString(empsal), 15);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();
@@ -484,7 +492,7 @@ public class MyPage extends Setting {
 						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
 
 						// reloading
-						panel.remove(0);   
+						panel.remove(1);
 						Read.setVisible(true);
 						Read();
 						
@@ -493,9 +501,9 @@ public class MyPage extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-						
-						Read.setVisible(true);
+
 						Write.setVisible(false);
+						Read.setVisible(true);
 					}
 				}
 			}

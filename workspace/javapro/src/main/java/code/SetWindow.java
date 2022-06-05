@@ -121,6 +121,7 @@ public class SetWindow extends Setting {
 	    		width = resoArr[reso.getSelectedIndex()][0];
 	    		height = resoArr[reso.getSelectedIndex()][1];
 	    		Setting.font = fontArr.get(fonts.getSelectedIndex());
+	    		System.out.println(fontArr.get(fonts.getSelectedIndex()));
 	    		if(ra1.isSelected() == true) {
 	    			lightMode();
 	    		} else {
@@ -151,7 +152,6 @@ public class SetWindow extends Setting {
 
 	private void addFont() {
 		// font 추가
-		fontArr.add("배달의민족 주아");
     	fontArr.add("굴림");
     	fontArr.add("굴림체");
     	fontArr.add("궁서");

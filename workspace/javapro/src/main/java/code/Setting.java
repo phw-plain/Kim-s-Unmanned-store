@@ -29,7 +29,7 @@ public class Setting {
 	public static Color maincolor;
 	
 	// Font
-	static String font = "배달의민족 주아";
+	static String font = "돋움체";
 	public static Font font1 = new Font(font, Font.PLAIN, 50);
 	public static Font font2 = new Font(font, Font.PLAIN, 26);
 	public static Font font3 = new Font(font, Font.PLAIN, 18);

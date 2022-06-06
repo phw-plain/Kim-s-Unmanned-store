@@ -29,7 +29,7 @@ public class Setting {
 	public static Color maincolor;
 	
 	// Font
-	static String font = "돋움체";
+	public static String font = "돋움체";
 	public static Font font1 = new Font(font, Font.PLAIN, 50);
 	public static Font font2 = new Font(font, Font.PLAIN, 26);
 	public static Font font3 = new Font(font, Font.PLAIN, 18);
@@ -71,11 +71,12 @@ public class Setting {
 		menu_back = new Color(214, 174, 242);
 		menu_over = new Color(253, 206, 83);
 		maincolor = new Color(254, 235, 182);
+		setFonts();
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
 	}
 	
-	public void print() {
+	public static void print() {
 		System.out.println("id : " + id);
 		System.out.println("pw : " + pw);
 		System.out.println("name : " + name);
@@ -93,5 +94,14 @@ public class Setting {
 		title = new Color(0, 0, 0);
 		background = new Color(255, 255, 255);
 		fontcolor = new Color(0, 0, 0);
+	}
+	
+	public static void setFonts() {
+		font1 = new Font(font, Font.PLAIN, 50);
+		font2 = new Font(font, Font.PLAIN, 26);
+		font3 = new Font(font, Font.PLAIN, 18);
+		font4 = new Font(font, Font.PLAIN, 16);
+		font5 = new Font(font, Font.PLAIN, 14);
+		font6 = new Font(font, Font.PLAIN, 11);
 	}
 }

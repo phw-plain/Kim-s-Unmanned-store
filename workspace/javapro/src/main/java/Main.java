@@ -12,6 +12,11 @@ public class Main extends Setting{
 		emp = false;
 		empsal = 0;
 		lightMode();
+		
+		// Frame 기본 세팅 정보
+		width = 1024;
+		height = 786;
+		
     	new Start();
     } 
 }

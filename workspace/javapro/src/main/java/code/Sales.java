@@ -27,7 +27,12 @@ public class Sales extends Setting{
 	public JButton homebtn1;
 	public JButton homebtn2;
 	
-	DotGraph graph = new DotGraph();
+	DotGraph todayGraph = new DotGraph();
+	DotGraphYear yearGraph = new DotGraphYear();
+	
+	public int margin = (height > 1000) ? 20 : 15;
+	public String blank1 = (height > 1000) ? "  " : "";
+	public String blank2 = (height > 1000) ? "   " : " ";
 	
 	public Sales() {
 		panel = new JPanel(new CardLayout());
@@ -65,14 +70,16 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ", Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ");
+		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
+		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
 
 		daybtn.setFont(font3);
 		monthbtn.setFont(font3);
+		recode.setFont(font3);
 
 		// 버튼 이벤트
 		monthbtn.addActionListener(new ActionListener() {
@@ -84,6 +91,7 @@ public class Sales extends Setting{
 
 		leftpanel.add(daybtn);
 		leftpanel.add(monthbtn);
+		leftpanel.add(recode);
 
 		// sales
 		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
@@ -115,7 +123,7 @@ public class Sales extends Setting{
 			data2[i][3] = 240 - (20 * i);
 		}
 
-		chartPanel1 = graph.createDemoPanel(1, data1, data2);
+		chartPanel1 = todayGraph.createDemoPanel(1, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -156,14 +164,16 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton daybtn = new HalfRoundedButton("   일       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   월       ", Color.orange);
+		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
+		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
 
 		daybtn.setFont(font3);
 		monthbtn.setFont(font3);
+		recode.setFont(font3);
 
 		// 버튼 이벤트
 		daybtn.addActionListener(new ActionListener() {
@@ -175,7 +185,8 @@ public class Sales extends Setting{
 
 		leftpanel.add(daybtn);
 		leftpanel.add(monthbtn);
-
+		leftpanel.add(recode);
+		
 		// sales
 		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
 		rightpanel.setBackground(background);
@@ -226,22 +237,22 @@ public class Sales extends Setting{
 		});
 
 		// graph
-		int[][] data1 = new int[7][4]; // 일, 월, 연, sales, 요일
-		int[][] data2 = new int[7][4];
-
-		for (int i = 0; i < 7; i++) {
-			data1[i][0] = 20 + i;
-			data1[i][1] = 3;
+		int[][] data1 = new int[12][4]; // 일, 월, 연, sales, 요일
+		int[][] data2= new int[12][4];
+		
+		for (int i = 0; i < data1.length; i++) {
+			data1[i][0] = 1;
+			data1[i][1] = 1+i;
 			data1[i][2] = 2022;
-			data1[i][3] = 100 + (20 * i);
+			data1[i][3] = 100 + (1 * i);
 
-			data2[i][0] = 20 + i;
-			data2[i][1] = 3;
+			data2[i][0] = 1;
+			data2[i][1] = 1+i;
 			data2[i][2] = 2022;
-			data2[i][3] = 240 - (20 * i);
+			data2[i][3] = 240 - (1 * i);
 		}
 
-		chartPanel2 = graph.createDemoPanel(2, data1, data2);
+		chartPanel2 = yearGraph.createDemoPanel(1, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());

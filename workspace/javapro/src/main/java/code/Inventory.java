@@ -15,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.Vector;
 
@@ -63,6 +65,9 @@ public class Inventory extends Setting {
 	private Vector<String> explain = new Vector<String>();
 	private Vector<String> picture = new Vector<String>();
 
+	private static File f;
+	private static String path;
+	
 	int spacing;
 	int margin1;
 	int margin2;
@@ -772,7 +777,7 @@ public class Inventory extends Setting {
 		// 버튼 이벤트
 		btnR10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				R8.setText(FileUpload());
+				R10.setText(FileUpload());
 			}
 		});
 		add.addActionListener(new ActionListener() {
@@ -875,6 +880,9 @@ public class Inventory extends Setting {
 						explain.add(R9.getText());
 						picture.add(R10.getText());
 						
+						// 이미지 업로드
+						fileSave(f, path, f.getName());
+						
 						// 데이터 변경 사항 저장
 						
 						// repaint
@@ -968,6 +976,12 @@ public class Inventory extends Setting {
                 {
                     str += tmp;
                 }
+
+                path = System.getProperty("user.dir"); 
+                path += "/src/upload/";
+                
+                f = jfc.getSelectedFile();
+                
                 return jfc.getSelectedFile().getPath();
             }catch(Exception e) {
                 e.printStackTrace();
@@ -980,6 +994,36 @@ public class Inventory extends Setting {
         }
         return null;
 
+	}
+	
+	public void fileSave(File file, String path, String name) {
+		try {
+			File f = new File(path);	// 디렉토리의 정보
+			if(!f.exists())	// 폴더가 존재하지 않는다면 upload폴더 생성
+			{
+				System.out.println("make drectory");
+				f.mkdir();
+			}
+			
+			// 파일 복사
+			String filePath = path + "/" + name;
+			
+			// 파일 읽기
+			FileInputStream fis = new FileInputStream(file);
+			
+			// 파일 쓰기
+			FileOutputStream fos = new FileOutputStream(filePath);
+					
+			int i=0; 
+			byte[] buffer = new byte[1024];
+			
+			while((i=fis.read(buffer, 0, 1024)) != -1) {
+				fos.write(buffer, 0, i);	// 읽은 개수만큼 출력
+			}
+			
+			System.out.println("file upload!!");
+			
+		} catch (Exception e) {}
 	}
 	
 	class MouseExitedListener1 extends MouseAdapter {

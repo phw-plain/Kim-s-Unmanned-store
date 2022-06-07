@@ -380,7 +380,7 @@ class join extends Setting{
 	 						, JOptionPane.PLAIN_MESSAGE
 	 				);
 	 				try {
-						joinKey.join(getId(),getPw(),getName(),getBrand(),getLocation(),getEmpsal());
+						joinKey.join();
 					}  catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

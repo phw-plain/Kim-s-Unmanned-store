@@ -33,6 +33,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import firebase.Firebase_inventory;
+
 public class Inventory extends Setting {
 	public JPanel panel;
 
@@ -875,8 +877,16 @@ public class Inventory extends Setting {
 						explain.add(R9.getText());
 						picture.add(R10.getText());
 						
+						System.out.println(R10.getText().getClass().getName());
 						// 데이터 변경 사항 저장
-						
+						/*Firebase_inventory newProduct = new Firebase_inventory();
+						try {
+							newProduct.inventory(R1.getText(),R2.getText(),R3.getText(),R4.getText(),R5.getText(),R6.getText(),R7.getText(),R8.getText(),R9.getText(),R10.getText());
+							System.out.println("됐당");
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}*/
 						// repaint
 						dataLoad();		
 						model.fireTableDataChanged();

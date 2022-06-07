@@ -46,12 +46,12 @@ public class Firebase_join extends App{
     	//id,pw,name,brand,location,empsal
 		return map;
     }
-	public void join(String id, String pw, String name, String brand, String location, int empsal) throws Exception {
+	public void join() throws Exception {
 		db = FirestoreClient.getFirestore();
     	Firebase_join getQuote = new Firebase_join();
     	HashMap<String, String> quote = getQuote.getQuoteFormHTTP();
     	try {
-        	ApiFuture<WriteResult> hello = db.collection("Manager").document(id)
+        	ApiFuture<WriteResult> hello = db.collection("Manager").document(getId())
     				.set(quote);
     	System.out.println("we Did" + hello.get().getUpdateTime());
     	}catch(Exception e){

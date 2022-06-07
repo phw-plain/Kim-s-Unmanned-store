@@ -25,7 +25,12 @@ public class NetIncome extends Setting{
 	public JButton homebtn1;
 	public JButton homebtn2;
 	
-	DotGraph graph = new DotGraph();
+	DotGraph todayGraph = new DotGraph();
+	DotGraphYear yearGraph = new DotGraphYear();
+
+	public int margin = (height > 1000) ? 20 : 15;
+	public String blank1 = (height > 1000) ? "  " : "";
+	public String blank2 = (height > 1000) ? "   " : " ";
 	
 	public NetIncome() {
 		panel = new JPanel(new CardLayout());
@@ -63,12 +68,12 @@ public class NetIncome extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ", Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ");
-
+		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 주 "+ blank2, Color.orange);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 연 " + blank2);
+		
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
 
@@ -89,10 +94,10 @@ public class NetIncome extends Setting{
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 182)); // 위 왼 아 오
 
 		// graph
-		int[][] data1 = new int[7][4]; // 일, 월, 연, sales
-		int[][] data2 = new int[7][4];
+		int[][] data1 = new int[12][4]; // 일, 월, 연, sales
+		int[][] data2 = new int[12][4];
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 12; i++) {
 			data1[i][0] = 20 + i;
 			data1[i][1] = 3;
 			data1[i][2] = 2022;
@@ -104,7 +109,7 @@ public class NetIncome extends Setting{
 			data2[i][3] = 240 - (20 * i);
 		}
 
-		JPanel chartPanel3 = graph.createDemoPanel(3, data1, data2);
+		JPanel chartPanel3 = todayGraph.createDemoPanel(2, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -146,11 +151,11 @@ public class NetIncome extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(20, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton weekbtn = new HalfRoundedButton("   주       ");
-		HalfRoundedButton monthbtn = new HalfRoundedButton("   연       ", Color.orange);
+		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 주 "+ blank2);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 연 " + blank2, Color.orange);
 
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
@@ -206,22 +211,22 @@ public class NetIncome extends Setting{
 		});
 
 		// graph
-		int[][] data1 = new int[7][4]; // 일, 월, 연, sales
-		int[][] data2 = new int[7][4];
+		int[][] data1 = new int[12][4]; // 일, 월, 연, sales
+		int[][] data2 = new int[12][4];
 
-		for (int i = 0; i < 7; i++) {
-			data1[i][0] = 20 + i;
-			data1[i][1] = 3;
+		for (int i = 0; i < 12; i++) {
+			data1[i][0] = 1;
+			data1[i][1] = i+1;
 			data1[i][2] = 2022;
 			data1[i][3] = 100 + (20 * i);
 
-			data2[i][0] = 20 + i;
-			data2[i][1] = 3;
+			data2[i][0] = 1;
+			data2[i][1] = i+1;
 			data2[i][2] = 2022;
 			data2[i][3] = 240 - (20 * i);
 		}
 
-		chartPanel2 = graph.createDemoPanel(4, data1, data2);
+		chartPanel2 = yearGraph.createDemoPanel(2, data1, data2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());

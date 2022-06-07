@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,6 +44,12 @@ public class MyPage extends Setting {
 
 	public void setVisible(boolean tf) {
 		panel.setVisible(tf);
+	}
+	
+	public void reLoad() {
+		Check.setVisible(true);
+		Read.setVisible(false);
+		Write.setVisible(false);
 	}
 
 	public void Check() {
@@ -81,7 +88,8 @@ public class MyPage extends Setting {
 		subTitle.setFont(font2);
 		subTitle.setForeground(Setting.title);
 		subTitle.setHorizontalAlignment(JLabel.CENTER);
-		subTitle.setBorder(BorderFactory.createEmptyBorder(100, 0, 200, 0));
+		int margin = (height < 1000) ? height/6 : height/5;
+		subTitle.setBorder(BorderFactory.createEmptyBorder(100, 0, margin, 0));
 		
 		JPanel subCenter = new JPanel();
 		subCenter.setBackground(background);
@@ -89,7 +97,7 @@ public class MyPage extends Setting {
 		textbox.setBackground(background);
 		JLabel password = new JLabel("비밀번호");
 		password.setFont(font3);
-		TextField pw = new TextField("", 15);
+		final TextField pw = new TextField("", 15);
 		pw.setEchoChar('●');
 		pw.setFont(font4);
 
@@ -127,6 +135,7 @@ public class MyPage extends Setting {
 					);
 					Check.setVisible(false);
 					Read.setVisible(true);
+					pw.setText("");
 				}
 			}
 		});
@@ -164,7 +173,7 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(getBrand() + "점 " + getName() + "님 환영합니다.");
+		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -197,13 +206,13 @@ public class MyPage extends Setting {
 		L[5] = new JLabel("직원");
 		L[6] = new JLabel("직원 월급");
 		
-		R[0] = new JLabel(getName());
-		R[1] = new JLabel(getId());
-		R[2] = new JLabel(getPw());
-		R[3] = new JLabel(getBrand());
-		R[4] = new JLabel(getLocation());
-		R[5] = new JLabel((isEmp())?"유":"무");
-		R[6] = new JLabel(Integer.toString(getEmpsal()));
+		R[0] = new JLabel(name);
+		R[1] = new JLabel(id);
+		R[2] = new JLabel(pw);
+		R[3] = new JLabel(brand);
+		R[4] = new JLabel(location);
+		R[5] = new JLabel((emp)?"유":"무");
+		R[6] = new JLabel(Integer.toString(empsal));
 		
 		for(int i=0; i<L.length; i++ ) {
 			R[i].setFont(font3);
@@ -266,7 +275,7 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(getBrand() + "점 " + getName() + "님 환영합니다.");
+		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -305,32 +314,32 @@ public class MyPage extends Setting {
 			L[i].setForeground(fontcolor);
 		}
 		
-		final JTextField R1 = new JTextField(getName(), 15);
+		final JTextField R1 = new JTextField(name, 15);
 		R1.setFont(font6);
 		final JLabel R2 = new JLabel(id);
 		R2.setFont(font6);
 		R2.setForeground(fontcolor);
 		final JTextField R3 = new JTextField(pw, 15);
 		R3.setFont(font6);
-		final JTextField R4 = new JTextField(getBrand(), 15);
+		final JTextField R4 = new JTextField(brand, 15);
 		R4.setFont(font6);
-		final JTextField R5 = new JTextField(getLocation(), 15);
+		final JTextField R5 = new JTextField(location, 15);
 		R5.setFont(font6);
-		final JTextField R7 = new JTextField(Integer.toString(getEmpsal()), 15);
+		final JTextField R7 = new JTextField(Integer.toString(empsal), 15);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();
 		CheckboxGroup g = new CheckboxGroup();
-		final JRadioButton ra1 = new JRadioButton("유", (isEmp())? true:false);
+		final JRadioButton ra1 = new JRadioButton("유", (emp)? true:false);
 		ra1.setFont(font6);
 		ra1.setForeground(fontcolor);
 		ra1.setBackground(background);
-		JRadioButton ra2 = new JRadioButton("무", (isEmp()) ? false:true);
+		JRadioButton ra2 = new JRadioButton("무", (emp) ? false:true);
 		ra2.setFont(font6);
 		ra2.setForeground(fontcolor);
 		ra2.setBackground(background);
 		ButtonGroup group = new ButtonGroup();
-		if(isEmp() == false) {
+		if(emp == false) {
 			L[6].setVisible(false);
 			R7.setVisible(false);
 		}
@@ -474,16 +483,16 @@ public class MyPage extends Setting {
 					
 					if(n == 0) {
 						// 변경 데이터 저장
-						setName(R1.getText());
-						setId(R2.getText());
-						setPw(R3.getText());
-						setBrand(R4.getText());
-						setLocation(R5.getText());
-						setEmp((ra1.isSelected() == true) ? true : false);
-						setEmpsal((R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0);
+						name = R1.getText();
+						id = R2.getText();
+						pw = R3.getText();
+						brand = R4.getText();
+						location = R5.getText();
+						emp = (ra1.isSelected() == true) ? true : false;
+						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
 
 						// reloading
-						panel.remove(0);   
+						panel.remove(1);
 						Read.setVisible(true);
 						Read();
 						
@@ -492,9 +501,9 @@ public class MyPage extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-						
-						Read.setVisible(true);
+
 						Write.setVisible(false);
+						Read.setVisible(true);
 					}
 				}
 			}

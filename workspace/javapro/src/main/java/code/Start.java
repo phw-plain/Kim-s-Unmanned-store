@@ -51,7 +51,7 @@ public class Start extends Setting {
 	    ImageIcon rebtn = new ImageIcon("src/img/setting.png");
 	    
 	    // 버튼 생성
-	    RoundedButton loginbtn = new RoundedButton("  로그인  ");
+	    RoundedButton loginbtn = new RoundedButton(" 로그인 ");
 	    RoundedButton joinbtn = new RoundedButton("회원가입");
 	    JButton resolution = new JButton("", rebtn);
 	    

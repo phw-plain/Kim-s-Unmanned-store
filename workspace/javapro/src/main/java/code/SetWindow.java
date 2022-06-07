@@ -41,14 +41,14 @@ public class SetWindow extends Setting {
     	title.setFont(font4);
     	
     	JPanel center = new JPanel(new GridLayout(4, 1, 0 ,0));
-    	center.setBackground(background);
+    	center.setBackground(Color.white);
     	center.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 
     	// 해상도
     	JPanel resolution = new JPanel();
-    	resolution.setBackground(background);
+    	resolution.setBackground(Color.white);
     	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
-    	reso_sub.setBackground(background);
+    	reso_sub.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
     	final Choice reso = new Choice();
     	
@@ -61,10 +61,10 @@ public class SetWindow extends Setting {
     	resolution.add(reso_sub);
 
     	// 글꼴
-    	JPanel font = new JPanel();
-    	font.setBackground(background);
+    	JPanel fontPanel = new JPanel();
+    	fontPanel.setBackground(Color.white);
     	JPanel font_sub = new JPanel(new GridLayout(1,2,0,0));
-    	font_sub.setBackground(background);
+    	font_sub.setBackground(Color.white);
     	JLabel font_title =  new JLabel("글꼴");
     	final Choice fonts = new Choice();
     	
@@ -76,21 +76,21 @@ public class SetWindow extends Setting {
 
     	font_sub.add(font_title);
     	font_sub.add(fonts);
-    	font.add(font_sub);
+    	fontPanel.add(font_sub);
     	
     	// 테마
     	JPanel theme = new JPanel();
-    	theme.setBackground(background);
+    	theme.setBackground(Color.white);
     	JPanel theme_sub = new JPanel(new GridLayout(1,2,0,0));
-    	theme_sub.setBackground(background);
+    	theme_sub.setBackground(Color.white);
     	JLabel theme_title =  new JLabel("테마");
 		JPanel themes = new JPanel();
     	
     	ButtonGroup group = new ButtonGroup();
 		final JRadioButton ra1 = new JRadioButton("light", true);
-		ra1.setBackground(background);
+		ra1.setBackground(Color.white);
 		JRadioButton ra2 = new JRadioButton("dark", false);
-		ra2.setBackground(background);
+		ra2.setBackground(Color.white);
 		
 		group.add(ra1);
 		group.add(ra2);
@@ -120,7 +120,7 @@ public class SetWindow extends Setting {
 	    	public void actionPerformed(ActionEvent e) {
 	    		width = resoArr[reso.getSelectedIndex()][0];
 	    		height = resoArr[reso.getSelectedIndex()][1];
-	    		Setting.font = fontArr.get(fonts.getSelectedIndex());
+	    		font = fontArr.get(fonts.getSelectedIndex());
 	    		if(ra1.isSelected() == true) {
 	    			lightMode();
 	    		} else {
@@ -139,7 +139,7 @@ public class SetWindow extends Setting {
 	    });
 	    
     	center.add(resolution);
-    	center.add(font);
+    	center.add(fontPanel);
     	center.add(theme);
     	center.add(btns);
     	
@@ -151,7 +151,6 @@ public class SetWindow extends Setting {
 
 	private void addFont() {
 		// font 추가
-		fontArr.add("배달의민족 주아");
     	fontArr.add("굴림");
     	fontArr.add("굴림체");
     	fontArr.add("궁서");

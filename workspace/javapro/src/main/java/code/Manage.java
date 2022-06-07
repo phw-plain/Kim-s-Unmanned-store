@@ -190,13 +190,13 @@ public class Manage extends Setting {
 		});
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				mypage.reLoad();
 				menu.setVisible(false);
 				sales.setVisible(false);
 				netincome.setVisible(false);
 				inventory.setVisible(false);
 				customer.setVisible(false);
 				mypage.setVisible(true);
-				print();
 			}
 		});
 		btn4.addActionListener(new ActionListener() {
@@ -250,6 +250,12 @@ public class Manage extends Setting {
 			}
 		});
 		sales.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				sales.setVisible(false);
+			}
+		});
+		sales.homebtn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				sales.setVisible(false);

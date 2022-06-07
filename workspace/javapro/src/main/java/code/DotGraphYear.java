@@ -19,7 +19,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
-public class DotGraph {
+public class DotGraphYear {
 	public static JPanel createDemoPanel(int idx, int data1[][], int data2[][]) {
 		JFreeChart chart = createChart(createDataset(idx, data1, data2));
 		return new ChartPanel(chart);
@@ -34,7 +34,7 @@ public class DotGraph {
 		case 1: {
 			str1 = "이번 주";
 			str2 = "지난 주";
-			str3 = "TodaySales";
+			str3 = "WeekSales";
 		}
 			break;
 		case 2: {
@@ -82,7 +82,7 @@ public class DotGraph {
 		}
 
 		DateAxis axis = (DateAxis) plot.getDomainAxis();
-		axis.setDateFormatOverride(new SimpleDateFormat("   MM/dd E  "));
+		axis.setDateFormatOverride(new SimpleDateFormat("  MM월  "));
 
 		ChartUtilities.applyCurrentTheme(chart);
 

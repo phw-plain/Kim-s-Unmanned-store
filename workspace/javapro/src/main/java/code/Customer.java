@@ -131,7 +131,7 @@ public class Customer extends Setting {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() != 0) {
-					System.out.println("입력된 문자열 :" + input.getText());
+					System.out.println("입력된 문자열 :" + input.getText()+"<");
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
 				}
@@ -453,7 +453,7 @@ public class Customer extends Setting {
 						model.fireTableDataChanged();
 	
 						JOptionPane.showMessageDialog(null
-								, "정상적으로 재고 수정 완료!"
+								, "정상적으로 정보 수정 완료!"
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
@@ -513,6 +513,10 @@ public class Customer extends Setting {
 			
 			if(name.get(i).indexOf(str) != -1) {
 				dataSet.add(rows);
+			} else if(str.equals(" ")) {
+				dataSet.add(rows);
+			} else {
+				System.out.println(str);
 			}
 		}
 	}

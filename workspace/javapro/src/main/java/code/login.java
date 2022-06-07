@@ -168,7 +168,7 @@ class login extends Setting {
 				// 테스트 계정 확인용
 		    	print();
 						
-				new Manage(id, pw);
+				new Manage(getId(), getPw());
 	    		mainFrame.dispose();
 			}
 	}

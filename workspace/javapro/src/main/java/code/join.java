@@ -272,28 +272,28 @@ class join extends Setting{
 	 		            , "박리다매 무인가게"
 	 		            , JOptionPane.ERROR_MESSAGE
 	                );
- 	            } else if(id.length() == 0) {			
+ 	            } else if(getId().length() == 0) {			
  					JOptionPane.showMessageDialog(null
  						, "아이디를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  					idcheck = false;
- 				} else if(id.length() < 5) {
+ 				} else if(getId().length() < 5) {
  					JOptionPane.showMessageDialog(null
 						, "아이디가 너무 짧습니다. 5~12자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(id.length() > 12) {
+ 				} else if(getId().length() > 12) {
  					JOptionPane.showMessageDialog(null
 						, "아이디가 너무 깁니다. 5~12자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(!is.isString1(id)) {           
+ 				} else if(!is.isString1(getId())) {           
  					JOptionPane.showMessageDialog(null
                         , "아이디는 영숫자를 사용하여 입력해 주세요."
                         , "박리다매 무인가게"
@@ -307,25 +307,25 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(pw.length() == 0) {
+ 				} else if(getPw().length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(pw.length() < 8) {
+ 				} else if(getPw().length() < 8) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호가 너무 짧습니다. 8~16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(pw.length() > 16) {
+ 				} else if(getPw().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호가 너무 깁니다. 8~16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isString1(pw)) {         
+ 				} else if(!is.isString1(getPw())) {         
  					JOptionPane.showMessageDialog(null
  						, "비밀번호는 영숫자를 사용하여 입력해 주세요."
  						, "박리다매 무인가게"

@@ -20,6 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import firebase.Firebase_join;
+import firebase.Firebase_login;
+
 public class MyPage extends Setting {
 	public JPanel panel;
 
@@ -121,7 +124,7 @@ public class MyPage extends Setting {
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(!pw.getText().equals(Setting.pw)) {
+				} else if(!pw.getText().equals(getPw())) {
 					JOptionPane.showMessageDialog(null
 						, "비밀번호가 틀렸습니다! 다시 한번 확인 해주세요."
 						, "박리다매 무인가게"
@@ -173,7 +176,7 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
+		JLabel subtitle = new JLabel(getBrand() + "점 " + getName() + "님 환영합니다.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -206,13 +209,13 @@ public class MyPage extends Setting {
 		L[5] = new JLabel("직원");
 		L[6] = new JLabel("직원 월급");
 		
-		R[0] = new JLabel(name);
-		R[1] = new JLabel(id);
-		R[2] = new JLabel(pw);
-		R[3] = new JLabel(brand);
-		R[4] = new JLabel(location);
+		R[0] = new JLabel(getName());
+		R[1] = new JLabel(getId());
+		R[2] = new JLabel(getPw());
+		R[3] = new JLabel(getBrand());
+		R[4] = new JLabel(getLocation());
 		R[5] = new JLabel((emp)?"유":"무");
-		R[6] = new JLabel(Integer.toString(empsal));
+		R[6] = new JLabel(Integer.toString(getEmpsal()));
 		
 		for(int i=0; i<L.length; i++ ) {
 			R[i].setFont(font3);
@@ -275,7 +278,7 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
-		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
+		JLabel subtitle = new JLabel(getBrand() + "점 " + getName() + "님 환영합니다.");
 		subtitle.setFont(font3);
 
 		text.add(title);
@@ -314,18 +317,18 @@ public class MyPage extends Setting {
 			L[i].setForeground(fontcolor);
 		}
 		
-		final JTextField R1 = new JTextField(name, 15);
+		final JTextField R1 = new JTextField(getName(), 15);
 		R1.setFont(font6);
-		final JLabel R2 = new JLabel(id);
+		final JLabel R2 = new JLabel(getId());
 		R2.setFont(font6);
 		R2.setForeground(fontcolor);
-		final JTextField R3 = new JTextField(pw, 15);
+		final JTextField R3 = new JTextField(getPw(), 15);
 		R3.setFont(font6);
-		final JTextField R4 = new JTextField(brand, 15);
+		final JTextField R4 = new JTextField(getBrand(), 15);
 		R4.setFont(font6);
-		final JTextField R5 = new JTextField(location, 15);
+		final JTextField R5 = new JTextField(getLocation(), 15);
 		R5.setFont(font6);
-		final JTextField R7 = new JTextField(Integer.toString(empsal), 15);
+		final JTextField R7 = new JTextField(Integer.toString(getEmpsal()), 15);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();
@@ -483,14 +486,21 @@ public class MyPage extends Setting {
 					
 					if(n == 0) {
 						// 변경 데이터 저장
-						name = R1.getText();
-						id = R2.getText();
-						pw = R3.getText();
-						brand = R4.getText();
-						location = R5.getText();
+						setName(R1.getText());
+						setId(R2.getText());
+						setPw(R3.getText());
+						setBrand(R4.getText());
+						setLocation(R5.getText());
 						emp = (ra1.isSelected() == true) ? true : false;
-						empsal = (R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0;
-
+						setEmpsal((R7.getText().length() != 0) ? Integer.parseInt(R7.getText()) : 0);
+						
+						Firebase_login update = new Firebase_login();
+						try {
+							update.Update_MyPage();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						// reloading
 						panel.remove(1);
 						Read.setVisible(true);

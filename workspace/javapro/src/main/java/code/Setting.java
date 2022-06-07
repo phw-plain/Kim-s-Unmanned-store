@@ -56,15 +56,72 @@ public class Setting {
     final isType is = new isType();
 	
 	// 회원 정보
-	public static String name;
-	public static String id;
-	public static String pw;
-	public static String brand;
-	public static String location;
+    private static String name;
+	private static String id = "sdf";
+	private static String pw;
+	private static String brand;
+	private static String location;
 	public static boolean emp;
-	public static int empsal;
+	private static int empsal;
+	public static boolean existence;
 
 	public static Frame startFrame;
+	
+	public static String getName() {
+		return name;
+	}
+
+	public static void setName(String name) {
+		Setting.name = name;
+	}
+
+	public static String getId() {
+		return id;
+	}
+
+	public static void setId(String id) {
+		Setting.id = id;
+	}
+
+	public static String getPw() {
+		return pw;
+	}
+
+	public static void setPw(String pw) {
+		Setting.pw = pw;
+	}
+
+	public static String getBrand() {
+		return brand;
+	}
+
+	public static void setBrand(String brand) {
+		Setting.brand = brand;
+	}
+
+	public static String getLocation() {
+		return location;
+	}
+
+	public static void setLocation(String location) {
+		Setting.location = location;
+	}
+
+	public static boolean isEmp() {
+		return emp;
+	}
+
+	public static void setEmp(boolean emp) {
+		Setting.emp = emp;
+	}
+
+	public static int getEmpsal() {
+		return empsal;
+	}
+
+	public static void setEmpsal(int empsal) {
+		Setting.empsal = empsal;
+	}
 	
 	public Setting(){
 		header_back = new Color(254, 235, 182);
@@ -82,6 +139,7 @@ public class Setting {
 		System.out.println("name : " + name);
 		System.out.println("brand : " + brand);
 		System.out.println("location : " + location);
+		System.out.println("empsal : " + empsal);
 	}
 	
 	public static void darkMode() {

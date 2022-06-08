@@ -23,7 +23,6 @@ public class Setting {
 	public boolean resizable = false;
 
 	public static JsonFileEdit jsonEdit = new JsonFileEdit();
-	
 	// color
 	public static String theme;
 	public static Color title;
@@ -62,13 +61,80 @@ public class Setting {
     final isType is = new isType();
 	
 	// 회원 정보
-	public static String name;
-	public static String id;
-	public static String pw;
-	public static String brand;
-	public static String location;
+    private static String name;
+	public static String getName() {
+		return name;
+	}
+
+	public static void setName(String name) {
+		Setting.name = name;
+	}
+
+	public static String getId() {
+		return id;
+	}
+
+	public static boolean isEmp() {
+		return emp;
+	}
+
+	public static void setEmp(boolean emp) {
+		Setting.emp = emp;
+	}
+
+	public static void setId(String id) {
+		Setting.id = id;
+	}
+
+	public static String getPw() {
+		return pw;
+	}
+
+	public static void setPw(String pw) {
+		Setting.pw = pw;
+	}
+
+	public static String getBrand() {
+		return brand;
+	}
+
+	public static void setBrand(String brand) {
+		Setting.brand = brand;
+	}
+
+	public static String getLocation() {
+		return location;
+	}
+
+	public static void setLocation(String location) {
+		Setting.location = location;
+	}
+
+	public static int getEmpsal() {
+		return empsal;
+	}
+
+	public static void setEmpsal(int empsal) {
+		Setting.empsal = empsal;
+	}
+
+	public static boolean isExistence() {
+		return existence;
+	}
+
+	public static void setExistence(boolean existence) {
+		Setting.existence = existence;
+	}
+
+	private static String id = "sdf";
+	private static String pw;
+	private static String brand;
+	private static String location;
 	public static boolean emp;
-	public static int empsal;
+	private static int empsal;
+	public static boolean existence;
+
+
 	
 	// Inventory
 	protected static Vector<String> code = new Vector<String>();

@@ -6,6 +6,7 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.io.FileReader;
 import java.net.URL;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -68,6 +69,18 @@ public class Setting {
 	public static String location;
 	public static boolean emp;
 	public static int empsal;
+	
+	// Inventory
+	protected static Vector<String> code = new Vector<String>();
+	protected static Vector<String> product_name = new Vector<String>();
+	protected static Vector<String> category = new Vector<String>();
+	protected static Vector<String> standard = new Vector<String>();
+	protected static Vector<Integer> cnt = new Vector<Integer>();
+	protected static Vector<Integer> price = new Vector<Integer>();
+	protected static Vector<Integer> cost = new Vector<Integer>();
+	protected static Vector<Integer> amount = new Vector<Integer>();
+	protected static Vector<String> explain = new Vector<String>();
+	protected static Vector<String> picture = new Vector<String>();
 
 	public static Frame startFrame;
 	

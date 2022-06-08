@@ -8,7 +8,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,6 +20,7 @@ import java.io.FileReader;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -201,7 +201,7 @@ public class Inventory extends Setting {
 		search.setBackground(background);
 		double margin = (height < 1000) ? 0.12 : 0.2;
 		search.setBorder(BorderFactory.createEmptyBorder(50, (int)(width*margin), 0, 0));
-		final TextField input = new TextField(" ", 20);
+		final JTextField input = new JTextField(" ", 20);
 		HalfRoundedButton check = new HalfRoundedButton("🔍");
 
 		search.add(input);
@@ -215,10 +215,11 @@ public class Inventory extends Setting {
 					
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
-					
-					System.out.println("데이터 수정 완료!");
 				} else {
 					System.out.println("입력된 문자열 없음");
+					
+					dataLoad();
+					model.fireTableDataChanged();
 				}
 			}
 		});
@@ -398,25 +399,25 @@ public class Inventory extends Setting {
 		final JLabel R1 = new JLabel("");
 		R1.setFont(font6);
 		R1.setForeground(fontcolor);
-		final TextField R2 = new TextField("", 20);
+		final JTextField R2 = new JTextField("", 20);
 		R2.setFont(font6);
-		final TextField R3 = new TextField("", 20);
+		final JTextField R3 = new JTextField("", 20);
 		R3.setFont(font6);
-		final TextField R4 = new TextField("", 20);
+		final JTextField R4 = new JTextField("", 20);
 		R4.setFont(font6);
-		final TextField R5 = new TextField("", 20);
+		final JTextField R5 = new JTextField("", 20);
 		R5.setFont(font6);
-		final TextField R6 = new TextField("", 20);
+		final JTextField R6 = new JTextField("", 20);
 		R6.setFont(font6);
-		final TextField R7 = new TextField("/", 20);
+		final JTextField R7 = new JTextField("/", 20);
 		R7.setFont(font6);
-		final TextField R8 = new TextField("/", 20);
+		final JTextField R8 = new JTextField("/", 20);
 		R8.setFont(font6);
-		final TextField R9 = new TextField("/", 20);
+		final JTextField R9 = new JTextField("/", 20);
 		R9.setFont(font6);
 
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		final TextField R10 = new TextField("", 20);
+		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);
@@ -496,12 +497,11 @@ public class Inventory extends Setting {
 					// repaint
 					ch.remove(index);
 					Modify.setVisible(false);
-					panel.remove(0);
+					panel.remove(1);
 					Modify();
 					Modify.setVisible(true);
 					dataLoad();		
 					model.fireTableDataChanged();
-					
 
 					JOptionPane.showMessageDialog(null
 							, "정상적으로 재고 삭제 완료!"
@@ -603,6 +603,12 @@ public class Inventory extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
+						
+						panel.remove(1);
+						Modify();
+						
+						Modify.setVisible(true);
+						
 						inventory.setVisible(true);
 						replace.setVisible(false);
 					}
@@ -723,27 +729,27 @@ public class Inventory extends Setting {
 		L10.setFont(font3);
 		L10.setForeground(fontcolor);
 		
-		final TextField R1 = new TextField("", 20);
+		final JTextField R1 = new JTextField("", 20);
 		R1.setFont(font6);
-		final TextField R2 = new TextField("", 20);
+		final JTextField R2 = new JTextField("", 20);
 		R2.setFont(font6);
-		final TextField R3 = new TextField("", 20);
+		final JTextField R3 = new JTextField("", 20);
 		R3.setFont(font6);
-		final TextField R4 = new TextField("", 20);
+		final JTextField R4 = new JTextField("", 20);
 		R4.setFont(font6);
-		final TextField R5 = new TextField("", 20);
+		final JTextField R5 = new JTextField("", 20);
 		R5.setFont(font6);
-		final TextField R6 = new TextField("", 20);
+		final JTextField R6 = new JTextField("", 20);
 		R6.setFont(font6);
-		final TextField R7 = new TextField("", 20);
+		final JTextField R7 = new JTextField("", 20);
 		R7.setFont(font6);
-		final TextField R8 = new TextField("", 20);
+		final JTextField R8 = new JTextField("", 20);
 		R8.setFont(font6);
-		final TextField R9 = new TextField("/", 20);
+		final JTextField R9 = new JTextField("/", 20);
 		R9.setFont(font6);
 		
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		final TextField R10 = new TextField("", 20);
+		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
 		btnR10.setFont(font6);
@@ -888,8 +894,20 @@ public class Inventory extends Setting {
 						dataLoad();		
 						model.fireTableDataChanged();
 
-						Add();
-						panel.remove(2);
+						panel.remove(1);
+						Modify();
+						
+						Add.setVisible(false);
+						R1.setText("");
+						R2.setText("");
+						R3.setText("");
+						R4.setText("");
+						R5.setText("");
+						R6.setText("");
+						R7.setText("");
+						R8.setText("");
+						R9.setText("/");
+						R10.setText("");
 						Add.setVisible(true);
 						
 						JOptionPane.showMessageDialog(null

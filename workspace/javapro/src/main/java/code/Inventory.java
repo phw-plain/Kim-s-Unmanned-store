@@ -35,6 +35,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import firebase.Firebase_inventory;
+
 public class Inventory extends Setting {
 	public JPanel panel;
 
@@ -54,16 +56,16 @@ public class Inventory extends Setting {
 	private Vector<Vector> dataSet = new Vector<Vector>();
 	private Vector<String> colNames = new Vector<String>();
 
-	private Vector<String> code = new Vector<String>();
-	private Vector<String> name = new Vector<String>();
-	private Vector<String> category = new Vector<String>();
-	private Vector<String> standard = new Vector<String>();
-	private Vector<Integer> cnt = new Vector<Integer>();
-	private Vector<Integer> price = new Vector<Integer>();
-	private Vector<Integer> cost = new Vector<Integer>();
-	private Vector<Integer> amount = new Vector<Integer>();
-	private Vector<String> explain = new Vector<String>();
-	private Vector<String> picture = new Vector<String>();
+	public Vector<String> code = new Vector<String>();
+	public Vector<String> name = new Vector<String>();
+	public Vector<String> category = new Vector<String>();
+	public Vector<String> standard = new Vector<String>();
+	public Vector<Integer> cnt = new Vector<Integer>();
+	public Vector<Integer> price = new Vector<Integer>();
+	public Vector<Integer> cost = new Vector<Integer>();
+	public Vector<Integer> amount = new Vector<Integer>();
+	public Vector<String> explain = new Vector<String>();
+	public Vector<String> picture = new Vector<String>();
 
 	private static File f;
 	private static String path;
@@ -73,6 +75,7 @@ public class Inventory extends Setting {
 	int margin2;
 	
 	public Inventory() {
+		
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
 		
@@ -91,51 +94,6 @@ public class Inventory extends Setting {
 		colNames.add("판매량");
 		colNames.add("제품설명");
 		
-		// 데이터 불러오기
-		code.add("AD1004");
-		code.add("BC2075");
-		code.add("TR1200");
-		name.add("초코송이");
-		name.add("칠성사이다");
-		name.add("허니버터칩");
-		category.add("스낵");
-		category.add("음료");
-		category.add("스낵");
-		standard.add("240g");
-		standard.add("1.5L");
-		standard.add("600g");
-		cnt.add(3);
-		cnt.add(15);
-		cnt.add(7);
-		price.add(1200);
-		price.add(2700);
-		price.add(1600);
-		cost.add(1000);
-		cost.add(2500);
-		cost.add(1300);
-		amount.add(10);
-		amount.add(5);
-		amount.add(3);
-		explain.add("가나다라마바사아자차카타파하");
-		explain.add("/");
-		explain.add("/");
-		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures1");
-		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures2");
-		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures3");
-		
-		for(int i=0; i<100; i++) {
-			code.add("test");
-			name.add("test2");
-			category.add("test3");
-			standard.add("test4");
-			cnt.add(1);
-			price.add(1);
-			cost.add(1);
-			amount.add(1);
-			explain.add("/");
-			picture.add("이미지 없음");
-		}
-		
 		View();
 		Modify();
 		Add();
@@ -146,6 +104,11 @@ public class Inventory extends Setting {
 	}
 
 	private void View() {
+		
+		//inventory 가져오기
+				Firebase_inventory Product = new Firebase_inventory();
+				// 데이터 불러오기
+				Product.show_inventory();
 		// View 세팅
 		View = new JPanel();
 		View.setBackground(background);
@@ -884,7 +847,15 @@ public class Inventory extends Setting {
 						fileSave(f, path, f.getName());
 						
 						// 데이터 변경 사항 저장
-						
+						//inventory 가져오기
+						Firebase_inventory Product = new Firebase_inventory();
+						try {
+							Product.Add_inventory(R1.getText(),R2.getText(),R3.getText(),R4.getText(),R5.getText(),R6.getText(),R7.getText(),R8.getText(),R9.getText(),R10.getText());
+							System.out.println("됐당");
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						// repaint
 						dataLoad();		
 						model.fireTableDataChanged();

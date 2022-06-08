@@ -22,6 +22,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -54,17 +55,6 @@ public class Inventory extends Setting {
 	private Vector<Vector> dataSet = new Vector<Vector>();
 	private Vector<String> colNames = new Vector<String>();
 
-	private Vector<String> code = new Vector<String>();
-	private Vector<String> name = new Vector<String>();
-	private Vector<String> category = new Vector<String>();
-	private Vector<String> standard = new Vector<String>();
-	private Vector<Integer> cnt = new Vector<Integer>();
-	private Vector<Integer> price = new Vector<Integer>();
-	private Vector<Integer> cost = new Vector<Integer>();
-	private Vector<Integer> amount = new Vector<Integer>();
-	private Vector<String> explain = new Vector<String>();
-	private Vector<String> picture = new Vector<String>();
-
 	private static File f;
 	private static String path;
 	
@@ -92,12 +82,12 @@ public class Inventory extends Setting {
 		colNames.add("제품설명");
 		
 		// 데이터 불러오기
-		code.add("AD1004");
+		Setting.code.add("AD1004");
 		code.add("BC2075");
 		code.add("TR1200");
-		name.add("초코송이");
-		name.add("칠성사이다");
-		name.add("허니버터칩");
+		product_name.add("초코송이");
+		product_name.add("칠성사이다");
+		product_name.add("허니버터칩");
 		category.add("스낵");
 		category.add("음료");
 		category.add("스낵");
@@ -125,7 +115,7 @@ public class Inventory extends Setting {
 		
 		for(int i=0; i<100; i++) {
 			code.add("test");
-			name.add("test2");
+			product_name.add("test2");
 			category.add("test3");
 			standard.add("test4");
 			cnt.add(1);
@@ -346,10 +336,9 @@ public class Inventory extends Setting {
 		choose.setBackground(background);
 		choose.setBorder(BorderFactory.createEmptyBorder(margin2, 0, 0, 0));
 
-		final Choice ch = new Choice();
-		
-		for(int i=0; i<name.size(); i++) {
-			ch.add(name.get(i));
+		final JComboBox ch = new JComboBox();
+		for(int i=0; i<product_name.size(); i++) {
+			ch.addItem(product_name.get(i));
 		}
 		
 		choose.add(ch);
@@ -463,7 +452,7 @@ public class Inventory extends Setting {
 				
 				int index = ch.getSelectedIndex();
 				R1.setText(code.get(index));
-				R2.setText(name.get(index));
+				R2.setText(product_name.get(index));
 				R3.setText(category.get(index));
 				R4.setText(standard.get(index));
 				R5.setText(Integer.toString(cnt.get(index)));
@@ -489,7 +478,7 @@ public class Inventory extends Setting {
 					int index = ch.getSelectedIndex();
 					dataSet.remove(index);
 					code.remove(index);
-					name.remove(index);
+					product_name.remove(index);
 					category.remove(index);
 					standard.remove(index);
 					cnt.remove(index);
@@ -501,8 +490,13 @@ public class Inventory extends Setting {
 					
 					// repaint
 					ch.remove(index);
+					Modify.setVisible(false);
+					panel.remove(0);
+					Modify();
+					Modify.setVisible(true);
 					dataLoad();		
 					model.fireTableDataChanged();
+					
 
 					JOptionPane.showMessageDialog(null
 							, "정상적으로 재고 삭제 완료!"
@@ -561,7 +555,7 @@ public class Inventory extends Setting {
 					);
 				} else if(R7.getText().length() == 0) {
 					R7.setText("/");
-				} else if( R2.getText().equals(name.get(index))
+				} else if( R2.getText().equals(product_name.get(index))
 						&&  R3.getText().equals(category.get(index))
 						&&  R4.getText().equals(standard.get(index))
 						&&  Integer.parseInt(R5.getText()) == cnt.get(index)
@@ -588,7 +582,7 @@ public class Inventory extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 삭제
-						name.set(index, R2.getText());
+						product_name.set(index, R2.getText());
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
@@ -870,7 +864,7 @@ public class Inventory extends Setting {
 					if(n == 0) {
 						// 데이터 추가
 						code.add(R1.getText());
-						name.add(R2.getText());
+						product_name.add(R2.getText());
 						category.add(R3.getText());
 						standard.add(R4.getText());
 						cnt.add(Integer.parseInt(R5.getText()));
@@ -930,7 +924,7 @@ public class Inventory extends Setting {
 		for (int i = 0; i < code.size(); i++) {
 			rows = new Vector<String>();
 			rows.add(code.get(i));
-			rows.add(name.get(i));
+			rows.add(product_name.get(i));
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
@@ -950,7 +944,7 @@ public class Inventory extends Setting {
 		for (int i = 0; i < code.size(); i++) {
 			rows = new Vector<String>();
 			rows.add(code.get(i));
-			rows.add(name.get(i));
+			rows.add(product_name.get(i));
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
@@ -959,7 +953,7 @@ public class Inventory extends Setting {
 			rows.add(Integer.toString(amount.get(i)));
 			rows.add(explain.get(i));
 
-			if(name.get(i).indexOf(str) != -1)
+			if(product_name.get(i).indexOf(str) != -1)
 				dataSet.add(rows);
 		}
 	}

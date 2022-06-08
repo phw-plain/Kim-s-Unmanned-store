@@ -2,23 +2,26 @@ package code;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.event.*;
 
+import javapro.JsonFileEdit;
+
 public class SetWindow extends Setting {
 	private Frame mainFrame;
 	private JPanel panel;
-
+	
 	private int[][] resoArr = new int[][] {
 		{ 1280, 1024 }
 		, { 1024, 786 }
 	};
 	private Vector<String> fontArr = new Vector<String>();
 	
-	public SetWindow() {
+	public SetWindow() {		
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게"); 
 	    mainFrame.setSize(450, 400);
@@ -50,10 +53,11 @@ public class SetWindow extends Setting {
     	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
     	reso_sub.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
-    	final Choice reso = new Choice();
+
+    	final JComboBox reso = new JComboBox();
     	
     	for(int i=0; i<resoArr.length; i++) {
-    		reso.add(resoArr[i][0]+"X"+resoArr[i][1]);
+    		reso.addItem(resoArr[i][0]+"X"+resoArr[i][1]);
     	}
     	
     	reso_sub.add(reso_title);
@@ -66,14 +70,16 @@ public class SetWindow extends Setting {
     	JPanel font_sub = new JPanel(new GridLayout(1,2,0,0));
     	font_sub.setBackground(Color.white);
     	JLabel font_title =  new JLabel("글꼴");
-    	final Choice fonts = new Choice();
+    	Vector<String> f = new Vector<String>();
     	
     	addFont();
+
+    	final JComboBox fonts = new JComboBox();
     	
     	for(int i=0; i<fontArr.size(); i++) {
-    		fonts.add(fontArr.get(i));
+    		fonts.addItem(fontArr.get(i));
     	}
-
+    	
     	font_sub.add(font_title);
     	font_sub.add(fonts);
     	fontPanel.add(font_sub);
@@ -120,12 +126,23 @@ public class SetWindow extends Setting {
 	    	public void actionPerformed(ActionEvent e) {
 	    		width = resoArr[reso.getSelectedIndex()][0];
 	    		height = resoArr[reso.getSelectedIndex()][1];
-	    		font = fontArr.get(fonts.getSelectedIndex());
+	    		String font = fontArr.get(fonts.getSelectedIndex());
+	    		setFonts(font);
+	    		
+	    		String theme;
 	    		if(ra1.isSelected() == true) {
 	    			lightMode();
+	    			theme = "light";
 	    		} else {
 	    			darkMode();
+	    			theme = "dark";
 	    		}
+	    		
+	    		try {
+					jsonEdit.writeJSonFile(Integer.toString(width), Integer.toString(height), font, theme);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 	    		
 				startFrame.dispose();
 				new Start();

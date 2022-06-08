@@ -2,23 +2,21 @@ package code;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class Sales extends Setting{
 	public JPanel panel; // 실수령액 그래프
@@ -94,6 +92,7 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				Today.setVisible(false); // 화면 전환
 				Month.setVisible(true);
+				Recode.setVisible(false);
 			}
 		});
 		recode.addActionListener(new ActionListener() {
@@ -174,6 +173,7 @@ public class Sales extends Setting{
 
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -226,15 +226,17 @@ public class Sales extends Setting{
 		int year = 2022; // 지금 년도 가져오기
 		int[] years = new int[10];
 
-		Choice yearCh = new Choice();
+		Vector<String> y = new Vector<String>();
 		JButton yearbtn = new JButton("확인");
 		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
 		yearbtn.setBackground(Color.white);
 
 		for (int i = 0; i < 10; i++) {
 			years[i] = year - i;
-			yearCh.add(year - i + "년");
+			y.add(year - i + "년");
 		}
+		
+		JComboBox yearCh = new JComboBox(y);
 
 		JPanel chbox = new JPanel(new BorderLayout());
 		chbox.setBackground(background);
@@ -254,6 +256,7 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				// Graph 다시 그리기
 				Month.setVisible(false);
+				panel.remove(1);
 				MonthSales();
 				Month.setVisible(true);
 			}
@@ -311,6 +314,7 @@ public class Sales extends Setting{
 
 		JLabel title = new JLabel("매출 및 지출");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -332,6 +336,7 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				// Graph 다시 그리기
 				Today.setVisible(false);
+				panel.remove(0);
 				TodaySales();
 				Today.setVisible(true);
 				
@@ -345,6 +350,7 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				// Graph 다시 그리기
 				Month.setVisible(false);
+				panel.remove(1);
 				MonthSales();
 				Month.setVisible(true);
 				
@@ -370,6 +376,7 @@ public class Sales extends Setting{
 		
 		JLabel subTitle = new JLabel("오늘 매출 및 지출 기록");
 		subTitle.setFont(font2);
+		subTitle.setForeground(Setting.title);
 		subTitle.setHorizontalAlignment(JLabel.CENTER);
 		
 		JPanel subPanel = new JPanel();
@@ -382,6 +389,7 @@ public class Sales extends Setting{
 		for(int i=0; i<L.length; i++) {
 			L[i] = new JLabel();
 			L[i].setFont(font3);
+			L[i].setForeground(Setting.title);
 		}
 		L[0].setText("오늘 매출");
 		L[1].setText("기타 지출비");
@@ -426,8 +434,9 @@ public class Sales extends Setting{
 		radiobtn2.add(ra3);
 		radiobtn2.add(ra4);
 		radiobtn2.setBackground(background);
+
+		final JComboBox ch = new JComboBox();
 		
-		final Choice ch = new Choice();
 		for(int i=1; i<=24; i++) {
 			ch.addItem(i+"시간");
 		}

@@ -4,14 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.FileReader;
 import java.net.URL;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import javapro.JsonFileEdit;
 
 public class Setting {
 	// 기본 정보
@@ -19,7 +22,10 @@ public class Setting {
 	public static int height;
 	public boolean resizable = false;
 
+	public static JsonFileEdit jsonEdit = new JsonFileEdit();
+	
 	// color
+	public static String theme;
 	public static Color title;
 	public static Color background;
 	public static Color header_back;
@@ -29,13 +35,13 @@ public class Setting {
 	public static Color maincolor;
 	
 	// Font
-	public static String font = "돋움체";
-	public static Font font1 = new Font(font, Font.PLAIN, 50);
-	public static Font font2 = new Font(font, Font.PLAIN, 26);
-	public static Font font3 = new Font(font, Font.PLAIN, 18);
-	public static Font font4 = new Font(font, Font.PLAIN, 16);
-	public static Font font5 = new Font(font, Font.PLAIN, 14);
-	public static Font font6 = new Font(font, Font.PLAIN, 11);
+	public static String font;
+	public static Font font1;
+	public static Font font2;
+	public static Font font3;
+	public static Font font4;
+	public static Font font5;
+	public static Font font6;
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
@@ -56,79 +62,41 @@ public class Setting {
     final isType is = new isType();
 	
 	// 회원 정보
-    private static String name;
-	private static String id = "sdf";
-	private static String pw;
-	private static String brand;
-	private static String location;
+	public static String name;
+	public static String id;
+	public static String pw;
+	public static String brand;
+	public static String location;
 	public static boolean emp;
-	private static int empsal;
-	public static boolean existence;
+	public static int empsal;
+	
+	// Inventory
+	protected static Vector<String> code = new Vector<String>();
+	protected static Vector<String> product_name = new Vector<String>();
+	protected static Vector<String> category = new Vector<String>();
+	protected static Vector<String> standard = new Vector<String>();
+	protected static Vector<Integer> cnt = new Vector<Integer>();
+	protected static Vector<Integer> price = new Vector<Integer>();
+	protected static Vector<Integer> cost = new Vector<Integer>();
+	protected static Vector<Integer> amount = new Vector<Integer>();
+	protected static Vector<String> explain = new Vector<String>();
+	protected static Vector<String> picture = new Vector<String>();
 
 	public static Frame startFrame;
 	
-	public static String getName() {
-		return name;
-	}
-
-	public static void setName(String name) {
-		Setting.name = name;
-	}
-
-	public static String getId() {
-		return id;
-	}
-
-	public static void setId(String id) {
-		Setting.id = id;
-	}
-
-	public static String getPw() {
-		return pw;
-	}
-
-	public static void setPw(String pw) {
-		Setting.pw = pw;
-	}
-
-	public static String getBrand() {
-		return brand;
-	}
-
-	public static void setBrand(String brand) {
-		Setting.brand = brand;
-	}
-
-	public static String getLocation() {
-		return location;
-	}
-
-	public static void setLocation(String location) {
-		Setting.location = location;
-	}
-
-	public static boolean isEmp() {
-		return emp;
-	}
-
-	public static void setEmp(boolean emp) {
-		Setting.emp = emp;
-	}
-
-	public static int getEmpsal() {
-		return empsal;
-	}
-
-	public static void setEmpsal(int empsal) {
-		Setting.empsal = empsal;
-	}
-	
 	public Setting(){
+		width = Integer.parseInt(jsonEdit.get("x"));
+		height = Integer.parseInt(jsonEdit.get("y"));
+		theme = jsonEdit.get("theme");
+		
 		header_back = new Color(254, 235, 182);
 		menu_back = new Color(214, 174, 242);
 		menu_over = new Color(253, 206, 83);
 		maincolor = new Color(254, 235, 182);
-		setFonts();
+		
+		if(theme.equals("light")) lightMode();
+		else darkMode();
+		
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
 	}
@@ -139,7 +107,6 @@ public class Setting {
 		System.out.println("name : " + name);
 		System.out.println("brand : " + brand);
 		System.out.println("location : " + location);
-		System.out.println("empsal : " + empsal);
 	}
 	
 	public static void darkMode() {
@@ -154,7 +121,8 @@ public class Setting {
 		fontcolor = new Color(0, 0, 0);
 	}
 	
-	public static void setFonts() {
+	public static void setFonts(String f) {
+		font = f;
 		font1 = new Font(font, Font.PLAIN, 50);
 		font2 = new Font(font, Font.PLAIN, 26);
 		font3 = new Font(font, Font.PLAIN, 18);

@@ -1,4 +1,5 @@
 package javapro;
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -7,22 +8,15 @@ import java.io.OutputStreamWriter;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class WriteJsonFile {
-	public static void main(String[] args) throws IOException, ParseException {
-		String path = System.getProperty("user.dir"); 
-        path += "/src/main/json/setting.json";
-        
-		writeJSonFile(path, "1024", "786", "돋움체", "light");
-		readJsonFile(path);
-	}
-
-	public static void writeJSonFile(String path, String x1, String y1, String font1, String theme1) throws IOException {
+public class JsonFileEdit {
+	private static String path = System.getProperty("user.dir") + "/src/main/json/setting.json"; 
+	
+	public static void writeJSonFile(String x1, String y1, String font1, String theme1) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		// Json key, value 
@@ -40,7 +34,7 @@ public class WriteJsonFile {
 		writer.close();
 	}
 	
-	public static void readJsonFile(String path) {
+	public static void readJsonFile() {
 		JSONParser parser = new JSONParser();
 		
 		try {
@@ -60,6 +54,23 @@ public class WriteJsonFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String get(String key) {
+		JSONParser parser = new JSONParser();
+		String value = null;
+		
+		try {
+			Object obj = parser.parse(new FileReader(path));
+			JSONObject jsonObject =(JSONObject) obj;
+		
+			value = (String) jsonObject.get(key);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return value;
 	}
 	
 }

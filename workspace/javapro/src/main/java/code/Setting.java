@@ -4,14 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.FileReader;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import javapro.JsonFileEdit;
 
 public class Setting {
 	// 기본 정보
@@ -19,7 +21,10 @@ public class Setting {
 	public static int height;
 	public boolean resizable = false;
 
+	public static JsonFileEdit jsonEdit = new JsonFileEdit();
+	
 	// color
+	public static String theme;
 	public static Color title;
 	public static Color background;
 	public static Color header_back;
@@ -29,13 +34,13 @@ public class Setting {
 	public static Color maincolor;
 	
 	// Font
-	public static String font = "돋움체";
-	public static Font font1 = new Font(font, Font.PLAIN, 50);
-	public static Font font2 = new Font(font, Font.PLAIN, 26);
-	public static Font font3 = new Font(font, Font.PLAIN, 18);
-	public static Font font4 = new Font(font, Font.PLAIN, 16);
-	public static Font font5 = new Font(font, Font.PLAIN, 14);
-	public static Font font6 = new Font(font, Font.PLAIN, 11);
+	public static String font;
+	public static Font font1;
+	public static Font font2;
+	public static Font font3;
+	public static Font font4;
+	public static Font font5;
+	public static Font font6;
 
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
@@ -67,11 +72,18 @@ public class Setting {
 	public static Frame startFrame;
 	
 	public Setting(){
+		width = Integer.parseInt(jsonEdit.get("x"));
+		height = Integer.parseInt(jsonEdit.get("y"));
+		theme = jsonEdit.get("theme");
+		
 		header_back = new Color(254, 235, 182);
 		menu_back = new Color(214, 174, 242);
 		menu_over = new Color(253, 206, 83);
 		maincolor = new Color(254, 235, 182);
-		setFonts();
+		
+		if(theme.equals("light")) lightMode();
+		else darkMode();
+		
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
 	}
@@ -96,7 +108,8 @@ public class Setting {
 		fontcolor = new Color(0, 0, 0);
 	}
 	
-	public static void setFonts() {
+	public static void setFonts(String f) {
+		font = f;
 		font1 = new Font(font, Font.PLAIN, 50);
 		font2 = new Font(font, Font.PLAIN, 26);
 		font3 = new Font(font, Font.PLAIN, 18);

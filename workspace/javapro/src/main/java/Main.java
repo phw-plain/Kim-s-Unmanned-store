@@ -1,5 +1,6 @@
 import code.Setting;
 import code.Start;
+import javapro.JsonFileEdit;
 
 public class Main extends Setting{
     public static void main(String[] args) {
@@ -11,11 +12,14 @@ public class Main extends Setting{
 		location = "관악구";
 		emp = false;
 		empsal = 0;
-		lightMode();
+		
+		Setting s = new Setting();
 		
 		// Frame 기본 세팅 정보
 		width = 1024;
 		height = 786;
+		font = JsonFileEdit.get("font");
+		setFonts(font);
 		
     	new Start();
     } 

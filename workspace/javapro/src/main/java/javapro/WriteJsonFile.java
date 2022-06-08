@@ -1,40 +1,65 @@
 package javapro;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class WriteJsonFile {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
+		String path = System.getProperty("user.dir"); 
+        path += "/src/main/json/setting.json";
+        
+		writeJSonFile(path, "1024", "786", "돋움체", "light");
+		readJsonFile(path);
+	}
+
+	public static void writeJSonFile(String path, String x1, String y1, String font1, String theme1) throws IOException {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
 		// Json key, value 
 		JsonObject jsonObject = new JsonObject();
-		// manager
-		JsonObject manager = getJsonObject("admin1", "admin1234", "������", "���μ�����", 13.5, true, 21000);
-		jsonObject.add("manager", manager);
-		String filepath = "C:\\github\\ParkLee-unmanned-store\\javapro\\src\\main\\json\\manager.json";
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filepath),"UTF8"));
+		
+		jsonObject.addProperty("x", x1);
+		jsonObject.addProperty("y", y1);
+		jsonObject.addProperty("font", font1);
+		jsonObject.addProperty("theme", theme1);
+		
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path),"UTF8"));
 		gson.toJson(jsonObject, writer);
+		
 		writer.flush();
 		writer.close();
 	}
-
-	public static JsonObject getJsonObject(String id, String pw, String name, String brand, double percent, boolean emp, int empsal) {
-		JsonObject subjectJsonObject = new JsonObject();
-		subjectJsonObject.addProperty("id", id);
-		subjectJsonObject.addProperty("pw", pw);
-		subjectJsonObject.addProperty("name", name);
-		subjectJsonObject.addProperty("brand", brand);
-		subjectJsonObject.addProperty("name", name);
-		subjectJsonObject.addProperty("percent", percent);
-		subjectJsonObject.addProperty("emp", emp);
-		subjectJsonObject.addProperty("empsal", empsal);
-		return subjectJsonObject;
+	
+	public static void readJsonFile(String path) {
+		JSONParser parser = new JSONParser();
+		
+		try {
+			Object obj = parser.parse(new FileReader(path));
+			JSONObject jsonObject =(JSONObject) obj;
+		
+			String x = (String) jsonObject.get("x");
+			String y = (String) jsonObject.get("y"); 
+			String font = (String) jsonObject.get("font");
+			String theme = (String) jsonObject.get("theme");
+			
+			System.out.println("x:"+ x);
+			System.out.println("y:"+ y);
+			System.out.println("font:"+ font);
+			System.out.println("theme:"+ theme);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
 }

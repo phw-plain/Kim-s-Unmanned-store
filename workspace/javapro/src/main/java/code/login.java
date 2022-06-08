@@ -165,11 +165,11 @@ class login extends Setting {
 						);
 				
 				// 로그인 정보 저장
-				name = "고고곡";
-				brand = "신림사거리점";
-				location = "관악구";
+				setName("고고곡");
+				setBrand("신림사거리점");
+				setLocation("관악구");
 				emp = false;
-				empsal = 0;
+				setEmpsal(0);
 				
 				// 테스트 계정 확인용
 		    	print();

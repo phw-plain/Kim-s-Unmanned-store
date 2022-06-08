@@ -227,55 +227,57 @@ class join extends Setting{
 	    // 확인 버튼 클릭 이벤트
  		check.addActionListener(new ActionListener() {
 	 		public void actionPerformed(ActionEvent e) {
-	 			// 데이터 저장 변수 선언
-	 			String name = tf1.getText();
-	 			String id = tf2.getText();
-	 			String pw = tf3.getText();
-	 			String brand = tf4.getText();
-	 			String location = tf5.getText();
+	 		// 데이터 저장 변수 선언
+	 			setName(tf1.getText());
+				setId(tf2.getText());
+				setPw(tf3.getText());
+				setBrand(tf4.getText());
+				setLocation(tf5.getText());
+				setEmp((ra1.isSelected() == true) ? true : false);
+				setEmpsal((tf7.getText().length() != 0) ? Integer.parseInt(tf7.getText()) : 0);
 	 			boolean emp = (ra1.isSelected() == true) ? true : false;
 	 		
 	 			// 회원가입 예외 처리
-	 			if(name.length() == 0) {				
+	 			if(getName().length() == 0) {				
 	 				JOptionPane.showMessageDialog(null
 	 					, "이름을 입력해주세요."
 	 					, "박리다매 무인가게"
 	 					, JOptionPane.ERROR_MESSAGE
 	 				);
-	 			} else if(name.length() > 12) {
+	 			} else if(getName().length() > 12) {
 	 				JOptionPane.showMessageDialog(null
 	 					, "이름이 너무 깁니다. 12자 이내로 입력해 주세요."
 	 					, "박리다매 무인가게"
 	 					, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isString2(name)) {           
+ 				} else if(!is.isString2(getName())) {           
  					JOptionPane.showMessageDialog(null
 	 		            , "이름에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
 	 		            , "박리다매 무인가게"
 	 		            , JOptionPane.ERROR_MESSAGE
 	                );
- 	            } else if(id.length() == 0) {			
+ 	            } else if(getId().length() == 0) {			
  					JOptionPane.showMessageDialog(null
  						, "아이디를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  					idcheck = false;
- 				} else if(id.length() < 5) {
+ 				} else if(getId().length() < 5) {
  					JOptionPane.showMessageDialog(null
 						, "아이디가 너무 짧습니다. 5~12자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(id.length() > 12) {
+ 				} else if(getId().length() > 12) {
  					JOptionPane.showMessageDialog(null
 						, "아이디가 너무 깁니다. 5~12자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(!is.isString1(id)) {           
+ 				} else if(!is.isString1(getId())) {           
  					JOptionPane.showMessageDialog(null
                         , "아이디는 영숫자를 사용하여 입력해 주세요."
                         , "박리다매 무인가게"
@@ -289,49 +291,49 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
  	                idcheck = false;
- 				} else if(pw.length() == 0) {
+ 				} else if(getPw().length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호를 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(pw.length() < 8) {
+ 				} else if(getPw().length() < 8) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호가 너무 짧습니다. 8~16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(pw.length() > 16) {
+ 				} else if(getPw().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "비밀번호가 너무 깁니다. 8~16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(!is.isString1(pw)) {         
+ 				} else if(!is.isString1(getPw())) {         
  					JOptionPane.showMessageDialog(null
  						, "비밀번호는 영숫자를 사용하여 입력해 주세요."
  						, "박리다매 무인가게"
  						, JOptionPane.ERROR_MESSAGE
 					);
- 	            } else if(brand.length() == 0) {		
+ 	            } else if(getBrand().length() == 0) {		
  					JOptionPane.showMessageDialog(null
 						, "지점명을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(brand.length() > 16) {
+ 				} else if(getBrand().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(location.length() == 0) {
+ 				} else if(getLocation().length() == 0) {
  					JOptionPane.showMessageDialog(null
 						, "매출대비지급액을 입력해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
  					);
- 				} else if(location.length() > 16) {
+ 				} else if(getLocation().length() > 16) {
  					JOptionPane.showMessageDialog(null
 						, "지점명이 너무 깁니다. 16자 이내로 입력해 주세요."
 						, "박리다매 무인가게"
@@ -350,9 +352,9 @@ class join extends Setting{
 						, JOptionPane.ERROR_MESSAGE
  					);
 	 			} else {
-		 			location = tf5.getText();
-		 			emp = (ra1.isSelected() == true) ? true : false;
-		 			empsal = (emp) ? Integer.parseInt(tf7.getText()) : 0;
+	 				setLocation(tf5.getText());
+		 			setEmp((ra1.isSelected() == true) ? true : false);
+		 			setEmpsal((emp) ? Integer.parseInt(tf7.getText()) : 0);
 		 		
 		 			// 데이터 저장
 		 			

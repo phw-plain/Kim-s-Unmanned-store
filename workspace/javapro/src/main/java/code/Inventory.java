@@ -235,6 +235,7 @@ public class Inventory extends Setting {
 		tableView.setGridColor(Color.gray);						// 격자색
 		tableView.getTableHeader().setReorderingAllowed(false); // 이동 불가
 		tableView.getTableHeader().setResizingAllowed(false); 	// 크기 조절 불가
+		tableView.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	// 가로 스크롤
 		tableView.setEnabled(false);							// 셀 선택 불가
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
@@ -253,7 +254,7 @@ public class Inventory extends Setting {
 				dtcr.setHorizontalAlignment(SwingConstants.RIGHT);
 			TableColumnModel tcm = tableView.getColumnModel();
 			tcm.getColumn(i).setCellRenderer(dtcr);
-			tableView.getColumnModel().getColumn(i).setPreferredWidth(250);	// JTable 의 컬럼 길이 조절
+			tableView.getColumnModel().getColumn(i).setPreferredWidth(100);	// JTable 의 컬럼 길이 조절
 		}
 
 		inventory.add(search, BorderLayout.NORTH);

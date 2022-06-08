@@ -22,6 +22,7 @@ import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -350,11 +351,12 @@ public class Inventory extends Setting {
 		choose.setBackground(background);
 		choose.setBorder(BorderFactory.createEmptyBorder(margin2, 0, 0, 0));
 
-		final Choice ch = new Choice();
-		
+		Vector<String> c = new Vector<String>();
 		for(int i=0; i<name.size(); i++) {
-			ch.add(name.get(i));
+			c.add(name.get(i));
 		}
+		
+		final JComboBox ch = new JComboBox(c);
 		
 		choose.add(ch);
 		

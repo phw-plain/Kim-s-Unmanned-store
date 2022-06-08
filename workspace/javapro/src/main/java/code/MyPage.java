@@ -97,6 +97,7 @@ public class MyPage extends Setting {
 		textbox.setBackground(background);
 		JLabel password = new JLabel("비밀번호");
 		password.setFont(font3);
+		password.setForeground(Setting.title);
 		final TextField pw = new TextField("", 15);
 		pw.setEchoChar('●');
 		pw.setFont(font4);
@@ -173,8 +174,10 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
 		subtitle.setFont(font3);
+		subtitle.setForeground(Setting.title);
 
 		text.add(title);
 		text.add(subtitle);
@@ -275,8 +278,10 @@ public class MyPage extends Setting {
 		
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 		JLabel subtitle = new JLabel(brand + "점 " + name + "님 환영합니다.");
 		subtitle.setFont(font3);
+		subtitle.setForeground(Setting.title);
 
 		text.add(title);
 		text.add(subtitle);

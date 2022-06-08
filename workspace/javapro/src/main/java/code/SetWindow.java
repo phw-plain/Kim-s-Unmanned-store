@@ -53,13 +53,12 @@ public class SetWindow extends Setting {
     	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
     	reso_sub.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
-    	
-    	Vector<String> r = new Vector<String>();
-    	for(int i=0; i<resoArr.length; i++) {
-    		r.add(resoArr[i][0]+"X"+resoArr[i][1]);
-    	}
 
-    	final JComboBox reso = new JComboBox(r);
+    	final JComboBox reso = new JComboBox();
+    	
+    	for(int i=0; i<resoArr.length; i++) {
+    		reso.addItem(resoArr[i][0]+"X"+resoArr[i][1]);
+    	}
     	
     	reso_sub.add(reso_title);
     	reso_sub.add(reso);
@@ -74,13 +73,13 @@ public class SetWindow extends Setting {
     	Vector<String> f = new Vector<String>();
     	
     	addFont();
+
+    	final JComboBox fonts = new JComboBox();
     	
     	for(int i=0; i<fontArr.size(); i++) {
-    		f.add(fontArr.get(i));
+    		fonts.addItem(fontArr.get(i));
     	}
     	
-    	final JComboBox fonts = new JComboBox(f);
-
     	font_sub.add(font_title);
     	font_sub.add(fonts);
     	fontPanel.add(font_sub);

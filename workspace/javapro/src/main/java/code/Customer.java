@@ -319,7 +319,6 @@ public class Customer extends Setting {
 			if(i<R.length) {
 				R[i] = new JTextField();
 				R[i].setFont(font3);
-				R[i].setForeground(fontcolor);
 			}
 		}
 		

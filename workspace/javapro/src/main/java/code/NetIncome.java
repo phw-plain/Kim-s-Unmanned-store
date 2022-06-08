@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -180,14 +181,14 @@ public class NetIncome extends Setting{
 		int year = 2022; // 지금 년도 가져오기
 		int[] years = new int[10];
 
-		Choice yearCh = new Choice();
+		JComboBox yearCh = new JComboBox();
 		JButton yearbtn = new JButton("확인");
 		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
 		yearbtn.setBackground(Color.white);
 
 		for (int i = 0; i < 10; i++) {
 			years[i] = year - i;
-			yearCh.add(year - i + "년");
+			yearCh.addItem(year - i + "년");
 		}
 
 		JPanel chbox = new JPanel(new BorderLayout());

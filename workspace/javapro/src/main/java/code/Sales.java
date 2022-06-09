@@ -551,12 +551,12 @@ public class Sales extends Setting{
     		chart.addSeries(subTitle1, day, data1);
             chart.addSeries(subTitle2, day, data2);
             
-            chartPanel1 = new XChartPanel<>(chart);
+            chartPanel1 = new XChartPanel<CategoryChart>(chart);
         } else if(idx == 2) {
     		chart.addSeries(subTitle1, month, data1);
             chart.addSeries(subTitle2, month, data2);
             
-        	chartPanel2 = new XChartPanel<>(chart);
+        	chartPanel2 = new XChartPanel<CategoryChart>(chart);
         }
         
 	}

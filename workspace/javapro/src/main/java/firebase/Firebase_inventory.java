@@ -1,10 +1,15 @@
 package firebase;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
@@ -46,7 +51,7 @@ public class Firebase_inventory extends App{
 	}
 	
 	public void show_inventory() {
-		Inventory inventory = new Inventory();
+		Setting inventory = new Setting();
 		db = FirestoreClient.getFirestore();
 		ApiFuture<QuerySnapshot> query = db.collection(getId()).get();
 		QuerySnapshot querySnapshot = null;
@@ -62,7 +67,7 @@ public class Firebase_inventory extends App{
 		java.util.List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
 			inventory.code.add(document.getString("code"));
-			inventory.name.add(document.getString("name"));
+			inventory.product_name.add(document.getString("name"));
 			inventory.standard.add(document.getString("standard"));
 			inventory.category.add(document.getString("category"));
 			inventory.amount.add(Integer.parseInt(document.getString("amount")));
@@ -72,5 +77,8 @@ public class Firebase_inventory extends App{
 			inventory.explain.add(document.getString("explain"));
 			inventory.picture.add(document.getString("code"));
 		}
+	}
+	public void remove_inventory(String code) {
+		db.collection(getId()).document(code).delete();
 	}
 }

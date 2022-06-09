@@ -8,7 +8,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,6 +20,7 @@ import java.io.FileReader;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -30,13 +30,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
-import firebase.Firebase_inventory;
 
 public class Inventory extends Setting {
 	public JPanel panel;
@@ -84,8 +81,6 @@ public class Inventory extends Setting {
 		colNames.add("제품설명");
 		
 		// 데이터 불러오기
-		Firebase_inventory add = new Firebase_inventory();
-		add.show_inventory();
 		Setting.code.add("AD1004");
 		code.add("BC2075");
 		code.add("TR1200");
@@ -116,6 +111,19 @@ public class Inventory extends Setting {
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures1");
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures2");
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures3");
+		
+		for(int i=0; i<100; i++) {
+			code.add("test");
+			product_name.add("test2");
+			category.add("test3");
+			standard.add("test4");
+			cnt.add(1);
+			price.add(1);
+			cost.add(1);
+			amount.add(1);
+			explain.add("/");
+			picture.add("이미지 없음");
+		}
 		
 		View();
 		Modify();
@@ -203,10 +211,16 @@ public class Inventory extends Setting {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() != 0) {
+					System.out.println("입력된 문자열 : " + input.getText());
+					
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
+				} else {
+					System.out.println("입력된 문자열 없음");
 					
-				} 
+					dataLoad();
+					model.fireTableDataChanged();
+				}
 			}
 		});
 
@@ -222,6 +236,7 @@ public class Inventory extends Setting {
 		tableView.setGridColor(Color.gray);						// 격자색
 		tableView.getTableHeader().setReorderingAllowed(false); // 이동 불가
 		tableView.getTableHeader().setResizingAllowed(false); 	// 크기 조절 불가
+		tableView.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	// 가로 스크롤
 		tableView.setEnabled(false);							// 셀 선택 불가
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
@@ -240,7 +255,7 @@ public class Inventory extends Setting {
 				dtcr.setHorizontalAlignment(SwingConstants.RIGHT);
 			TableColumnModel tcm = tableView.getColumnModel();
 			tcm.getColumn(i).setCellRenderer(dtcr);
-			tableView.getColumnModel().getColumn(i).setPreferredWidth(250);	// JTable 의 컬럼 길이 조절
+			tableView.getColumnModel().getColumn(i).setPreferredWidth(100);	// JTable 의 컬럼 길이 조절
 		}
 
 		inventory.add(search, BorderLayout.NORTH);
@@ -258,9 +273,6 @@ public class Inventory extends Setting {
 		Modify = new JPanel();
 		Modify.setBackground(background);
 		Modify.setLayout(new BorderLayout());
-		//firebase 연동
-		//편집
-		final Firebase_inventory fire_inventory = new Firebase_inventory();
 
 		// navigation
 		JPanel nav = new JPanel(new BorderLayout());
@@ -470,7 +482,6 @@ public class Inventory extends Setting {
 				if(n == 0) {
 					// 데이터 삭제
 					int index = ch.getSelectedIndex();
-					fire_inventory.remove_inventory(code.get(index));
 					dataSet.remove(index);
 					code.remove(index);
 					product_name.remove(index);
@@ -482,15 +493,15 @@ public class Inventory extends Setting {
 					amount.remove(index);
 					explain.remove(index);
 					picture.remove(index);
+					
 					// repaint
 					ch.remove(index);
 					Modify.setVisible(false);
-					panel.remove(0);
+					panel.remove(1);
 					Modify();
 					Modify.setVisible(true);
 					dataLoad();		
 					model.fireTableDataChanged();
-					
 
 					JOptionPane.showMessageDialog(null
 							, "정상적으로 재고 삭제 완료!"
@@ -575,7 +586,7 @@ public class Inventory extends Setting {
 							, JOptionPane.WARNING_MESSAGE
 					);
 					if(n == 0) {
-						// 데이터 수정
+						// 데이터 삭제
 						product_name.set(index, R2.getText());
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
@@ -592,6 +603,12 @@ public class Inventory extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
+						
+						panel.remove(1);
+						Modify();
+						
+						Modify.setVisible(true);
+						
 						inventory.setVisible(true);
 						replace.setVisible(false);
 					}
@@ -857,13 +874,6 @@ public class Inventory extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 추가
-						Firebase_inventory add = new Firebase_inventory();
-						try {
-							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), R5.getText(),R6.getText(), R7.getText(), R8.getText(), R9.getText(), R10.getText());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 						code.add(R1.getText());
 						product_name.add(R2.getText());
 						category.add(R3.getText());
@@ -884,8 +894,20 @@ public class Inventory extends Setting {
 						dataLoad();		
 						model.fireTableDataChanged();
 
-						Add();
-						panel.remove(2);
+						panel.remove(1);
+						Modify();
+						
+						Add.setVisible(false);
+						R1.setText("");
+						R2.setText("");
+						R3.setText("");
+						R4.setText("");
+						R5.setText("");
+						R6.setText("");
+						R7.setText("");
+						R8.setText("");
+						R9.setText("/");
+						R10.setText("");
 						Add.setVisible(true);
 						
 						JOptionPane.showMessageDialog(null

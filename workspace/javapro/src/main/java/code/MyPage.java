@@ -283,7 +283,6 @@ public class MyPage extends Setting {
 		JLabel title = new JLabel("마이페이지");
 		title.setFont(font2);
 		title.setForeground(Setting.title);
-
 		JLabel subtitle = new JLabel(getBrand() + "점 " + getName() + "님 환영합니다.");
 		subtitle.setFont(font3);
 		subtitle.setForeground(Setting.title);

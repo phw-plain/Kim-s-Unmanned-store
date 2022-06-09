@@ -14,11 +14,9 @@ import javapro.JsonFileEdit;
 public class SetWindow extends Setting {
 	private Frame mainFrame;
 	private JPanel panel;
-	
-	private int[][] resoArr = new int[][] {
-		{ 1280, 1024 }
-		, { 1024, 786 }
-	};
+
+	private Vector<Integer> resoX = new Vector<Integer>();
+	private Vector<Integer> resoY = new Vector<Integer>();
 	private Vector<String> fontArr = new Vector<String>();
 	
 	public SetWindow() {		
@@ -54,11 +52,32 @@ public class SetWindow extends Setting {
     	reso_sub.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
 
-    	final JComboBox reso = new JComboBox();
+    	resoX.add(1280);
+    	resoY.add(1024);
     	
-    	for(int i=0; i<resoArr.length; i++) {
-    		reso.addItem(resoArr[i][0]+"X"+resoArr[i][1]);
+    	resoX.add(1024);
+    	resoY.add(786);
+    	
+    	Vector<String> r = new Vector<String>();
+    	
+    	for(int i=0; i<resoX.size(); i++) {
+    		if(resoX.get(i) == width && resoY.get(i) == height) {
+        		r.add(0, resoX.get(i)+"X"+resoY.get(i));
+        		
+        		int tempx = resoX.get(i);
+        		int tempy = resoY.get(i);
+        		
+        		resoX.remove(i);
+        		resoY.remove(i);
+        		
+        		resoX.add(0, tempx);
+        		resoY.add(0, tempy);
+    		} else {
+        		r.add(resoX.get(i)+"X"+resoY.get(i));
+    		}
     	}
+    	
+    	final JComboBox reso = new JComboBox(r);
     	
     	reso_sub.add(reso_title);
     	reso_sub.add(reso);
@@ -93,10 +112,16 @@ public class SetWindow extends Setting {
 		JPanel themes = new JPanel();
     	
     	ButtonGroup group = new ButtonGroup();
-		final JRadioButton ra1 = new JRadioButton("light", true);
+		final JRadioButton ra1 = new JRadioButton("light", false);
 		ra1.setBackground(Color.white);
 		JRadioButton ra2 = new JRadioButton("dark", false);
 		ra2.setBackground(Color.white);
+		
+		if(Setting.theme.equals("light")) {
+			ra1.setSelected(true);
+		} else {
+			ra2.setSelected(true);
+		}
 		
 		group.add(ra1);
 		group.add(ra2);
@@ -124,8 +149,8 @@ public class SetWindow extends Setting {
 	    // 버튼 이벤트
 	    check.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		width = resoArr[reso.getSelectedIndex()][0];
-	    		height = resoArr[reso.getSelectedIndex()][1];
+	    		width = resoX.get(reso.getSelectedIndex());
+	    		height =  resoY.get(reso.getSelectedIndex());
 	    		String font = fontArr.get(fonts.getSelectedIndex());
 	    		setFonts(font);
 	    		
@@ -192,6 +217,15 @@ public class SetWindow extends Setting {
     	fontArr.add("휴먼엑스포");
     	fontArr.add("휴먼옛체");
     	fontArr.add("휴먼편지체");
+    	
+    	for(int i=0; i<fontArr.size(); i++) {
+    		if(fontArr.get(i).equals(font)) {
+    			fontArr.remove(i);
+    			break;
+    		}
+    	}
+    	
+    	fontArr.add(0, font);
 	}
 	
 }

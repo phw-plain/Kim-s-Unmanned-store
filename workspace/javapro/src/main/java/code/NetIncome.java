@@ -8,12 +8,17 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.XChartPanel;
 
 public class NetIncome extends Setting{
 	public JPanel panel; // 실수령액 그래프
@@ -72,8 +77,8 @@ public class NetIncome extends Setting{
 		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 주 "+ blank2, Color.orange);
-		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 연 " + blank2);
+		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
@@ -95,22 +100,7 @@ public class NetIncome extends Setting{
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 182)); // 위 왼 아 오
 
 		// graph
-		int[][] data1 = new int[12][4]; // 일, 월, 연, sales
-		int[][] data2 = new int[12][4];
-
-		for (int i = 0; i < 12; i++) {
-			data1[i][0] = 20 + i;
-			data1[i][1] = 3;
-			data1[i][2] = 2022;
-			data1[i][3] = 100 + (20 * i);
-
-			data2[i][0] = 20 + i;
-			data2[i][1] = 3;
-			data2[i][2] = 2022;
-			data2[i][3] = 240 - (20 * i);
-		}
-
-		JPanel chartPanel3 = todayGraph.createDemoPanel(2, data1, data2);
+		drawChart(1);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -120,7 +110,7 @@ public class NetIncome extends Setting{
 		Week.add(header, BorderLayout.NORTH);
 		Week.add(leftpanel, BorderLayout.WEST);
 		Week.add(rightpanel, BorderLayout.EAST);
-		Week.add(chartPanel3, BorderLayout.CENTER);
+		Week.add(chartPanel1, BorderLayout.CENTER);
 		Week.add(footer, BorderLayout.SOUTH);
 
 		Week.setVisible(true);
@@ -155,8 +145,8 @@ public class NetIncome extends Setting{
 		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
 		leftpanel.setBackground(background);
 		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
-		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 주 "+ blank2);
-		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 연 " + blank2, Color.orange);
+		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
+		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
 
 		weekbtn.setFont(font3);
 		monthbtn.setFont(font3);
@@ -212,22 +202,7 @@ public class NetIncome extends Setting{
 		});
 
 		// graph
-		int[][] data1 = new int[12][4]; // 일, 월, 연, sales
-		int[][] data2 = new int[12][4];
-
-		for (int i = 0; i < 12; i++) {
-			data1[i][0] = 1;
-			data1[i][1] = i+1;
-			data1[i][2] = 2022;
-			data1[i][3] = 100 + (20 * i);
-
-			data2[i][0] = 1;
-			data2[i][1] = i+1;
-			data2[i][2] = 2022;
-			data2[i][3] = 240 - (20 * i);
-		}
-
-		chartPanel2 = yearGraph.createDemoPanel(2, data1, data2);
+		drawChart(2);
 
 		// footer (공백)
 		JPanel footer = new JPanel(new BorderLayout());
@@ -242,5 +217,67 @@ public class NetIncome extends Setting{
 
 		Month.setVisible(false);
 		panel.add(Month);
+	}
+	
+	private void drawChart(int idx) {
+		String title = null;
+		String subTitle1 = null;
+		String subTitle2 = null;
+
+		 if(idx == 1) {
+			 title = "주 실수령액 그래프";
+			 subTitle1 = "이번주";
+			 subTitle2 = "저번주";
+		 } else if(idx == 2) {
+			 title = "월 실수령액 그래프";
+			 subTitle1 = "이번달";
+			 subTitle2 = "저번달";
+		 }
+		
+		final CategoryChart chart = new CategoryChartBuilder().width(width/3).height(100).title(title).xAxisTitle("").yAxisTitle("원").build();
+		
+		// 오늘 기준으로 가져오는 데이터 바탕으로 요일 정렬 해야함
+		ArrayList<String> day = new ArrayList<String>();
+		day.add("월");
+		day.add("화");
+		day.add("수");
+		day.add("목");
+		day.add("금");
+		day.add("토");
+		day.add("일");
+		
+		ArrayList<String> month = new ArrayList<String>();
+		month.add("1월");
+		month.add("2월");
+		month.add("3월");
+		month.add("4월");
+		month.add("5월");
+		month.add("6월");
+		month.add("7월");
+		
+		// 그래프 데이터 가져오기
+		// idx: (1, 주 실수령액) (2, 달 실수령액)
+		ArrayList<Integer> data1 = new ArrayList<Integer>();
+		ArrayList<Integer> data2 = new ArrayList<Integer>();
+
+		for (int i = 0; i < day.size(); i++) {
+			data1.add(100+(100*i));
+			
+			data2.add(1000-(100*i));
+		}
+
+		// 그래프 값 넣기
+        if(idx == 1) {
+    		chart.addSeries(subTitle1, day, data1);
+            chart.addSeries(subTitle2, day, data2);
+            
+            chartPanel1 = new XChartPanel<>(chart);
+        } else if(idx == 2) {
+    		chart.addSeries(subTitle1, month, data1);
+            chart.addSeries(subTitle2, month, data2);
+            
+        	chartPanel2 = new XChartPanel<>(chart);
+        }
+        
 	}
 }

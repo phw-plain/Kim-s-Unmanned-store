@@ -29,5 +29,29 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 		    <artifactId>xchart</artifactId>
 		    <version>3.8.1</version>
 		</dependency>
+			   <dependency>
+    		<groupId>com.google.firebase</groupId>
+    		<artifactId>firebase-admin</artifactId>
+    		<version>8.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+    		<groupId>org.springframework</groupId>
+	    	<artifactId>spring-context</artifactId>
+	    	<version>5.3.20</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.24</version>
+    <scope>provided</scope>
+</dependency>
+		<dependency>
+    		<groupId>com.google.auto.value</groupId>
+    		<artifactId>auto-value</artifactId>
+    		<version>1.6.5</version>
+    		<scope>provided</scope>
+    	</dependency>
 	</dependencies>
 </project>

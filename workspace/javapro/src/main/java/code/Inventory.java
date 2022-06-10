@@ -35,6 +35,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import firebase.Firebase_inventory;
+
 public class Inventory extends Setting {
 	public JPanel panel;
 
@@ -81,6 +83,9 @@ public class Inventory extends Setting {
 		colNames.add("제품설명");
 		
 		// 데이터 불러오기
+		Firebase_inventory add = new Firebase_inventory();
+		add.show_inventory();
+		
 		Setting.code.add("AD1004");
 		code.add("BC2075");
 		code.add("TR1200");
@@ -112,18 +117,6 @@ public class Inventory extends Setting {
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures2");
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures3");
 		
-		for(int i=0; i<100; i++) {
-			code.add("test");
-			product_name.add("test2");
-			category.add("test3");
-			standard.add("test4");
-			cnt.add(1);
-			price.add(1);
-			cost.add(1);
-			amount.add(1);
-			explain.add("/");
-			picture.add("이미지 없음");
-		}
 		
 		View();
 		Modify();
@@ -274,6 +267,8 @@ public class Inventory extends Setting {
 		Modify.setBackground(background);
 		Modify.setLayout(new BorderLayout());
 
+		final Firebase_inventory fire_inventory = new Firebase_inventory();
+		
 		// navigation
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
@@ -456,7 +451,14 @@ public class Inventory extends Setting {
 				inventory.setVisible(false);
 				replace.setVisible(true);
 				
+				
 				int index = ch.getSelectedIndex();
+				try {
+					fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), Integer.toString(cnt.get(index)), Integer.toString(price.get(index)), Integer.toString(cost.get(index)), Integer.toString(amount.get(index)), explain.get(index), picture.get(index));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				R1.setText(code.get(index));
 				R2.setText(product_name.get(index));
 				R3.setText(category.get(index));
@@ -482,6 +484,7 @@ public class Inventory extends Setting {
 				if(n == 0) {
 					// 데이터 삭제
 					int index = ch.getSelectedIndex();
+					fire_inventory.remove_inventory(code.get(index));
 					dataSet.remove(index);
 					code.remove(index);
 					product_name.remove(index);
@@ -874,6 +877,13 @@ public class Inventory extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 추가
+						Firebase_inventory add = new Firebase_inventory();
+						try {
+							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), R5.getText(),R6.getText(), R7.getText(), R8.getText(), R9.getText(), R10.getText());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						code.add(R1.getText());
 						product_name.add(R2.getText());
 						category.add(R3.getText());

@@ -70,7 +70,6 @@ public class Firebase_login extends App{
     }
 	public void Update_MyPage() throws Exception {
 		db = FirestoreClient.getFirestore();
-		db = FirestoreClient.getFirestore();
     	Map<String, Object> quote = getQuoteFormHTTP();
     	try {
         	ApiFuture<WriteResult> hello = db.collection("Manager").document(getId())

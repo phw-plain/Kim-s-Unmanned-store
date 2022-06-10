@@ -1,6 +1,7 @@
 package code;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ public class Start extends Setting {
 		
 	public Start(){
 		i = new ImageIcon("src/img/main.png");
-		im = i.getImage();
+		
 		prepareGUI();
     }
 	
@@ -39,11 +40,16 @@ public class Start extends Setting {
 
 		startFrame.setVisible(false);
 		
-	    MyPanel panel = new MyPanel();
-	    panel.setLayout(new BorderLayout());
+	    JPanel panel = new JPanel(new BorderLayout()) {
+            public void paintComponent(Graphics g) {
+                g.drawImage(i.getImage(), 0, 0, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
 	   
 	    JPanel header = new JPanel(new BorderLayout());
-	    header.setBackground(new Color(254,235,182));
+	    header.setBackground(maincolor);
 	    JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, width+500, 10));
 	    footer.setBackground(new Color(255,255,255,0));
 	    footer.setBorder(BorderFactory.createEmptyBorder(height/2, 0, 0, 0));
@@ -74,7 +80,11 @@ public class Start extends Setting {
 	    });
 	    loginbtn.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	           new login(); //프레임 전환
+	           try {
+				new login();
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			} //프레임 전환
 	           startFrame.dispose();
 	       }
 	    });
@@ -96,11 +106,5 @@ public class Start extends Setting {
 	    startFrame.add(panel);
 	    startFrame.setVisible(true);
 	}
-	
-    class MyPanel extends JPanel{   
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-            g.drawImage(im,0,0,getWidth(),getHeight(),this);
-        }
-    }
+
 }

@@ -498,13 +498,7 @@ public class Inventory extends Setting {
 					picture.remove(index);
 					
 					// repaint
-					ch.remove(index);
-					Modify.setVisible(false);
-					panel.remove(1);
-					Modify();
-					Modify.setVisible(true);
-					dataLoad();		
-					model.fireTableDataChanged();
+					repaint("Modify");
 
 					JOptionPane.showMessageDialog(null
 							, "정상적으로 재고 삭제 완료!"
@@ -589,13 +583,22 @@ public class Inventory extends Setting {
 							, JOptionPane.WARNING_MESSAGE
 					);
 					if(n == 0) {
-						// 데이터 삭제
+						// 데이터 수정 사항 저장
 						product_name.set(index, R2.getText());
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
 						price.set(index, Integer.parseInt(R6.getText()));
-						explain.set(index, R7.getText());
+						cost.set(index, Integer.parseInt(R7.getText()));
+						amount.set(index, Integer.parseInt(R8.getText()));
+						explain.set(index, R9.getText());
+						if(!picture.get(index).equals(R10.getText())) {
+							picture.set(index, R10.getText());
+							
+							// 이미지 업로드
+							fileSave(f, path, f.getName());
+						}
+						
 						
 						// repaint
 						dataLoad();		
@@ -606,14 +609,8 @@ public class Inventory extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-						
-						panel.remove(1);
-						Modify();
-						
-						Modify.setVisible(true);
-						
-						inventory.setVisible(true);
-						replace.setVisible(false);
+
+						repaint("Modify");
 					}
 				}
 			}
@@ -622,6 +619,12 @@ public class Inventory extends Setting {
 			public void actionPerformed(ActionEvent e) {
 				inventory.setVisible(true);
 				replace.setVisible(false);
+			}
+		});
+		// 버튼 이벤트
+		btnR10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				R10.setText(FileUpload());
 			}
 		});
 		
@@ -903,9 +906,9 @@ public class Inventory extends Setting {
 						// repaint
 						dataLoad();		
 						model.fireTableDataChanged();
-
-						panel.remove(1);
-						Modify();
+						
+						panel.remove(2);
+						Add();
 						
 						Add.setVisible(false);
 						R1.setText("");
@@ -1053,11 +1056,22 @@ public class Inventory extends Setting {
 		} catch (Exception e) {}
 	}
 	
+	private void repaint(String str) {
+		if(str.equals("Modify")) {
+			Modify.setVisible(false);
+			Modify();
+			Modify.setVisible(true);
+		}
+	}
+	
 	class MouseExitedListener1 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			View.setVisible(true);
 			Modify.setVisible(false);
 			Add.setVisible(false);
+			
+			dataLoad();
+			model.fireTableDataChanged();
 		}
 		public void mouseEntered(MouseEvent e) {
 			for(int i=0; i<3; i++)

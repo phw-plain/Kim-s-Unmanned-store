@@ -156,7 +156,7 @@ public class Setting {
 		header_back = new Color(254, 235, 182);
 		menu_back = new Color(214, 174, 242);
 		menu_over = new Color(253, 206, 83);
-		maincolor = new Color(254, 235, 182);
+		maincolor = new Color(3, 60, 89);
 		
 		if(theme.equals("light")) lightMode();
 		else darkMode();

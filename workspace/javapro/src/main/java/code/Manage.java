@@ -2,6 +2,7 @@ package code;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 
@@ -115,6 +116,10 @@ public class Manage extends Setting {
 		ImageIcon mBtn_img2 = new ImageIcon("src/img/btn1_2.png");
 		ImageIcon mBtn_img3 = new ImageIcon("src/img/btn1_3.png");
 
+		ImageIcon mBtn2_img1 = new ImageIcon("src/img/btn2_1.png");
+		ImageIcon mBtn2_img2 = new ImageIcon("src/img/btn2_2.png");
+		ImageIcon mBtn2_img3 = new ImageIcon("src/img/btn2_3.png");
+		
 		ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
 		ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
 		ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
@@ -128,9 +133,9 @@ public class Manage extends Setting {
 		btn1.setFocusPainted(false); 		// 선택 외각선
 
 		// btn2 : 실수령액 그래프
-		JButton btn2 = new JButton("", mBtn_img1);
-		btn2.setRolloverIcon(mBtn_img2);
-		btn2.setPressedIcon(mBtn_img3);
+		JButton btn2 = new JButton("", mBtn2_img1);
+		btn2.setRolloverIcon(mBtn2_img2);
+		btn2.setPressedIcon(mBtn2_img3);
 		btn2.setContentAreaFilled(false);
 		btn2.setBorderPainted(false);
 		btn2.setFocusPainted(false);
@@ -223,7 +228,9 @@ public class Manage extends Setting {
 		});
 		btn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Start(); // 프레임 전환
+				new Start();
+				
+				// 프레임 전환
 	    		mainFrame.dispose();
 			}
 		});

@@ -1,6 +1,7 @@
 package code;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.swing.*;
@@ -8,10 +9,18 @@ import javax.swing.event.*;
 
 import firebase.Firebase_login;
 
+import org.apache.batik.swing.JSVGCanvas;
+import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
+import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
+import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
+import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
+import org.apache.batik.swing.svg.GVTTreeBuilderAdapter;
+import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
+
 class login extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
-	private MyPanel panelLeft;
+	private JPanel panelLeft;
 	private JPanel panelRight;
 	private JLabel headerLabel;
 	private Button b1;
@@ -19,14 +28,11 @@ class login extends Setting {
 	private JTextField tf1;
 	private JTextField tf2;
 	
-	public login() {
-		i = new ImageIcon("src/img/login_img.png");
-		im = i.getImage();
-		
+	public login() throws MalformedURLException {
 	    prepareGUI();
 	}
 	
-	private void prepareGUI() {
+	private void prepareGUI() throws MalformedURLException {
 		// Frame 기본 셋팅
 		mainFrame = new Frame("박리다매 무인가게");
 	    mainFrame.setSize(width ,height);
@@ -42,7 +48,13 @@ class login extends Setting {
     	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 
 		// Left image
-		panelLeft = new MyPanel();
+    	// SVG 이미지 불러오기
+    	String path = "file:///" + System.getProperty("user.dir") + "/src/img/";
+    	path += "login_img.svg";
+    	
+    	JSVGCanvas svgCanvas = new JSVGCanvas();
+    	svgCanvas.setURI(new URL(path).toString());
+    	svgCanvas.setBackground(new Color(3,60,89));
 	    
 		// Left title
 		headerLabel = new JLabel();
@@ -109,8 +121,10 @@ class login extends Setting {
 	    });
 	    cancel.addActionListener(new ActionListener() {
 	       public void actionPerformed(ActionEvent e) {
-	    	   new Start(); // 프레임 전환
-	           mainFrame.setVisible(false);
+	    	   new Start();
+	    	   
+	    	   // 프레임 전환
+	    	   mainFrame.setVisible(false);
 	       }
 	    });
 	
@@ -126,7 +140,7 @@ class login extends Setting {
 		
 		subpanel = new JPanel();
 		subpanel.setLayout(new GridLayout(1, 2));
-		subpanel.add(panelLeft, BorderLayout.SOUTH);
+		subpanel.add(svgCanvas, BorderLayout.SOUTH);
 		subpanel.add(panelRight, BorderLayout.NORTH);
 	     
 	    mainFrame.add(subpanel);

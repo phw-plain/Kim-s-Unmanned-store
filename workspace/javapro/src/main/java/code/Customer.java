@@ -24,6 +24,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import firebase.Firebase_Customer;
+
 public class Customer extends Setting {
 	public JPanel panel;
 
@@ -41,18 +43,12 @@ public class Customer extends Setting {
 	int index;
 	JTextField R[];
 	JLabel R0;
-	
-	// 고객 DB 참조
-	private Vector<String> id = new Vector<String>();
-	private Vector<String> pw = new Vector<String>();
-	private Vector<String> name = new Vector<String>();
-	private Vector<String> telephone = new Vector<String>();
-	private Vector<String> email = new Vector<String>();
-	private Vector<Integer> point = new Vector<Integer>();
 
 	int spacing;
 	int margin1;
 	int margin2;
+	
+	Firebase_Customer firebase = new Firebase_Customer();
 	
 	public Customer() {
 		panel = new JPanel(new CardLayout());
@@ -69,16 +65,16 @@ public class Customer extends Setting {
 		colNames.add("포인트");
 		
 		// 데이터 불러오기
-		id.add("abc123");
-		pw.add("abc123");
-		name.add("왕경태");
+		customer_id.add("abc123");
+		customer_pw.add("abc123");
+		customer_name.add("왕경태");
 		telephone.add("010-1234-5678");
 		email.add("a123@gmail.com");
 		point.add(50);
 
-		id.add("qwerr133");
-		pw.add("qweerqasd133");
-		name.add("고영희");
+		customer_id.add("qwerr133");
+		customer_pw.add("qweerqasd133");
+		customer_name.add("고영희");
 		telephone.add("010-1111-1111");
 		email.add("cat456@gmail.com");
 		point.add(3000);
@@ -161,7 +157,7 @@ public class Customer extends Setting {
 				} else {
 					int n = JOptionPane.showConfirmDialog(
 							null
-							, name.get(index) + "님의 정보를 수정하시겠습니까?"
+							, customer_name.get(index) + "님의 정보를 수정하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
 							, JOptionPane.WARNING_MESSAGE
@@ -170,9 +166,9 @@ public class Customer extends Setting {
 					if(n == 0) {
 						tableView.clearSelection();
 						
-						R0.setText(id.get(index));
-						R[0].setText(pw.get(index));
-						R[1].setText(name.get(index));
+						R0.setText(customer_id.get(index));
+						R[0].setText(customer_pw.get(index));
+						R[1].setText(customer_name.get(index));
 						R[2].setText(telephone.get(index));
 						R[3].setText(email.get(index));
 						R[4].setText(Integer.toString(point.get(index)));
@@ -416,8 +412,8 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if( R[0].getText().equals(pw.get(index))
-						&&  R[1].getText().equals(name.get(index))
+				} else if( R[0].getText().equals(customer_pw.get(index))
+						&&  R[1].getText().equals(customer_name.get(index))
 						&&  R[2].getText().equals(telephone.get(index))
 						&&  R[3].getText().equals(email.get(index))
 						&&  Integer.parseInt(R[4].getText()) == point.get(index)) {
@@ -441,12 +437,19 @@ public class Customer extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 저장
-						pw.set(index, R[0].getText());
-						name.set(index, R[1].getText());
+						customer_pw.set(index, R[0].getText());
+						customer_name.set(index, R[1].getText());
 						telephone.set(index, R[2].getText());
 						email.set(index, R[3].getText());
 						point.set(index, Integer.parseInt(R[4].getText()));
 						
+						
+						try {
+							firebase.update_cutomer(customer_id.get(index),customer_pw.get(index),customer_name.get(index), telephone.get(index),email.get(index),point.get(index));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						// repaint
 						dataLoad();		
 						model.fireTableDataChanged();
@@ -484,11 +487,11 @@ public class Customer extends Setting {
 		Vector<String> rows;
 		
 		// 데이터 입력
-		for (int i = 0; i < name.size(); i++) {
+		for (int i = 0; i < customer_name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(id.get(i));
-			rows.add(pw.get(i));
-			rows.add(name.get(i));
+			rows.add(customer_id.get(i));
+			rows.add(customer_pw.get(i));
+			rows.add(customer_name.get(i));
 			rows.add(telephone.get(i));
 			rows.add(email.get(i));
 			rows.add(Integer.toString(point.get(i)));
@@ -501,16 +504,16 @@ public class Customer extends Setting {
 		Vector<String> rows;
 		
 		// 검색 데이터 입력
-		for (int i = 0; i < name.size(); i++) {
+		for (int i = 0; i < customer_name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(id.get(i));
-			rows.add(pw.get(i));
-			rows.add(name.get(i));
+			rows.add(customer_id.get(i));
+			rows.add(customer_pw.get(i));
+			rows.add(customer_name.get(i));
 			rows.add(telephone.get(i));
 			rows.add(email.get(i));
 			rows.add(Integer.toString(point.get(i)));
 			
-			if(name.get(i).indexOf(str) != -1) {
+			if(customer_name.get(i).indexOf(str) != -1) {
 				dataSet.add(rows);
 			} else if(str.equals(" ")) {
 				dataSet.add(rows);

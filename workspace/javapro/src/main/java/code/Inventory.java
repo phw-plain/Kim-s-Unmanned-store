@@ -450,15 +450,7 @@ public class Inventory extends Setting {
 			public void actionPerformed(ActionEvent e) {
 				inventory.setVisible(false);
 				replace.setVisible(true);
-				
-				
 				int index = ch.getSelectedIndex();
-				try {
-					fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), Integer.toString(cnt.get(index)), Integer.toString(price.get(index)), Integer.toString(cost.get(index)), Integer.toString(amount.get(index)), explain.get(index), picture.get(index));
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				R1.setText(code.get(index));
 				R2.setText(product_name.get(index));
 				R3.setText(category.get(index));
@@ -598,7 +590,12 @@ public class Inventory extends Setting {
 							// 이미지 업로드
 							fileSave(f, path, f.getName());
 						}
-						
+						try {
+							fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), Integer.toString(cnt.get(index)), Integer.toString(price.get(index)), Integer.toString(cost.get(index)), Integer.toString(amount.get(index)), explain.get(index), picture.get(index));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						
 						// repaint
 						dataLoad();		
@@ -765,6 +762,7 @@ public class Inventory extends Setting {
 		data.add(L[0]);
 		data.add(R1);
 		data.add(L[1]);
+		
 		data.add(R2);
 		data.add(L[2]);
 		data.add(R3);

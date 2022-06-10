@@ -52,7 +52,6 @@ public class Firebase_inventory extends App{
 	}
 	
 	public void show_inventory() {
-		Setting inventory = new Setting();
 		db = FirestoreClient.getFirestore();
 		ApiFuture<QuerySnapshot> query = db.collection(getId()).get();
 		QuerySnapshot querySnapshot = null;
@@ -94,7 +93,7 @@ public class Firebase_inventory extends App{
 			e1.printStackTrace();
 		}
     	try {
-        	ApiFuture<WriteResult> hello = db.collection(set.getId()).document(code).update(quote);
+        	ApiFuture<WriteResult> hello = db.collection(set.getId()+"_inventory").document(code).update(quote);
     	System.out.println("update_Inventory at " + hello.get().getUpdateTime());
     	}catch(Exception e){
     		   e.printStackTrace(); //오류 출력(방법은 여러가지)

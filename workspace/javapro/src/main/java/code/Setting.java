@@ -145,6 +145,14 @@ public class Setting {
 	protected static Vector<Integer> amount = new Vector<Integer>();
 	protected static Vector<String> explain = new Vector<String>();
 	protected static Vector<String> picture = new Vector<String>();
+	
+	// 고객 DB 참조
+	protected static Vector<String> customer_id = new Vector<String>();
+	protected static Vector<String> customer_pw = new Vector<String>();
+	protected static Vector<String> customer_name = new Vector<String>();
+	protected static Vector<String> telephone = new Vector<String>();
+	protected static Vector<String> email = new Vector<String>();
+	protected static Vector<Integer> point = new Vector<Integer>();
 
 	public static Frame startFrame;
 	

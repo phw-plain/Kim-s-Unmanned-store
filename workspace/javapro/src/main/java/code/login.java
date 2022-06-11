@@ -63,10 +63,16 @@ class login extends Setting {
 		headerLabel.setForeground(title);
 
 		// Right content
-		Panel p = new Panel();
-		p.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
+		panelRight = new JPanel(new GridLayout(3, 1));
+		panelRight.setBackground(background);
+		panelRight.setBorder(BorderFactory.createEmptyBorder(150, 0, 150, 0));
 
-		Panel form = new Panel(new GridLayout(3,2,0,5));
+		int margin = (height > 1000) ? 80 : 40;
+		int margin2 = (height > 1000) ? 150 : 100;
+		
+		JPanel form = new JPanel(new GridLayout(2,2,0,10));
+		form.setBackground(background);
+		form.setBorder(BorderFactory.createEmptyBorder(margin, margin2, margin, margin2));
 		
 		JLabel label1 = new JLabel("아이디");
 		label1.setFont(font3);
@@ -124,21 +130,14 @@ class login extends Setting {
 	    	   mainFrame.setVisible(false);
 	       }
 	    });
-	
-	    p.add(form);
-	    p.add(btns);
-	    p.setBackground(background);
 	     
-		panelRight = new JPanel();
-		panelRight.setBackground(background);
-		panelRight.setLayout(new GridLayout(3, 1));
 		panelRight.add(headerLabel);
-		panelRight.add(p);
+		panelRight.add(form);
+		panelRight.add(btns);
 		
-		subpanel = new JPanel();
-		subpanel.setLayout(new GridLayout(1, 2));
-		subpanel.add(svgCanvas, BorderLayout.SOUTH);
-		subpanel.add(panelRight, BorderLayout.NORTH);
+		subpanel = new JPanel(new GridLayout(1, 2));
+		subpanel.add(svgCanvas);
+		subpanel.add(panelRight);
 	     
 	    mainFrame.add(subpanel);
 	    mainFrame.setVisible(true);

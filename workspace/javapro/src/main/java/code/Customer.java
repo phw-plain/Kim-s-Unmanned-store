@@ -215,7 +215,7 @@ public class Customer extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*0.5)));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -303,10 +303,10 @@ public class Customer extends Setting {
 		JPanel center = new JPanel(new BorderLayout());
 		center.setBackground(background);
 		
-		// 회원가입 정보 입력
+		// 회원 정보 입력
 		JPanel imformation = new JPanel();
 		imformation.setBackground(background);
-		JPanel form = new JPanel(new GridLayout(6,2,0,30));
+		JPanel form = new JPanel(new GridLayout(6,2,0,20));
 		form.setBackground(background);
 		form.setPreferredSize(new Dimension(800,(int)(height*0.5)));
 		form.setBorder(BorderFactory.createEmptyBorder((int)(height*0.01), 100, 0, 100));
@@ -353,8 +353,8 @@ public class Customer extends Setting {
 		// btn
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
-		double margin2 = (height < 1000) ? 0.03 : 0.1;
-		btns.setBorder(BorderFactory.createEmptyBorder(50, 0, (int)(height*margin2), 0));
+		double margin2 = (height < 1000) ? 0.05 : 0.1;
+		btns.setBorder(BorderFactory.createEmptyBorder(10, 0, (int)(height*margin2), 0));
 		RoundedButton change = new RoundedButton("확인");
 		change.setFont(font3);
 		RoundedButton cancel = new RoundedButton("취소");

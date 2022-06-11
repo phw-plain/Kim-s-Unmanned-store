@@ -244,7 +244,7 @@ public class Inventory extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*0.5)));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -423,6 +423,7 @@ public class Inventory extends Setting {
 		R9.setFont(font6);
 
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		imglayer.setBackground(background);
 		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");
@@ -719,7 +720,8 @@ public class Inventory extends Setting {
 
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
-		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.04), 0));
+		double margin = (height > 1000) ? 0.05 : 0.02;
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*margin), 0));
 		RoundedButton add = new RoundedButton("추가");
 		add.setFont(font3);
 		btns.add(add);
@@ -761,6 +763,7 @@ public class Inventory extends Setting {
 		R9.setFont(font6);
 		
 		JPanel imglayer = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		imglayer.setBackground(background);
 		final JTextField R10 = new JTextField("", 20);
 		R10.setFont(font6);
 		JButton btnR10 = new JButton("파일찾기");

@@ -42,7 +42,7 @@ public class Sales extends Setting{
 	DotGraphYear yearGraph = new DotGraphYear();
 	
 	public int margin = (height > 1000) ? 20 : 13;
-	public int margin2 = (height > 1000) ? 20 : 15;
+	public int margin2 = (height > 1000) ? 20 : 16;
 	public String blank1 = (height > 1000) ? "  " : "";
 	public String blank2 = (height > 1000) ? "   " : " ";
 	
@@ -309,8 +309,9 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin2, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin2, 1, 0, 6));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2, Color.orange);

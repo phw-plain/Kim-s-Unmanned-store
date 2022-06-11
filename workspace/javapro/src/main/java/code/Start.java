@@ -12,6 +12,7 @@ public class Start extends Setting {
 		
 	public Start(){
 		i = new ImageIcon("src/img/main.png");
+		i = imageSetSize(i, width, height);
 		
 		prepareGUI();
     }
@@ -64,13 +65,11 @@ public class Start extends Setting {
 	    // 버튼 설정
 	    loginbtn.setFocusPainted(false); 
 	    loginbtn.setFont(font2);
-	    loginbtn.setBackground(maincolor);
 	    joinbtn.setFocusPainted(false); 
 	    joinbtn.setFont(font2);
-	    joinbtn.setBackground(maincolor);
 	    resolution.setContentAreaFilled(false);
 	    resolution.setBorderPainted(false);
-	    resolution.setFocusPainted(false);
+	    resolution.setFocusPainted(false);	//choice
 	    
 	    // 버튼 클릭 이벤트
 	    resolution.addActionListener(new ActionListener() {

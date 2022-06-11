@@ -108,6 +108,7 @@ public class Customer extends Setting {
 		
 		JLabel title = new JLabel("고객 관리");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -264,6 +265,7 @@ public class Customer extends Setting {
 		
 		JLabel title = new JLabel("고객 관리");
 		title.setFont(font2);
+		title.setForeground(Setting.title);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -355,9 +357,12 @@ public class Customer extends Setting {
 		btns.setBorder(BorderFactory.createEmptyBorder(50, 0, (int)(height*margin2), 0));
 		RoundedButton change = new RoundedButton("확인");
 		change.setFont(font3);
+		RoundedButton cancel = new RoundedButton("취소");
+		cancel.setFont(font3);
 		
 		btns.add(change);
-		
+		btns.add(cancel);
+	
 		change.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int n = 0;
@@ -460,6 +465,12 @@ public class Customer extends Setting {
 						Modify.setVisible(false);
 					}
 				}
+			}
+		});
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				View.setVisible(true);
+				Modify.setVisible(false);
 			}
 		});
 		

@@ -51,13 +51,6 @@ public class Setting {
 	public URL imageURL = Start.class.getClassLoader().getResource("apple.png");
 	public ImageIcon img = new ImageIcon(imageURL);
 	
-	public ImageIcon mBtn_img1 = new ImageIcon("src/img/btn1_1.png");
-	public ImageIcon mBtn_img2 = new ImageIcon("src/img/btn1_2.png");
-	public ImageIcon mBtn_img3 = new ImageIcon("src/img/btn1_3.png");
-	public ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
-	public ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
-	public ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
-	
     // 타입 체크
     final isType is = new isType();
 	
@@ -154,9 +147,6 @@ public class Setting {
 		height = Integer.parseInt(jsonEdit.get("y"));
 		theme = jsonEdit.get("theme");
 		
-		header_back = new Color(254, 235, 182);
-		menu_back = new Color(214, 174, 242);
-		menu_over = new Color(253, 206, 83);
 		maincolor = new Color(3, 60, 89);
 		
 		if(theme.equals("light")) lightMode();
@@ -178,12 +168,20 @@ public class Setting {
 		title = new Color(255, 255, 255);
 		background = new Color(58, 58, 58);
 		fontcolor = new Color(255, 255, 255);
+		
+		header_back = new Color(3, 60, 89);
+		menu_back = new Color(3, 60, 89);
+		menu_over = new Color(253, 206, 83);
 	}
 	
 	public static void lightMode() {
 		title = new Color(0, 0, 0);
 		background = new Color(255, 255, 255);
 		fontcolor = new Color(0, 0, 0);
+		
+		header_back = new Color(253, 206, 83);
+		menu_back = new Color(255, 211, 91);
+		menu_over = new Color(235, 76, 2);
 	}
 	
 	public static void setFonts(String f) {
@@ -194,5 +192,12 @@ public class Setting {
 		font4 = new Font(font, Font.PLAIN, 16);
 		font5 = new Font(font, Font.PLAIN, 14);
 		font6 = new Font(font, Font.PLAIN, 11);
+	}
+	
+	public ImageIcon imageSetSize(ImageIcon icon, int i, int j) { // image Size Setting
+		Image ximg = icon.getImage();  //ImageIcon을 Image로 변환.
+		Image yimg = ximg.getScaledInstance(i, j, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon xyimg = new ImageIcon(yimg); 
+		return xyimg;
 	}
 }

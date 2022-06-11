@@ -164,7 +164,6 @@ public class Inventory extends Setting {
 
 		// menubar
 		btnView[0] = new JLabel("재고 보기");
-		btnView[0].setForeground(menu_over);
 		btnModify[0] = new JLabel("재고 편집");
 		btnAdd[0] = new JLabel("재고 추가");
 		JLabel blank = new JLabel();
@@ -173,6 +172,10 @@ public class Inventory extends Setting {
 		btnView[0].setFont(font4);
 		btnModify[0].setFont(font4);
 		btnAdd[0].setFont(font4);
+		
+		btnView[0].setForeground(menu_over);
+		btnModify[0].setForeground(Setting.fontcolor);
+		btnAdd[0].setForeground(Setting.fontcolor);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -235,7 +238,7 @@ public class Inventory extends Setting {
 		tableView.setRowHeight(30);								// 행간 조절
 		tableView.setGridColor(Color.gray);						// 격자색
 		tableView.getTableHeader().setReorderingAllowed(false); // 이동 불가
-		tableView.getTableHeader().setResizingAllowed(false); 	// 크기 조절 불가
+		tableView.getTableHeader().setResizingAllowed(true); 	// 열 크기 조절
 		tableView.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	// 가로 스크롤
 		tableView.setEnabled(false);							// 셀 선택 불가
 		
@@ -299,7 +302,6 @@ public class Inventory extends Setting {
 		// menubar
 		btnView[1] = new JLabel("재고 보기");
 		btnModify[1] = new JLabel("재고 편집");
-		btnModify[1].setForeground(menu_over);
 		btnAdd[1] = new JLabel("재고 추가");
 		JLabel blank = new JLabel();
 		JLabel blank2 = new JLabel();
@@ -307,6 +309,10 @@ public class Inventory extends Setting {
 		btnView[1].setFont(font4);
 		btnModify[1].setFont(font4);
 		btnAdd[1].setFont(font4);
+
+		btnView[1].setForeground(Setting.fontcolor);
+		btnModify[1].setForeground(menu_over);
+		btnAdd[1].setForeground(Setting.fontcolor);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -333,7 +339,7 @@ public class Inventory extends Setting {
 		
 		JLabel subtitle1 = new JLabel("재고 편집");
 		subtitle1.setFont(font2);
-		subtitle1.setForeground(fontcolor);
+		subtitle1.setForeground(Setting.fontcolor);
 		subtitle1.setHorizontalAlignment(JLabel.CENTER);
 		subtitle1.setBorder(BorderFactory.createEmptyBorder(margin1, 0, 0, 0));
 		
@@ -390,15 +396,15 @@ public class Inventory extends Setting {
 		for(int i=0; i<L.length; i++) {
 			L[i] = new JLabel(colNames.get(i));
 			L[i].setFont(font3);
-			L[i].setForeground(fontcolor);
+			L[i].setForeground(Setting.fontcolor);
 		}
 		JLabel L10 = new JLabel("이미지");
 		L10.setFont(font3);
-		L10.setForeground(fontcolor);
+		L10.setForeground(Setting.fontcolor);
 		
 		final JLabel R1 = new JLabel("");
 		R1.setFont(font6);
-		R1.setForeground(fontcolor);
+		R1.setForeground(Setting.fontcolor);
 		final JTextField R2 = new JTextField("", 20);
 		R2.setFont(font6);
 		final JTextField R3 = new JTextField("", 20);
@@ -671,13 +677,16 @@ public class Inventory extends Setting {
 		btnView[2] = new JLabel("재고 보기");
 		btnModify[2] = new JLabel("재고 편집");
 		btnAdd[2] = new JLabel("재고 추가");
-		btnAdd[2].setForeground(menu_over);
 		JLabel blank = new JLabel();
 		JLabel blank2 = new JLabel();
 
 		btnView[2].setFont(font4);
 		btnModify[2].setFont(font4);
 		btnAdd[2].setFont(font4);
+
+		btnView[2].setForeground(Setting.fontcolor);
+		btnModify[2].setForeground(Setting.fontcolor);
+		btnAdd[2].setForeground(menu_over);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -704,7 +713,7 @@ public class Inventory extends Setting {
 		
 		JLabel subtitle = new JLabel("재고 추가");
 		subtitle.setFont(font2);
-		subtitle.setForeground(fontcolor);
+		subtitle.setForeground(Setting.fontcolor);
 		subtitle.setHorizontalAlignment(JLabel.CENTER);
 		subtitle.setBorder(BorderFactory.createEmptyBorder(margin1, 0, 0, 0));
 
@@ -726,11 +735,11 @@ public class Inventory extends Setting {
 		for(int i=0; i<L.length; i++) {
 			L[i] = new JLabel(colNames.get(i));
 			L[i].setFont(font3);
-			L[i].setForeground(fontcolor);
+			L[i].setForeground(Setting.fontcolor);
 		}
 		JLabel L10 = new JLabel("이미지");
 		L10.setFont(font3);
-		L10.setForeground(fontcolor);
+		L10.setForeground(Setting.fontcolor);
 		
 		final JTextField R1 = new JTextField("", 20);
 		R1.setFont(font6);

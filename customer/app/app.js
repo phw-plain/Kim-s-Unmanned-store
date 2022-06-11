@@ -53,9 +53,11 @@ app.post("/login", (req, res) => {
 
   console.log(paramId, paramPw);
 
-  // 로그인 성공
-  // res.redirect("../view/notices")
-  res.redirect("/main")
+  // 로그인 성공시 아래 주소로 이동
+  // res.redirect("/main")
+
+  // 실패
+  // alert()
 });
 
 app.get("/products", (req, res) => {

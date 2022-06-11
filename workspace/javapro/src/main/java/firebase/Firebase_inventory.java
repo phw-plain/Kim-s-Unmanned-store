@@ -43,7 +43,7 @@ public class Firebase_inventory extends App{
     	Firebase_inventory getQuote = new Firebase_inventory();
     	HashMap<String, Object> quote = getQuote.getQuoteFormHTTP(code, name, category, standard, cnt, price, cost, amount, explain, picture);
     	try {
-        	ApiFuture<WriteResult> hello = db.collection(set.getId()).document(code).set(quote);
+        	ApiFuture<WriteResult> hello = db.collection(set.getId()+"_inventory").document(code).set(quote);
     	System.out.println("we Did" + hello.get().getUpdateTime());
     	}catch(Exception e){
     		   e.printStackTrace(); //오류 출력(방법은 여러가지)
@@ -53,7 +53,7 @@ public class Firebase_inventory extends App{
 	
 	public void show_inventory() {
 		db = FirestoreClient.getFirestore();
-		ApiFuture<QuerySnapshot> query = db.collection(getId()).get();
+		ApiFuture<QuerySnapshot> query = db.collection(getId()+"_inventory").get();
 		QuerySnapshot querySnapshot = null;
 		try {
 			querySnapshot = query.get();
@@ -79,7 +79,7 @@ public class Firebase_inventory extends App{
 		}
 	}
 	public void remove_inventory(String code) {
-		db.collection(getId()).document(code).delete();
+		db.collection(getId()+"_inventory").document(code).delete();
 	}
 	
 	public void update_Inventory(String code, String name, String category, String standard, String cnt, String price, String cost, String amount, String explain, String picture) throws Exception {

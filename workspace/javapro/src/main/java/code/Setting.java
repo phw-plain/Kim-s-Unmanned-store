@@ -6,6 +6,7 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.io.FileReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -181,6 +182,9 @@ public class Setting {
 		System.out.println("location : " + location);
 	}
 	
+	public ArrayList<Integer> data1 = new ArrayList<Integer>();
+	public ArrayList<Integer> data2 = new ArrayList<Integer>();
+	
 	public static void darkMode() {
 		title = new Color(255, 255, 255);
 		background = new Color(58, 58, 58);
@@ -202,4 +206,5 @@ public class Setting {
 		font5 = new Font(font, Font.PLAIN, 14);
 		font6 = new Font(font, Font.PLAIN, 11);
 	}
+	
 }

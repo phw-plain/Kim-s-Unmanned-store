@@ -534,17 +534,22 @@ public class Sales extends Setting{
 		month.add("5월");
 		month.add("6월");
 		month.add("7월");
+		month.add("8월");
+		month.add("9월");
+		month.add("10월");
+		month.add("11월");
+		month.add("12월");
 		
 		// 그래프 데이터 가져오기
 		// idx: (1, 주 매출) (2, 달 매출)
-		ArrayList<Integer> data1 = new ArrayList<Integer>();
-		ArrayList<Integer> data2 = new ArrayList<Integer>();
-
-		for (int i = 0; i < day.size(); i++) {
+		
+		
+		int len = (idx == 1) ? 7 : 12;
+		for (int i = 0; i < len; i++) {
 			data1.add(100+(100*i));
-			
 			data2.add(1000-(100*i));
 		}
+		
 
 		// 그래프 값 넣기        
         if(idx == 1) {

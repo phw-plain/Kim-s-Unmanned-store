@@ -1,20 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import '.././css/Login.css';
 
 const Login = () => { 
-    const [userId, setUserId] = useState("");
-    const [userPw, setUserPw] = useState("");
-  
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        console.log("id : " + userId);
-        console.log("password: " + userPw);
-
-        //axios.post('/login', userId);
-    }
-
     return ( 
         <div className="main">
             <h1 className="p5 f1 bold" style={{marginTop:"0px"}}> 박리다매 무인가게 </h1>

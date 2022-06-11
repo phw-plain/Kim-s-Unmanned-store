@@ -54,10 +54,39 @@ app.post("/login", (req, res) => {
   console.log(paramId, paramPw);
 
   // 로그인 성공시 아래 주소로 이동
-  // res.redirect("/main")
+  res.redirect("/connect")
 
   // 실패
-  // alert()
+  // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
+});
+
+app.get("/connect", (req, res) => {
+  let data = [
+    {
+      id : "000012",
+      display : "Galaxy S22+",
+      time : "2022.5.9 17:55"
+    }, {
+      id : "003420",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 8:13"
+    }, {
+      id : "024150",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 9:13"
+    }, {
+      id : "007320",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 10:13"
+    }, {
+      id : "124370",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 11:13"
+    }
+  ]
+
+
+  res.json(data);
 });
 
 app.get("/products", (req, res) => {

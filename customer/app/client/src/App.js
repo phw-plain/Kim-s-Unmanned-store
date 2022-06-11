@@ -3,6 +3,7 @@ import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Login from './js/Login'; 
 import Main from './js/Main'; 
 import Products from './js/Products'; 
 import Product from './js/Product'; 
@@ -19,7 +20,8 @@ function App() {
       <BrowserRouter>
         {/* <Header />  */}
         <Routes> 
-            <Route path='/' element={<Main />}></Route>
+            <Route path='/' element={<Login />}></Route>
+            <Route path='/main' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
             <Route path='/product/:productId' element={<Product />}></Route>
             <Route path='/buy' element={<Buy />}></Route>

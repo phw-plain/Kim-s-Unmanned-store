@@ -24,7 +24,12 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const app = express();
+
+app.set('port', process.env.PORT || 5000);
+app.use(express.json()); 
+app.use(express.urlencoded( {extended : false } ));
 
 app.use( express.static( path.join(__dirname, 'client/build') ) );
 
@@ -38,6 +43,19 @@ app.use(cors()); // cors 미들웨어를 삽입합니다.
 
 app.get("/", (req, res) => {
   res.sendFile('index.html')
+});
+
+app.post("/login", (req, res) => {
+  console.log('/login 호출됨.');
+
+  const paramId  = req.body.id || req.query.id;
+  const paramPw  = req.body.password || req.query.password;
+
+  console.log(paramId, paramPw);
+
+  // 로그인 성공
+  // res.redirect("../view/notices")
+  res.redirect("/main")
 });
 
 app.get("/products", (req, res) => {

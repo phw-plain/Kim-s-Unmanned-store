@@ -16,6 +16,7 @@ const NewDisplay = () => {
         const canvas = document.createElement('canvas')
         JsBarcode(canvas, barcodeNumber, { width: 3, height: 60, displayValue: false })
         setImageUrl(canvas.toDataURL('image/png'))
+        console.log(barcodeNumber)
     }, [])
 
     return ( 

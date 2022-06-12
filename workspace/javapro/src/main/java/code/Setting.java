@@ -48,7 +48,7 @@ public class Setting {
 	public ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
 	public ImageIcon i;
 	public Image im;
-	public URL imageURL = Start.class.getClassLoader().getResource("apple.png");
+	public URL imageURL = Start.class.getClassLoader().getResource("icon.png");
 	public ImageIcon img = new ImageIcon(imageURL);
 	
     // 타입 체크

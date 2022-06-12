@@ -32,7 +32,7 @@ public class SetWindow extends Setting {
 	       }
 	    });
 
-		URL imageURL = Start.class.getClassLoader().getResource("apple.png");
+		URL imageURL = Start.class.getClassLoader().getResource("icon.png");
 	    ImageIcon img = new ImageIcon(imageURL);
     	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 	    

@@ -26,8 +26,6 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RefineryUtilities;
 
-import code.Manage.MyPanel;
-
 public class Manage extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
@@ -47,7 +45,7 @@ public class Manage extends Setting {
 		setPw(pw);
 		
 		i = new ImageIcon("src/img/benner.png");
-		im = i.getImage();
+		i = imageSetSize(i, width, height/3);
 		
 		// Frame 기본 세팅
 		mainFrame = new Frame("박리다매 무인가게");
@@ -96,13 +94,17 @@ public class Manage extends Setting {
 	}
 
 	private void menu() {
-		menu = new JPanel();
-		menu.setBackground(background);
-		menu.setLayout(new GridLayout(3, 1));
+		menu = new JPanel(new GridLayout(3, 1));
 
 		// 상단 배너
-		MyPanel benner = new MyPanel();
-		menu.add(benner, BorderLayout.EAST);
+		JPanel benner = new JPanel(new BorderLayout()) {
+            public void paintComponent(Graphics g) {
+                g.drawImage(i.getImage(), 0, 0, null);
+                setOpaque(false); //그림을 표시하게 설정,투명하게 조절
+                super.paintComponent(g);
+            }
+        };
+		menu.add(benner);
 		
 		pWest = new JPanel(new GridLayout(1, 3, 25, 0));
 		pWest.setBorder(BorderFactory.createEmptyBorder(width/25, 150, 10, 150));
@@ -329,8 +331,8 @@ public class Manage extends Setting {
 		pEast.add(p5);
 		pEast.add(p6);
 
-		menu.add(pWest, BorderLayout.EAST);
-		menu.add(pEast, BorderLayout.EAST);
+		menu.add(pWest);
+		menu.add(pEast);
 
 		menu.setVisible(true);
 	}
@@ -415,13 +417,6 @@ public class Manage extends Setting {
 				customer.setVisible(false);
 			}
 		});
-	}
-	
-	class MyPanel extends JPanel {
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			g.drawImage(im, 0, 0, getWidth(), getHeight(), this);
-		}
 	}
 	
 }

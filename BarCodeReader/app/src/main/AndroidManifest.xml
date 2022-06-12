@@ -12,6 +12,10 @@
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.BarCodeReader">
         <activity
+            android:name=".BarcodeReader"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

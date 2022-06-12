@@ -16,6 +16,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -41,7 +42,7 @@ public class Sales extends Setting{
 	DotGraphYear yearGraph = new DotGraphYear();
 	
 	public int margin = (height > 1000) ? 20 : 13;
-	public int margin2 = (height > 1000) ? 20 : 15;
+	public int margin2 = (height > 1000) ? 20 : 16;
 	public String blank1 = (height > 1000) ? "  " : "";
 	public String blank2 = (height > 1000) ? "   " : " ";
 	
@@ -96,7 +97,13 @@ public class Sales extends Setting{
 		// 버튼 이벤트
 		monthbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Today.setVisible(false); // 화면 전환
+				// Graph 다시 그리기
+				Month.setVisible(false);
+				MonthSales();
+				Month.setVisible(true);
+				
+				// 화면 전환
+				Today.setVisible(false); 
 				Month.setVisible(true);
 				Recode.setVisible(false);
 			}
@@ -184,7 +191,13 @@ public class Sales extends Setting{
 		// 버튼 이벤트
 		daybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Today.setVisible(true); // 화면 전환
+				// Graph 다시 그리기
+				Today.setVisible(false);
+				TodaySales();
+				Today.setVisible(true);
+				
+				// 화면 전환
+				Today.setVisible(true); 
 				Month.setVisible(false);
 				Recode.setVisible(false);
 			}
@@ -296,8 +309,9 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin2, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(margin2, 1, 0, 6));
 		leftpanel.setBackground(background);
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2, Color.orange);
@@ -311,7 +325,6 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				// Graph 다시 그리기
 				Today.setVisible(false);
-				panel.remove(0);
 				TodaySales();
 				Today.setVisible(true);
 				
@@ -325,7 +338,6 @@ public class Sales extends Setting{
 			public void actionPerformed(ActionEvent e) {
 				// Graph 다시 그리기
 				Month.setVisible(false);
-				panel.remove(1);
 				MonthSales();
 				Month.setVisible(true);
 				
@@ -349,15 +361,18 @@ public class Sales extends Setting{
 		JPanel centerpanel = new JPanel(new BorderLayout());
 		centerpanel.setBackground(background);
 		
-		JLabel subTitle = new JLabel("오늘 매출 및 지출 기록");
+		JLabel subTitle = new JLabel("오늘 지출 기록");
 		subTitle.setFont(font2);
 		subTitle.setForeground(Setting.title);
 		subTitle.setHorizontalAlignment(JLabel.CENTER);
+		subTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, height/12, 0)); 
 		
 		JPanel subPanel = new JPanel();
 		subPanel.setBackground(background);
 		
-		JPanel gridPanel = new JPanel(new GridLayout(6, 2, 20, 20));
+		int margin = (height > 1000) ? 50 : 25;
+		
+		JPanel gridPanel = new JPanel(new GridLayout(6, 2, 25, margin));
 		gridPanel.setBackground(background);
 		
 		final JLabel L[] = new JLabel[6];
@@ -366,16 +381,16 @@ public class Sales extends Setting{
 			L[i].setFont(font3);
 			L[i].setForeground(Setting.title);
 		}
-		L[0].setText("오늘 매출");
-		L[1].setText("기타 지출비");
-		L[3].setText("인건비(알바)");
-		L[4].setText("알바 시급");
-		L[5].setText("알바 시간");
 		
-		final JTextField R[] = new JTextField[3];
+		L[0].setText("기타 지출비");
+		L[2].setText("인건비(알바)");
+		L[3].setText("알바 시급");
+		L[4].setText("알바 시간");
+		
+		final JTextField R[] = new JTextField[2];
 		for(int i=0; i<R.length; i++) {
-			R[i] = new JTextField();
-			R[i].setFont(font3);
+			R[i] = new JTextField("", 15);
+			R[i].setFont(font5);
 		}
 		
 		JPanel radiobtn1 = new JPanel();
@@ -384,7 +399,7 @@ public class Sales extends Setting{
 		ra1.setFont(font3);
 		ra1.setForeground(fontcolor);
 		ra1.setBackground(background);
-		JRadioButton ra2 = new JRadioButton("무", false);
+		final JRadioButton ra2 = new JRadioButton("무", false);
 		ra2.setFont(font3);
 		ra2.setForeground(fontcolor);
 		ra2.setBackground(background);
@@ -400,7 +415,7 @@ public class Sales extends Setting{
 		ra3.setFont(font3);
 		ra3.setForeground(fontcolor);
 		ra3.setBackground(background);
-		JRadioButton ra4 = new JRadioButton("무", false);
+		final JRadioButton ra4 = new JRadioButton("무", false);
 		ra4.setFont(font3);
 		ra4.setForeground(fontcolor);
 		ra4.setBackground(background);
@@ -416,17 +431,15 @@ public class Sales extends Setting{
 			ch.addItem(i+"시간");
 		}
 		
-		gridPanel.add(L[0]);	// 오늘 매출
+		gridPanel.add(L[0]);	// 기타 지출비
+		gridPanel.add(radiobtn1);	
+		gridPanel.add(L[1]);	// 공백
 		gridPanel.add(R[0]);	
-		gridPanel.add(L[1]);	// 기타 지출비
-		gridPanel.add(radiobtn1);
-		gridPanel.add(L[2]);	// 공백
-		gridPanel.add(R[1]);
-		gridPanel.add(L[3]);	// 인건비(알바)
+		gridPanel.add(L[2]);	// 인건비(알바)
 		gridPanel.add(radiobtn2);	
-		gridPanel.add(L[4]);	// 알바 시급
-		gridPanel.add(R[2]);	
-		gridPanel.add(L[5]);	// 알바 시간
+		gridPanel.add(L[3]);	// 알바 시급
+		gridPanel.add(R[1]);
+		gridPanel.add(L[4]);	// 알바 시간
 		gridPanel.add(ch);
 		
 		subPanel.add(gridPanel);
@@ -434,40 +447,39 @@ public class Sales extends Setting{
 		// 기타 지출비 유무 이벤트
 		ra1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L[2].setVisible(true);
-				R[1].setVisible(true);
+				L[1].setVisible(true);
+				R[0].setVisible(true);
 			}
 		});
 		ra2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				L[2].setVisible(false);
-				R[1].setVisible(false);
+				L[1].setVisible(false);
+				R[0].setVisible(false);
 			}
 		});
 		// 알바 유무 이벤트
 		ra3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				L[3].setVisible(true);
+				R[1].setVisible(true);
 				L[4].setVisible(true);
-				R[2].setVisible(true);
-				L[4].setVisible(true);
-				L[5].setVisible(true);
 				ch.setVisible(true);
 			}
 		});
 		ra4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				L[3].setVisible(false);
+				R[1].setVisible(false);
 				L[4].setVisible(false);
-				R[2].setVisible(false);
-				L[4].setVisible(false);
-				L[5].setVisible(false);
 				ch.setVisible(false);
 			}
 		});
 
 		JPanel btns = new JPanel();
 		btns.setBackground(background);
+		int margin1 = (height > 1000) ? 120 : 70;
 		double margin2 = (height < 1000) ? 0.03 : 0.1;
-		btns.setBorder(BorderFactory.createEmptyBorder(50, 0, (int)(height*margin2), 0));
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, margin1, 0));
 		
 		RoundedButton check = new RoundedButton("확인");
 		check.setFont(font3);
@@ -476,13 +488,62 @@ public class Sales extends Setting{
 		
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 데이터 저장
-				System.out.println("오늘 매출 : " + R[0].getText());
-				System.out.println("기타 지출비 유무 : " + ((ra1.isSelected() == true) ? "유" : "무"));
-				System.out.println("기타 지출비 : " + R[1].getText());
-				System.out.println("알바 유무 : " + ((ra3.isSelected() == true) ? "유" : "무"));
-				System.out.println("알바 시급 : " + R[2].getText());
-				System.out.println("알바 시간 : " + (ch.getSelectedIndex() + 1) + "시간");
+				if(ra1.isSelected() == true && R[0].getText().equals("")) {
+ 					JOptionPane.showMessageDialog(null
+						, "기타 지출비를 입력해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+	 			} else if(ra1.isSelected() == true && !is.isNum(R[0].getText())) {
+ 					JOptionPane.showMessageDialog(null
+						, "기타 지출비는 숫자만 입력해 주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+	 			} else if(ra3.isSelected() == true && R[1].getText().equals("")) {
+ 					JOptionPane.showMessageDialog(null
+						, "알바 시급을 입력해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+	 			} else if(ra3.isSelected() == true && !is.isNum(R[1].getText())) {
+ 					JOptionPane.showMessageDialog(null
+						, "알바 시급은 숫자만 입력해 주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+ 					);
+	 			} else { 
+	 				// 데이터 저장
+					System.out.println("기타 지출비 유무 : " + ((ra1.isSelected() == true) ? "유" : "무"));
+					System.out.println("기타 지출비 : " + R[0].getText());
+					System.out.println("알바 유무 : " + ((ra3.isSelected() == true) ? "유" : "무"));
+					System.out.println("알바 시급 : " + R[1].getText());
+					System.out.println("알바 시간 : " + (ch.getSelectedIndex() + 1) + "시간");
+					
+					JOptionPane.showMessageDialog(null
+	 						, "오늘 지출 기록 완료!"
+	 						, "박리다매"
+	 						, JOptionPane.PLAIN_MESSAGE
+	 				);
+					
+					// 다시 그리기
+					L[1].setVisible(true);
+					R[0].setVisible(true);
+					L[3].setVisible(true);
+					R[1].setVisible(true);
+					L[4].setVisible(true);
+					ch.setVisible(true);
+					
+					ra1.setSelected(true);
+					ra2.setSelected(false);
+					ra3.setSelected(true);
+					ra4.setSelected(false);
+					
+					R[0].setText("");
+					R[1].setText("");
+					
+					ch.setSelectedIndex(0);
+	 			}
 			}
 		});
 		

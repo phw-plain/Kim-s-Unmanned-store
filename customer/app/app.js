@@ -24,7 +24,12 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const app = express();
+
+app.set('port', process.env.PORT || 5000);
+app.use(express.json()); 
+app.use(express.urlencoded( {extended : false } ));
 
 app.use( express.static( path.join(__dirname, 'client/build') ) );
 
@@ -38,6 +43,50 @@ app.use(cors()); // cors 미들웨어를 삽입합니다.
 
 app.get("/", (req, res) => {
   res.sendFile('index.html')
+});
+
+app.post("/login", (req, res) => {
+  console.log('/login 호출됨.');
+
+  const paramId  = req.body.id || req.query.id;
+  const paramPw  = req.body.password || req.query.password;
+
+  console.log(paramId, paramPw);
+
+  // 로그인 성공시 아래 주소로 이동
+  res.redirect("/connect")
+
+  // 실패
+  // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
+});
+
+app.get("/connect", (req, res) => {
+  let data = [
+    {
+      id : "000012",
+      display : "Galaxy S22+",
+      time : "2022.5.9 17:55"
+    }, {
+      id : "003420",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 8:13"
+    }, {
+      id : "024150",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 9:13"
+    }, {
+      id : "007320",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 10:13"
+    }, {
+      id : "124370",
+      display : "Galaxy Z Flip3 5G",
+      time : "2022.6.12 11:13"
+    }
+  ]
+
+
+  res.json(data);
 });
 
 app.get("/products", (req, res) => {

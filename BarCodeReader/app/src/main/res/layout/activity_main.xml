@@ -9,25 +9,36 @@
     android:background="@drawable/main"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:src="@drawable/action_bar" />
-
-    <Button
-        style="?android:borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:onClick="startBarcodeReader" />
-
-    <TextView
-        android:id="@+id/eventText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="바코드 스캔하기 >>"
-        android:textColor="@color/black"
-        android:textSize="30dp" />
+        android:layout_marginTop="50dp">
 
+        <Button
+            android:id="@+id/eventText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="230dp"
+            android:text="키오스크 연동"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:backgroundTint="@color/white"
+            android:onClick="startBarcodeReader" />
+
+        <Button
+            android:id="@+id/startBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:width="230dp"
+            android:text="시작 하기"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:backgroundTint="@color/white"
+            android:onClick="startKiosk" />
+
+    </LinearLayout>
 </FrameLayout>

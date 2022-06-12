@@ -2,7 +2,6 @@ package com.example.barcodereader
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
@@ -12,19 +11,26 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.zxing.integration.android.IntentIntegrator
 
-class MainActivity : AppCompatActivity() {
-    private var id = "";
-
+class BarcodeReader : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reader);
 
-        //supportActionBar?.setIcon(R.drawable.icon);
-        //getSupportActionBar()?.setDisplayUseLogoEnabled(true);
-        //getSupportActionBar()?.setDisplayShowHomeEnabled(true);
+        val id = intent.getStringExtra("id");
+        val idText = findViewById<TextView>(R.id.idText);
+        idText.setText(id);
 
         supportActionBar?.hide();
 
+        val eventText: TextView = findViewById(R.id.eventText)
+        FadeInEvent(eventText);
+    }
+
+    fun FadeInEvent(view: View) {
+        YoYo.with(Techniques.FadeIn)
+            .duration(1000)
+            .repeat(-1)
+            .playOn(findViewById(R.id.eventText))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,24 +52,11 @@ class MainActivity : AppCompatActivity() {
         integrator.initiateScan()
     }
 
-    fun startKiosk(view: View) {
-        // 화면 전환
-        if(id!=""){
-            val intent = Intent(applicationContext, BarcodeReader::class.java)
-            intent.putExtra("id", id)
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, "키오스크 연동 후 시작할 수 있습니다!", Toast.LENGTH_LONG).show()
-        }
-    }
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.contents != null) {
                 Toast.makeText(this, "scanned: ${result.contents} format: ${result.formatName}", Toast.LENGTH_LONG).show()
-                id = result.contents;
             } else {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             }

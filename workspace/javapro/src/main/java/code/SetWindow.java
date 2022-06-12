@@ -37,19 +37,20 @@ public class SetWindow extends Setting {
     	mainFrame.setIconImage(img.getImage());	    // Icon 변경
 	    
     	panel = new JPanel(new BorderLayout());
+    	panel.setBackground(Color.white);
     	
     	JLabel title = new JLabel("화면 설정");
     	title.setFont(font4);
+    	title.setHorizontalAlignment(JLabel.CENTER);
+    	title.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
     	
-    	JPanel center = new JPanel(new GridLayout(4, 1, 0 ,0));
+    	JPanel center = new JPanel(new GridLayout(3, 2, 0, 50));
     	center.setBackground(Color.white);
-    	center.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+    	center.setBorder(BorderFactory.createEmptyBorder(40, 100, 25, 100));
 
     	// 해상도
     	JPanel resolution = new JPanel();
     	resolution.setBackground(Color.white);
-    	JPanel reso_sub = new JPanel(new GridLayout(1,2,58,0));
-    	reso_sub.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
 
     	resoX.add(1280);
@@ -79,18 +80,15 @@ public class SetWindow extends Setting {
     	
     	final JComboBox reso = new JComboBox(r);
     	
-    	reso_sub.add(reso_title);
-    	reso_sub.add(reso);
-    	resolution.add(reso_sub);
+    	center.add(reso_title);
+    	center.add(reso);
 
     	// 글꼴
     	JPanel fontPanel = new JPanel();
     	fontPanel.setBackground(Color.white);
-    	JPanel font_sub = new JPanel(new GridLayout(1,2,0,0));
-    	font_sub.setBackground(Color.white);
     	JLabel font_title =  new JLabel("글꼴");
-    	Vector<String> f = new Vector<String>();
     	
+    	Vector<String> f = new Vector<String>();
     	addFont();
 
     	final JComboBox fonts = new JComboBox();
@@ -99,17 +97,15 @@ public class SetWindow extends Setting {
     		fonts.addItem(fontArr.get(i));
     	}
     	
-    	font_sub.add(font_title);
-    	font_sub.add(fonts);
-    	fontPanel.add(font_sub);
+    	center.add(font_title);
+    	center.add(fonts);
     	
     	// 테마
     	JPanel theme = new JPanel();
     	theme.setBackground(Color.white);
-    	JPanel theme_sub = new JPanel(new GridLayout(1,2,0,0));
-    	theme_sub.setBackground(Color.white);
     	JLabel theme_title =  new JLabel("테마");
 		JPanel themes = new JPanel();
+    	themes.setBackground(Color.white);
     	
     	ButtonGroup group = new ButtonGroup();
 		final JRadioButton ra1 = new JRadioButton("light", false);
@@ -129,12 +125,13 @@ public class SetWindow extends Setting {
 		themes.add(ra1);
 		themes.add(ra2);
     	
-    	theme_sub.add(theme_title);
-    	theme_sub.add(themes);
-    	theme.add(theme_sub);
+    	center.add(theme_title);
+    	center.add(themes);
     	
     	// 버튼
 		JPanel btns = new JPanel(new FlowLayout());
+		btns.setBackground(Color.white);
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0));
 
 		RoundedButton check = new RoundedButton("확인");
 		check.setFocusPainted(false); 
@@ -180,13 +177,9 @@ public class SetWindow extends Setting {
 	       }
 	    });
 	    
-    	center.add(resolution);
-    	center.add(fontPanel);
-    	center.add(theme);
-    	center.add(btns);
-    	
     	panel.add(title, BorderLayout.NORTH);
     	panel.add(center, BorderLayout.CENTER);
+    	panel.add(btns, BorderLayout.SOUTH);
     	
     	mainFrame.add(panel);
 	}

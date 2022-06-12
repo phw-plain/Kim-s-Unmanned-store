@@ -111,7 +111,7 @@ public class MyPage extends Setting {
 
 		JPanel btn = new JPanel();
 		btn.setBackground(background);
-	    btn.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+	    btn.setBorder(BorderFactory.createEmptyBorder(0, 0, (height > 1000) ? 200 : 100, 0));
 		RoundedButton check = new RoundedButton("확인");
 	    check.setFont(font3);
 		btn.add(check);

@@ -17,7 +17,7 @@ public class Firebase_Customer extends App{
 	Setting set = new Setting();
 	public void show_customer() {
 		db = FirestoreClient.getFirestore();
-		ApiFuture<QuerySnapshot> query = db.collection(getId()).get();
+		ApiFuture<QuerySnapshot> query = db.collection("Manager").document(getId()).collection("customer").get();
 		QuerySnapshot querySnapshot = null;
 		try {
 			querySnapshot = query.get();
@@ -49,7 +49,7 @@ public class Firebase_Customer extends App{
 			e1.printStackTrace();
 		}
     	try {
-        	ApiFuture<WriteResult> hello = db.collection(set.getId()+"_customer").document(id).update(quote);
+        	ApiFuture<WriteResult> hello = db.collection("Manager").document(getId()).collection("customer").document(id).update(quote);
     	System.out.println("update_customer at " + hello.get().getUpdateTime());
     	}catch(Exception e){
     		   e.printStackTrace(); //오류 출력(방법은 여러가지)

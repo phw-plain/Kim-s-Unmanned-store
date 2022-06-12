@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,6 +24,8 @@ import javax.swing.JTextField;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.XChartPanel;
+
+import firebase.firebase_sales;
 
 public class Sales extends Setting{
 	public JPanel panel; // 실수령액 그래프
@@ -542,20 +545,64 @@ public class Sales extends Setting{
 		
 		// 그래프 데이터 가져오기
 		// idx: (1, 주 매출) (2, 달 매출)
+		ArrayList<Integer> data1 = new ArrayList<Integer>();
+		ArrayList<Integer> data2 = new ArrayList<Integer>();
 		
-		
-		int len = (idx == 1) ? 7 : 12;
-		for (int i = 0; i < len; i++) {
-			data1.add(100+(100*i));
-			data2.add(1000-(100*i));
+	    firebase_sales sales = new firebase_sales();
+	    
+		int date = (idx == 1) ? now : Year;
+		if(idx==1) {
+			for (int i = 6; i >= 0; i--) {
+				int a[] = null;
+				try {
+					int realdate = 0;
+					if(date-i%100>30||date-i%100==0) {
+						realdate = date-70-(100-(date-i%100));
+					}else {
+						realdate = date-i;
+					}
+					a = sales.show_sales(realdate, 7);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ExecutionException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				data1.add(a[0]);
+				data2.add(a[1]);
+			}
+		}else {
+			for (int i = 0; i >= 12; i++) {
+				int a[] = null;
+				try {
+					int realdate = 0;
+					if(date-i%100<=0) {
+						realdate = date-100+11;  //202101
+					}else {
+						realdate = date-i;
+					}
+					a = sales.show_sales(Year*10+i, 12);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ExecutionException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				data1.add(a[0]);
+				data2.add(a[1]);
+			}
 		}
 		
+		
+		System.out.println(data1);
+		System.out.println(data2);
 
 		// 그래프 값 넣기        
         if(idx == 1) {
     		chart.addSeries(subTitle1, day, data1);
             chart.addSeries(subTitle2, day, data2);
-            
             chartPanel1 = new XChartPanel<CategoryChart>(chart);
         } else if(idx == 2) {
     		chart.addSeries(subTitle1, month, data1);

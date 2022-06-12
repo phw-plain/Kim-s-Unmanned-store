@@ -6,7 +6,11 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.io.FileReader;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -58,6 +62,7 @@ public class Setting {
 	public ImageIcon mBtn5_img1 = new ImageIcon("src/img/btn5_1.png");
 	public ImageIcon mBtn5_img2 = new ImageIcon("src/img/btn5_2.png");
 	public ImageIcon mBtn5_img3 = new ImageIcon("src/img/btn5_3.png");
+	
 	
     // 타입 체크
     final isType is = new isType();
@@ -154,6 +159,14 @@ public class Setting {
 	protected static Vector<String> telephone = new Vector<String>();
 	protected static Vector<String> email = new Vector<String>();
 	protected static Vector<Integer> point = new Vector<Integer>();
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+	Date date = new Date();        
+	public int now = (Integer.parseInt(dateFormat.format(date)));
+	
+	SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyyMM");
+	Date date1 = new Date();        
+	public int Year = (Integer.parseInt(dateFormat.format(date1)));
 
 	public static Frame startFrame;
 	
@@ -181,9 +194,7 @@ public class Setting {
 		System.out.println("brand : " + brand);
 		System.out.println("location : " + location);
 	}
-	
-	public ArrayList<Integer> data1 = new ArrayList<Integer>();
-	public ArrayList<Integer> data2 = new ArrayList<Integer>();
+
 	
 	public static void darkMode() {
 		title = new Color(255, 255, 255);

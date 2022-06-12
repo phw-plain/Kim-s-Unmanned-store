@@ -622,7 +622,7 @@ public class Sales extends Setting{
 					}else {
 						realdate = date-i;
 					}
-					a = sales.show_sales(realdate, 7);
+					a = sales.show_Daysales(realdate, 7);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -643,7 +643,7 @@ public class Sales extends Setting{
 					}else {
 						realdate = date-i;
 					}
-					a = sales.show_sales(Year*10+i, 12);
+					a = sales.show_Monthsales(Year*10+i, 12);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

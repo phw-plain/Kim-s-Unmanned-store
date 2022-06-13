@@ -4,18 +4,8 @@ import { Link } from "react-router-dom";
 
 import '.././css/Connect.css';
 
-const Login = () => { 
-    const [display, setDisplay] = useState([]); 
-
-    useEffect(() => {
-        fetch("/connect")
-          .then((response) => {
-              return response.json();
-          })
-          .then(function(data) {
-            setDisplay(data);
-          });
-      }, []);
+const Connect = () => { 
+    const [device, setDevice] = useState(JSON.parse(localStorage.getItem('device')));
 
     return ( 
         <div className="main">
@@ -27,8 +17,8 @@ const Login = () => {
             </div>
             
             <div className="connect_body">
-                {display.map((item, index) =>
-                    <div className="display">
+                {device.map((item, index) =>
+                    <div className="display" key={index}>
                         <img src="img/phone.png" className="phone"/>
                         <div className="dis_text">
                             <p className="text1">{item.display}</p>
@@ -44,4 +34,4 @@ const Login = () => {
     ); 
 }; 
 
-export default Login;
+export default Connect;

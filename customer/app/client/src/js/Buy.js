@@ -42,7 +42,7 @@ const Buy = () => {
             if(product.code === code  && product.cnt < product.stock) {
                 purchase.cnt -= product.cnt;
                 purchase.price = +purchase.price - (+product.price) * product.cnt;
-                newCart[idx].cnt = 0;
+                newCart = newCart.splice(1+idx, 1)
             }
         })
        setCarts(newCart);
@@ -84,10 +84,7 @@ const Buy = () => {
             <div className="sh_center">
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {cart.map((text,idx)  =>
-                        <div key={idx}> {
-                            (text.cnt !== 0)
-                        ?
-                        <ListGroup.Item>
+                        <ListGroup.Item  key={idx}>
                             <img className="shopimg" src={ text.img } alt="이미지 불러오기 실패" />
                                 <div className='shoptext'>
                                     <p>{text.name}</p>
@@ -115,8 +112,6 @@ const Buy = () => {
                                     <p>{text.price}원</p>
                                 </div>
                         </ListGroup.Item>
-                        :null
-                    }</div>
                     )}
                 </ListGroup>
             </div>

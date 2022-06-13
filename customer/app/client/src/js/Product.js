@@ -1,6 +1,7 @@
 import React, { useEffect, useState }  from 'react'; 
 import { Link, useParams } from 'react-router-dom';
 import { Button  } from "react-bootstrap";
+import axios from 'axios';
 
 import  '.././css/Product.css';
 
@@ -10,14 +11,10 @@ const Product = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("/products")
-            .then((response) => {
-                return response.json();
-            })
-            .then(function(data) {
-                setProducts(data);
-            });
-    }, []);
+        axios.post('/products')
+        .then(res => setProducts(res.data))
+        .catch();
+    }, [])
         
     return ( 
         <div className="product"> 
@@ -52,7 +49,7 @@ const Product = () => {
                         }
                 </div>
             )}
-            <Link to={"/products"}>
+            <Link to="/products">
                 <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"11.4vh"}}>이전으로</Button>
             </Link>
         </div>

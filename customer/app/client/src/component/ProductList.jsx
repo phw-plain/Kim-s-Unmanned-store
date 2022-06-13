@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
+import axios from 'axios';
 
 export const ProductList = () => {
   const [products, setProducts] = useState([]); 
 
   useEffect(() => {
-    fetch("/products")
-      .then((response) => {
-          return response.json();
-      })
-      .then(function(data) {
-        setProducts(data);
-      });
-  }, []);
-
-  const handleClose = () => {
-    window.location = '/';
-  }
+    axios.post('/products')
+    .then(res => setProducts(res.data))
+    .catch();
+  }, [])
 
   const moveScrollRight = () => {
-    console.log(products)
     let scrollX = document.getElementById('container').scrollLeft;
     document.getElementById('container').scrollLeft = scrollX + 170;
   }
@@ -104,7 +96,9 @@ export const ProductList = () => {
         </Carousel>
       </div>
       <div className='nav_close'>
-          <Button variant="secondary" onClick={handleClose} style={{ fontSize:"1.7vh"}}>메인으로</Button>
+        <Link to="/main">
+          <Button variant="secondary" style={{ fontSize:"1.7vh"}}>메인으로</Button>
+        </Link>
       </div>
   </div>
   )

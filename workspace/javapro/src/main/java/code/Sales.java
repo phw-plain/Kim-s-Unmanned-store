@@ -612,6 +612,7 @@ public class Sales extends Setting{
 	    firebase_sales sales = new firebase_sales();
 	    
 		int date = (idx == 1) ? now : Year;
+		
 		if(idx==1) {
 			for (int i = 6; i >= 0; i--) {
 				int a[] = null;
@@ -634,7 +635,7 @@ public class Sales extends Setting{
 				data2.add(a[1]);
 			}
 		}else {
-			for (int i = 0; i >= 12; i++) {
+			for (int i = 0; i < 12; i++) {
 				int a[] = null;
 				try {
 					int realdate = 0;

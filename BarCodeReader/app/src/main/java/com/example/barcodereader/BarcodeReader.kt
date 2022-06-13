@@ -1,7 +1,9 @@
-package com.example.barcodereader
+package com.example.barcodereader;
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
@@ -9,14 +11,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
 
 class BarcodeReader : AppCompatActivity() {
+    val db = FirebaseFirestore.getInstance();//db연결
+    val id = intent.getStringExtra("id");
+    val ManagerId = intent.getStringExtra("ManagerId");
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
 
-        val id = intent.getStringExtra("id");
         val idText = findViewById<TextView>(R.id.idText);
         idText.setText(id);
 
@@ -57,6 +62,19 @@ class BarcodeReader : AppCompatActivity() {
         if(result != null) {
             if(result.contents != null) {
                 Toast.makeText(this, "scanned: ${result.contents} format: ${result.formatName}", Toast.LENGTH_LONG).show()
+                val product = hashMapOf(
+                    "name" to "Los Angeles",
+                    "state" to "CA",
+                    "country" to "USA"
+                )
+                if (ManagerId != null) {
+                    if (id != null) {
+                        db.collection("Manager").document(ManagerId).collection("barcode").document(id)
+                            .set(product)
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                    }
+                }
             } else {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             }

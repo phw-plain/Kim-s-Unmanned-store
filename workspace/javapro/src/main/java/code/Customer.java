@@ -79,6 +79,9 @@ public class Customer extends Setting {
 		email.add("cat456@gmail.com");
 		point.add(3000);
 		
+		Firebase_Customer customer = new Firebase_Customer();
+		customer.show_customer();
+		
 		View();
 		Modify();
 	}

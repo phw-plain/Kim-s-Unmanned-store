@@ -1,106 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ListGroup,  Modal, Button } from "react-bootstrap";
+import axios from 'axios';
 
 import '.././css/Buy.css';
 
 const Buy = () => {
     // 데이터 가져오기
-    const [products, setProducts] = useState([]);
-    const [Cart, setCarts] = useState(JSON.parse(localStorage.getItem('products')));
+    const [cart, setCarts] = useState([]);
     const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
 
     useEffect(() => {
-        fetch("/products")
-            .then((response) => {
-                return response.json();
-            })
-            .then(function(data) {
-                setProducts(data);
-            });
+        let data = [
+            { 
+                code : "0",
+                name : "토종 햇 당근",
+                text : "상품 설명1",
+                cnt : "1",
+                price : "1000",
+                sum : "0",
+                stock : "10",
+                img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
+            }, { 
+                code : "1",
+                name : "야이셔 레몬",
+                text : "상품 설명2",
+                cnt : "1",
+                price : "2000",
+                sum : "0",
+                stock : "10",
+                img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
+            }
+        ];
+        setCarts(data);
     }, []);
-
     
     // 목록 제거
-    const handleDelete = productId => {
-        Cart.products.map( product => {
-            if(productId === product.id){
+    const handleDelete = code => {
+        let newCart = [...cart]
+        cart.map((product, idx) => {
+            if(product.code === code  && product.cnt < product.stock) {
                 purchase.cnt -= product.cnt;
-                purchase.price = +purchase.price - (+products[productId][3]) * product.cnt;
-                product.cnt = 0;
+                purchase.price = +purchase.price - (+product.price) * product.cnt;
+                newCart = newCart.splice(1+idx, 1)
             }
-        });
-        setCarts({...Cart});
-        setData();
+        })
+       setCarts(newCart);
     };
 
     // 구매 갯수 Up&Down
-    const handleAdd = productId => {
-        Cart.products.map( product => {
-            if(productId === product.id && product.cnt < product.stock){
-                product.cnt++;
-                product.price = +product.price + +products[productId][3];
+    const handleAdd = code => {
+        let newCart = [...cart]
+        cart.map((product, idx) => {
+            if(product.code === code  && product.cnt < product.stock) {
+                newCart[idx].cnt++;
+                newCart[idx].sum = +product.sum + +product.price;
                 purchase.cnt++;
-                purchase.price = +purchase.price + +products[productId][3];
+                purchase.price = +purchase.price + +product.price;
             }
-        });
-        setCarts({...Cart});
+        })
+       setCarts(newCart);
     };
-    const handleMinus = productId => {
-        Cart.products.map( product => {
-            if(productId === product.id && product.cnt > 1){
-                product.cnt--;
-                product.price = +product.price - +products[productId][3];
+    const handleMinus = code => {
+        let newCart = [...cart]
+        cart.map((product, idx) => {
+            if(product.code === code  && product.cnt > 1) {
+                newCart[idx].cnt--;
+                newCart[idx].sum = +product.sum - +product.price;
                 purchase.cnt--;
-                purchase.price = +purchase.price - +products[productId][3];
+                purchase.price = +purchase.price - +product.price;
             }
-        });
-        setCarts({...Cart});
+        })
+        setCarts(newCart)
     };
-
-    // localstorage 데이터 저장
-    function setData() {
-        Cart.products.map((product, idx) => {
-            if(product.cnt === 0){
-                Cart.products.splice(idx, idx+1);
-            } 
-        });
-        setCarts({...Cart});
-        localStorage.setItem('products', JSON.stringify(Cart));
-    }
-    
-    const setAll = () => {
-        window.location = '/Products';
-        localStorage.setItem('purchase', JSON.stringify(purchase));
-        setData();
-    }
 
     // cancle 창
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const Close = () => {
-        setShow(false);
-        setData();
-        window.location = '/';
-    }
-
     return ( 
         <div className='Shopping'>
             <div className="sh_center">
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
-                    {Cart.products.map((text,idx)  =>
-                        <> {
-                            (text.cnt !== 0)
-                        ?
-                        <ListGroup.Item>
+                    {cart.map((text,idx)  =>
+                        <ListGroup.Item  key={idx}>
                             <img className="shopimg" src={ text.img } alt="이미지 불러오기 실패" />
                                 <div className='shoptext'>
                                     <p>{text.name}</p>
                                     <button
                                         onClick={() => {
-                                            handleDelete(text.id);
+                                            handleDelete(text.code);
                                         }}>
                                         X
                                     </button>
@@ -109,21 +99,19 @@ const Buy = () => {
                                     <div className="count">
                                         <button 
                                             onClick={() => {
-                                                handleMinus(text.id);
+                                                handleMinus(text.code);
                                             }}
                                         >-</button>
                                         <p>{text.cnt}개</p>
                                         <button 
                                             onClick={() => {
-                                                handleAdd(text.id);
+                                                handleAdd(text.code);
                                             }}
                                         >+</button>
                                     </div>
                                     <p>{text.price}원</p>
                                 </div>
                         </ListGroup.Item>
-                        :null
-                    }</>
                     )}
                 </ListGroup>
             </div>
@@ -158,9 +146,11 @@ const Buy = () => {
                                 <Button variant="secondary" onClick={handleClose}>
                                     취소
                                 </Button>
-                                <Button variant="primary" onClick={Close}>
-                                    확인
-                                </Button>
+                                <Link to="/main">
+                                    <Button variant="primary">
+                                        확인
+                                    </Button>
+                                </Link>
                             </Modal.Footer>
                         </Modal>
                         <button className='button'>결재하기</button>

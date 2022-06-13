@@ -22,7 +22,7 @@ const Permute = () => {
                     </div>
                 </Link>
             </div> 
-            <Link to={"/"}>
+            <Link to={"/main"}>
                 <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"15vh"}}>메인으로</Button>
             </Link>
         </div>

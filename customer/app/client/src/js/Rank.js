@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCrown } from 'react-icons/fa'
+import axios from 'axios';
 
 import '.././css/Rank.css'
 
@@ -9,14 +10,10 @@ function Rank() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("/rank")
-            .then((response) => {
-                return response.json();
-            })
-            .then(function(data) {
-                setProducts(data);
-            });
-    }, []);
+        axios.post('/products')
+        .then(res => setProducts(res.data))
+        .catch()
+    }, [])
         
     return ( 
         <div>
@@ -51,7 +48,7 @@ function Rank() {
                     <ul>
                         <li>주간 판매량 순위</li>
                         <li>월간 판매량 순위</li>
-                        <Link to='/'><li>홈으로 가기</li></Link>
+                        <Link to='/main'><li>홈으로 가기</li></Link>
                     </ul>
                 </div>
             </div>

@@ -33,7 +33,7 @@ function Login() {
   // 페이지 렌더링 후 가장 처음 호출되는 함수
   useEffect(() => {
     axios.get('/login')
-    .then(res => console.log(res))
+    .then()
     .catch()
   }, [])
 

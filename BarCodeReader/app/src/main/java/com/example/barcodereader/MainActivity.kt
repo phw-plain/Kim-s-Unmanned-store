@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             docRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
-                        ManagerId = document.getString("code").toString();
+                        ManagerId = document.getString("id").toString();
                         Log.d(TAG, "DocumentSnapshot data: ${document.getString("code")}")
                     } else {
                         Log.d(TAG, "No such document")

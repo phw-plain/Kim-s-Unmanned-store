@@ -24,10 +24,10 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const url = require('url');   
 const bodyParser = require("body-parser");
 const app = express();
 
-app.set('port', process.env.PORT || 5000);
 app.use(express.json()); 
 app.use(express.urlencoded( {extended : false } ));
 
@@ -41,26 +41,15 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
-app.get("/", (req, res) => {
-  res.sendFile('index.html')
-});
-
 app.post("/login", (req, res) => {
   console.log('/login 호출됨.');
 
-  const paramId  = req.body.id || req.query.id;
-  const paramPw  = req.body.password || req.query.password;
+  const paramId  = req.body.user_id || req.query.user_id;
+  const paramPw  = req.body.user_pw || req.query.user_pw;
 
   console.log(paramId, paramPw);
 
   // 로그인 성공시 아래 주소로 이동
-  res.redirect("/connect")
-
-  // 실패
-  // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
-});
-
-app.get("/connect", (req, res) => {
   let data = [
     {
       id : "000012",
@@ -84,9 +73,10 @@ app.get("/connect", (req, res) => {
       time : "2022.6.12 11:13"
     }
   ]
+  res.send(data)
 
-
-  res.json(data);
+  // 실패
+  // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
 });
 
 app.get("/products", (req, res) => {
@@ -152,6 +142,7 @@ app.get("/rank", (req, res) => {
 
   res.json(data);
 })
+
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

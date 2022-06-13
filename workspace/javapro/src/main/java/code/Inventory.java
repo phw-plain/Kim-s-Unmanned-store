@@ -498,6 +498,7 @@ public class Inventory extends Setting {
 					
 					// repaint
 					repaint("Modify");
+					Modify.setVisible(true);
 
 					JOptionPane.showMessageDialog(null
 							, "정상적으로 재고 삭제 완료!"
@@ -615,6 +616,7 @@ public class Inventory extends Setting {
 						);
 
 						repaint("Modify");
+						Modify.setVisible(true);
 					}
 				}
 			}
@@ -917,20 +919,8 @@ public class Inventory extends Setting {
 						dataLoad();		
 						model.fireTableDataChanged();
 						
-						panel.remove(2);
-						Add();
-						
-						Add.setVisible(false);
-						R1.setText("");
-						R2.setText("");
-						R3.setText("");
-						R4.setText("");
-						R5.setText("");
-						R6.setText("");
-						R7.setText("");
-						R8.setText("");
-						R9.setText("/");
-						R10.setText("");
+						repaint("Modify");
+						repaint("Add");
 						Add.setVisible(true);
 						
 						JOptionPane.showMessageDialog(null
@@ -938,8 +928,6 @@ public class Inventory extends Setting {
 								, "박리다매 무인가게"
 								, JOptionPane.PLAIN_MESSAGE
 						);
-
-						Add.setVisible(true);
 					}
 				}
 			}
@@ -1070,7 +1058,9 @@ public class Inventory extends Setting {
 		if(str.equals("Modify")) {
 			Modify.setVisible(false);
 			Modify();
-			Modify.setVisible(true);
+		} else if(str.equals("Add")) {
+			Add.setVisible(false);
+			Add();
 		}
 	}
 	

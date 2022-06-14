@@ -42,11 +42,10 @@ const Buy = () => {
             if(product.code === code  && product.cnt < product.stock) {
                 purchase.cnt -= product.cnt;
                 purchase.price = +purchase.price - (+product.price) * product.cnt;
-                console.log(idx)
-                newCart.splice(idx, 1)
+                newCart = newCart.splice(1+idx, 1)
             }
         })
-        setCarts(newCart);
+       setCarts(newCart);
     };
 
     // 구매 갯수 Up&Down

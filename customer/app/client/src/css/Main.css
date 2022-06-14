@@ -10,27 +10,6 @@ body {
     font-weight: 700;
     font-style: normal;
 }
-@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'GmarketSansLight';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-  @font-face {
-    font-family: 'LotteMartDream';
-    font-style: normal;
-    font-weight: 700;
-    src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamBold.woff') format('woff');
-  }
-  .lottemartdream * {
-   font-family: 'LotteMartDream', sans-serif;
-  }
 .main {
     background-Image: url('../../public/img/main.png');
     background-size: cover; 

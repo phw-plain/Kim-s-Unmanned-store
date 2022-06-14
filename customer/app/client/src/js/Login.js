@@ -60,11 +60,7 @@ function Login() {
     .then(res => localStorage.setItem('device', JSON.stringify(res.data)))
     .catch();
 
-    if(localStorage.getItem('device') === null) {
-      alert('로그인 실패!')
-    } else {
-      window.location.href="connection";
-    }
+    window.location.href="/connect"
   }
 
   // 페이지 렌더링 후 가장 처음 호출되는 함수

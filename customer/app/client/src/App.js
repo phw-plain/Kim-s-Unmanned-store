@@ -8,7 +8,6 @@ import Connect from './js/Connect';
 import NewDisplay from './js/NewDisplay'; 
 import Main from './js/Main'; 
 import Products from './js/Products'; 
-import Search from './js/Search'; 
 import Product from './js/Product'; 
 import Buy from './js/Buy';
 import Permute from './js/Permute';
@@ -28,7 +27,6 @@ function App() {
             <Route path='/connect/new' element={<NewDisplay />}></Route>
             <Route path='/main' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
-            <Route path='/products/search' element={<Search />}></Route>
             <Route path='/product/:productId' element={<Product />}></Route>
             <Route path='/buy' element={<Buy />}></Route>
             <Route path='/permute' element={<Permute />}></Route>

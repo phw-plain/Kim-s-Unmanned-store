@@ -1,6 +1,5 @@
-package com.example.barcodereader;
+package com.example.barcodereader
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +10,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.zxing.integration.android.IntentIntegrator
 
 class MainActivity : AppCompatActivity() {
     private var id = "";
-    val db = FirebaseFirestore.getInstance();//db연결
-    var ManagerId = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,27 +49,14 @@ class MainActivity : AppCompatActivity() {
     fun startKiosk(view: View) {
         // 화면 전환
         if(id!=""){
-            val docRef = db.collection("code").document(id)
-            docRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        ManagerId = document.getString("id").toString();
-                        Log.d(TAG, "DocumentSnapshot data: ${document.getString("code")}")
-                    } else {
-                        Log.d(TAG, "No such document")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
-                }
             val intent = Intent(applicationContext, BarcodeReader::class.java)
             intent.putExtra("id", id)
-            intent.putExtra("ManagerId", ManagerId)
             startActivity(intent)
         } else {
             Toast.makeText(this, "키오스크 연동 후 시작할 수 있습니다!", Toast.LENGTH_LONG).show()
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);

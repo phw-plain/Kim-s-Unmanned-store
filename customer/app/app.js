@@ -52,14 +52,9 @@ app.post("/login", (req, res) => {
   const paramPw  = req.body.user_pw || req.query.user_pw;
 
   console.log(paramId, paramPw);
-  if( login(paramId, paramPw)==false){
-    
-    res.redirect('/login')
-  }else{
-    res.send(data)
-  }
+
   // 로그인 성공시 아래 주소로 이동
-  let data = [
+  let data = [ 
     {
       id : "000012",
       display : "Galaxy S22+",
@@ -82,7 +77,12 @@ app.post("/login", (req, res) => {
       time : "2022.6.12 11:13"
     }
   ]
-  
+    if( login(paramId, paramPw)==false){
+
+    res.redirect('/login')
+  }else{
+    res.send(data)
+  }
 
   // 실패
   // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
@@ -126,6 +126,14 @@ app.post("/products", (req, res) => {
   res.send(data);
 })
 
+app.post("/products/search", (req, res) => {
+  console.log('/products/search 호출됨.');
+
+  // 상품 목록 갯수
+  let data =[4]
+
+  res.send(data);
+})
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

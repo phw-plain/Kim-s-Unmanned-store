@@ -82,7 +82,7 @@ function Login() {
         <input type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
        
         <br/>
-        <button type='button' onClick={onClickLogin}>Login</button>
+        <button type='button' onClick={()=>onClickLogin()}>Login</button>
 
       </form>
     </div>

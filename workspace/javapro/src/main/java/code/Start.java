@@ -34,7 +34,7 @@ public class Start extends Setting {
 	       }
 	    });
 		startFrame.setIconImage(img.getImage());	    // Icon 변경
-	    
+		
 		// 화면 크기
 		width = startFrame.getWidth();
 		height = startFrame.getHeight();

@@ -49,8 +49,7 @@ public class Setting {
 	
 	public ImageIcon i;
 	public Image im;
-	public URL imageURL = Start.class.getClassLoader().getResource("icon.png");
-	public ImageIcon img = new ImageIcon(imageURL);
+	ImageIcon img = new ImageIcon("src/img/icon2.png");
 	
     // 타입 체크
     final isType is = new isType();
@@ -155,6 +154,7 @@ public class Setting {
 		
 		int size = (height > 1000) ? 250 : 150;
 		
+		img = imageSetSize(img, 1000, 1000);
 		logo = imageSetSize(logo, size, size);
 		logo_over = imageSetSize(logo_over, size, size);
 		

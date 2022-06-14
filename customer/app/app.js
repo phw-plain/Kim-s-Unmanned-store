@@ -94,6 +94,7 @@ app.post("/products", (req, res) => {
       text : "상품 설명1",
       cnt : "10",
       price : "1000",
+      category : "채소",
       img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
     }, { 
       code : "1",
@@ -101,6 +102,7 @@ app.post("/products", (req, res) => {
       text : "상품 설명2",
       cnt : "10",
       price : "2000",
+      category : "과일",
       img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
     }, { 
       code : "2",
@@ -108,6 +110,7 @@ app.post("/products", (req, res) => {
       text : "상품 설명3",
       cnt : "10",
       price : "3000",
+      category : "과일",
       img : "https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg"
     }, { 
       code : "3",
@@ -115,6 +118,7 @@ app.post("/products", (req, res) => {
       text : "상품 설명4",
       cnt : "10",
       price : "4000",
+      category : "과일",
       img : "https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_960_720.jpg"
     }
   ]

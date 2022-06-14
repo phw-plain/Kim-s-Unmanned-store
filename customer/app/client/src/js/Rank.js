@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCrown } from 'react-icons/fa'
+import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
 import '.././css/Rank.css'
@@ -16,10 +17,15 @@ function Rank() {
     }, [])
         
     return ( 
-        <div>
-            <div className='Rank_Header'>
-                <p className='Rank_title'>주간 판매량 순위</p>
-                <p className='Rank_subTitle'>5월 둘째 주</p>
+        <div className='Rank_Body'>
+            <div className='Rank_Header between'>
+                <div>
+                    <p className='Rank_title'>주간 판매량 순위</p>
+                    <p className='Rank_subTitle'>5월 둘째 주</p>
+                </div>
+                <Link to="/main">
+                    <HiHome className='arrow'/>
+                </Link>
             </div>
             <div className='Rank_Main'>
             {products.map((item, index) =>
@@ -48,11 +54,11 @@ function Rank() {
                     <ul>
                         <li>주간 판매량 순위</li>
                         <li>월간 판매량 순위</li>
-                        <Link to='/main'><li>홈으로 가기</li></Link>
                     </ul>
                 </div>
             </div>
         </div>
+
     );
 } 
 

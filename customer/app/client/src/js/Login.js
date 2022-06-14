@@ -51,6 +51,8 @@ function Login() {
 
   // login 버튼 클릭 이벤트
   const onClickLogin = () => {
+
+    console.log("!!")
     axios.post('/login', null, {
       params: {
       'user_id': inputId,
@@ -62,13 +64,6 @@ function Login() {
 
     window.location.href="/connect"
   }
-
-  // 페이지 렌더링 후 가장 처음 호출되는 함수
-  useEffect(() => {
-    axios.post('/login')
-    .then()
-    .catch()
-  }, [])
 
   return(
     <div className='main'>

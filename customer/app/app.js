@@ -1,25 +1,14 @@
-// "use strict";
+var admin = require("firebase-admin");
+var firestore = require("firebase-admin/firestore");
 
-// // 모듈
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const app = express();
+var serviceAccount = require("./firebasekey.json");
 
-// // 라우팅
-// const home = require("./client/src/public/index.html");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-// // 앱 세팅
-// app.set("views", "./src/public/views");
-// app.set("view engine", "jsx");
-// app.use(express.static(`${__dirname}/src/public`));
-// app.engine('jsx', require('express-react-views').createEngine())
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true}));
+const db = firestore.getFirestore();
 
-
-// app.use("/", home); // use -> 미들 웨어를 등록해주는 메서드.
-
-// module.exports = app;
 
 const express = require('express');
 const path = require('path');
@@ -46,6 +35,16 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
+async function login(paramId, paramPw){
+  const snapshot = await db.collection('Manager').where('id', '==', paramId).where('pw','==',paramPw).get();
+  if(snapshot.empty){
+    console.log("sfsdf")
+    return false;
+  }else{
+    return true;
+  }
+}
+
 app.post("/login", (req, res) => {
   console.log('/login 호출됨.');
 
@@ -55,7 +54,7 @@ app.post("/login", (req, res) => {
   console.log(paramId, paramPw);
 
   // 로그인 성공시 아래 주소로 이동
-  let data = [
+  let data = [ 
     {
       id : "000012",
       display : "Galaxy S22+",
@@ -78,7 +77,12 @@ app.post("/login", (req, res) => {
       time : "2022.6.12 11:13"
     }
   ]
-  res.send(data)
+    if( login(paramId, paramPw)==false){
+
+    res.redirect('/login')
+  }else{
+    res.send(data)
+  }
 
   // 실패
   // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
@@ -122,6 +126,14 @@ app.post("/products", (req, res) => {
   res.send(data);
 })
 
+app.post("/products/search", (req, res) => {
+  console.log('/products/search 호출됨.');
+
+  // 상품 목록 갯수
+  let data =[4]
+
+  res.send(data);
+})
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

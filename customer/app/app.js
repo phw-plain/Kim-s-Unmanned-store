@@ -55,7 +55,8 @@ app.post("/login", (req, res) => {
   console.log(paramId, paramPw);
 
   // 로그인 성공시 아래 주소로 이동
-  let data = [
+  if(false) { 
+    let data = [
     {
       id : "000012",
       display : "Galaxy S22+",
@@ -79,6 +80,13 @@ app.post("/login", (req, res) => {
     }
   ]
   res.send(data)
+
+  } else {
+    console.log('로그인 실패')
+  }
+ 
+
+
 
   // 실패
   // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")

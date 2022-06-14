@@ -51,7 +51,9 @@ function Login() {
 
   // login 버튼 클릭 이벤트
   const onClickLogin = () => {
-    axios.post('/login', null, {
+
+    console.log("!!")
+    axios.post('/test', null, {
       params: {
       'user_id': inputId,
       'user_pw': inputPw
@@ -86,7 +88,7 @@ function Login() {
         <input type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
        
         <br/>
-        <button type='button' onClick={onClickLogin}>Login</button>
+        <button type='button' onClick={()=>onClickLogin()}>Login</button>
 
       </form>
     </div>

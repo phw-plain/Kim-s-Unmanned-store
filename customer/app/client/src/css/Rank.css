@@ -1,3 +1,7 @@
+.Rank_Body{
+    overflow: scroll;
+    height: 100vh;
+}
 .Rank_Header{
     height: 15vh;
     background-color: lightgray;
@@ -5,7 +9,7 @@
     padding: 4vh 4vh 4vh 5vh;
 }
 .Rank_Main{
-    height: 100%;
+    height: 30%;
 
     display: grid;
     justify-items: center;
@@ -53,9 +57,14 @@
     font-size: 1.2vh;
 }
 .Rank_tap{
+    position: fixed;
+    top: 22%;
+    right: 0;
+    
     display: flex;
-    position: absolute;
-    top: 2%;
+    justify-content: space-between;
+    align-items: center;
+
     right: -25.5%;
 
     width: 18.5vh;

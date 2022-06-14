@@ -46,13 +46,17 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
-app.post("/login", (req, res) => {
+app.post("/test", (req, res) => {
   console.log('/login 호출됨.');
 
   const paramId  = req.body.user_id || req.query.user_id;
   const paramPw  = req.body.user_pw || req.query.user_pw;
 
-  console.log(paramId, paramPw);
+  if(paramId === undefined || paramPw === undefined) {
+    console.log('값을 입력해주세요.')
+  } else {
+    console.log(paramId, paramPw);
+  }
 
   // 로그인 성공시 아래 주소로 이동
   if(false) { 

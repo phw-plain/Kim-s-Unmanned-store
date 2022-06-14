@@ -46,7 +46,7 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
-app.post("/test", (req, res) => {
+app.post("/login", (req, res) => {
   console.log('/login 호출됨.');
 
   const paramId  = req.body.user_id || req.query.user_id;

@@ -46,6 +46,7 @@ public class Setting {
 	// Image
 	public ImageIcon logo = new ImageIcon("src/img/logo.png");
 	public ImageIcon logo_over = new ImageIcon("src/img/logo_over.png");
+	
 	public ImageIcon i;
 	public Image im;
 	public URL imageURL = Start.class.getClassLoader().getResource("icon.png");
@@ -152,6 +153,11 @@ public class Setting {
 		if(theme.equals("light")) lightMode();
 		else darkMode();
 		
+		int size = (height > 1000) ? 250 : 150;
+		
+		logo = imageSetSize(logo, size, size);
+		logo_over = imageSetSize(logo_over, size, size);
+		
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);
 	}
@@ -170,8 +176,8 @@ public class Setting {
 		fontcolor = new Color(255, 255, 255);
 		
 		header_back = new Color(3, 60, 89);
-		menu_back = new Color(3, 60, 89);
-		menu_over = new Color(253, 206, 83);
+		menu_back = new Color(255, 211, 91);
+		menu_over = new Color(235, 76, 2);
 	}
 	
 	public static void lightMode() {

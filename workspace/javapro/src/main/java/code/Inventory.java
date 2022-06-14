@@ -144,7 +144,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -157,7 +157,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -174,8 +174,8 @@ public class Inventory extends Setting {
 		btnAdd[0].setFont(font4);
 		
 		btnView[0].setForeground(menu_over);
-		btnModify[0].setForeground(Setting.fontcolor);
-		btnAdd[0].setForeground(Setting.fontcolor);
+		btnModify[0].setForeground(Color.black);
+		btnAdd[0].setForeground(Color.black);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -281,7 +281,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -294,7 +294,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -310,9 +310,9 @@ public class Inventory extends Setting {
 		btnModify[1].setFont(font4);
 		btnAdd[1].setFont(font4);
 
-		btnView[1].setForeground(Setting.fontcolor);
+		btnView[1].setForeground(Color.black);
 		btnModify[1].setForeground(menu_over);
-		btnAdd[1].setForeground(Setting.fontcolor);
+		btnAdd[1].setForeground(Color.black);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -658,7 +658,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -671,7 +671,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -687,8 +687,8 @@ public class Inventory extends Setting {
 		btnModify[2].setFont(font4);
 		btnAdd[2].setFont(font4);
 
-		btnView[2].setForeground(Setting.fontcolor);
-		btnModify[2].setForeground(Setting.fontcolor);
+		btnView[2].setForeground(Color.black);
+		btnModify[2].setForeground(Color.black);
 		btnAdd[2].setForeground(menu_over);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체

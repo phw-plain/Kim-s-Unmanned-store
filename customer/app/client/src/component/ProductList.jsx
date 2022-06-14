@@ -65,10 +65,9 @@ export const ProductList = () => {
       </Carousel>
       <Navigation/>
       <div className="tools">
-        <form id="form" className="search" method='get'>
-          <input type="text" id="search" name="search" placeholder='Search'/>
-          <input type="submit" value="Search"/>
-        </form>
+        <Link to="/products/search">
+          <Button variant="success" style={{ fontSize:"1.7vh"}}>상품 검색</Button>
+        </Link>
       </div>
       <div className="products-box">
         <Carousel fade indicators={false} interval={null}  className="w-100">
@@ -84,7 +83,7 @@ export const ProductList = () => {
                         <h2>
                           {item.text}
                           <br/>
-                          {item.price}
+                          {item.price} 원
                         </h2>
                       </div>
                     </div>

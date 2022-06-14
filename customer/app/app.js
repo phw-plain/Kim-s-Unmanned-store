@@ -122,6 +122,15 @@ app.post("/products", (req, res) => {
   res.send(data);
 })
 
+app.post("/products/search", (req, res) => {
+  console.log('/products/search 호출됨.');
+
+  // 상품 목록 갯수
+  let data =[4]
+
+  res.send(data);
+})
+
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

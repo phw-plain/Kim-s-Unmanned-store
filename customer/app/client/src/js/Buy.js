@@ -44,7 +44,6 @@ const Buy = () => {
             if(product.code === code  && product.cnt < product.stock) {
                 purchase.cnt -= product.cnt;
                 purchase.price = +purchase.price - (+product.price) * product.cnt;
-                console.log(idx)
                 newCart.splice(idx, 1)
             }
         })
@@ -140,18 +139,18 @@ const Buy = () => {
                             onHide={handleClose} 
                             size="lg" 
                             aria-labelledby="contained-modal-title-vcenter"
-                            centered
+                            centered 
                         >
-                            <Modal.Header closeButton style={{borderBottom:"none"}}>
-                                <Modal.Title>계산을 취소 하시겠습니까?</Modal.Title>
+                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"1.5vh", marginBottom:"7vh"}}>
+                                <Modal.Title  style={{fontSize:"2vh"}}>계산을 취소 하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Modal.Footer style={{borderTop:"none"}}>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    취소
+                                <Button variant="secondary" onClick={handleClose}  style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                취소
                                 </Button>
                                 <Link to="/main">
-                                    <Button variant="primary">
-                                        확인
+                                    <Button variant="primary" style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                    확인
                                     </Button>
                                 </Link>
                             </Modal.Footer>

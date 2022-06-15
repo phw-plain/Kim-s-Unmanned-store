@@ -16,7 +16,12 @@ export const CategorySlider = ({ getText }) => {
   };
 
   const btnClick = (idx) => {
-    if(category[select] !== document.getElementById(idx).value) {
+    if(select !== null && select !== idx) {
+      document.getElementById(select).classList.remove('category_over')
+      setSelect(idx)
+      getText(category[idx]);
+      document.getElementById(idx).classList.add('category_over')
+    } else if(category[select] !== document.getElementById(idx).value) {
       setSelect(idx)
       getText(category[idx]);
       document.getElementById(idx).classList.add('category_over')
@@ -25,36 +30,37 @@ export const CategorySlider = ({ getText }) => {
       getText("");
       document.getElementById(idx).classList.remove('category_over')
     }
+    console.log(document.getElementById(idx).value)
   }
 
   return (
     <div style={{marginTop:"3%", display:"inline-block", width:"37vh"}}>
       <Slider {...settings} >
         <div>
-            <button id="0" className='category' value={category[0]} onClick={ () => btnClick(0)}>
+            <button id="0" className='category 0' value={category[0]} onClick={ () => btnClick(0)}>
               {category[0]}</button>
         </div>
         <div>
-            <button id="1" className='category' value={category[1]} onClick={ () => btnClick(1)}>
+            <button id="1" className='category 1' value={category[1]} onClick={ () => btnClick(1)}>
               {category[1]}</button>
         </div>
         <div>
-            <button id="2" className='category' value={category[2]} onClick={ () => btnClick(2)}>
+            <button id="2" className='category 2' value={category[2]} onClick={ () => btnClick(2)}>
               {category[2]}</button>
         </div>
         <div>
-            <button id="3" className='category' value={category[3]} onClick={ () => btnClick(3)}>
+            <button id="3" className='category 3' value={category[3]} onClick={ () => btnClick(3)}>
               {category[3]}</button>
         </div>
         <div>
-            <button id="4" className='category' value={category[4]} onClick={ () => btnClick(4)}>
+            <button id="4" className='category 4' value={category[4]} onClick={ () => btnClick(4)}>
               {category[4]}</button>
         </div>
         <div>
-            <button id="5" className='category'  value={category[5]} onClick={ () => btnClick(5)}>
+            <button id="5" className='category 5'  value={category[5]} onClick={ () => btnClick(5)}>
               {category[5]}</button>
         </div><div>
-            <button id="6" className='category' value={category[6]} onClick={ () => btnClick(6)}>
+            <button id="6" className='category 6' value={category[6]} onClick={ () => btnClick(6)}>
               {category[6]}</button>
         </div>
       </Slider>

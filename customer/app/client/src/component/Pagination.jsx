@@ -32,18 +32,18 @@ const Nav = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
-  margin: 16px;
+  gap: 0.5%;
+  margin-top: 5%;
 `;
 
 const Button = styled.button`
   border: none;
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 0.4vh;
+  padding: 1.2% 1.5% 1.2% 1.5%;
   margin: 0;
-  background: black;
+  background: lightgrey;
   color: white;
-  font-size: 1rem;
+  font-size: 1.2vh;
 
   &:hover {
     background: tomato;
@@ -52,13 +52,13 @@ const Button = styled.button`
   }
 
   &[disabled] {
-    background: grey;
+    background: lightgrey;
     cursor: revert;
     transform: revert;
   }
 
   &[aria-current] {
-    background: deeppink;
+    background: #FFB6A3;
     font-weight: bold;
     cursor: revert;
     transform: revert;

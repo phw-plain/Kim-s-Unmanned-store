@@ -20,8 +20,8 @@ function Rank() {
         <div className='Rank_Body'>
             <div className='Rank_Header between'>
                 <div>
-                    <p className='Rank_title'>주간 판매량 순위</p>
-                    <p className='Rank_subTitle'>5월 둘째 주</p>
+                    <p className='Rank_title'>오늘 판매량 순위</p>
+                    <p className='Rank_subTitle'>📅 5월 12일</p>
                 </div>
                 <Link to="/main">
                     <HiHome className='arrow'/>
@@ -52,7 +52,7 @@ function Rank() {
                 <div className='tapCtrl'>◀</div>
                 <div className='tapMain'>
                     <ul>
-                        <li>주간 판매량 순위</li>
+                        <li>오늘 판매량 순위</li>
                         <li>월간 판매량 순위</li>
                     </ul>
                 </div>

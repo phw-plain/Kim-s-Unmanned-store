@@ -7,6 +7,8 @@ import '.././css/Buy.css';
 
 const Buy = () => {
     // 데이터 가져오기
+    // 상품 목록 데이터, 카트 데이터 : 상품 목록 데이터를 바탕으로 카트 데이터 생성
+    // 카트 + 데이터 (구매 갯수, 총액)
     const [cart, setCarts] = useState([]);
     const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
 
@@ -85,11 +87,11 @@ const Buy = () => {
             <div className="sh_center">
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {cart.map((text,idx)  =>
-                        <ListGroup.Item  key={idx}>
+                        <ListGroup.Item  key={idx} className="cart_item">
                             <img className="shopimg" src={ text.img } alt="이미지 불러오기 실패" />
                                 <div className='shoptext'>
-                                    <p>{text.name}</p>
-                                    <button
+                                    <p className='item_name'>{text.name}</p>
+                                    <button className="cancelBtn"
                                         onClick={() => {
                                             handleDelete(text.code);
                                         }}>
@@ -97,14 +99,14 @@ const Buy = () => {
                                     </button>
                                 </div>
                                 <div className='shoptext'>
-                                    <div className="count">
-                                        <button 
+                                    <div className="count_buy">
+                                        <button className="cntBtn"
                                             onClick={() => {
                                                 handleMinus(text.code);
                                             }}
                                         >-</button>
-                                        <p>{text.cnt}개</p>
-                                        <button 
+                                        <p className='item_cnt'>{text.cnt}개</p>
+                                        <button className="cntBtn"
                                             onClick={() => {
                                                 handleAdd(text.code);
                                             }}

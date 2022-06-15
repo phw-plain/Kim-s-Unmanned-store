@@ -27,9 +27,9 @@
     width: 15vh;
     height: 15vh;
 
-    border-radius: 100vh;
-    -moz-border-radius: 100vh;
-    -khtml-border-radius: 100vh;
+    border-radius: 1.5vh;
+    -moz-border-radius: 1.5vh;
+    -khtml-border-radius: 1.5vh;
     -webkit-border-radius: 1.5vh;
 }
 .Rank_title{

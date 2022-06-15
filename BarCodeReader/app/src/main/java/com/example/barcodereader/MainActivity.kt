@@ -1,19 +1,24 @@
 package com.example.barcodereader
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     private var id = "";
+    val db = FirebaseFirestore.getInstance();//db연결
+    var ManagerId = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,15 +51,52 @@ class MainActivity : AppCompatActivity() {
         integrator.initiateScan()
     }
 
-    fun startKiosk(view: View) {
+    fun startKiosk(view: View){
         // 화면 전환
-        if(id!=""){
+        if(ManagerId!=""&&id!=""){
             val intent = Intent(applicationContext, BarcodeReader::class.java)
             intent.putExtra("id", id)
+            intent.putExtra("manager", ManagerId)
             startActivity(intent)
         } else {
             Toast.makeText(this, "키오스크 연동 후 시작할 수 있습니다!", Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun hi(){
+        val docRef = db.collection("code").document(id)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    ManagerId = document.getString("id").toString();
+                    Toast.makeText(this, ManagerId, Toast.LENGTH_LONG).show()
+                } else {
+                    ManagerId = "";
+                    Log.d(TAG, "No such document")
+                    id = "";
+                }
+                if (ManagerId != "") {
+                    val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    val mDate = Date(System.currentTimeMillis());
+                    val phone = hashMapOf(
+                        "phone" to Build.MODEL,
+                        "date" to mFormat.format(mDate)
+                    );
+                    db.collection("Manager").document(ManagerId).collection("barcode")
+                        .document(id)
+                        .set(phone)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            };
+
     }
 
 
@@ -62,8 +104,10 @@ class MainActivity : AppCompatActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.contents != null) {
-                Toast.makeText(this, "scanned: ${result.contents} format: ${result.formatName}", Toast.LENGTH_LONG).show()
                 id = result.contents;
+                if(id!="") {
+                    hi();
+                }
             } else {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
             }

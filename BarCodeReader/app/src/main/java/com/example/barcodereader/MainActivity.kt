@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.coroutines.*
+import org.json.JSONArray
+import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.coroutines.*
+
 
 class MainActivity : AppCompatActivity() {
     private var id = "";
@@ -52,14 +55,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startKiosk(view: View){
-        // 화면 전환
-        if(ManagerId!=""&&id!=""){
-            val intent = Intent(applicationContext, BarcodeReader::class.java)
-            intent.putExtra("id", id)
-            intent.putExtra("manager", ManagerId)
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, "키오스크 연동 후 시작할 수 있습니다!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
+        val jsonString = assets.open("BeforeData.json").reader().readText()
+        Log.d("jsonString", jsonString)
+        val jsonArray = JSONArray(jsonString)
+        for (index in 0 until jsonArray.length()){
+            val jsonObject = jsonArray.getJSONObject(index)
+            id = jsonObject.getString("id")
+            ManagerId = jsonObject.getString("ManagerId")
+        }
+        if(id!=""&&ManagerId!=""){
+            val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            val mDate = Date(System.currentTimeMillis());
+            val phone = hashMapOf(
+                "id" to id,
+                "display" to Build.MODEL,
+                "time" to mFormat.format(mDate)
+            );
+            db.collection("Manager").document(ManagerId).collection("barcode")
+                .document(id)
+                .set(phone)
+                .addOnSuccessListener {
+                    val intent = Intent(applicationContext, BarcodeReader::class.java)
+                    intent.putExtra("id", id)
+                    intent.putExtra("manager", ManagerId)
+                    startActivity(intent)
+                    Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
+                }
         }
     }
 
@@ -82,10 +104,15 @@ class MainActivity : AppCompatActivity() {
                             .document(id)
                             .set(phone)
                             .addOnSuccessListener {
-                                Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
+                                val intent = Intent(applicationContext, BarcodeReader::class.java)
+                                intent.putExtra("id", id)
+                                intent.putExtra("manager", ManagerId)
+                                startActivity(intent)
+                                Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
+
                             }
                             .addOnFailureListener {
-                                Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "연동 땡!", Toast.LENGTH_LONG).show()
                             }
                     }
                 } else {

@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Login from './js/Login'; 
 import Connect from './js/Connect'; 
-import NewDisplay from './js/NewDisplay'; 
 import Main from './js/Main'; 
 import Products from './js/Products'; 
 import Search from './js/Search'; 
@@ -25,7 +24,6 @@ function App() {
         <Routes> 
             <Route path='/' element={<Login />}></Route>
             <Route path='/connect' element={<Connect />}></Route>
-            <Route path='/connect/new' element={<NewDisplay />}></Route>
             <Route path='/main' element={<Main />}></Route>
             <Route path='/products' element={<Products />}></Route>
             <Route path='/products/search' element={<Search />}></Route>

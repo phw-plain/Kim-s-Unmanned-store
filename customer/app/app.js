@@ -52,14 +52,10 @@ app.post("/login", (req, res) => {
   const paramId  = req.body.user_id || req.query.user_id;
   const paramPw  = req.body.user_pw || req.query.user_pw;
 
-  if(paramId === undefined || paramPw === undefined) {
-    console.log('값을 입력해주세요.')
-  } else {
-    console.log(paramId, paramPw);
-  }
-
   // 로그인 성공시 아래 주소로 이동
-  if(false) { 
+  if(paramId == 1 || paramPw == 1) { 
+    console.log('로그인 성공')
+    
     let data = [
     {
       id : "000012",
@@ -83,6 +79,7 @@ app.post("/login", (req, res) => {
       time : "2022.6.12 11:13"
     }
   ]
+  
   res.send(data)
 
   } else {

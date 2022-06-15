@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
+import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
 import { CategorySlider } from './CategorySlider.jsx'
@@ -55,12 +56,12 @@ export const ProductList = () => {
       <div className="tools">
         <div>
           <Link to="/main">
-            <Button variant="dark" style={{ fontSize:"1.7vh"}}>메인으로</Button>
+            <HiHome  style={{ fontSize:"3.6vh", color:"lightgray"}}/>
           </Link>
         </div>
         <div>
           <Link to="/products/search">
-            <Button variant="dark" style={{ fontSize:"1.7vh"}}>상품 검색</Button>
+            <Button variant="secondary" style={{ fontSize:"1.7vh"}}>상품 검색</Button>
           </Link>
         </div>
       </div>

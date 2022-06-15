@@ -22,7 +22,7 @@ export function Products() {
         {products.slice(offset, offset + limit).map((item, idx) => (
           <div className="products" key={idx}>
             <div className='prod_background'>
-              <Link to={`/product/${idx}`} >
+              <Link to={`/product/${item.code}`} >
               <img className="products_img" src={item.img} alt={"product-img"}/></Link>
               <p className='prod_title'>{item.name}</p>
               <div className="prod_texts">

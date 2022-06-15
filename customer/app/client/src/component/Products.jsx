@@ -1,52 +1,84 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from "styled-components";
-import Pagination from "./Pagination";
+import { Carousel, Button } from "react-bootstrap";
+import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
-export function Products() {
-  const [products, setProducts] = useState([]);
-  const [limit, setLimit] = useState(4);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
-  
+import { CategorySlider } from './CategorySlider.jsx'
+import { ProductList } from './ProductList.jsx'
+
+export const Products = () => {
+  const [text, setText] = useState("");
+  const [select, setSelect] = useState([]);
+  const [products, setProducts] = useState([]); 
+
   useEffect(() => {
     axios.post('/products')
     .then(res => setProducts(res.data))
-    .catch()
+    .catch();
+
+    axios.post('/products')
+    .then(res => setSelect(res.data))
+    .catch();
   }, [])
 
+  useEffect(() => {
+    // 카테고리 값 변경에 따른 상품 목록 표시 데이터 변경
+    let newProducts = [];
+
+    products.map((product, idx) => {
+        if(text === "" || text === product.category) {
+          newProducts.push(product);
+        }
+    })
+
+    setSelect(newProducts);
+  }, [text])
+
+  const getText = (text) => {
+    setText(text);
+  } 
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
-    <div>
-      <div className="products-box">
-        {products.slice(offset, offset + limit).map((item, idx) => (
-          <div className="products" key={idx}>
-            <div className='prod_background'>
-              <Link to={`/product/${item.code}`} >
-              <img className="products_img" src={item.img} alt={"product-img"}/></Link>
-              <p className='prod_title'>{item.name}</p>
-              <div className="prod_texts">
-                <p className='prod_cate'>#{item.category}</p>
-                <p className='prod_text'>
-                  {item.text}<br/>
-                  {item.price} 원
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="Products"> 
+      <Carousel slide className="banner">
+        <Carousel.Item>
+          <img
+          className="d-block w-100"
+          src="./img/banner1.png"
+          alt="First slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+          className="d-block w-100"
+          src="./img/banner1.png"
+          alt="Second slide"
+          />
+        </Carousel.Item>
+      </Carousel>
+      <CategorySlider getText={getText} />
+      <div className="tools">
+        <div>
+          <Link to="/main">
+            <HiHome  style={{ fontSize:"3.6vh", color:"lightgray"}}/>
+          </Link>
+        </div>
+        <div>
+          <Link to="/products/search">
+            <Button variant="secondary" style={{ fontSize:"1.7vh"}}>상품 검색</Button>
+          </Link>
+        </div>
       </div>
-
-      <footer>
-        <Pagination
-          total={products.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
-      </footer>
-    </div>
-  );
+      <ProductList products={select} />
+  </div>
+  )
 }
-
-export default Products;

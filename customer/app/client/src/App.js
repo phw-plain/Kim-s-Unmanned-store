@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './js/Login'; 
 import Connect from './js/Connect'; 
 import Main from './js/Main'; 
-import Products from './js/Products'; 
+import ProductsPage from './js/ProductsPage'; 
 import Search from './js/Search'; 
 import Product from './js/Product'; 
 import Buy from './js/Buy';
@@ -25,7 +25,7 @@ function App() {
             <Route path='/' element={<Login />}></Route>
             <Route path='/connect' element={<Connect />}></Route>
             <Route path='/main' element={<Main />}></Route>
-            <Route path='/products' element={<Products />}></Route>
+            <Route path='/products' element={<ProductsPage />}></Route>
             <Route path='/products/search' element={<Search />}></Route>
             <Route path='/product/:productId' element={<Product />}></Route>
             <Route path='/buy' element={<Buy />}></Route>

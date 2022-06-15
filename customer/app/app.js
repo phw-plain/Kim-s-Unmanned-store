@@ -153,14 +153,6 @@ app.post("/products", (req, res) => {
       price : "3000",
       category : "과일",
       img : "https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg"
-    }, { 
-      code : "7",
-      name : "부사",
-      text : "상품 설명8",
-      cnt : "10",
-      price : "4000",
-      category : "과일",
-      img : "https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_960_720.jpg"
     }
   ]
 

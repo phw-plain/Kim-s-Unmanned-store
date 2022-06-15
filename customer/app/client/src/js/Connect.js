@@ -25,7 +25,7 @@ const Connect = () => {
 
     const checkConnect = () => {
         // 기기 연동 여부 확인
-        if(true) {
+        if(false) {
             console.log('기기 연동 실패!!');
         } else {
             console.log('기기 연동 성공!!');

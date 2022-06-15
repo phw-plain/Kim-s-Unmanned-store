@@ -1,71 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { Carousel, Col, Row, Button, Nav  } from "react-bootstrap";
-import { HiHome } from 'react-icons/hi'
-import axios from 'axios';
+import Pagination from "./Pagination";
 
-import { CategorySlider } from './CategorySlider.jsx'
-import { Products } from '../component/Products.jsx'
-
-export const ProductList = () => {
-  const [products, setProducts] = useState([]); 
-
-  useEffect(() => {
-    axios.post('/products')
-    .then(res => setProducts(res.data))
-    .catch();
-  }, [])
-
-  const moveScrollRight = () => {
-    let scrollX = document.getElementById('container').scrollLeft;
-    document.getElementById('container').scrollLeft = scrollX + 170;
-  }
-
-  const moveScrollLeft = () =>  {
-    let scrollX = document.getElementById('container').scrollLeft;
-    document.getElementById('container').scrollLeft = scrollX - 170;
-  };
- 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
+export function ProductList(props) {
+  const [limit, setLimit] = useState(4);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
 
   return (
-    <div className="Products"> 
-      <Carousel slide className="banner">
-        <Carousel.Item>
-          <img
-          className="d-block w-100"
-          src="./img/banner1.png"
-          alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-          className="d-block w-100"
-          src="./img/banner1.png"
-          alt="Second slide"
-          />
-        </Carousel.Item>
-      </Carousel>
-      <CategorySlider/>
-      <div className="tools">
-        <div>
-          <Link to="/main">
-            <HiHome  style={{ fontSize:"3.6vh", color:"lightgray"}}/>
-          </Link>
-        </div>
-        <div>
-          <Link to="/products/search">
-            <Button variant="secondary" style={{ fontSize:"1.7vh"}}>상품 검색</Button>
-          </Link>
-        </div>
+    <div>
+      <div className="products-box">
+        {props.products.slice(offset, offset + limit).map((item, idx) => (
+          <div className="products" key={idx}>
+            <div className='prod_background'>
+              <Link to={`/product/${item.code}`} >
+              <img className="products_img" src={item.img} alt={"product-img"}/></Link>
+              <p className='prod_title'>{item.name}</p>
+              <div className="prod_texts">
+                <p className='prod_cate'>#{item.category}</p>
+                <p className='prod_text'>
+                  {item.text}<br/>
+                  {item.price} 원
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      <Products/>
-  </div>
-  )
+
+      <footer>
+        <Pagination
+          total={props.products.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
+      </footer>
+    </div>
+  );
 }
+
+export default ProductList;

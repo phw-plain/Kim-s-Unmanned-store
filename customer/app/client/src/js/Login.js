@@ -63,9 +63,9 @@ function Login() {
 
     console.log(localStorage.getItem('device')) 
 
-    // if(localStorage.getItem('device') !== null) {
-    //   window.location.href="connect";
-    // } 
+    if(localStorage.getItem('device') !== null) {
+      window.location.href="connect";
+    } 
   }
 
   return(

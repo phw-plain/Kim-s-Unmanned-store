@@ -72,31 +72,30 @@ class BarcodeReader : AppCompatActivity() {
                     productName = document.getString("name").toString();
                     productPicture = document.getString("picture").toString();
                     Toast.makeText(this, productName, Toast.LENGTH_LONG).show()
+                    var product: HashMap<String, String>? = null;
+                    if(productCode!="") {
+                        product = hashMapOf(
+                            "productCode" to productCode,
+                            "productPrice" to productPrice,
+                            "productName" to productName,
+                            "productPicture" to productPicture
+                        )
+                    }
+                    if (product != null) {
+                        db.collection("Manager").document(ManagerId).collection("barcode").document(id!!)
+                            .collection("cart").document(result.toString())
+                            .set(product)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
+                            }
+                    }
                 } else {
                     ManagerId = "";
                     Toast.makeText(this, "안대..", Toast.LENGTH_LONG).show()
                     id = "";
-                }
-            }
-
-        var product: HashMap<String, String>? = null;
-        if(productCode!="") {
-            product = hashMapOf(
-                "productCode" to productCode,
-                "productPrice" to productPrice,
-                "productName" to productName,
-                "productPicture" to productPicture
-            )
-        }
-        if (product != null) {
-            db.collection("Manager").document(ManagerId).collection("barcode").document(id!!)
-                .collection("cart").document(result.toString())
-                .set(product)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
                 }
         }
     }

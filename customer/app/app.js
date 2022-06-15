@@ -8,7 +8,8 @@ admin.initializeApp({
 });
 
 const db = firestore.getFirestore();
-
+let paramId = "";
+let Phonedata = [];
 
 const express = require('express');
 const path = require('path');
@@ -45,42 +46,26 @@ async function login(paramId, paramPw){
   }
 }
 
+
 app.post("/login",  async (req, res) => {
   console.log('/login 호출됨.');
 
-  const paramId  = req.body.user_id || req.query.user_id;
-  const paramPw  = req.body.user_pw || req.query.user_pw;
+  paramId  = req.body.user_id || req.query.user_id;
+  let paramPw  = req.body.user_pw || req.query.user_pw;
 
   console.log(paramId, paramPw);
 
-  // 로그인 성공시 아래 주소로 이동
-  let data = [ 
-    {
-      id : "000012",
-      display : "Galaxy S22+",
-      time : "2022.5.9 17:55"
-    }, {
-      id : "003420",
-      display : "Galaxy Z Flip3 5G",
-      time : "2022.6.12 8:13"
-    }, {
-      id : "024150",
-      display : "Galaxy Z Flip3 5G",
-      time : "2022.6.12 9:13"
-    }, {
-      id : "007320",
-      display : "Galaxy Z Flip3 5G",
-      time : "2022.6.12 10:13"
-    }, {
-      id : "124370",
-      display : "Galaxy Z Flip3 5G",
-      time : "2022.6.12 11:13"
-    }
-  ]
+
   let x = await login(paramId, paramPw);
     if(x == true){
-      
-      res.send(data)
+      const sfRef = db.collection('Manager').doc(paramId).collection('barcode');
+      const snapshot = await sfRef.get();
+      snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      Phonedata.push(doc.data())
+    });
+      console.log(Phonedata);
+      res.send(Phonedata)
       console.log("로그인 성공")
     } else {
       console.log("로그인 실패")

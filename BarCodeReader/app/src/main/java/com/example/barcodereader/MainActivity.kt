@@ -70,27 +70,27 @@ class MainActivity : AppCompatActivity() {
                 if (document != null) {
                     ManagerId = document.getString("id").toString();
                     Toast.makeText(this, ManagerId, Toast.LENGTH_LONG).show()
+                    if (ManagerId != "") {
+                        val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        val mDate = Date(System.currentTimeMillis());
+                        val phone = hashMapOf(
+                            "id" to id,
+                            "display" to Build.MODEL,
+                            "time" to mFormat.format(mDate)
+                        );
+                        db.collection("Manager").document(ManagerId).collection("barcode")
+                            .document(id)
+                            .set(phone)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
+                            }
+                    }
                 } else {
-                    ManagerId = "";
                     Log.d(TAG, "No such document")
                     id = "";
-                }
-                if (ManagerId != "") {
-                    val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    val mDate = Date(System.currentTimeMillis());
-                    val phone = hashMapOf(
-                        "phone" to Build.MODEL,
-                        "date" to mFormat.format(mDate)
-                    );
-                    db.collection("Manager").document(ManagerId).collection("barcode")
-                        .document(id)
-                        .set(phone)
-                        .addOnSuccessListener {
-                            Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
-                        }
                 }
             }
             .addOnFailureListener { exception ->

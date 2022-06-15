@@ -7,6 +7,8 @@ import '.././css/Buy.css';
 
 const Buy = () => {
     // 데이터 가져오기
+    // 상품 목록 데이터, 카트 데이터 : 상품 목록 데이터를 바탕으로 카트 데이터 생성
+    // 카트 + 데이터 (구매 갯수, 총액)
     const [cart, setCarts] = useState([]);
     const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
 
@@ -42,7 +44,6 @@ const Buy = () => {
             if(product.code === code  && product.cnt < product.stock) {
                 purchase.cnt -= product.cnt;
                 purchase.price = +purchase.price - (+product.price) * product.cnt;
-                console.log(idx)
                 newCart.splice(idx, 1)
             }
         })
@@ -85,11 +86,11 @@ const Buy = () => {
             <div className="sh_center">
                 <ListGroup  style={{ overflowY:"auto", height:"100%"}}>
                     {cart.map((text,idx)  =>
-                        <ListGroup.Item  key={idx}>
+                        <ListGroup.Item  key={idx} className="cart_item">
                             <img className="shopimg" src={ text.img } alt="이미지 불러오기 실패" />
                                 <div className='shoptext'>
-                                    <p>{text.name}</p>
-                                    <button
+                                    <p className='item_name'>{text.name}</p>
+                                    <button className="cancelBtn"
                                         onClick={() => {
                                             handleDelete(text.code);
                                         }}>
@@ -97,20 +98,20 @@ const Buy = () => {
                                     </button>
                                 </div>
                                 <div className='shoptext'>
-                                    <div className="count">
-                                        <button 
+                                    <div className="count_buy">
+                                        <button className="cntBtn"
                                             onClick={() => {
                                                 handleMinus(text.code);
                                             }}
                                         >-</button>
-                                        <p>{text.cnt}개</p>
-                                        <button 
+                                        <p className='item_cnt'>{text.cnt}개</p>
+                                        <button className="cntBtn"
                                             onClick={() => {
                                                 handleAdd(text.code);
                                             }}
                                         >+</button>
                                     </div>
-                                    <p>{text.price}원</p>
+                                    <p>{text.price * text.cnt}원</p>
                                 </div>
                         </ListGroup.Item>
                     )}
@@ -138,18 +139,18 @@ const Buy = () => {
                             onHide={handleClose} 
                             size="lg" 
                             aria-labelledby="contained-modal-title-vcenter"
-                            centered
+                            centered 
                         >
-                            <Modal.Header closeButton style={{borderBottom:"none"}}>
-                                <Modal.Title>계산을 취소 하시겠습니까?</Modal.Title>
+                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"1.5vh", marginBottom:"7vh"}}>
+                                <Modal.Title  style={{fontSize:"2vh"}}>계산을 취소 하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Modal.Footer style={{borderTop:"none"}}>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    취소
+                                <Button variant="secondary" onClick={handleClose}  style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                취소
                                 </Button>
                                 <Link to="/main">
-                                    <Button variant="primary">
-                                        확인
+                                    <Button variant="primary" style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                    확인
                                     </Button>
                                 </Link>
                             </Modal.Footer>

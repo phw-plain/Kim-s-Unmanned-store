@@ -137,7 +137,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -150,7 +150,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -167,8 +167,8 @@ public class Inventory extends Setting {
 		btnAdd[0].setFont(font4);
 		
 		btnView[0].setForeground(menu_over);
-		btnModify[0].setForeground(Setting.fontcolor);
-		btnAdd[0].setForeground(Setting.fontcolor);
+		btnModify[0].setForeground(Color.black);
+		btnAdd[0].setForeground(Color.black);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -276,7 +276,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -289,7 +289,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -305,9 +305,9 @@ public class Inventory extends Setting {
 		btnModify[1].setFont(font4);
 		btnAdd[1].setFont(font4);
 
-		btnView[1].setForeground(Setting.fontcolor);
+		btnView[1].setForeground(Color.black);
 		btnModify[1].setForeground(menu_over);
-		btnAdd[1].setForeground(Setting.fontcolor);
+		btnAdd[1].setForeground(Color.black);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
 		MouseExitedListener2 listener2 = new MouseExitedListener2();
@@ -508,6 +508,7 @@ public class Inventory extends Setting {
 				}
 			}
 		});
+		// 상품 수정 확인 버튼 이벤트
 		check1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = ch.getSelectedIndex();
@@ -545,34 +546,64 @@ public class Inventory extends Setting {
 					);
 				} else if(R6.getText().length() == 0) {	
 					JOptionPane.showMessageDialog(null
-							, "금액을 입력해주세요."
+							, "단가를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else if(!is.isNum(R6.getText())) {
 					JOptionPane.showMessageDialog(null
-							, "금액은 숫자만 입력해주세요."
+							, "단가는 숫자만 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(R7.getText().length() == 0) {
-					R7.setText("/");
+				} else if(R7.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "원가를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R7.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "원가는 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R8.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "판매량를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R8.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "판매량은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R10.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "이미지를 등록해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
 				} else if( R2.getText().equals(product_name.get(index))
 						&&  R3.getText().equals(category.get(index))
 						&&  R4.getText().equals(standard.get(index))
 						&&  Integer.parseInt(R5.getText()) == cnt.get(index)
 						&&  Integer.parseInt(R6.getText()) == price.get(index)
-						&&  R7.getText().equals(explain.get(index))) {
+						&&  Integer.parseInt(R7.getText()) == cost.get(index)
+						&&  Integer.parseInt(R8.getText()) == amount.get(index)
+						&&  R9.getText().equals(explain.get(index))
+						&&  R10.getText().equals(picture.get(index))){
 					JOptionPane.showMessageDialog(null
 							, "변경사항이 없습니다!"
 							, "박리다매 무인가게"
 							, JOptionPane.INFORMATION_MESSAGE
 					);
-					n = -1;
-				}
-				if (n == -1) {
+					
 					inventory.setVisible(true);
 					replace.setVisible(false);
+					
 				} else {
 					// 수정 기능 구현
 					n = JOptionPane.showConfirmDialog(
@@ -583,13 +614,17 @@ public class Inventory extends Setting {
 							, JOptionPane.WARNING_MESSAGE
 					);
 					if(n == 0) {
+						if(R9.getText().length() == 0) {
+							R9.setText("/");
+						} 
+						
 						// 데이터 수정 사항 저장
 						product_name.set(index, R2.getText());
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
 						price.set(index, Integer.parseInt(R6.getText()));
-						cost.set(index, Integer.parseInt(R7.getText()));
+						cost.set(index, Integer.parseInt(R7.getText())); ////7777
 						amount.set(index, Integer.parseInt(R8.getText()));
 						explain.set(index, R9.getText());
 						if(!picture.get(index).equals(R10.getText())) {
@@ -658,7 +693,7 @@ public class Inventory extends Setting {
 		JPanel nav = new JPanel(new BorderLayout());
 		nav.setBackground(background);
 		JPanel header = new JPanel(new BorderLayout());
-		header.setBackground(background);
+		header.setBackground(maincolor);
 		JPanel menubar = new JPanel(new GridLayout(1, 10, 0, 0));
 		menubar.setBackground(menu_back);
 
@@ -671,7 +706,7 @@ public class Inventory extends Setting {
 
 		JLabel title = new JLabel("재고 관리");
 		title.setFont(font2);
-		title.setForeground(Setting.title);
+		title.setForeground(Color.white);
 
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
@@ -687,8 +722,8 @@ public class Inventory extends Setting {
 		btnModify[2].setFont(font4);
 		btnAdd[2].setFont(font4);
 
-		btnView[2].setForeground(Setting.fontcolor);
-		btnModify[2].setForeground(Setting.fontcolor);
+		btnView[2].setForeground(Color.black);
+		btnModify[2].setForeground(Color.black);
 		btnAdd[2].setForeground(menu_over);
 
 		MouseExitedListener1 listener1 = new MouseExitedListener1(); // 이벤트객체
@@ -818,13 +853,19 @@ public class Inventory extends Setting {
 		                    , "박리다매 무인가게"
 		                    , JOptionPane.ERROR_MESSAGE
 		            );
-	            } else if(!is.isString2(R1.getText())) {           
+	            } else if(!is.isNum(R1.getText())) {           
  					JOptionPane.showMessageDialog(null
- 		 		            , "제품코드에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
+ 		 		            , "제품코드는 숫자만 입력해주세요."
  		 		            , "박리다매"
  		 		            , JOptionPane.ERROR_MESSAGE
  		                );
- 	            } else if(R2.getText().length() == 0) {
+ 	            } else if(/* 중복인지 확인 */R1.getText().equals("AD1004")) {
+					JOptionPane.showMessageDialog(null
+							, "이미 등록된 제품코드입니다."
+		                    , "박리다매 무인가게"
+		                    , JOptionPane.ERROR_MESSAGE
+		            );
+	            } else if(R2.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "상품명을 입력해주세요."
 							, "박리다매 무인가게"
@@ -836,25 +877,13 @@ public class Inventory extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(!is.isString2(R3.getText())) {           
- 					JOptionPane.showMessageDialog(null
- 		 		            , "분류에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
- 		 		            , "박리다매"
- 		 		            , JOptionPane.ERROR_MESSAGE
- 		                );
- 	            } else if(R4.getText().length() == 0) {
+				} else if(R4.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "규격을 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if(!is.isString2(R4.getText())) {           
- 					JOptionPane.showMessageDialog(null
- 		 		            , "규격에 특수문자 또는 공백을 포함하고 있습니다.\n해당 문자를 제외하고 다시 입력해 주세요."
- 		 		            , "박리다매"
- 		 		            , JOptionPane.ERROR_MESSAGE
- 		                );
- 	            } else if(R5.getText().length() == 0) {
+				} else if(R5.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null
 							, "수량을 입력해주세요."
 							, "박리다매 무인가게"
@@ -868,20 +897,47 @@ public class Inventory extends Setting {
 					);
 				} else if(R6.getText().length() == 0) {	
 					JOptionPane.showMessageDialog(null
-							, "금액을 입력해주세요."
+							, "단가를 입력해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else if(!is.isNum(R6.getText())) {
 					JOptionPane.showMessageDialog(null
-							, "금액은 숫자만 입력해주세요."
+							, "단가는 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R7.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "원가를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R7.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "원가는 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R8.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "판매량를 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(!is.isNum(R8.getText())) {
+					JOptionPane.showMessageDialog(null
+							, "판매량은 숫자만 입력해주세요."
+							, "박리다매 무인가게"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(R10.getText().length() == 0) {	
+					JOptionPane.showMessageDialog(null
+							, "이미지를 등록해주세요."
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
-					if(R7.getText().length() == 0) {
-						R7.setText("/");
-					}
 					// 수정 기능 구현
 					int n = JOptionPane.showConfirmDialog(
 							null
@@ -890,6 +946,11 @@ public class Inventory extends Setting {
 							, JOptionPane.YES_NO_OPTION
 							, JOptionPane.WARNING_MESSAGE
 					);
+
+					if(R7.getText().length() == 0) {
+						R7.setText("/");
+					}
+					
 					if(n == 0) {
 						// 데이터 추가
 						Firebase_inventory add = new Firebase_inventory();

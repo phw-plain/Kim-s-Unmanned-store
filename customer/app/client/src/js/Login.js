@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Form, Button } from "react-bootstrap";
 
 function Login() {
   const [inputId, setInputId] = useState('')
   const [inputPw, setInputPw] = useState('')
 
-  // 장바구니 로컬 스토리지 set
+  // 장바구니 로컬 스토리지 set [프론트엔드 테스트용]
   let purchase = { 
     cnt : "2",
     price : "3000"
@@ -13,6 +14,7 @@ function Login() {
   
   localStorage.setItem('purchase', JSON.stringify(purchase))
 
+  // [프론트엔드 테스트용]
   let cart = [
     { 
       code : "0",
@@ -61,8 +63,6 @@ function Login() {
     .then(res => localStorage.setItem('device', JSON.stringify(res.data)))
     .catch();
 
-    console.log(localStorage.getItem('device')) 
-
     if(localStorage.getItem('device') !== null) {
       window.location.href="connect";
     } 
@@ -71,19 +71,18 @@ function Login() {
   return(
     <div className='main'>
       <h1 className="p5 f1 bold" style={{marginTop:"0px"}}> 박리다매 무인가게 </h1>
-      <form style={{ display: 'flex', flexDirection: 'column', marginLeft: '20vh', marginRight: '20vh'}}>
+      <Form  style={{ display: 'flex', flexDirection: 'column', marginLeft: '15vh', marginRight: '15vh', fontSize:"2vh" }}>
+        <Form.Text style={{  fontSize:"2.5vh" }}>로그인</Form.Text>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control type="email" placeholder="ID"  onChange={handleInputId} style={{  fontSize:"2vh" }} />
+        </Form.Group>
 
-        <label htmlFor='input_id'>ID</label>
-        <input type='text' name='input_id' value={inputId} onChange={handleInputId} />
-
-        <label htmlFor='input_pw'>PW</label>
-        <input type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
-       
-        <br/>
-        <button type='button' onClick={()=>onClickLogin()}>Login</button>
-
-      </form>
-    </div>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Control type="password" placeholder="Password" onChange={handleInputPw} style={{  fontSize:"2vh" }}  />
+        </Form.Group>
+        <Button variant="primary" onClick={()=>onClickLogin()}  style={{  fontSize:"2vh" }}>Login</Button>
+      </Form>
+  </div>
   )
 }
 

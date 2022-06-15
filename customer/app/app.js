@@ -37,15 +37,15 @@ app.use(cors()); // cors 미들웨어를 삽입합니다.
 
 async function login(paramId, paramPw){
   const snapshot = await db.collection('Manager').where('id', '==', paramId).where('pw','==',paramPw).get();
+  console.log(snapshot);
   if(snapshot.empty){
-    console.log("sfsdf")
     return false;
   }else{
     return true;
   }
 }
 
-app.post("/login", (req, res) => {
+app.post("/login",  async (req, res) => {
   console.log('/login 호출됨.');
 
   const paramId  = req.body.user_id || req.query.user_id;
@@ -77,13 +77,14 @@ app.post("/login", (req, res) => {
       time : "2022.6.12 11:13"
     }
   ]
-    if( login(paramId, paramPw)==false){
-
-    res.redirect('/login')
-  }else{
-    res.send(data)
-  }
-
+  let x = await login(paramId, paramPw);
+    if(x == true){
+      
+      res.send(data)
+      console.log("로그인 성공")
+    } else {
+      console.log("로그인 실패")
+    }
   // 실패
   // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
 });

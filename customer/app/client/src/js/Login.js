@@ -50,10 +50,9 @@ function Login() {
   }
 
   // login 버튼 클릭 이벤트
-  const onClickLogin = () => {
+  const onClickLogin = async() => {
 
-    console.log("!!")
-    axios.post('/login', null, {
+    await axios.post('/login', null, {
       params: {
       'user_id': inputId,
       'user_pw': inputPw
@@ -62,7 +61,11 @@ function Login() {
     .then(res => localStorage.setItem('device', JSON.stringify(res.data)))
     .catch();
 
-    window.location.href="/connect"
+    console.log(localStorage.getItem('device')) 
+
+    // if(localStorage.getItem('device') !== null) {
+    //   window.location.href="connect";
+    // } 
   }
 
   return(

@@ -112,7 +112,7 @@ const Buy = () => {
                                             }}
                                         >+</button>
                                     </div>
-                                    <p>{text.price}원</p>
+                                    <p>{text.price * text.cnt}원</p>
                                 </div>
                         </ListGroup.Item>
                     )}

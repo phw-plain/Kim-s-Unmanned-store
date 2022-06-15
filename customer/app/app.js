@@ -168,6 +168,16 @@ app.post("/products/search", (req, res) => {
   res.send(data);
 })
 
+app.post("/connect", (req, res) => {
+  console.log('/connect 호출됨.');
+
+  
+  const paramCode  = req.body.barcode || req.query.barcode;
+
+  console.log(paramCode)
+})
+
+
 server.listen(5000, ()=>{
   console.log('server is running on 5000')
 })

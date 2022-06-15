@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import JsBarcode from 'jsbarcode'
+import axios from 'axios';
 
 import '.././css/Connect.css';
 
@@ -23,14 +24,23 @@ const Connect = () => {
 
     const handleClose = () => setShow(false);
 
-    const checkConnect = () => {
+    const checkConnect = async() => {
         // 기기 연동 여부 확인
-        if(false) {
-            console.log('기기 연동 실패!!');
-        } else {
-            console.log('기기 연동 성공!!');
-            window.location.href = "/main";
-        }
+        await axios.post('/connect', null, {
+            params: {
+                'barcode': barcodeNumber
+            }
+        })
+        .then(res => console.log(res.data))
+        .catch();
+    
+
+        // if(false) {
+        //     console.log('기기 연동 실패!!');
+        // } else {
+        //     console.log('기기 연동 성공!!');
+        //     window.location.href = "/main";
+        // }
     }
 
     const newDisplay = () => {

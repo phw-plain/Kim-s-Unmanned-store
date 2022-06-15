@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'; 
 
 import  '.././css/Products.css';
-import { ProductList } from '../component/ProductList.jsx'
+import { Products } from '../component/Products.jsx'
 
-const Products = () => { 
+const ProductsPage = () => { 
   
   return ( 
     <div className="Products">
-      <ProductList />
+      <Products />
     </div>
   ); 
 
 }
 
-export default Products;
+export default ProductsPage;

@@ -52,6 +52,11 @@ public class Sales extends Setting{
 	public Sales() {
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
+
+		homebtn1 = new JButton("", logo);
+		homebtn2 = new JButton("", logo);
+		homebtn3 = new JButton("", logo);
+		
 		TodaySales();
 		MonthSales();
 		Recode();
@@ -72,7 +77,6 @@ public class Sales extends Setting{
 		header.setBackground(background);
 
 		// home 버튼 생성
-		homebtn1 = new JButton("", logo);
 		homebtn1.setRolloverIcon(logo_over); 	// rolloverIcon용 이미지 등록
 		homebtn1.setContentAreaFilled(false); 	// 배경 채우기
 		homebtn1.setBorderPainted(false); 		// 외각선
@@ -166,7 +170,6 @@ public class Sales extends Setting{
 		header.setBackground(background);
 
 		// home 버튼 생성
-		homebtn2 = new JButton("", logo);
 		homebtn2.setRolloverIcon(logo_over);	
 		homebtn2.setContentAreaFilled(false); 
 		homebtn2.setBorderPainted(false);
@@ -298,7 +301,6 @@ public class Sales extends Setting{
 		header.setBackground(background);
 
 		// home 버튼 생성
-		homebtn3 = new JButton("", logo);
 		homebtn3.setRolloverIcon(logo_over);	
 		homebtn3.setContentAreaFilled(false); 
 		homebtn3.setBorderPainted(false);

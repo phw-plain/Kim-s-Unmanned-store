@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import '.././css/Main.css';
 
 const Main = () => { 
+    // 장바구니 로컬 스토리지 set [프론트엔드 테스트용]
+    let purchase = { 
+        cnt : "0",
+        price : "0"
+    }
+    
+    localStorage.setItem('purchase', JSON.stringify(purchase))
 
     return ( 
         <div className="main">

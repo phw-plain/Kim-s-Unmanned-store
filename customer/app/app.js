@@ -154,6 +154,7 @@ app.post("/connect", async (req, res) => {
 app.post("/connect/new",async (req, res) => {
   console.log('/connect 호출됨.');
   const paramCode = req.body.barcode || req.query.barcode;
+// 기기 연동
 app.post("/connect", (req, res) => {
   console.log('/connect 호출됨.');
   
@@ -167,6 +168,15 @@ app.post("/connect", (req, res) => {
   await db.collection('code').doc(paramCode).set(hello);
 })
 
-server.listen(5000, () => {
+// 기기 연동 확인
+app.post("/connect/check", (req, res) => {
+  console.log('/connect/check 호출됨.');
+  
+  
+
+  res.send(false);
+})
+
+server.listen(5000, ()=>{
   console.log('server is running on 5000')
 });

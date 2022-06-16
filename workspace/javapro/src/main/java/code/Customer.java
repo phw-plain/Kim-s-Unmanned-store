@@ -59,12 +59,19 @@ public class Customer extends Setting {
 	
 	Firebase_Customer firebase = new Firebase_Customer();
 	
+	private String permute_id;
+	private JLabel permute_text;
+	
 	public Customer() {
 		panel = new JPanel(new CardLayout());
 		panel.setBackground(background);
 		homebtn1 = new JButton("", logo);
 		homebtn2 = new JButton("", logo);
 		homebtn3 = new JButton("", logo);
+		
+		// 변수 초기화
+		permute_id = null;
+		permute_text = new JLabel("");
 		
 		// 고객관리 cloumn 설정
 		colNames.add("아이디");
@@ -183,7 +190,7 @@ public class Customer extends Setting {
 							, customer_name.get(index) + "님의 정보를 수정하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 
 					if(n == 0) {
@@ -223,7 +230,7 @@ public class Customer extends Setting {
 						, name.get(index) + "님의 환불 및 교환 신청 정보를 확인 하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
-						, JOptionPane.WARNING_MESSAGE
+						, JOptionPane.QUESTION_MESSAGE
 					);
 
 					if(n == 0) {
@@ -232,6 +239,8 @@ public class Customer extends Setting {
 						// 해당 고객의 환불 교환 신청 목록 가져오기
 						permuteDataLoad(telephone.get(index));
 						model2.fireTableDataChanged();
+						permute_id = telephone.get(index);
+						permute_text.setText(name.get(index) + "님의 환불 및 교환 신청 리스트");
 						
 						View.setVisible(false);
 						Modify.setVisible(false);
@@ -511,7 +520,7 @@ public class Customer extends Setting {
 							, "변경사항을 저장하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 					if(n == 0) {
 						// 데이터 저장
@@ -583,14 +592,21 @@ public class Customer extends Setting {
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 		
-		// navigation: search, button
+		// navigation: text, button
 		JPanel navigation = new JPanel(new BorderLayout());
 		navigation.setBackground(background);
-		JPanel navLeft = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 44));
+		JPanel navLeft = new JPanel();
 		navLeft.setBackground(background);
-		JPanel navRight = new JPanel(new GridLayout(1, 2, 10, 0));
+		navLeft.setBorder(BorderFactory.createEmptyBorder(55, 250, 0, 0));
+		JPanel navRight = new JPanel(new GridLayout(1, 3, 10, 0));
 		navRight.setBackground(background);
+
+		// navLeft
+		permute_text.setFont(font3);
+		permute_text.setForeground(Setting.title);
+		navLeft.add(permute_text);
 		
+		// navRight
 		double margin = (height < 1000) ? 0.12 : 0.2;
 
 		RoundedButton btnView = new RoundedButton("고객 보기");
@@ -665,10 +681,10 @@ public class Customer extends Setting {
 			tableView2.getColumnModel().getColumn(i).setPreferredWidth(60);	// JTable 의 컬럼 길이 조절
 		}
 
-		tableView2.getColumnModel().getColumn(0).setPreferredWidth(200);
-		tableView2.getColumnModel().getColumn(2).setPreferredWidth(150);
-		tableView2.getColumnModel().getColumn(3).setPreferredWidth(150);
-		tableView2.getColumnModel().getColumn(5).setPreferredWidth(150);	
+		tableView2.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tableView2.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(3).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(5).setPreferredWidth(120);	
 		tableView2.getColumnModel().getColumn(6).setPreferredWidth(500);	
 		
 		center.add(navigation, BorderLayout.NORTH);
@@ -704,6 +720,13 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);
+						
+						// 데이터베이스에서 해당 신청 목록 삭제하기
+						// permute_id변수 이용 : 전화번호
+						
+						// 다시 그리기
+						permuteDataLoad(permute_id);
+						model2.fireTableDataChanged();
 					}
 				}
 			}

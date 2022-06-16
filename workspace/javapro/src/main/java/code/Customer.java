@@ -29,14 +29,23 @@ public class Customer extends Setting {
 
 	public JPanel View;
 	private JPanel Modify;
+	private JPanel Permute; 
 
 	public JButton homebtn1;
 	public JButton homebtn2;
+	public JButton homebtn3;
 
+	// 고객 보기
 	private DefaultTableModel model;
 	private JTable tableView;
 	private Vector<Vector> dataSet = new Vector<Vector>();
 	private Vector<String> colNames = new Vector<String>();
+	
+	// 고객의 환불 & 교환 신청 정보
+	private DefaultTableModel model2;
+	private JTable tableView2;
+	private Vector<Vector> dataSet2 = new Vector<Vector>();
+	private Vector<String> colNames2 = new Vector<String>();
 	
 	int index;
 	JTextField R[];
@@ -59,6 +68,7 @@ public class Customer extends Setting {
 		panel.setBackground(background);
 		homebtn1 = new JButton("", logo);
 		homebtn2 = new JButton("", logo);
+		homebtn3 = new JButton("", logo);
 		
 		// 고객관리 cloumn 설정
 		colNames.add("아이디");
@@ -83,8 +93,18 @@ public class Customer extends Setting {
 		email.add("cat456@gmail.com");
 		point.add(3000);
 		
+		// 고객 환불 및 교환 cloumn 설정
+		colNames2.add("제품명");
+		colNames2.add("수량");
+		colNames2.add("구매 일자");
+		colNames2.add("신청 일자");
+		colNames2.add("환불&교환");
+		colNames2.add("신청 유형");
+		colNames2.add("신청 사유");
+		
 		View();
 		Modify();
+		Permute();
 	}
 	
 	public void setVisible(boolean tf) {
@@ -118,7 +138,7 @@ public class Customer extends Setting {
 		navigation.setBackground(background);
 		JPanel navLeft = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		navLeft.setBackground(background);
-		JPanel navRight = new JPanel(new GridLayout(1, 2, 10, 0));
+		JPanel navRight = new JPanel(new GridLayout(1, 3, 10, 0));
 		navRight.setBackground(background);
 		
 		JPanel search = new JPanel();
@@ -132,7 +152,6 @@ public class Customer extends Setting {
 		check.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(input.getText().length() != 0) {
-					System.out.println("입력된 문자열 :" + input.getText()+"<");
 					dataSearch(input.getText());
 					model.fireTableDataChanged();
 				}
@@ -147,11 +166,11 @@ public class Customer extends Setting {
 		btnView.nomal = new Color(120, 120, 120);
 		btnView.setForeground(Color.white);
 		RoundedButton btnModify = new RoundedButton("고객 수정");
+		RoundedButton btnPermute = new RoundedButton("환불&교환");
 		navRight.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, (int)(width*margin)));
 
 		btnModify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(tableView.getSelectedRow());
 				index = tableView.getSelectedRow();
 				if(index == -1) {
 					JOptionPane.showMessageDialog(null
@@ -180,6 +199,44 @@ public class Customer extends Setting {
 						
 						View.setVisible(false);
 						Modify.setVisible(true);
+						Permute.setVisible(false);
+					}
+				}
+			}
+		});
+		btnPermute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				index = tableView.getSelectedRow();
+				if(index == -1) {
+					JOptionPane.showMessageDialog(null
+						, "환불 및 교환 처리를 할 고객을 선택해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else if(false /* 환불 & 교환 신청이 없는 경우 */) {
+					JOptionPane.showMessageDialog(null
+						, name.get(index) + "님의 환불 및 교환 신청이 없습니다!"
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else {
+					int n = JOptionPane.showConfirmDialog(null
+						, name.get(index) + "님의 환불 및 교환 신청 정보를 확인 하시겠습니까?"
+						, "박리다매 무인가게"
+						, JOptionPane.YES_NO_OPTION
+						, JOptionPane.WARNING_MESSAGE
+					);
+
+					if(n == 0) {
+						tableView.clearSelection();
+						
+						// 해당 고객의 환불 교환 신청 목록 가져오기
+						permuteDataLoad(telephone.get(index));
+						model2.fireTableDataChanged();
+						
+						View.setVisible(false);
+						Modify.setVisible(false);
+						Permute.setVisible(true);
 					}
 				}
 			}
@@ -188,6 +245,7 @@ public class Customer extends Setting {
 		navLeft.add(search);
 		navRight.add(btnView);
 		navRight.add(btnModify);
+		navRight.add(btnPermute);
 		
 		navigation.add(navLeft, BorderLayout.WEST);
 		navigation.add(navRight, BorderLayout.EAST);
@@ -285,17 +343,29 @@ public class Customer extends Setting {
 		btnModify.nomal = new Color(120, 120, 120);
 		btnModify.setForeground(Color.white);
 		btnModify.setEnabled(false);
+		RoundedButton btnPermute = new RoundedButton("환불&교환");
 		navRight.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, (int)(width*margin)));
 
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				View.setVisible(true);
 				Modify.setVisible(false);
+				Permute.setVisible(false);
+			}
+		});
+		btnPermute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null
+					, "보기에서 선택한 후 이용할 수 있습니다!"
+					, "박리다매 무인가게"
+					, JOptionPane.INFORMATION_MESSAGE
+				);
 			}
 		});
 		
 		navRight.add(btnView);
 		navRight.add(btnModify);
+		navRight.add(btnPermute);
 		
 		navigation.add(navLeft, BorderLayout.WEST);
 		navigation.add(navRight, BorderLayout.EAST);
@@ -485,9 +555,168 @@ public class Customer extends Setting {
 		panel.add(Modify);
 	}
 	
+	private void Permute() {
+		// Permute 세팅
+		Permute = new JPanel();
+		Permute.setBackground(background);
+		Permute.setLayout(new BorderLayout());
+		
+		// header
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(header_back);
+		
+		homebtn3.setRolloverIcon(logo_over); 	
+		homebtn3.setContentAreaFilled(false); 	
+		homebtn3.setBorderPainted(false); 		
+		homebtn3.setFocusPainted(false); 		
+		
+		JLabel title = new JLabel("고객 관리");
+		title.setFont(font2);
+		title.setForeground(Setting.title);
+
+		header.add(homebtn3, BorderLayout.WEST);
+		header.add(title, BorderLayout.CENTER);
+		
+		// navigation: search, button
+		JPanel navigation = new JPanel(new BorderLayout());
+		navigation.setBackground(background);
+		JPanel navLeft = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 44));
+		navLeft.setBackground(background);
+		JPanel navRight = new JPanel(new GridLayout(1, 2, 10, 0));
+		navRight.setBackground(background);
+		
+		double margin = (height < 1000) ? 0.12 : 0.2;
+
+		RoundedButton btnView = new RoundedButton("고객 보기");
+		RoundedButton btnModify = new RoundedButton("고객 수정");
+		RoundedButton btnPermute = new RoundedButton("환불&교환");
+		btnPermute.nomal = new Color(120, 120, 120);
+		btnPermute.setForeground(Color.white);
+		btnPermute.setEnabled(false);
+		navRight.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, (int)(width*margin)));
+
+		btnView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				View.setVisible(true);
+				Modify.setVisible(false);
+			}
+		});
+		btnModify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null
+					, "보기에서 선택한 후 이용할 수 있습니다!"
+					, "박리다매 무인가게"
+					, JOptionPane.INFORMATION_MESSAGE
+				);
+			}
+		});
+		
+		navRight.add(btnView);
+		navRight.add(btnModify);
+		navRight.add(btnPermute);
+		
+		navigation.add(navLeft, BorderLayout.WEST);
+		navigation.add(navRight, BorderLayout.EAST);
+
+		JPanel center = new JPanel(new BorderLayout());
+		center.setBackground(background);
+		
+		// list
+		JPanel list = new JPanel();
+
+		model2 = new DefaultTableModel(dataSet2, colNames2) {
+            // Jtable 내용 편집 x
+            public boolean isCellEditable(int i, int c) {
+                return false;
+            }
+        };
+		tableView2 = new JTable(model2);
+		tableView2.setFont(font4);
+		tableView2.setRowHeight(30);								// 행간 조절
+		tableView2.setGridColor(Color.gray);						// 격자색
+		tableView2.getTableHeader().setReorderingAllowed(false); 	// 이동
+		tableView2.getTableHeader().setResizingAllowed(true); 		// 크기 조절
+		tableView2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		// 가로 스크롤
+		
+		JScrollPane scrollList = new JScrollPane(tableView2);
+		scrollList.setFont(font4);
+		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+
+		list.setBackground(background);
+		list.add(scrollList);
+
+		DefaultTableCellRenderer dtcr;
+		for (int i = 0; i < tableView2.getColumnCount(); i++) { 
+			dtcr = new DefaultTableCellRenderer();	// 셀 내용 정렬 
+			if(i != 1) {
+				dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+			}
+			else {
+				dtcr.setHorizontalAlignment(SwingConstants.RIGHT);
+			}
+			TableColumnModel tcm = tableView2.getColumnModel();
+			tcm.getColumn(i).setCellRenderer(dtcr);
+			tableView2.getColumnModel().getColumn(i).setPreferredWidth(60);	// JTable 의 컬럼 길이 조절
+		}
+
+		tableView2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tableView2.getColumnModel().getColumn(2).setPreferredWidth(150);
+		tableView2.getColumnModel().getColumn(3).setPreferredWidth(150);
+		tableView2.getColumnModel().getColumn(5).setPreferredWidth(150);	
+		tableView2.getColumnModel().getColumn(6).setPreferredWidth(500);	
+		
+		center.add(navigation, BorderLayout.NORTH);
+		center.add(list, BorderLayout.CENTER);
+		
+		JPanel btns = new JPanel();
+		RoundedButton check = new RoundedButton("확인");
+		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(250*margin), 0));
+		btns.setBackground(background);
+		btns.add(check);
+		
+		check.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				index = tableView2.getSelectedRow();
+				System.out.println(tableView2.getSelectedRow());
+				if(index == -1) {
+					JOptionPane.showMessageDialog(null
+						, "환불 및 교환을 처리할 사항을 선택해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else {
+					int n = JOptionPane.showConfirmDialog(null
+						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "처리하시겠습니까?"
+						, "박리다매 무인가게"
+						, JOptionPane.YES_NO_OPTION
+						, JOptionPane.QUESTION_MESSAGE
+					);
+
+					if(n == 0) {
+						JOptionPane.showMessageDialog(null
+							, "처리하였습니다!"
+							, "박리다매 무인가게"
+							, JOptionPane.PLAIN_MESSAGE
+						);
+					}
+				}
+			}
+		});
+		
+		Permute.add(header, BorderLayout.NORTH);
+		Permute.add(center, BorderLayout.CENTER);
+		Permute.add(btns, BorderLayout.SOUTH);
+
+		Permute.setVisible(false);
+		panel.add(Permute);
+	}
+	
 	public void reLoad() {
+		tableView.clearSelection();
+		
 		View.setVisible(true);
 		Modify.setVisible(false);
+		Permute.setVisible(false);
 	}
 	
 	private void dataLoad() {
@@ -504,6 +733,50 @@ public class Customer extends Setting {
 			rows.add(email.get(i));
 			rows.add(Integer.toString(point.get(i)));
 			dataSet.add(rows);
+		}
+	}
+	
+	private void permuteDataLoad(String telephone) {
+		dataSet2.removeAllElements();
+		Vector<String> rows = null;
+		
+		// 전화번호 이용해서 데이터 가져오기
+		Vector<String> pdt_name = new Vector<String>();		// 제품명
+		Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
+		Vector<String> buy = new Vector<String>();			// 구매일자
+		Vector<String> apply = new Vector<String>();		// 신청일자
+		Vector<String> permute = new Vector<String>();		// 환불 or 교환
+		Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
+		Vector<String> grounds = new Vector<String>();		// 신청사유
+		
+		// 프론트엔드용 데이터
+		pdt_name.add("토종 햇 당근");
+		pdt_cnt.add(3);
+		buy.add("2022-5-1");
+		apply.add("2022-5-3");
+		permute.add("환불");
+		reasons.add("단순 변심");
+		grounds.add("당근이 먹고 싶은 줄 알았는데 생각해보니 집에 당근이 있어서 환불하고 싶어졌어요.");
+		
+		pdt_name.add("아이셔 레몬");
+		pdt_cnt.add(3);
+		buy.add("2022-5-22");
+		apply.add("2022-5-23");
+		permute.add("교환");
+		reasons.add("상품 불량");
+		grounds.add("분명 시다고 해서 구매했는데 단맛이나더라구요? 신맛나는 레몬으로 교환해주세요.");
+		
+		// 데이터 입력
+		for (int i = 0; i < pdt_name.size(); i++) {
+			rows = new Vector<String>();
+			rows.add(pdt_name.get(i));
+			rows.add(Integer.toString(cnt.get(i)));
+			rows.add(buy.get(i));
+			rows.add(apply.get(i));
+			rows.add(permute.get(i));
+			rows.add(reasons.get(i));
+			rows.add(grounds.get(i));
+			dataSet2.add(rows);
 		}
 	}
 	

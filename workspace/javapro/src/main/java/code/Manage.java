@@ -400,6 +400,12 @@ public class Manage extends Setting {
 				customer.setVisible(false);
 			}
 		});
+		customer.homebtn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				customer.setVisible(false);
+			}
+		});
 	}
 	
 }

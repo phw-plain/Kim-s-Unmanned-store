@@ -9,8 +9,10 @@ import '.././css/Connect.css';
 const Connect = () => { 
     const [device, setDevice] = useState(JSON.parse(localStorage.getItem('device')));
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
     const [barcodeNumber, setBarcodeNumber] = useState(null);
+    const [barcodeNumber2, setBarcodeNumber2] = useState(null);
 
     useEffect(()=>{
         if(barcodeNumber !==null) {
@@ -22,25 +24,50 @@ const Connect = () => {
         }
     }, [barcodeNumber]) 
 
-    const handleClose = () => setShow(false);
+    useEffect(()=>{
+        if(barcodeNumber2 !==null) {
+            const canvas = document.createElement('canvas')
+            JsBarcode(canvas, barcodeNumber2, { width: 3, height: 60, displayValue: true })
+            setImageUrl(canvas.toDataURL('image/png'))
 
-    const checkConnect = async() => {
+            setShow2(true)
+        }
+    }, [barcodeNumber2]) 
+
+    const handleClose = () => setShow(false);
+    const handleClose2 = () => setShow2(false);
+
+    const checkConnect = () => {
         // 기기 연동 여부 확인
-        await axios.post('/connect', null, {
+        axios.post('/connect', null, {
             params: {
                 'barcode': barcodeNumber
             }
         })
         .then(res => console.log(res.data))
         .catch();
-    
 
-        // if(false) {
-        //     console.log('기기 연동 실패!!');
-        // } else {
-        //     console.log('기기 연동 성공!!');
-        //     window.location.href = "/main";
-        // }
+        if(false) {
+            console.log('기기 연동 실패!!');
+        } else {
+            console.log('기기 연동 성공!!');
+            window.location.href = "/main";
+        }
+    }
+
+    const addConnect = () => {
+        // 기기 추가 DB저장 확인
+        axios.post('/connect/new', null, {
+            params: {
+                'barcode': barcodeNumber2
+            }
+        })
+        .then(res => setShow2(false))
+        .catch();
+
+        console.log('기기 추가!!')
+
+        
     }
 
     const newDisplay = () => {
@@ -51,7 +78,7 @@ const Connect = () => {
         <div className="main">
             <div className="connect_header">
                 <h1 className="f1 bold" style={{marginTop:"0px"}}>바코드 리더 연동</h1>
-                <Button className="addBtn" style={{fontSize:'1.4vh'}} onClick={() => setBarcodeNumber(newDisplay)}>기기 추가</Button>
+                <Button className="addBtn" style={{fontSize:'1.4vh'}} onClick={() => setBarcodeNumber2(newDisplay)}>기기 추가</Button>
             </div>
             
             <div className="connect_body">
@@ -90,6 +117,27 @@ const Connect = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <Modal show={show2} onHide={handleClose2}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            >
+            <Modal.Header closeButton>
+                <Modal.Title style={{fontSize:"2vh"}}>기기 추가</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div style={{fontSize:"1.5vh", marginBottom:"7vh"}}>아래 바코드를 스캔해주세요.</div>
+                <div style={{textAlign:"center"}}>{imageUrl && <img src={imageUrl} style={{width:"30vh", height:"13vh", marginBottom:"5vh"}} />}</div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" style={{fontSize:"1.5vh"}} onClick={handleClose2}>
+                Close
+                </Button>
+                <Button variant="success" style={{fontSize:"1.5vh", marginRight:"0.5vh"}} onClick={() => addConnect()}>
+                Connect
+                </Button>
+            </Modal.Footer>
+        </Modal>
         </div> 
     ); 
 }; 

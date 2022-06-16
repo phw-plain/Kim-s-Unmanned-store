@@ -71,8 +71,8 @@ function Login() {
   return(
     <div className='main'>
       <h1 className="p5 f1 bold" style={{marginTop:"0px"}}> 박리다매 무인가게 </h1>
-      <Form  style={{ display: 'flex', flexDirection: 'column', marginLeft: '15vh', marginRight: '15vh', fontSize:"2vh" }}>
-        <Form.Text style={{  fontSize:"2.5vh" }}>로그인</Form.Text>
+      <Form className='loginForm'>
+        <Form.Text style={{  fontSize:"2.5vh", marginBottom: "1.5vh"  }}>로그인</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control type="email" placeholder="ID"  onChange={handleInputId} style={{  fontSize:"2vh" }} />
         </Form.Group>

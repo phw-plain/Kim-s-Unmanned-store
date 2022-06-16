@@ -34,7 +34,7 @@ const Connect = () => {
 
     const checkConnect = () => {
         // 기기 연동 여부 확인
-        axios.post('/connect')
+        axios.post('/connect/check')
         .then(res =>  console.log(res.data))
         .catch();
 

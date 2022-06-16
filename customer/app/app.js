@@ -133,18 +133,7 @@ app.post("/products/search", (req, res) => {
   res.send(data);
 })
 let paramCode;
-app.post("/connect/new",async (req, res) => {
-  console.log(paramId + " "+ paramCode);
-  // const cityRef = db.collection('Manager').doc(paramId).collection('barcode').doc(paramCode);
-  // const doc = await cityRef.get();
-  // if (doc.exists) {
-  //   res.send(false);
-  //   console.log('No such document!');
-  // } else {
-  //   res.send(true);
-  //   console.log('Document data:', doc.data());
-  // }
-});
+
 
 app.post("/connect",async (req, res) => {
   console.log('/connect 호출됨.');
@@ -156,7 +145,22 @@ app.post("/connect",async (req, res) => {
   await db.collection('code').doc(paramCode).set(hello);
 })
 
+// 기기 연동 확인
+app.post("/connect/check", async(req, res) => {
+  console.log('/connect/check 호출됨.');
+  console.log(paramId + " "+ paramCode);
+  const cityRef = db.collection('Manager').doc(paramId).collection('barcode').doc(paramCode);
+  const doc = await cityRef.get();
+  if (!doc.exists) {
+    res.send(false);
+    console.log('No such document!');
+  } else {
+    res.send(true);
+    console.log('Document data:', doc.data());
+  }
+  res.send(false);
+})
 
-server.listen(5000, () => {
+server.listen(5000, ()=>{
   console.log('server is running on 5000')
 });

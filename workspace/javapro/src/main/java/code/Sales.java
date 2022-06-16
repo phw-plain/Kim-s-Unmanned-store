@@ -38,9 +38,6 @@ public class Sales extends Setting{
 	public JButton homebtn2;
 	public JButton homebtn3;
 	
-	DotGraph todayGraph = new DotGraph();
-	DotGraphYear yearGraph = new DotGraphYear();
-	
 	public int margin = (height > 1000) ? 20 : 13;
 	public int margin2 = (height > 1000) ? 20 : 16;
 	public String blank1 = (height > 1000) ? "  " : "";

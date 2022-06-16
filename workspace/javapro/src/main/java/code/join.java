@@ -5,7 +5,6 @@ import java.net.URL;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import mysql.*;
 
 class join extends Setting{
 	private Frame mainFrame;

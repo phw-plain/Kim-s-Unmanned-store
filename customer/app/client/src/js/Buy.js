@@ -35,7 +35,21 @@ const Buy = () => {
             }
         ];
         setCarts(data);
+        
+       
+
     }, []);
+
+    useEffect(() => {
+        axios.post('/buy')
+        .then(res => console.log(res.data))
+        .catch();
+        
+       
+
+    });
+
+    
     
     // 목록 제거
     const handleDelete = code => {

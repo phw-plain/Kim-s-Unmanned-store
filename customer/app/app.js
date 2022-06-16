@@ -161,6 +161,16 @@ app.post("/connect/check", async(req, res) => {
   res.send(false);
 })
 
+// 상품 결제 바코드 스캔 데이터 보내기
+app.post("/buy", (req, res) => {
+  console.log('/buy 호출됨.');
+  
+  
+  // code 전달하기
+  // res.send();
+})
+
+
 server.listen(5000, ()=>{
   console.log('server is running on 5000')
 });

@@ -189,10 +189,16 @@ app.post("/connect/check", (req, res) => {
 // 상품 결제 바코드 스캔 데이터 보내기
 app.post("/buy", (req, res) => {
   console.log('/buy 호출됨.');
+  let test = 0;
+
   
-  
+  let a = {code:0}
   // code 전달하기
-  // res.send();
+  res.send(a);
+
+  // 4초 간격으로 메시지를 보여줌
+  // let timerId = setInterval(() => res.send(a), 2000);
+
 })
 
 

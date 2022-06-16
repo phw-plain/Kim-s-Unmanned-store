@@ -12,44 +12,46 @@ const Buy = () => {
     const [cart, setCarts] = useState([]);
     const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
 
-    useEffect(() => {
-        let data = [
-            { 
-                code : "0",
-                name : "토종 햇 당근",
-                text : "상품 설명1",
-                cnt : "1",
-                price : "1000",
-                sum : "0",
-                stock : "10",
-                img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
-            }, { 
-                code : "1",
-                name : "야이셔 레몬",
-                text : "상품 설명2",
-                cnt : "1",
-                price : "2000",
-                sum : "0",
-                stock : "10",
-                img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
-            }
-        ];
-        setCarts(data);
+    // useEffect(() => {
+    //     let data = [
+    //         { 
+    //             code : "0",
+    //             name : "토종 햇 당근",
+    //             text : "상품 설명1",
+    //             cnt : "1",
+    //             price : "1000",
+    //             sum : "0",
+    //             stock : "10",
+    //             img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
+    //         }, { 
+    //             code : "1",
+    //             name : "야이셔 레몬",
+    //             text : "상품 설명2",
+    //             cnt : "1",
+    //             price : "2000",
+    //             sum : "0",
+    //             stock : "10",
+    //             img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
+    //         }
+    //     ];
+    //     setCarts(data);
         
        
 
-    }, []);
-
-    useEffect(() => {
-        axios.post('/buy')
-        .then(res => console.log(res.data))
-        .catch();
-        
-       
-
-    });
+    // }, []);
 
     
+    useEffect(() => {
+        let timerId = setInterval(() => {
+            test();
+        }, 3000);
+    }, []);
+
+    const test = async() => {
+        await axios.post('/buy')
+        .then(res => console.log(res.data.code))
+        .catch();
+    }
     
     // 목록 제거
     const handleDelete = code => {

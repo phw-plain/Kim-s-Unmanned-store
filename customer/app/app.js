@@ -168,13 +168,22 @@ app.post("/products/search", (req, res) => {
   res.send(data);
 })
 
-// 기존 기기 연동
+// 기기 연동
 app.post("/connect", (req, res) => {
   console.log('/connect 호출됨.');
   
   const paramCode  = req.body.barcode || req.query.barcode;
 
   console.log(paramCode)
+})
+
+// 기기 연동 확인
+app.post("/connect/check", (req, res) => {
+  console.log('/connect/check 호출됨.');
+  
+  
+
+  res.send(false);
 })
 
 server.listen(5000, ()=>{

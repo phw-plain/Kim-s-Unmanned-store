@@ -9,9 +9,13 @@ function Change() {
     let type = a.split("/")
    
 
-    const [products, setProducts] = useState([]); 
+    const [products, setProducts] = useState([]);   // products 데이터가 아닌 바코드 스캔 정보를 바탕으로 객체 하나만 가지고오기
     const [imgUrl, setImgUrl] = useState("");
+    const [name, setName] = useState("");
+    const [stock, setStock] = useState(0);
     const [change, setChange] = useState("");
+    const [permute, setPermute] = useState({ cnt:"", tel:"", res:"", gro:"" });
+
 
     useEffect(() => {
       axios.post('/products')
@@ -26,11 +30,52 @@ function Change() {
     }, [])
 
     useEffect(() => {
-        if(products.length > 0)
+        if(products.length > 0) {
             setImgUrl(products[0].img)
+            setName(products[0].name)
+            setStock(products[0].stock)
+        }
     }, [products])
     
-    
+    const handleInputCnt = (e) => {
+        let newPermute = {...permute}
+        newPermute.cnt = e.target.value
+        setPermute(newPermute)
+    }
+    const handleInputTel = (e) => {
+        let newPermute = {...permute}
+        newPermute.tel = e.target.value
+        setPermute(newPermute)
+    }
+    const handleInputRes = (e) => {   
+        let newPermute = {...permute}
+        newPermute.res = e.target.value
+        setPermute(newPermute)    
+    }
+    const handleInputGro = (e) => {
+        let newPermute = {...permute}
+        newPermute.gro = e.target.value
+        setPermute(newPermute)
+    }
+
+    const Apply = () => {
+        var regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+        var regExp2 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+
+        if(permute.cnt === "" || isNaN(permute.cnt) || +permute.cnt === 0 || +permute.cnt > stock) {
+            alert('수량 입력 오류! 다시 확인 해주세요.');
+        } else if (permute.tel === "" || !regExp.test(permute.tel) &&  !regExp2.test(permute.tel)){
+            alert('전화번호 입력 오류! 다시 확인 해주세요.');
+        } else if (permute.gro === ""){
+            alert(change + '사유를 입력해주세요.')
+        } else {
+            // 신청 사항 저장하기
+            // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
+            // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+            alert(change + ' 신청 완료!!')
+        }
+    }
+
     return ( 
         <div>
         <div className='Rank_Header between'>
@@ -49,29 +94,35 @@ function Change() {
                    <Form.Label column sm={2} style={{width:"10vh"}}>
                    제품명
                    </Form.Label>
-                   <Form.Control type="text" className='fc' />
+                   <Form.Label type="text" className='fc'>{name}</Form.Label>
                </Form.Group>
-               <Form.Group as={Row} className="mb-5 fg" controlId="formHorizontalEmail">
+               <Form.Group as={Row} className="mb-5 fg">
+                   <Form.Label column sm={2} style={{width:"10vh"}}>
+                   수량
+                   </Form.Label>
+                   <Form.Control type="text" className='fc' onChange={handleInputCnt} />
+               </Form.Group>
+               <Form.Group as={Row} className="mb-5 fg">
                    <Form.Label column sm={2} style={{width:"10vh"}}>
                    전화 번호
                    </Form.Label>
-                   <Form.Control type="text" className='fc' />
+                   <Form.Control type="text" className='fc' onChange={handleInputTel} />
                </Form.Group>
-               <Form.Group as={Row} className="mb-5 fg" controlId="formHorizontalPassword">
+               <Form.Group as={Row} className="mb-5 fg">
                    <Form.Label column sm={2} style={{width:"10vh"}}>
                    {change} 사유
                    </Form.Label>
-                   <Form.Select size="sm" className='fc'>
+                   <Form.Select size="sm" className='fc' onChange={handleInputRes}>
                        <option>상품 결함</option>
                        <option>단순 변심</option>
                    </Form.Select>
                </Form.Group>
-               <Form.Group as={Row} className="mb-5 fg" controlId="formHorizontalPassword">
+               <Form.Group as={Row} className="mb-5 fg">
                    <Form.Label column sm={2} style={{width:"10vh"}}/>
-                   <Form.Control as="textarea" rows={3} className="fc" />
+                   <Form.Control as="textarea" rows={3} className="fc" onChange={handleInputGro} />
                </Form.Group>
                <Form.Group as={Row}  className="mt-10 center">
-                   <Button style={{ fontSize: "2vh", width:"10vh" }}>{change} 신청</Button>
+                   <Button style={{ fontSize: "2vh", width:"10vh" }} onClick={() => Apply()}>{change} 신청</Button>
                </Form.Group>
            </Form>
        </div>

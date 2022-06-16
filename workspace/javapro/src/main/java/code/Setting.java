@@ -172,11 +172,9 @@ public class Setting {
 		if(theme.equals("light")) lightMode();
 		else darkMode();
 		
-		int size = (height > 1000) ? 250 : 150;
-		
 		img = imageSetSize(img, 1000, 1000);
-		logo = imageSetSize(logo, size, size);
-		logo_over = imageSetSize(logo_over, size, size);
+		logo = imageSetSize(logo, 150, 150);
+		logo_over = imageSetSize(logo_over, 150, 150);
 		
 		UIManager.put("OptionPane.messageFont", font5);
 		UIManager.put("OptionPane.buttonFont", font5);

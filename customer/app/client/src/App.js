@@ -11,6 +11,7 @@ import Search from './js/Search';
 import Product from './js/Product'; 
 import Buy from './js/Buy';
 import Permute from './js/Permute';
+import PermuteWrite from './js/PermuteWrite';
 import Change  from './js/Change';
 import Rank  from './js/Rank';
 import NotFound from './js/NotFound'; 
@@ -31,6 +32,7 @@ function App() {
             <Route path='/buy' element={<Buy />}></Route>
             <Route path='/permute' element={<Permute />}></Route>
             <Route exact path='/permute/:permuteId' element={<Change />}></Route>
+            <Route exact path='/permute/:permuteId/write' element={<PermuteWrite />}></Route>
             <Route path='/rank' element={<Rank />}></Route>
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
             <Route path="*" element={<NotFound />}></Route>

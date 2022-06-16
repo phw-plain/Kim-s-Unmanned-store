@@ -9,23 +9,6 @@ import java.text.DecimalFormat;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.RelativeDateFormat;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.Minute;
-import org.jfree.data.time.Second;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.RefineryUtilities;
-
 public class Manage extends Setting {
 	private Frame mainFrame;
 	private JPanel subpanel;
@@ -413,6 +396,12 @@ public class Manage extends Setting {
 			}
 		});
 		customer.homebtn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menu.setVisible(true);
+				customer.setVisible(false);
+			}
+		});
+		customer.homebtn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menu.setVisible(true);
 				customer.setVisible(false);

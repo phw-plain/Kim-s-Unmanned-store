@@ -154,6 +154,11 @@ app.post("/connect", async (req, res) => {
 app.post("/connect/new",async (req, res) => {
   console.log('/connect 호출됨.');
   const paramCode = req.body.barcode || req.query.barcode;
+app.post("/connect", (req, res) => {
+  console.log('/connect 호출됨.');
+  
+  const paramCode  = req.body.barcode || req.query.barcode;
+
   console.log(paramCode)
   let hello = {
     id: paramId

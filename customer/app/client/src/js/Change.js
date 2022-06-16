@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
+import { HiArrowRight } from 'react-icons/hi'
 
 function Change() { 
     let a = window.location.href;
@@ -13,33 +14,48 @@ function Change() {
     );
 } 
 
-function Refund() {
+function Exchange() {
     return (
         <div>
-            <h1>환불하기</h1>
-            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg"/>
-            <p>바코드를 스캔하여 주세요.</p>
-            <p>개봉된 상품은 환불&교환이 불가능 합니다.</p>
-            <Link to="../../permute">
-                <Button>취소하기</Button>
-            </Link>
+             <div className='Rank_Header between'>
+                <div>
+                    <p className='Rank_title'>상품 교환</p>
+                    <p className='Rank_subTitle'>개봉된 상품은 교환 불가능 합니다.</p>
+                </div>
+                <Link to="../../permute">
+                    <HiArrowRight className='arrow'/>
+                </Link>
+            </div>
+            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
+            <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
+                <p>바코드를 스캔해 주세요</p>
+                <Spinner animation="grow" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
+                <p style={{marginTop:"2vh", color:"lightgray"}}>Loading ...</p>
+            </div>
         </div>
     );
 }
 
-function Exchange() {
+function Refund() {
     return (
         <div>
-            <h1>교환하기</h1>
-            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg"/>
-            <p>바코드를 스캔하여 주세요.</p>
-            <p>개봉된 상품은 환불&교환이 불가능 합니다.</p>
-            <Link to="../../permute">
-                <Button>취소하기</Button>
-            </Link>
+             <div className='Rank_Header between'>
+                <div>
+                    <p className='Rank_title'>상품 환불</p>
+                    <p className='Rank_subTitle'>개봉된 상품은 환불 불가능 합니다.</p>
+                </div>
+                <Link to="../../permute">
+                    <HiArrowRight className='arrow'/>
+                </Link>
+            </div>
+            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
+            <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
+                <p>바코드를 스캔해 주세요</p>
+                <Spinner animation="border" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
+                <p style={{marginTop:"2vh", color:"lightgray"}}>Loading ...</p>
+            </div>
         </div>
     );
-
 }
 
 export default Change;

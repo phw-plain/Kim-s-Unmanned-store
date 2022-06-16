@@ -62,8 +62,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/products", (req, res) => {
+app.post("/products",async (req, res) => {
   console.log('/products 호출됨.');
+
+  const citiesRef = db.collection("Manager").doc(paramId).collection("inventory");
+  const snapshot = await citiesRef.get();
+if (snapshot.empty) {
+  console.log('No matching documents.');
+  return;
+}
 
   let data = [
     { // 1번째 양식으로 데이터 전송 필요
@@ -120,6 +127,17 @@ app.post("/products", (req, res) => {
       img: "https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg"
     }
   ]
+  snapshot.forEach(doc => {
+    data.push({code : doc.data().cnt,
+      name: doc.data().name,
+      text: doc.data().explain,
+      stock: doc.data().amount,
+      price: doc.data().price,
+      category: doc.data().category,
+      img: doc.data().picture
+    });
+    console.log(data);
+  });
 
   res.send(data);
 })

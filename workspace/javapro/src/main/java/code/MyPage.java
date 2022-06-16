@@ -483,7 +483,7 @@ public class MyPage extends Setting {
 							, "변경사항을 저장하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 					
 					if(n == 0) {

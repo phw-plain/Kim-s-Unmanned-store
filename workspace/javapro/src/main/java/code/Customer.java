@@ -184,7 +184,7 @@ public class Customer extends Setting {
 							, name.get(index) + "님의 정보를 수정하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 
 					if(n == 0) {
@@ -224,7 +224,7 @@ public class Customer extends Setting {
 						, name.get(index) + "님의 환불 및 교환 신청 정보를 확인 하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
-						, JOptionPane.WARNING_MESSAGE
+						, JOptionPane.QUESTION_MESSAGE
 					);
 
 					if(n == 0) {
@@ -512,7 +512,7 @@ public class Customer extends Setting {
 							, "변경사항을 저장하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 					if(n == 0) {
 						// 데이터 저장

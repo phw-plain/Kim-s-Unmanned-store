@@ -134,15 +134,9 @@ app.post("/products/search", (req, res) => {
 })
 
 // 기존 기기 연동
-app.post("/connect", (req, res) => {
-  console.log('/connect 호출됨.');
-  const paramCode = req.body.barcode || req.query.barcode;
-  console.log(paramCode)
-  let hello = {
-    id: paramId
-  }
-  let cart = {}
-  const ysy = await db.collection('code').doc(paramCode).set(hello);
+app.post("/connect", async (req, res) => {
+  const paramCode  = req.body.barcode || req.query.barcode;
+  console.log('/connect/new 호출됨.');
   const cityRef = db.collection('Manager').doc(paramId).collection('barcode').doc(paramCode);
   const doc = await cityRef.get();
   if (!doc.exists) {
@@ -152,16 +146,20 @@ app.post("/connect", (req, res) => {
     res.send(true);
     console.log('Document data:', doc.data());
   }
+  console.log(paramCode)
+  
 })
 
 // 새로운 기기 추가
-app.post("/connect/new", (req, res) => {
-  console.log('/connect/new 호출됨.');
-
-  
-  const paramCode  = req.body.barcode || req.query.barcode;
-
+app.post("/connect/new",async (req, res) => {
+  console.log('/connect 호출됨.');
+  const paramCode = req.body.barcode || req.query.barcode;
   console.log(paramCode)
+  let hello = {
+    id: paramId
+  }
+  console.log("sdfsdf")
+  await db.collection('code').doc(paramCode).set(hello);
 })
 
 server.listen(5000, () => {

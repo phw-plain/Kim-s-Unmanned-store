@@ -133,8 +133,8 @@ const Connect = () => {
                 <Button variant="secondary" style={{fontSize:"1.5vh"}} onClick={handleClose2}>
                 Close
                 </Button>
-                <Button variant="success" style={{fontSize:"1.5vh", marginRight:"0.5vh"}} onClick={() => addConnect()}>
-                Connect
+                <Button variant="primary" style={{fontSize:"1.5vh", marginRight:"0.5vh"}} onClick={() => addConnect()}>
+                Add
                 </Button>
             </Modal.Footer>
         </Modal>

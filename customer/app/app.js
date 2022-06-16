@@ -171,17 +171,6 @@ app.post("/products/search", (req, res) => {
 // 기존 기기 연동
 app.post("/connect", (req, res) => {
   console.log('/connect 호출됨.');
-
-  
-  const paramCode  = req.body.barcode || req.query.barcode;
-
-  console.log(paramCode)
-})
-
-// 새로운 기기 추가
-app.post("/connect/new", (req, res) => {
-  console.log('/connect/new 호출됨.');
-
   
   const paramCode  = req.body.barcode || req.query.barcode;
 

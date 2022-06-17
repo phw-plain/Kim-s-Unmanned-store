@@ -46,6 +46,7 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
+// 로그인 정보 받고 결과 값 보내기
 app.post("/login", (req, res) => {
   console.log('/login 호출됨.');
 
@@ -93,6 +94,7 @@ app.post("/login", (req, res) => {
   // alert("입력 오류! 아이디와 비밀번호를 다시 확인해주세요.")
 });
 
+// 상품 데이터 보내기
 app.post("/products", (req, res) => {
   console.log('/products 호출됨.');
 
@@ -159,16 +161,16 @@ app.post("/products", (req, res) => {
   res.send(data);
 })
 
+// 상품 목록 갯수 보내기
 app.post("/products/search", (req, res) => {
   console.log('/products/search 호출됨.');
 
-  // 상품 목록 갯수
   let data =[8]
 
   res.send(data);
 })
 
-// 기기 연동
+// 바코드 리더 기기 연동
 app.post("/connect", (req, res) => {
   console.log('/connect 호출됨.');
   
@@ -177,7 +179,7 @@ app.post("/connect", (req, res) => {
   console.log(paramCode)
 })
 
-// 기기 연동 확인
+//  바코드 리더 기기 연동 확인
 app.post("/connect/check", (req, res) => {
   console.log('/connect/check 호출됨.');
   
@@ -197,6 +199,7 @@ app.post("/buy", (req, res) => {
   res.send(a);
 })
 
+// 상품 교환 & 환불 신청 값 가져오기 · 결과 값 보내기
 app.post("/permute/apply", (req, res) => {
   console.log(' /permute/apply 호출됨.');
   
@@ -217,6 +220,10 @@ app.post("/permute/apply", (req, res) => {
   res.send(a);
 })
 
+// 인기순위 : 고객이 구매한 데이터 DB 값 보내기
+app.post("/rank", (req, res) => {
+ 
+})
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

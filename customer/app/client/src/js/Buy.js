@@ -115,6 +115,7 @@ const Buy = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const home = () => window.location.href = "/main"
 
     return ( 
         <div className='Shopping'>
@@ -183,11 +184,9 @@ const Buy = () => {
                                 <Button variant="secondary" onClick={handleClose}  style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
                                 취소
                                 </Button>
-                                <Link to="/main">
-                                    <Button variant="primary" style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
-                                    확인
-                                    </Button>
-                                </Link>
+                                <Button variant="primary" onClick={home} style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                확인
+                                </Button>
                             </Modal.Footer>
                         </Modal>
                         <button className='button'>결재하기</button>

@@ -52,12 +52,12 @@ public class Customer extends Setting {
 	JLabel R0;
 	
 	// 고객 DB 참조
-	private Vector<String> id = new Vector<String>();
-	private Vector<String> pw = new Vector<String>();
 	private Vector<String> name = new Vector<String>();
 	private Vector<String> telephone = new Vector<String>();
 	private Vector<String> email = new Vector<String>();
 	private Vector<Integer> point = new Vector<Integer>();
+	private Vector<Integer> exchange = new Vector<Integer>();
+	private Vector<Integer> refund = new Vector<Integer>();
 
 	int spacing;
 	int margin1;
@@ -78,27 +78,27 @@ public class Customer extends Setting {
 		permute_text = new JLabel("");
 		
 		// 고객관리 cloumn 설정
-		colNames.add("아이디");
-		colNames.add("비밀번호");
 		colNames.add("이름");
 		colNames.add("전화번호");
 		colNames.add("이메일");
 		colNames.add("포인트");
+		colNames.add("교환 신청");
+		colNames.add("환불 신청");
 		
 		// 데이터 불러오기
-		id.add("abc123");
-		pw.add("abc123");
 		name.add("왕경태");
 		telephone.add("010-1234-5678");
 		email.add("a123@gmail.com");
 		point.add(50);
+		exchange.add(2);
+		refund.add(1);
 
-		id.add("qwerr133");
-		pw.add("qweerqasd133");
 		name.add("고영희");
 		telephone.add("010-1111-1111");
 		email.add("cat456@gmail.com");
 		point.add(3000);
+		exchange.add(1);
+		refund.add(0);
 		
 		// 고객 환불 및 교환 cloumn 설정
 		colNames2.add("제품명");
@@ -197,12 +197,12 @@ public class Customer extends Setting {
 					if(n == 0) {
 						tableView.clearSelection();
 						
-						R0.setText(id.get(index));
-						R[0].setText(pw.get(index));
-						R[1].setText(name.get(index));
-						R[2].setText(telephone.get(index));
-						R[3].setText(email.get(index));
-						R[4].setText(Integer.toString(point.get(index)));
+						R[0].setText(name.get(index));
+						R0.setText(telephone.get(index));
+						R[1].setText(email.get(index));
+						R[2].setText(Integer.toString(point.get(index)));
+						R[3].setText(Integer.toString(exchange.get(index)));
+						R[4].setText(Integer.toString(refund.get(index)));
 						
 						View.setVisible(false);
 						Modify.setVisible(true);
@@ -290,7 +290,7 @@ public class Customer extends Setting {
 		DefaultTableCellRenderer dtcr;
 		for (int i = 0; i < tableView.getColumnCount(); i++) { 
 			dtcr = new DefaultTableCellRenderer();	// 셀 내용 정렬 
-			if(i < 4) {
+			if(i < 3) {
 				dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 			}
 			else {
@@ -298,11 +298,12 @@ public class Customer extends Setting {
 			}
 			TableColumnModel tcm = tableView.getColumnModel();
 			tcm.getColumn(i).setCellRenderer(dtcr);
-			tableView.getColumnModel().getColumn(i).setPreferredWidth(250);	// JTable 의 컬럼 길이 조절
+			tableView.getColumnModel().getColumn(i).setPreferredWidth(100);	// JTable 의 컬럼 길이 조절
 		}
-		
-		tableView.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tableView.getColumnModel().getColumn(5).setPreferredWidth(100);	
+
+		tableView.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tableView.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tableView.getColumnModel().getColumn(2).setPreferredWidth(250);
 		
 		center.add(navigation, BorderLayout.NORTH);
 		center.add(list, BorderLayout.CENTER);
@@ -403,21 +404,21 @@ public class Customer extends Setting {
 			}
 		}
 		
-		L[0].setText("아이디");
-		L[1].setText("비밀번호");
-		L[2].setText("이름");
-		L[3].setText("전화번호");
-		L[4].setText("이메일");
-		L[5].setText("포인트");
+		L[0].setText("이름");
+		L[1].setText("전화번호");
+		L[2].setText("이메일");
+		L[3].setText("포인트");
+		L[4].setText("교환신청");
+		L[5].setText("환불신청");
 
 		R0 = new JLabel();
 		R0.setFont(font3);
 		R0.setForeground(fontcolor);
 		
 		form.add(L[0]);
-		form.add(R0);
-		form.add(L[1]);
 		form.add(R[0]);
+		form.add(L[1]);
+		form.add(R0);
 		form.add(L[2]);
 		form.add(R[1]);
 		form.add(L[3]);
@@ -500,11 +501,11 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if( R[0].getText().equals(pw.get(index))
-						&&  R[1].getText().equals(name.get(index))
-						&&  R[2].getText().equals(telephone.get(index))
-						&&  R[3].getText().equals(email.get(index))
-						&&  Integer.parseInt(R[4].getText()) == point.get(index)) {
+				} else if( R[0].getText().equals(name.get(index))
+						&&  R[1].getText().equals(email.get(index))
+						&&  Integer.parseInt(R[2].getText()) == point.get(index)
+						&&  Integer.parseInt(R[3].getText()) == exchange.get(index)
+						&&  Integer.parseInt(R[4].getText()) == (refund.get(index))) {
 						JOptionPane.showMessageDialog(null
 								, "변경사항이 없습니다!"
 								, "박리다매 무인가게"
@@ -525,11 +526,11 @@ public class Customer extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 저장
-						pw.set(index, R[0].getText());
-						name.set(index, R[1].getText());
-						telephone.set(index, R[2].getText());
-						email.set(index, R[3].getText());
-						point.set(index, Integer.parseInt(R[4].getText()));
+						name.set(index, R[0].getText());
+						email.set(index, R[1].getText());
+						point.set(index, Integer.parseInt(R[2].getText()));
+						exchange.set(index, Integer.parseInt(R[3].getText()));
+						refund.set(index, Integer.parseInt(R[4].getText()));
 						
 						// repaint
 						dataLoad();		
@@ -586,12 +587,15 @@ public class Customer extends Setting {
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 		
+		double margin = (height < 1000) ? 0.12 : 0.2;
+		
 		// navigation: text, button
 		JPanel navigation = new JPanel(new BorderLayout());
 		navigation.setBackground(background);
 		JPanel navLeft = new JPanel();
 		navLeft.setBackground(background);
-		navLeft.setBorder(BorderFactory.createEmptyBorder(55, 250, 0, 0));
+		System.out.println(margin2);
+		navLeft.setBorder(BorderFactory.createEmptyBorder(55, (int)(width*margin), 0, 0));
 		JPanel navRight = new JPanel(new GridLayout(1, 3, 10, 0));
 		navRight.setBackground(background);
 
@@ -601,8 +605,6 @@ public class Customer extends Setting {
 		navLeft.add(permute_text);
 		
 		// navRight
-		double margin = (height < 1000) ? 0.12 : 0.2;
-
 		RoundedButton btnView = new RoundedButton("고객 보기");
 		RoundedButton btnModify = new RoundedButton("고객 수정");
 		RoundedButton btnPermute = new RoundedButton("환불&교환");
@@ -788,12 +790,12 @@ public class Customer extends Setting {
 		// 데이터 입력
 		for (int i = 0; i < name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(id.get(i));
-			rows.add(pw.get(i));
 			rows.add(name.get(i));
 			rows.add(telephone.get(i));
 			rows.add(email.get(i));
 			rows.add(Integer.toString(point.get(i)));
+			rows.add(Integer.toString(exchange.get(i)));
+			rows.add(Integer.toString(refund.get(i)));
 			dataSet.add(rows);
 		}
 	}
@@ -849,12 +851,12 @@ public class Customer extends Setting {
 		// 검색 데이터 입력
 		for (int i = 0; i < name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(id.get(i));
-			rows.add(pw.get(i));
 			rows.add(name.get(i));
 			rows.add(telephone.get(i));
 			rows.add(email.get(i));
 			rows.add(Integer.toString(point.get(i)));
+			rows.add(Integer.toString(exchange.get(i)));
+			rows.add(Integer.toString(refund.get(i)));
 			
 			if(name.get(i).indexOf(str) != -1) {
 				dataSet.add(rows);

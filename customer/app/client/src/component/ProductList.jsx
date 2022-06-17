@@ -6,7 +6,7 @@ export function ProductList(props) {
   const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  console.log(props.products)
+  
   return (
     <div>
       <div className="products-box">

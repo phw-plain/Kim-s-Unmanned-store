@@ -23,7 +23,7 @@ const Buy = () => {
     useEffect(() => {
         let timerId = setInterval(() => {
             test();
-        }, 5000);
+        }, 500);
     }, [products]);
 
     const test = async() => {

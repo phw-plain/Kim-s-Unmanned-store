@@ -258,6 +258,40 @@ app.post("/rank", (req, res) => {
   res.send(data);
 })
 
+// 상품 결재 시 전화번호가 일치하면 DB저장, 일치: true - 불일치: false 반환
+app.post("/buy/send", (req, res) => {
+  console.log(' /buy/send 호출됨.');
+  
+  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+
+  console.log(paramCart, paramTel);
+
+
+  // true flase 반환  
+  let bool = false; 
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
+// 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
+app.post("/buy/join", (req, res) => {
+  console.log(' /buy/join 호출됨.');
+  
+  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+
+  console.log(paramCart, paramTel);
+
+
+  // true flase 반환  
+  let bool = true; 
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
 server.listen(5000, ()=>{
   console.log('server is running on 5000')
 })

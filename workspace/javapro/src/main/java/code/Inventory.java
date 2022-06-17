@@ -92,9 +92,9 @@ public class Inventory extends Setting {
 		product_name.add("초코송이");
 		product_name.add("칠성사이다");
 		product_name.add("허니버터칩");
-		category.add("스낵");
+		category.add("과자");
 		category.add("음료");
-		category.add("스낵");
+		category.add("과자");
 		standard.add("240g");
 		standard.add("1.5L");
 		standard.add("600g");
@@ -103,10 +103,10 @@ public class Inventory extends Setting {
 		cnt.add(7);
 		price.add(1200);
 		price.add(2700);
-		price.add(1600);
+		price.add(3200);
 		cost.add(1000);
 		cost.add(2500);
-		cost.add(1300);
+		cost.add(2900);
 		amount.add(10);
 		amount.add(5);
 		amount.add(3);
@@ -116,7 +116,6 @@ public class Inventory extends Setting {
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures1");
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures2");
 		picture.add("C:\\Users\\user\\Pictures\\Saved Pictures3");
-		
 		
 		View();
 		Modify();
@@ -478,7 +477,7 @@ public class Inventory extends Setting {
 						, "해당 상품을 삭제하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
-						, JOptionPane.WARNING_MESSAGE
+						, JOptionPane.QUESTION_MESSAGE
 				);
 				if(n == 0) {
 					// 데이터 삭제
@@ -611,7 +610,7 @@ public class Inventory extends Setting {
 							, "변경사항을 저장하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 					if(n == 0) {
 						if(R9.getText().length() == 0) {
@@ -944,7 +943,7 @@ public class Inventory extends Setting {
 							, "변경사항을 저장하시겠습니까?"
 							, "박리다매 무인가게"
 							, JOptionPane.YES_NO_OPTION
-							, JOptionPane.WARNING_MESSAGE
+							, JOptionPane.QUESTION_MESSAGE
 					);
 
 					if(R7.getText().length() == 0) {

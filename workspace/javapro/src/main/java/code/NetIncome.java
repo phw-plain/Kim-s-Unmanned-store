@@ -30,9 +30,6 @@ public class NetIncome extends Setting{
 	
 	public JButton homebtn1;
 	public JButton homebtn2;
-	
-	DotGraph todayGraph = new DotGraph();
-	DotGraphYear yearGraph = new DotGraphYear();
 
 	public int margin = (height > 1000) ? 20 : 15;
 	public String blank1 = (height > 1000) ? "  " : "";

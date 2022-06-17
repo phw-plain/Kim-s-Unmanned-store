@@ -15,45 +15,61 @@ const Product = () => {
         .then(res => setProducts(res.data))
         .catch();
     }, [])
+    function colorCheck(category) {
+        if(category === "채소")
+            return 'green'
+        else if(category === "과일")
+            return "red"
+        else 
+            return "pink"
+    }
         
     return ( 
-        <div className="product"> 
+        <div>
+        
             {products.map((item, index) =>
-                <div key={index}>
-                        {
-                            (index == productId)
-                            ? <div>
-                                <div className="product_img left" style={{  
-                                    backgroundImage:`url(${item.img})`
-                                }}></div>
-                                <div className='product_main'>
-                                    <div className='product_title'>{item.name}</div>
-                                    <div className='product_cate'><p>청과류</p></div>
-                                    <div className='product_text'>
-                                        <div>
-                                            가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격<br/>
-                                            용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량<br/>
-                                            재&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고<br/>
-                                            상품설명<br/>
-                                            위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;치
-                                        </div>
-                                        <div className='product_text_R'>
-                                            {item.price}<br/>
-                                            150g<br/>
-                                            {item.stock}개<br/>
-                                            {item.text}<br/>
-                                            청과류 코너의 A열 4번째 칸
-                                        </div>
+                <div className="product" style={{ 
+                    backgroundColor: (colorCheck(item.category))
+            }}  > 
+                    {
+                        (index == productId)
+                        ? <div key={index}>
+                            <div className="product_img left" style={{  
+                                backgroundImage:`url(${item.img})`
+                            }}></div>
+                            <div className='product_main'>
+                                <div className='product_title'>{item.name}</div>
+                                <div className='product_cate' style={{ 
+                                        backgroundColor: (colorCheck(item.category))
+                                }}>
+                                    <p>{item.category}</p>
+                                </div>
+                                <div className='product_text'>
+                                    <div>
+                                        가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격<br/>
+                                        용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량<br/>
+                                        재&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고<br/>
+                                        상품설명<br/>
+                                        위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;치
+                                    </div>
+                                    <div className='product_text_R'>
+                                        {item.price}<br/>
+                                        150g<br/>
+                                        {item.stock}개<br/>
+                                        {item.text}<br/>
+                                        청과류 코너의 A열 4번째 칸
                                     </div>
                                 </div>
                             </div>
-                            : null
-                        }
+                            
+                        <Link to="/products">
+                            <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"8vh", marginBottom:"5vh"}}>이전으로</Button>
+                        </Link>
+                        </div>
+                        : console.log(productId, index, productId == index)
+                    }
                 </div>
             )}
-            <Link to="/products">
-                <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"8vh"}}>이전으로</Button>
-            </Link>
         </div>
     ); 
 }

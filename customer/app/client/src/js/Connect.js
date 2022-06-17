@@ -19,28 +19,31 @@ const Connect = () => {
             setImageUrl(canvas.toDataURL('image/png'))
 
             setShow(true)
+
+            axios.post('/connect', null, {
+                params: {
+                    'barcode': barcodeNumber
+                }
+            })
         }
     }, [barcodeNumber]) 
 
+
+
     const handleClose = () => setShow(false);
 
-    const checkConnect = async() => {
+    const checkConnect = () => {
         // 기기 연동 여부 확인
-        await axios.post('/connect', null, {
-            params: {
-                'barcode': barcodeNumber
-            }
-        })
-        .then(res => console.log(res.data))
+        axios.post('/connect/check')
+        .then(res =>  console.log(res.data))
         .catch();
-    
 
-        // if(false) {
-        //     console.log('기기 연동 실패!!');
-        // } else {
-        //     console.log('기기 연동 성공!!');
-        //     window.location.href = "/main";
-        // }
+        if(false) {
+            console.log('기기 연동 실패!!');
+        } else {
+            console.log('기기 연동 성공!!');
+            window.location.href = "/main";
+        }
     }
 
     const newDisplay = () => {

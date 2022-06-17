@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ListGroup,  Modal, Button } from "react-bootstrap";
+import { ListGroup,  Modal, Button, Form, Row } from "react-bootstrap";
 import axios from 'axios';
 
 import '.././css/Buy.css';
@@ -13,20 +13,67 @@ const Buy = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCarts] = useState([]);
     const [purchase, setPurchase] = useState({cnt:0, price: 0});
-    
+    const [tel, setTel] = useState("");
+    const [isStop, setIsStop] = useState(false)
+    const [join, setJoin] = useState({name:"", tel:"", email:""});
+    const [apply, setApply] = useState();
+    const [joinApply, setJoinApply] = useState();
+
     useEffect(() => {
         axios.post('/products')
         .then(res => setProducts(res.data))
         .catch();
     }, []);
 
-    useEffect(() => {
-        let timerId = setInterval(() => {
-            test();
-        }, 500);
-    }, [products]);
+    let loop = useInterval(() => {
+        if(!isStop) {
+            cartAdd();
+        }
+    }, 500);
 
-    const test = async() => {
+    function useInterval(callback, delay) {
+        const savedCallback = useRef();
+
+        // Remember the latest callback.
+        useEffect(() => {
+            savedCallback.current = callback;
+        }, [callback]);
+        
+        // Set up the interval.
+        useEffect(() => {
+            function tick() {
+                savedCallback.current();
+            }
+            if (delay !== null) {
+                let id = setInterval(tick, delay);
+                return () => clearInterval(id);
+            }
+        }, [delay]);
+    }
+
+    useEffect(() => {
+        if(apply !== undefined){
+            if(apply) {
+                alert("계산 완료!")
+                window.location.href = "/main";
+            } else {
+                alert("전화번호 입력 오류!")
+            }
+        }
+    }, [apply])
+
+    useEffect(() => {
+        if(joinApply !== undefined){
+            if(joinApply) {
+                alert("회원가입 성공!")
+                handleClose3()
+            } else {
+                alert("회원가입 실패 이전에 가입한 기록이 있습니다!")
+            }
+        }
+    }, [joinApply])
+
+    const cartAdd = async() => {
         await axios.post('/buy')
         .then(res => cartModify(res.data.code))
         .catch();
@@ -111,10 +158,100 @@ const Buy = () => {
         setCarts(newCart)
     };
 
+    const eventBuy = () => {
+        setIsStop(true)
+        handleShow2()
+    }
+
+    const handleInputTel = (e) => {
+        setTel(e.target.value)
+    }
+    const handleJoinName = (e) => {
+        let newJoin = {...join}
+        newJoin.name = e.target.value
+        setJoin(newJoin)
+    }
+    const handleJoinTel = (e) => {
+        let newJoin = {...join}
+        newJoin.tel = e.target.value
+        setJoin(newJoin)
+        console.log(e.target.value)
+    }
+    const handleJoinEmail = (e) => {
+        let newJoin = {...join}
+        newJoin.email = e.target.value
+        setJoin(newJoin)
+    }
+    
+
+    const sendBuy = async() => {
+        if (isTelephone(tel)){
+            alert('전화번호 입력 오류! 다시 확인 해주세요.');
+        } else {
+            // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
+            // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+
+            await axios.post('/buy/send', null, {
+                params: {
+                    'cart': cart,
+                    'tel': tel
+                }
+            }).then(res =>  setApply(res.data.bool))
+            .catch();
+        }
+    }
+
+    const eventJoin = async() => {
+        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        console.log(isTelephone(join.tel))
+        if(join.name.length === 0) {
+            alert('이름 입력 오류! 다시 확인 해주세요.');
+        } else if(isTelephone(join.tel)){
+            alert('전화번호 입력 오류! 다시 확인 해주세요.');
+        } else if(!regEmail.test(join.email)) {
+            alert('이메일 입력 오류! 다시 확인 해주세요.');
+        } else {
+            // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
+            // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+
+            await axios.post('/buy/join', null, {
+                params: {
+                    'name': join.name,
+                    'tel': join.tel,
+                    'email': join.email
+                }
+            }).then(res =>  setJoinApply(res.data.bool))
+            .catch();
+        }
+    }
+
+    function isTelephone(str) {
+        var regExp = /^01(?:0|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
+        var regExp2 = /^01(?:0|[6-9])(?:\d{3}|\d{4})\d{4}$/
+
+        if(str === "" || !regExp.test(str) &&  !regExp2.test(str)){
+            return true;
+        }
+        return false;
+    }
+
     // cancle 창
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose2 = () => {
+        setShow2(false)
+        setIsStop(false)
+    };
+    const handleShow2 = () => setShow2(true);
+    const handleShow3 = () => setShow3(true);
+    const handleClose3 = () => {
+        setShow3(false)
+    };
+
+    const home = () => window.location.href = "/main"
 
     return ( 
         <div className='Shopping'>
@@ -168,7 +305,9 @@ const Buy = () => {
                         <button className='button' onClick={handleShow} >
                             취소하기
                         </button>
-
+                        <button className='button' onClick={() => eventBuy()}>
+                            결재하기
+                        </button>
                         <Modal 
                             show={show} 
                             onHide={handleClose} 
@@ -177,20 +316,91 @@ const Buy = () => {
                             centered 
                         >
                             <Modal.Header closeButton style={{borderBottom:"none",fontSize:"1.5vh", marginBottom:"7vh"}}>
-                                <Modal.Title  style={{fontSize:"2vh"}}>계산을 취소 하시겠습니까?</Modal.Title>
+                                <Modal.Title  style={{fontSize:"3vh"}}>계산을 취소 하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Modal.Footer style={{borderTop:"none"}}>
-                                <Button variant="secondary" onClick={handleClose}  style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                <Button variant="secondary" onClick={handleClose}  style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
                                 취소
                                 </Button>
-                                <Link to="/main">
-                                    <Button variant="primary" style={{fontSize:"1.5vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
-                                    확인
-                                    </Button>
-                                </Link>
+                                <Button variant="primary" onClick={home} style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                확인
+                                </Button>
                             </Modal.Footer>
                         </Modal>
-                        <button className='button'>결재하기</button>
+                        <Modal 
+                            show={show2} 
+                            onHide={handleClose2} 
+                            size="lg" 
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered className='modal_lg'
+                        >
+                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"2vh", marginBottom:"7vh"}}>
+                                <Modal.Title  style={{fontSize:"3vh"}}>결재 진행</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group as={Row} className="mb-5">
+                                        <Form.Label column sm={2} className="flb">
+                                        전화 번호
+                                        </Form.Label>
+                                        <Form.Control type="text" className='fcb' onChange={handleInputTel} />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer style={{borderTop:"none", marginTop:"6vh", justifyContent:"space-between"}}>
+                                <div className='buyBtnLeft'>
+                                    <Button variant="primary" onClick={handleShow3} style={{fontSize:"2vh", marginLeft:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                        회원가입
+                                    </Button>
+                                </div>
+                                <div className='buyBtnRight'>
+                                    <Button variant="secondary" onClick={handleClose2}  style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                    취소
+                                    </Button>
+                                    <Button variant="success" onClick={() => sendBuy()}style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                    확인
+                                    </Button>
+                                </div>
+                            </Modal.Footer>
+                        </Modal>
+                        <Modal 
+                            show={show3} 
+                            onHide={handleClose3} 
+                            size="lg" 
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered className='modal_lg'
+                        >
+                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"2vh", marginBottom:"7vh"}}>
+                                <Modal.Title  style={{fontSize:"3vh"}}>회원 가입</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group as={Row} className="mb-5">
+                                        <Form.Label column sm={2} className="flb">
+                                        이름
+                                        </Form.Label>
+                                        <Form.Control type="text" className='fcb' onChange={handleJoinName} />
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-5">
+                                        <Form.Label column sm={2} className="flb">
+                                        전화 번호
+                                        </Form.Label>
+                                        <Form.Control type="text" className='fcb' onChange={handleJoinTel} />
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-5">
+                                        <Form.Label column sm={2} className="flb">
+                                        이메일
+                                        </Form.Label>
+                                        <Form.Control type="text" className='fcb' onChange={handleJoinEmail} />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer style={{borderTop:"none", marginTop:"6vh"}}>
+                                <Button variant="success" onClick={() => eventJoin()} style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                확인
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                 </div>
             </div>

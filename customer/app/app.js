@@ -167,6 +167,74 @@ app.post("/permute/apply", (req, res) => {
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
 app.post("/rank", (req, res) => {
 
+  console.log(' /rank 호출됨.');
+  let data = [
+    { // 1번째 양식으로 데이터 전송 필요
+      code : "0",                           // 제품 코드
+      cnt : "3",                              // 구매 수량        
+      day : "2022-6-15"               // 구매일
+    }, { 
+      code : "3",                  
+      cnt : "2",               
+      day : "2022-6-17"                 
+    }, { 
+      code : "3",                  
+      cnt : "6",               
+      day : "2022-6-13"                 
+    }, { 
+      code : "3",                  
+      cnt : "8",            
+      day : "2022-6-14"                 
+    }, { 
+      code : "2",                  
+      cnt : "5",              
+      day : "2022-6-17"                 
+    }, { 
+      code : "2",                  
+      cnt : "1",            
+      day : "2022-6-17"                 
+    }, { 
+      code : "5",                  
+      cnt : "1",            
+      day : "2022-6-15"                 
+    }
+  ]
+
+  res.send(data);
+})
+
+// 상품 결재 시 전화번호가 일치하면 DB저장, 일치: true - 불일치: false 반환
+app.post("/buy/send", (req, res) => {
+  console.log(' /buy/send 호출됨.');
+  
+  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+
+  console.log(paramCart, paramTel);
+
+
+  // true flase 반환  
+  let bool = false; 
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
+// 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
+app.post("/buy/join", (req, res) => {
+  console.log(' /buy/join 호출됨.');
+  
+  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+
+  console.log(paramCart, paramTel);
+
+
+  // true flase 반환  
+  let bool = true; 
+  let a = {bool:bool} 
+  
+  res.send(a);
 })
 
 server.listen(5000, () => {

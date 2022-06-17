@@ -2,7 +2,9 @@ body {
     overflow: hidden;
 }
 .product{
-    height: 100vh;
+    height: 100%;
+    background-Image: url('../../public/img/test1.png');
+    background-size: cover; 
 }
 .product_img{
     width: 40vh;

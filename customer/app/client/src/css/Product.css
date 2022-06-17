@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    overflow: hidden;;
 }
 .product{
     height: 100%;
@@ -11,7 +11,7 @@ body {
     height: 37vh;
     display: inline-block;
     align-items: center;
-    margin-top: 10%;;
+    margin-top: 5%;
 
     border-radius: 4vh;
     -moz-border-radius: 4vh;

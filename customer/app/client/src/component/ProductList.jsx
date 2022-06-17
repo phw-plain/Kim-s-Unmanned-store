@@ -15,13 +15,15 @@ export function ProductList(props) {
             <div className='prod_background'>
               <Link to={`/product/${item.code}`} >
               <img className="products_img" src={item.img} alt={"product-img"}/></Link>
-              <p className='prod_title'>{item.name}</p>
-              <div className="prod_texts">
-                <p className='prod_cate'>#{item.category}</p>
-                <p className='prod_text'>
-                  {item.text}<br/>
-                  {item.price} 원
-                </p>
+              <div>
+                <p className='prod_title'>{item.name}</p>
+                <div className="prod_texts">
+                  <p className='prod_cate'>#{item.category}</p>
+                  <p className='prod_text'>
+                    {item.text}<br/>
+                    {item.price} 원
+                  </p>
+                </div>
               </div>
             </div>
           </div>

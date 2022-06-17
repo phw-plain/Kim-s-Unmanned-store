@@ -9,13 +9,27 @@ import '.././css/Rank.css'
 function Rank() { 
     // 데이터 가져오기
     const [products, setProducts] = useState([]);
+    const [purchases, setPurchases] = useState([]);
+    const [rank, setRank] = useState([]);
 
     useEffect(() => {
         axios.post('/products')
         .then(res => setProducts(res.data))
         .catch()
     }, [])
+
+    useEffect(() => {
+        axios.post('/rank')
+        .then(res => setPurchases(res.data))
+        .catch()
+    }, [])
         
+    useEffect(() => {
+        if(purchases.length !== 0) {
+            console.log(purchases)
+        }
+    }, [purchases])
+
     return ( 
         <div className='Rank_Body'>
             <div className='Rank_Header between'>

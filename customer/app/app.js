@@ -222,7 +222,42 @@ app.post("/permute/apply", (req, res) => {
 
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
 app.post("/rank", (req, res) => {
- 
+  console.log(' /rank 호출됨.');
+  let data = [
+    { // 1번째 양식으로 데이터 전송 필요
+      code : "0",                           // 제품 코드
+      cnt : "3",           // 구매 수량
+      sum : "3000",                          // 총액
+      day : "2022-6-15"                        // 구매일
+    }, { 
+      code : "2",                  
+      cnt : "2",      
+      sum : "3000",           
+      day : "2022-6-17"                 
+    }, { 
+      code : "3",                  
+      cnt : "6",      
+      sum : "3000",           
+      day : "2022-6-13"                 
+    }, { 
+      code : "3",                  
+      cnt : "8",      
+      sum : "3000",           
+      day : "2022-6-14"                 
+    }, { 
+      code : "2",                  
+      cnt : "1",      
+      sum : "3000",           
+      day : "2022-6-17"                 
+    }, { 
+      code : "2",                  
+      cnt : "1",      
+      sum : "3000",           
+      day : "2022-6-17"                 
+    }
+  ]
+
+  res.send(data);
 })
 
 server.listen(5000, ()=>{

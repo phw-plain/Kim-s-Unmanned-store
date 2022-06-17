@@ -34,8 +34,8 @@ export const CategorySlider = ({ getText }) => {
   }
 
   return (
-    <div style={{marginTop:"3%", display:"inline-block", width:"37vh"}}>
-      <Slider {...settings} >
+    <div style={{marginTop:"1.5%", display:"inline-block", width:"37vh"}}>
+      <Slider {...settings}>
         <div>
             <button id="0" className='category 0' value={category[0]} onClick={ () => btnClick(0)}>
               {category[0]}</button>

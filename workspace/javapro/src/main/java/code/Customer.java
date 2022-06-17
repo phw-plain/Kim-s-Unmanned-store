@@ -691,24 +691,27 @@ public class Customer extends Setting {
 		center.add(list, BorderLayout.CENTER);
 		
 		JPanel btns = new JPanel();
-		RoundedButton check = new RoundedButton("확인");
+		RoundedButton approval = new RoundedButton("승인");
+		RoundedButton withdrawal = new RoundedButton("철회");
 		btns.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(250*margin), 0));
 		btns.setBackground(background);
-		btns.add(check);
+		btns.add(approval);
+		btns.add(withdrawal);
 		
-		check.addActionListener(new ActionListener() {
+		
+		approval.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				index = tableView2.getSelectedRow();
 				System.out.println(tableView2.getSelectedRow());
 				if(index == -1) {
 					JOptionPane.showMessageDialog(null
-						, "환불 및 교환을 처리할 사항을 선택해주세요."
+						, "환불 및 교환을 승인할 사항을 선택해주세요."
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "처리하시겠습니까?"
+						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "승인하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -716,7 +719,43 @@ public class Customer extends Setting {
 
 					if(n == 0) {
 						JOptionPane.showMessageDialog(null
-							, "처리하였습니다!"
+							, "승인하였습니다!"
+							, "박리다매 무인가게"
+							, JOptionPane.PLAIN_MESSAGE
+						);
+						
+						// 데이터베이스에서 해당 신청 목록 삭제하기
+						// permute_id변수 이용 : 전화번호
+						
+						// 다시 그리기
+						permuteDataLoad(permute_id);
+						model2.fireTableDataChanged();
+					}
+				}
+			}
+		});
+		
+		withdrawal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				index = tableView2.getSelectedRow();
+				System.out.println(tableView2.getSelectedRow());
+				if(index == -1) {
+					JOptionPane.showMessageDialog(null
+						, "환불 및 교환을 철회할 사항을 선택해주세요."
+						, "박리다매 무인가게"
+						, JOptionPane.ERROR_MESSAGE
+					);
+				} else {
+					int n = JOptionPane.showConfirmDialog(null
+						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "을 철회하시겠습니까?"
+						, "박리다매 무인가게"
+						, JOptionPane.YES_NO_OPTION
+						, JOptionPane.QUESTION_MESSAGE
+					);
+
+					if(n == 0) {
+						JOptionPane.showMessageDialog(null
+							, "철회하였습니다!"
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);

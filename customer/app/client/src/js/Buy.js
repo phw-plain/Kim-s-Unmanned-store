@@ -9,50 +9,71 @@ const Buy = () => {
     // 데이터 가져오기
     // 상품 목록 데이터, 카트 데이터 : 상품 목록 데이터를 바탕으로 카트 데이터 생성
     // 카트 + 데이터 (구매 갯수, 총액)
+    const [itemCode, setItemCode] = useState(0);
+    const [products, setProducts] = useState([]);
     const [cart, setCarts] = useState([]);
-    const [purchase, setPurchase] = useState(JSON.parse(localStorage.getItem('purchase')));
-
+    const [purchase, setPurchase] = useState({cnt:0, price: 0});
+    
     useEffect(() => {
-        let data = [
-            { 
-                code : "0",
-                name : "토종 햇 당근",
-                text : "상품 설명1",
-                cnt : "1",
-                price : "1000",
-                sum : "0",
-                stock : "10",
-                img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
-            }, { 
-                code : "1",
-                name : "야이셔 레몬",
-                text : "상품 설명2",
-                cnt : "1",
-                price : "2000",
-                sum : "0",
-                stock : "10",
-                img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
-            }
-        ];
-        setCarts(data);
-        
-       
-
+        axios.post('/products')
+        .then(res => setProducts(res.data))
+        .catch();
     }, []);
 
     useEffect(() => {
-        axios.post('/buy')
-        .then(res => console.log(res.data))
+        let timerId = setInterval(() => {
+            test();
+        }, 5000);
+    }, [products]);
+
+    const test = async() => {
+        await axios.post('/buy')
+        .then(res => cartModify(res.data.code))
         .catch();
-        
-       
+    }
 
-    });
+    const cartModify = (itemCode) => {
+        let index = -1;
+        cart.map((item, idx) => {
+            if(+item.code === itemCode) {
+                index = idx;
+            }
+        })
+        if(index === -1) {
+            let newCart = [...cart]
+            products.map((product, idx) => {
+                if((+product.code === itemCode) && products[idx].stock != 0) {
+                    purchase.cnt++;
+                    purchase.price = +purchase.price + +product.price;
 
-    
-    
+                    let newProduct = product;
+                    newProduct.cnt = "1";
+                    newProduct.sum = product.price;
+
+                    newCart.push(newProduct)
+                    cart.push(newProduct)
+                    setCarts(newCart)
+                }
+            })
+        } else {
+            let newCart = [...cart]
+            cart.map((product, idx) => {
+                if((+product.code === itemCode)  && (+product.cnt < +product.stock)) {
+                    newCart[idx].cnt++;
+                    newCart[idx].sum = +product.sum + +product.price;
+
+                    purchase.cnt++;
+                    purchase.price = +purchase.price + +product.price;
+                    
+                    setCarts(newCart)
+                }
+            })
+        }
+        setItemCode(0)
+    }
+
     // 목록 제거
-    const handleDelete = code => {
+    const itemDelete = code => {
         let newCart = [...cart]
         cart.map((product, idx) => {
             if(product.code === code  && product.cnt < product.stock) {
@@ -106,7 +127,7 @@ const Buy = () => {
                                     <p className='item_name'>{text.name}</p>
                                     <button className="cancelBtn"
                                         onClick={() => {
-                                            handleDelete(text.code);
+                                            itemDelete(text.code);
                                         }}>
                                         X
                                     </button>

@@ -114,7 +114,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "2000",
       category : "과일",
-      img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
+      img : "lemon.jpg"
     }, { 
       code : "2",
       name : "바나나는 길어",
@@ -146,7 +146,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "2000",
       category : "과일",
-      img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
+      img : "lemon.jpg"
     }, { 
       code : "6",
       name : "바나나 6개",
@@ -279,10 +279,11 @@ app.post("/buy/send", (req, res) => {
 app.post("/buy/join", (req, res) => {
   console.log(' /buy/join 호출됨.');
   
-  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramName = req.body.name || req.query.name;      // 이름    
   const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+  const paramEmail  = req.body.email || req.query.email;  // 이메일
 
-  console.log(paramCart, paramTel);
+  console.log(paramName, paramTel, paramEmail);
 
 
   // true flase 반환  

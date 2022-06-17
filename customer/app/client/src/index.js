@@ -8,9 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // 개발 후 React.StrictMode 지워주기 2번 출력 방지
-  <React.StrictMode> 
     <App />
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

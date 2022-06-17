@@ -1,9 +1,11 @@
 package com.example.barcodereader
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -13,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.*
 import org.json.JSONArray
-import org.json.JSONException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var id = "";
     val db = FirebaseFirestore.getInstance();//db연결
     var ManagerId = "";
+    var context: Context = this@MainActivity;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,62 +56,31 @@ class MainActivity : AppCompatActivity() {
         integrator.initiateScan()
     }
 
-    fun startKiosk(view: View){
-        Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
-        val jsonString = assets.open("BeforeData.json").reader().readText()
-        Log.d("jsonString", jsonString)
-        val jsonArray = JSONArray(jsonString)
-        for (index in 0 until jsonArray.length()){
-            val jsonObject = jsonArray.getJSONObject(index)
-            id = jsonObject.getString("id")
-            ManagerId = jsonObject.getString("ManagerId")
-        }
-        if(id!=""&&ManagerId!=""){
-            val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            val mDate = Date(System.currentTimeMillis());
-            val phone = hashMapOf(
-                "id" to id,
-                "display" to Build.MODEL,
-                "time" to mFormat.format(mDate)
-            );
-            db.collection("Manager").document(ManagerId).collection("barcode")
-                .document(id)
-                .set(phone)
-                .addOnSuccessListener {
-                    val intent = Intent(applicationContext, BarcodeReader::class.java)
-                    intent.putExtra("id", id)
-                    intent.putExtra("manager", ManagerId)
-                    startActivity(intent)
-                    Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
-                }
-        }
-    }
-
     fun hi(){
         val docRef = db.collection("code").document(id)
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     ManagerId = document.getString("id").toString();
-                    Toast.makeText(this, ManagerId, Toast.LENGTH_LONG).show()
                     if (ManagerId != "") {
                         val mFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         val mDate = Date(System.currentTimeMillis());
                         val phone = hashMapOf(
                             "id" to id,
                             "display" to Build.MODEL,
-                            "time" to mFormat.format(mDate)
+                            "time" to mFormat.format(mDate),
+                            "cart" to null
                         );
                         db.collection("Manager").document(ManagerId).collection("barcode")
                             .document(id)
                             .set(phone)
                             .addOnSuccessListener {
-                                val intent = Intent(applicationContext, BarcodeReader::class.java)
+                                val intent =
+                                    Intent(applicationContext, BarcodeReader::class.java)
                                 intent.putExtra("id", id)
                                 intent.putExtra("manager", ManagerId)
-                                startActivity(intent)
                                 Toast.makeText(this, "연동 성공!", Toast.LENGTH_LONG).show()
-
+                                startActivity(intent);
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this, "연동 땡!", Toast.LENGTH_LONG).show()

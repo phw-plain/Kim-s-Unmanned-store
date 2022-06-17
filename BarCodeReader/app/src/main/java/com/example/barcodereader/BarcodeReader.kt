@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class BarcodeReader : AppCompatActivity() {
     var id = "";
@@ -63,38 +65,22 @@ class BarcodeReader : AppCompatActivity() {
     }
     fun firebase(){
         val docRef = db.collection("Manager").document(ManagerId)
-            .collection("inventory").document(result)
+            .collection("inventory").document(result); //인벤토리 안에 있는 재고들
         docRef.get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document.data != null) {
                     productCode = document.getString("code").toString();
-                    productPrice = document.getString("cost").toString();
                     productName = document.getString("name").toString();
-                    productPicture = document.getString("picture").toString();
-                    Toast.makeText(this, productName, Toast.LENGTH_LONG).show()
-                    var product: HashMap<String, String>? = null;
-                    if(productCode!="") {
-                        product = hashMapOf(
-                            "productCode" to productCode,
-                            "productPrice" to productPrice,
-                            "productName" to productName,
-                            "productPicture" to productPicture
-                        )
-                    }
-                    if (product != null) {
-                        db.collection("Manager").document(ManagerId).collection("barcode").document(id!!)
-                            .collection("cart").document(result.toString())
-                            .set(product)
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "됐당!", Toast.LENGTH_LONG).show()
+                    val docRef1 = db.collection("Manager").document(ManagerId)
+                        .collection("barcode").document(id!!)
+                    docRef1.get()
+                        .addOnSuccessListener { document1 ->
+                                Toast.makeText(this, "카트에 ${productName}이 추가되었습니다", Toast.LENGTH_LONG).show()
+                                docRef1.update("cart", productCode);
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "안됐당!", Toast.LENGTH_LONG).show()
-                            }
-                    }
                 } else {
                     ManagerId = "";
-                    Toast.makeText(this, "안대..", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "해당 제품은 판매하지 않는 상품입니다", Toast.LENGTH_LONG).show()
                     id = "";
                 }
         }
@@ -103,7 +89,6 @@ class BarcodeReader : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data).contents;
         if(result != null) {
-            Toast.makeText(this, "scanned: ${result} format: ${result}", Toast.LENGTH_LONG).show()
             runBlocking {
                 firebase();
             }

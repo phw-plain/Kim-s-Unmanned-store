@@ -38,7 +38,7 @@ const Main = () => {
                         <img className="menu_img" src='/img/permute.png'></img>
                     </button>
                 </Link>     
-                <Link to="/rank">
+                <Link to={`/rank/${0}`}>
                     <button className="menu m1 p3 shadow">
                         <div className="f3 left orange">04</div>
                         <div className="f2 left">인기 순위</div>

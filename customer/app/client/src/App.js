@@ -33,7 +33,7 @@ function App() {
             <Route path='/permute' element={<Permute />}></Route>
             <Route exact path='/permute/:permuteId' element={<Change />}></Route>
             <Route exact path='/permute/:permuteId/write' element={<PermuteWrite />}></Route>
-            <Route path='/rank' element={<Rank />}></Route>
+            <Route path='/rank/:select' element={<Rank />}></Route>
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
             <Route path="*" element={<NotFound />}></Route>
         </Routes>

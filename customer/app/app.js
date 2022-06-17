@@ -189,17 +189,32 @@ app.post("/connect/check", (req, res) => {
 // 상품 결제 바코드 스캔 데이터 보내기
 app.post("/buy", (req, res) => {
   console.log('/buy 호출됨.');
-  let test = Math.floor((Math.random()*5) + 0);
 
-  
-  let a = {code:test}
-
-  // code 전달하기
+   // code 전달하기
+  let test = Math.floor((Math.random()*5) + 0); // 프론트엔드용 랜덤 데이터
+  let a = {code:test} // 제품 코드 숫자형 타입으로 보내기
+ 
   res.send(a);
+})
 
-  // 4초 간격으로 메시지를 보여줌
-  // let timerId = setInterval(() => res.send(a), 2000);
+app.post("/permute/apply", (req, res) => {
+  console.log(' /permute/apply 호출됨.');
+  
+  const paramName  = req.body.name || req.query.name;     // 제품명
+  const paramCnt  = req.body.cnt || req.query.cnt;                 // 신청 수량
+  const paramTel  = req.body.tel || req.query.tel;                    // 전화번호
+  const paramRes  = req.body.res || req.query.res;                 // 유형
+  const paramGro  = req.body.gro || req.query.gro;               // 신청 이유
 
+  console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
+
+  // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
+
+  // true flase 반환  
+  let bool = true; 
+  let a = {bool:bool} 
+  
+  res.send(a);
 })
 
 

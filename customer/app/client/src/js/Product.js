@@ -9,7 +9,7 @@ const Product = () => {
     // 데이터 가져오기
     const { productId } = useParams();
     const [products, setProducts] = useState([]);
-
+    
     useEffect(() => {
         axios.post('/products')
         .then(res => setProducts(res.data))
@@ -66,7 +66,7 @@ const Product = () => {
                             <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"2.5vh", marginBottom:"15vh"}}>이전으로</Button>
                         </Link>
                         </div>
-                        : console.log(productId, index, productId == index)
+                        : null
                     }
                 </div>
             )}

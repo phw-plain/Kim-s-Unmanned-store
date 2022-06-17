@@ -4,7 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export const CategorySlider = ({ getText }) => {
-  const [select, setSelect] = useState(null);
+  const [index, setIndex] = useState(null);
+  const [isSelect, setSelect] = useState([false, false, false, false, false, false, false]);
   const [category, setCategory] = useState([ "과자", "사탕", "음료", "젤리", "냉장", "과일", "채소" ]);
 
   const settings = {
@@ -16,52 +17,91 @@ export const CategorySlider = ({ getText }) => {
   };
 
   const btnClick = (idx) => {
-    if(select !== null && select !== idx) {
-      document.getElementById(select).classList.remove('category_over')
-      setSelect(idx)
+    
+    if(index !== null && index !== idx) {
+      // 다른 클릭된 버튼이 있음: 현재 클릭된 버튼 해제, 새로운 버튼 이벤트 적용
+
+      let newSelect = {...isSelect};
+      newSelect[index] = false;
+      newSelect[idx] = true;
+
+      setSelect(newSelect);
+      setIndex(idx)
       getText(category[idx]);
-      document.getElementById(idx).classList.add('category_over')
-    } else if(category[select] !== document.getElementById(idx).value) {
-      setSelect(idx)
-      getText(category[idx]);
-      document.getElementById(idx).classList.add('category_over')
-    } else {
-      setSelect(null)
+
+    } else if(index !== null && index === idx) {
+      // 자신 중복 클릭: 자신 이벤트 제거
+
+      let newSelect = {...isSelect};
+      newSelect[index] = false;
+      
+      setSelect(newSelect);
+      setIndex(null)
       getText("");
-      document.getElementById(idx).classList.remove('category_over')
+      
+    } else {
+      // 중복 버튼 없음: 이벤트 적용
+
+      let newSelect = {...isSelect};
+      newSelect[idx] = true;
+      
+      setSelect(newSelect);
+      setIndex(idx)
+      getText(category[idx]);
     }
-    console.log(document.getElementById(idx).value)
   }
 
   return (
-    <div style={{marginTop:"1.5%", display:"inline-block", width:"37vh"}}>
-      <Slider {...settings}>
+    <div style={{marginTop:"3%", display:"inline-block", width:"37vh"}}>
+      <Slider {...settings} >
         <div>
-            <button id="0" className='category 0' value={category[0]} onClick={ () => btnClick(0)}>
-              {category[0]}</button>
+            <button className={isSelect[0] ? 'category_over' : 'category'} 
+              value={category[0]} 
+              onClick={() => {
+                btnClick(0);
+            }}>{category[0]}</button>
         </div>
         <div>
-            <button id="1" className='category 1' value={category[1]} onClick={ () => btnClick(1)}>
-              {category[1]}</button>
+            <button className={isSelect[1] ? 'category_over' : 'category'} 
+              value={category[1]} 
+              onClick={() => {
+                btnClick(1);
+            }}>{category[1]}</button>
         </div>
         <div>
-            <button id="2" className='category 2' value={category[2]} onClick={ () => btnClick(2)}>
-              {category[2]}</button>
+            <button className={isSelect[2] ? 'category_over' : 'category'} 
+              value={category[2]} 
+              onClick={() => {
+                btnClick(2);
+            }}>{category[2]}</button>
         </div>
         <div>
-            <button id="3" className='category 3' value={category[3]} onClick={ () => btnClick(3)}>
-              {category[3]}</button>
+            <button className={isSelect[3] ? 'category_over' : 'category'} 
+              value={category[3]} 
+              onClick={() => {
+                btnClick(3);
+            }}>{category[3]}</button>
         </div>
         <div>
-            <button id="4" className='category 4' value={category[4]} onClick={ () => btnClick(4)}>
-              {category[4]}</button>
+            <button className={isSelect[4] ? 'category_over' : 'category'} 
+              value={category[4]} 
+              onClick={() => {
+                btnClick(4);
+            }}>{category[4]}</button>
         </div>
         <div>
-            <button id="5" className='category 5'  value={category[5]} onClick={ () => btnClick(5)}>
-              {category[5]}</button>
+            <button className={isSelect[5] ? 'category_over' : 'category'} 
+              value={category[5]} 
+              onClick={() => {
+                btnClick(5);
+            }}>{category[5]}</button>
         </div><div>
-            <button id="6" className='category 6' value={category[6]} onClick={ () => btnClick(6)}>
-              {category[6]}</button>
+            <button className={isSelect[6] ? 'category_over' : 'category'} 
+              value={category[6]} 
+              onClick={() => {
+                
+                btnClick(6);
+            }}>{category[6]}</button>
         </div>
       </Slider>
     </div>

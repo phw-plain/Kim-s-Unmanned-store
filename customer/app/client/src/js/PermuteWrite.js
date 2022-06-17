@@ -15,6 +15,7 @@ function Change() {
     const [stock, setStock] = useState(0);
     const [change, setChange] = useState("");
     const [permute, setPermute] = useState({ cnt:"", tel:"", res:"", gro:"" });
+    const [apply, setApply] = useState();
 
 
     useEffect(() => {
@@ -36,6 +37,17 @@ function Change() {
             setStock(products[0].stock)
         }
     }, [products])
+
+    useEffect(() => {
+        if(apply !== undefined){
+            if(apply) {
+                alert(change + "신청 완료!")
+                window.location.href = "/permute";
+            } else {
+                alert("사용자의 정보와 일치하는 구매내역이 없습니다!")
+            }
+        }
+    }, [apply])
     
     const handleInputCnt = (e) => {
         let newPermute = {...permute}
@@ -58,7 +70,7 @@ function Change() {
         setPermute(newPermute)
     }
 
-    const Apply = () => {
+    const Apply = async() => {
         var regExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
         var regExp2 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
 
@@ -72,7 +84,17 @@ function Change() {
             // 신청 사항 저장하기
             // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
             // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-            alert(change + ' 신청 완료!!')
+
+            await axios.post('/permute/apply', null, {
+                params: {
+                    'name': name,
+                    'cnt': permute.cnt,
+                    'tel': permute.tel,
+                    'res': permute.res,
+                    'gro': permute.gro
+                }
+            }).then(res =>  setApply(res.data.bool))
+            .catch();
         }
     }
 

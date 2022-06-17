@@ -36,8 +36,7 @@ const server = require('http').createServer(app);
 
 app.use(cors()); // cors 미들웨어를 삽입합니다.
 
-
-
+// 로그인 정보 받고 결과 값 보내기
 app.post("/login", async (req, res) => {
   console.log('/login 호출됨.');
 
@@ -142,17 +141,18 @@ if (snapshot.empty) {
   res.send(data);
 })
 
+// 상품 목록 갯수 보내기
 app.post("/products/search", (req, res) => {
   console.log('/products/search 호출됨.');
 
-  // 상품 목록 갯수
-  let data = [8]
+  let data =[8]
 
   res.send(data);
 })
 let paramCode;
 
 
+// 바코드 리더 기기 연동
 app.post("/connect",async (req, res) => {
   console.log('/connect 호출됨.');
   paramCode = req.body.barcode || req.query.barcode;
@@ -163,7 +163,7 @@ app.post("/connect",async (req, res) => {
   await db.collection('code').doc(paramCode).set(hello);
 })
 
-// 기기 연동 확인
+//  바코드 리더 기기 연동 확인
 app.post("/connect/check", async(req, res) => {
   console.log('/connect/check 호출됨.');
   console.log(paramId + " "+ paramCode);
@@ -182,12 +182,39 @@ app.post("/connect/check", async(req, res) => {
 // 상품 결제 바코드 스캔 데이터 보내기
 app.post("/buy", (req, res) => {
   console.log('/buy 호출됨.');
-  
-  
-  // code 전달하기
-  // res.send();
+
+   // code 전달하기
+  let test = Math.floor((Math.random()*5) + 0); // 프론트엔드용 랜덤 데이터
+  let a = {code:test} // 제품 코드 숫자형 타입으로 보내기
+ 
+  res.send(a);
 })
 
+// 상품 교환 & 환불 신청 값 가져오기 · 결과 값 보내기
+app.post("/permute/apply", (req, res) => {
+  console.log(' /permute/apply 호출됨.');
+  
+  const paramName  = req.body.name || req.query.name;     // 제품명
+  const paramCnt  = req.body.cnt || req.query.cnt;                 // 신청 수량
+  const paramTel  = req.body.tel || req.query.tel;                    // 전화번호
+  const paramRes  = req.body.res || req.query.res;                 // 유형
+  const paramGro  = req.body.gro || req.query.gro;               // 신청 이유
+
+  console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
+
+  // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
+
+  // true flase 반환  
+  let bool = true; 
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
+// 인기순위 : 고객이 구매한 데이터 DB 값 보내기
+app.post("/rank", (req, res) => {
+ 
+})
 
 server.listen(5000, ()=>{
   console.log('server is running on 5000')

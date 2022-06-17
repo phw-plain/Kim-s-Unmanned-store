@@ -6,40 +6,6 @@ function Login() {
   const [inputId, setInputId] = useState('')
   const [inputPw, setInputPw] = useState('')
 
-  // 장바구니 로컬 스토리지 set [프론트엔드 테스트용]
-  let purchase = { 
-    cnt : "2",
-    price : "3000"
-  }
-  
-  localStorage.setItem('purchase', JSON.stringify(purchase))
-
-  // [프론트엔드 테스트용]
-  let cart = [
-    { 
-      code : "0",
-      name : "토종 햇 당근",
-      text : "상품 설명1",
-      cnt : "10",
-      price : "1000",
-      sum : "0",
-      stock : "10",
-      img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
-    }, { 
-      code : "1",
-      name : "야이셔 레몬",
-      text : "상품 설명2",
-      cnt : "10",
-      price : "2000",
-      sum : "0",
-      stock : "10",
-      img : "https://cdn.pixabay.com/photo/2017/02/05/12/31/lemons-2039830__340.jpg"
-    }
-  ]
-  localStorage.setItem('purchase', JSON.stringify(purchase))
-  localStorage.setItem('cart', JSON.stringify(cart))
-
-
   localStorage.removeItem('device')
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다

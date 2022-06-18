@@ -40,12 +40,12 @@ var today = new Date();
 var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
 var day = ('0' + today.getDate()).slice(-2);
-var hours = ('0' + today.getHours()).slice(-2); 
+var hours = ('0' + today.getHours()).slice(-2);
 var minutes = ('0' + today.getMinutes()).slice(-2);
-var seconds = ('0' + today.getSeconds()).slice(-2); 
+var seconds = ('0' + today.getSeconds()).slice(-2);
 
 var dateString = year + '-' + month + '-' + day;
-var timeString = year + '-' + month + '-' + day+ ' ' + hours + ':' + minutes+ ':' + seconds;
+var timeString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 let monthString = year + '-' + month;
 
 // 로그인 정보 받고 결과 값 보내기
@@ -163,7 +163,7 @@ app.post("/buy", async (req, res) => {
 })
 
 // 상품 교환 & 환불 신청: 제품 코드 보내기
-app.post("/permute",async (req, res) => {
+app.post("/permute", async (req, res) => {
   console.log(' /permute 호출됨.');
 
   let a = { code: 0 }
@@ -172,7 +172,7 @@ app.post("/permute",async (req, res) => {
 })
 
 // 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기
-app.post("/permute/apply", async(req, res) => {
+app.post("/permute/apply", async (req, res) => {
   console.log(' /permute/apply 호출됨.');
 
   const paramCode = req.body.code || req.query.code;          // 아이디
@@ -201,8 +201,8 @@ app.post("/rank", async (req, res) => {
   if (snapshot.empty) {
     console.log('No matching documents.');
     return [];
-  }else{
-    snapshot.forEach(doc =>{
+  } else {
+    snapshot.forEach(doc => {
       data.push({
         code: doc.id,                           // 제품 코드
         cnt: doc.data().cnt,                    // 구매 수량        
@@ -219,139 +219,126 @@ app.post("/buy/send", async (req, res) => {
 
   let paramCart = req.body.cart || req.query.cart;     // 구매목록    
   const paramTel = req.body.tel || req.query.tel;        // 전화번호
+  const paramPoint = req.body.point || req.query.point;        // 포인트
   let bool = false;
 
-  //전화번호로 로그인
-  let snapshot = await db.collection('Manager').doc(paramId).collection('customer').where('tel', '==', paramTel).get();
-  if (!snapshot.empty) {
-    //로그인 확인
-    bool = true;
-    let id = null;
+  console.log(paramPoint)
 
-    snapshot.forEach(doc => {
-      id = doc.id
-    });
-    //인벤토리에서 물건 찾기
-    for (let i = 0; i < paramCart.length; i++) {
-      var timeString = year + '-' + month + '-' + day+ ' ' + hours + ':' + minutes+ ':' + seconds;
-      let x = JSON.parse(paramCart[i]);
+  //로그인 확인
+  bool = true;
+  let id = null;
+
+  //인벤토리에서 물건 찾기
+  for (let i = 0; i < paramCart.length; i++) {
+    let x = JSON.parse(paramCart[i]);
+    if (paramTel !== "-1") {
+      bool = true;
+      snapshot = await db.collection('Manager').doc(paramId).collection('customer').where('tel', '==', paramTel).get();
+      snapshot.forEach(doc => {
+        id = doc.id
+      });
+      var timeString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
       let data = {
-        code : x.code,
-        name : x.name,
-        cnt : x.cnt
+        code: x.code,
+        name: x.name,
+        cnt: x.cnt
       }
       await db.collection('Manager').doc(paramId).collection('customer').doc(id).collection("order_history").doc(timeString).set(data);
-      //일일 순위
-      snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
-      let doc = await snapshot.get();
-      if (doc.exists) {
-        await snapshot.update({
-          cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
-        });
-        //없으면 리스트 새로 생성 
+      if (paramPoint != undefined) {
+        console.log("포인트를 사용하는 회원 주문 입니다!")
+        const updatePoint = db.collection('Manager').doc(paramId).collection('customer').doc(id);
+        await updatePoint.update({
+          point: FieldValue.increment(-paramPoint)
+        })
       } else {
-        let hello = {cnt: parseInt(x.cnt)}
-        await snapshot.set(hello);
+        console.log("포인트를 사용하는 회원 주문이 아니다!")
       }
-      //달 순위
-      snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
-      doc = await snapshot.get();
-      if (doc.exists) {
-        console.log("달 순위가 있음")
-        await snapshot.update({
-          cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
-        });
-        //없으면 리스트 새로 생성 
-      } else {
-        let hello = {cnt: parseInt(x.cnt)}
-        await snapshot.set(hello);
+    } else {
+      bool = true;
+    }
+    //일일 순위
+    snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
+    let doc = await snapshot.get();
+    if (doc.exists) {
+      await snapshot.update({
+        cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+      });
+      //없으면 리스트 새로 생성 
+    } else {
+      bool = false;
+      let hello = { cnt: parseInt(x.cnt) }
+      await snapshot.set(hello);
+    }
+    //달 순위
+    snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
+    doc = await snapshot.get();
+    if (doc.exists) {
+      console.log("달 순위가 있음")
+      await snapshot.update({
+        cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+      });
+      //없으면 리스트 새로 생성 
+    } else {
+      let hello = { cnt: parseInt(x.cnt) }
+      await snapshot.set(hello);
+    }
+    //하루 매출
+    snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString);
+    doc = await snapshot.get();
+    if (doc.exists) {
+      await snapshot.update({
+        sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
+      });
+    } else {
+      let hello = {
+        expenses: 0,
+        sales: parseInt(x.sum)
       }
-      //하루 매출
-      snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString);
-      doc = await snapshot.get();
-      if (doc.exists) {
-        await snapshot.update({
-          sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
-        });
-      }else{
-        let hello = {
-          expenses: 0,
-          sales : parseInt(x.sum)
-        }
-        await snapshot.set(hello);
+      await snapshot.set(hello);
+    }
+    //이번 달 매출
+    snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString);
+    doc = await snapshot.get();
+    if (doc.exists) {
+      await snapshot.update({
+        sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
+      });
+    } else {
+      let hello = {
+        expenses: 0,
+        sales: parseInt(x.sum)
       }
-      //이번 달 매출
-      snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString);
-      doc = await snapshot.get();
-      if (doc.exists) {
-        await snapshot.update({
-          sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
-        });
-      }else{
-        let hello = {
-          expenses: 0,
-          sales : parseInt(x.sum)
-        }
-        await snapshot.set(hello);
-      }
-      
+      await snapshot.set(hello);
+    }
   }
-  }else {
-        console.log("해당 계정이 없습니다")
-      }
-      let a = { bool: bool }
-      res.send(a);
-  })
-// app.post("/buy/send", (req, res) => {
-//   console.log(' /buy/send 호출됨.');
-  
-//   const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
-//   const paramTel  = req.body.tel || req.query.tel;        // 전화번호
-//   const paramPoint  = req.body.point || req.query.point;        // 전화번호
+  let a = { bool: bool }
+  res.send(a);
 
-//   console.log(paramCart, paramTel, paramPoint);
-
-//   // true flase 반환  
-//   let bool = true; 
-
-//   if(paramTel === "-1") {
-//     console.log("비회원 주문 입니다!")
-//     bool = true;
-//   } else {
-//     if(paramPoint === undefined){
-//       console.log("포인트를 사용하지 않는 회원 주문 입니다!")
-//     } else {
-//       console.log("포인트를 사용하는 회원 주문 입니다!")
-//     }
-//   }
-
-//   let a = {bool:bool} 
-//   res.send(a);
-// })
+})
 
 // 상품 결재: 회원 주문 전화번호로 포인트와 비밀번호 반환 하기
-app.post("/buy/send/member", (req, res) => {
+app.post("/buy/send/member", async (req, res) => {
   console.log(' /buy/send 호출됨.');
-  
+
   // 전화번호에 - 없으면 자동으로 넣어 반환됨
-  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+  const paramTel = req.body.tel || req.query.tel;        // 전화번호
 
   console.log(paramTel);
-
-  let member = {pw:"", point:"0"}; 
-
-  if(paramTel === "010-1234-1234") {
-    member.pw = "abc123";
-    member.point = "4500";
-  }
-
-  let a = {member:member} 
-  
+  //let snapshot = await db.collection('Manager').doc(paramId).collection('customer').where('tel', '==', paramTel).get();
+  let member = { pw: "", point: 0 };
+  // if (!snapshot.empty) {
+  //   //로그인 확인
+  //   snapshot.forEach(doc => {
+  //     member.pw = doc.data().pw,
+  //     member.point = doc.data().point
+  //   });
+  // }
+  let a = { member: member }
   res.send(a);
 })
 
 // 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
-app.post("/buy/join", (req, res) => {
+app.post("/buy/join", async (req, res) => {
   console.log('/buy/join 호출됨.');
 
   const paramId = req.body.id || req.query.id;            // 아이디
@@ -362,24 +349,33 @@ app.post("/buy/join", (req, res) => {
 
   console.log(paramName, paramTel, paramEmail);
 
-
+  const data = {
+    email: paramEmail,
+    id: paramId,
+    name: paramName,
+    point: 0,
+    pw: paramPw,
+    email: paramEmail
+  }
+  await db.collection('Manager').doc(paramId).collection('customer').doc(paramId).set(data);
   // true flase 반환  
   let bool = true;
   let a = { bool: bool }
-
   res.send(a);
 })
 
 // 회원가입 아이디 중복 확인
-app.post("/buy/join/overlap", (req, res) => {
+app.post("/buy/join/overlap", async (req, res) => {
   console.log('/buy/join/overlap 호출됨.');
   const paramId = req.body.id || req.query.id;      // 아이디    
   console.log(paramId);
-
-
   // true flase 반환  
   let bool = true;
-  if (paramId === "") bool = false;
+  const cityRef = db.collection('Manager').doc(paramId).collection('customer').doc(paramId);
+  const doc = await cityRef.get();
+  if (!doc.exists) {
+    bool = false
+  }
   let a = { bool: bool }
 
   res.send(a);

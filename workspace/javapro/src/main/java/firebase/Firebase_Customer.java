@@ -33,9 +33,11 @@ public class Firebase_Customer extends App{
 			set.customer_id.add(document.getString("id"));
 			set.customer_pw.add(document.getString("pw"));
 			set.customer_name.add(document.getString("name"));
-			set.telephone.add(document.getString("telephone"));
-			set.email.add(document.getString("email"));
-			set.point.add(Integer.parseInt(document.getString("point")));
+			set.customer_telephone.add(document.getString("tel"));
+			set.customer_email.add(document.getString("email"));
+			set.customer_point.add((document.getLong("point")).intValue());
+			set.customer_exchange.add(1);
+			set.customer_refund.add(2);
 		}
 	}
 	public void update_cutomer(String id, String pw, String name, String telephone, String email, int point) throws Exception {
@@ -43,7 +45,7 @@ public class Firebase_Customer extends App{
 		Firebase_Customer getQuote = new Firebase_Customer();
 		HashMap<String, Object> quote = null;
 		try {
-			quote = getQuote.getQuoteFormHTTP(id,  pw,  name,  telephone,  email, Integer.toString(point));
+			quote = getQuote.getQuoteFormHTTP(id,  pw,  name,  telephone,  email, point);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -56,13 +58,13 @@ public class Firebase_Customer extends App{
     		   throw e; //최상위 클래스가 아니라면 무조건 던져주자
     	}
 	}
-	public HashMap<String, Object> getQuoteFormHTTP(String id, String pw, String name, String telephone, String email, String point) throws IOException{
+	public HashMap<String, Object> getQuoteFormHTTP(String id, String pw, String name, String telephone, String email, int point) throws IOException{
     	db = FirestoreClient.getFirestore();
     	HashMap<String,Object> map = new HashMap();
     	map.put("id", id);
     	map.put("pw", pw);
     	map.put("name", name );
-    	map.put("telephone",telephone );
+    	map.put("tel",telephone );
     	map.put("email", email);
     	map.put("point", point);
     	

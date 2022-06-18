@@ -101,12 +101,12 @@ public class Inventory extends Setting {
 		cnt.add(3);
 		cnt.add(15);
 		cnt.add(7);
-		price.add(1200);
-		price.add(2700);
-		price.add(3200);
 		cost.add(1000);
 		cost.add(2500);
 		cost.add(2900);
+		price.add(1200);
+		price.add(2700);
+		price.add(3200);
 		amount.add(10);
 		amount.add(5);
 		amount.add(3);
@@ -462,8 +462,8 @@ public class Inventory extends Setting {
 				R3.setText(category.get(index));
 				R4.setText(standard.get(index));
 				R5.setText(Integer.toString(cnt.get(index)));
-				R6.setText(Integer.toString(price.get(index)));
-				R7.setText(Integer.toString(cost.get(index)));
+				R6.setText(Integer.toString(cost.get(index)));
+				R7.setText(Integer.toString(price.get(index)));
 				R8.setText(Integer.toString(amount.get(index)));
 				R9.setText(explain.get(index));
 				R10.setText(picture.get(index));
@@ -489,8 +489,8 @@ public class Inventory extends Setting {
 					category.remove(index);
 					standard.remove(index);
 					cnt.remove(index);
-					price.remove(index);
 					cost.remove(index);
+					price.remove(index);
 					amount.remove(index);
 					explain.remove(index);
 					picture.remove(index);
@@ -589,8 +589,8 @@ public class Inventory extends Setting {
 						&&  R3.getText().equals(category.get(index))
 						&&  R4.getText().equals(standard.get(index))
 						&&  Integer.parseInt(R5.getText()) == cnt.get(index)
-						&&  Integer.parseInt(R6.getText()) == price.get(index)
-						&&  Integer.parseInt(R7.getText()) == cost.get(index)
+						&&  Integer.parseInt(R6.getText()) == cost.get(index)
+						&&  Integer.parseInt(R7.getText()) == price.get(index)
 						&&  Integer.parseInt(R8.getText()) == amount.get(index)
 						&&  R9.getText().equals(explain.get(index))
 						&&  R10.getText().equals(picture.get(index))){
@@ -622,8 +622,8 @@ public class Inventory extends Setting {
 						category.set(index, R3.getText());
 						standard.set(index, R4.getText());
 						cnt.set(index, Integer.parseInt(R5.getText()));
-						price.set(index, Integer.parseInt(R6.getText()));
-						cost.set(index, Integer.parseInt(R7.getText())); ////7777
+						cost.set(index, Integer.parseInt(R6.getText()));
+						price.set(index, Integer.parseInt(R7.getText())); ////7777
 						amount.set(index, Integer.parseInt(R8.getText()));
 						explain.set(index, R9.getText());
 						if(!picture.get(index).equals(R10.getText())) {
@@ -633,7 +633,7 @@ public class Inventory extends Setting {
 							fileSave(f, path, f.getName());
 						}
 						try {
-							fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), Integer.toString(cnt.get(index)), Integer.toString(price.get(index)), Integer.toString(cost.get(index)), Integer.toString(amount.get(index)), explain.get(index), picture.get(index));
+							fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), cnt.get(index), Integer.toString(cost.get(index)), Integer.toString(price.get(index)), amount.get(index), explain.get(index), picture.get(index));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -954,7 +954,7 @@ public class Inventory extends Setting {
 						// 데이터 추가
 						Firebase_inventory add = new Firebase_inventory();
 						try {
-							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), R5.getText(),R6.getText(), R7.getText(), R8.getText(), R9.getText(), R10.getText());
+							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), Integer.parseInt(R5.getText()),R6.getText(), R7.getText(), Integer.parseInt(R8.getText()), R9.getText(), R10.getText());
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -964,8 +964,8 @@ public class Inventory extends Setting {
 						category.add(R3.getText());
 						standard.add(R4.getText());
 						cnt.add(Integer.parseInt(R5.getText()));
-						price.add(Integer.parseInt(R6.getText()));
-						cost.add(Integer.parseInt(R7.getText()));
+						cost.add(Integer.parseInt(R6.getText()));
+						price.add(Integer.parseInt(R7.getText()));
 						amount.add(Integer.parseInt(R8.getText()));
 						explain.add(R9.getText());
 						picture.add(R10.getText());
@@ -1022,8 +1022,8 @@ public class Inventory extends Setting {
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
-			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(amount.get(i)));
 			rows.add(explain.get(i));
 			dataSet.add(rows);
@@ -1042,8 +1042,8 @@ public class Inventory extends Setting {
 			rows.add(category.get(i));
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
-			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(amount.get(i)));
 			rows.add(explain.get(i));
 

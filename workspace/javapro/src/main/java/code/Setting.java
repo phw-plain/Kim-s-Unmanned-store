@@ -148,9 +148,11 @@ public class Setting {
 	protected static Vector<String> customer_id = new Vector<String>();
 	protected static Vector<String> customer_pw = new Vector<String>();
 	protected static Vector<String> customer_name = new Vector<String>();
-	protected static Vector<String> telephone = new Vector<String>();
-	protected static Vector<String> email = new Vector<String>();
-	protected static Vector<Integer> point = new Vector<Integer>();
+	protected static Vector<String> customer_telephone = new Vector<String>();
+	protected static Vector<String> customer_email = new Vector<String>();
+	protected static Vector<Integer> customer_point = new Vector<Integer>();
+	protected static Vector<Integer> customer_exchange = new Vector<Integer>();
+	protected static Vector<Integer> customer_refund = new Vector<Integer>();
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 	Date date = new Date();        

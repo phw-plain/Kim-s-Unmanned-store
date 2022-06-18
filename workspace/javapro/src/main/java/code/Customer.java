@@ -54,12 +54,6 @@ public class Customer extends Setting {
 	JLabel R0;
 	
 	// 고객 DB 참조
-	private Vector<String> name = new Vector<String>();
-	private Vector<String> telephone = new Vector<String>();
-	private Vector<String> email = new Vector<String>();
-	private Vector<Integer> point = new Vector<Integer>();
-	private Vector<Integer> exchange = new Vector<Integer>();
-	private Vector<Integer> refund = new Vector<Integer>();
 
 	int spacing;
 	int margin1;
@@ -90,19 +84,19 @@ public class Customer extends Setting {
 		colNames.add("환불 신청");
 		
 		// 데이터 불러오기
-		name.add("왕경태");
-		telephone.add("010-1234-5678");
-		email.add("a123@gmail.com");
-		point.add(50);
-		exchange.add(2);
-		refund.add(1);
+		customer_name.add("왕경태");
+		customer_telephone.add("010-1234-5678");
+		customer_email.add("a123@gmail.com");
+		customer_point.add(50);
+		customer_exchange.add(2);
+		customer_refund.add(1);
 
-		name.add("고영희");
-		telephone.add("010-1111-1111");
-		email.add("cat456@gmail.com");
-		point.add(3000);
-		exchange.add(1);
-		refund.add(0);
+		customer_name.add("고영희");
+		customer_telephone.add("010-1111-1111");
+		customer_email.add("cat456@gmail.com");
+		customer_point.add(3000);
+		customer_exchange.add(1);
+		customer_refund.add(0);
 		
 		Firebase_Customer customer = new Firebase_Customer();
 		customer.show_customer();
@@ -204,12 +198,12 @@ public class Customer extends Setting {
 					if(n == 0) {
 						tableView.clearSelection();
 						
-						R[0].setText(name.get(index));
-						R0.setText(telephone.get(index));
-						R[1].setText(email.get(index));
-						R[2].setText(Integer.toString(point.get(index)));
-						R[3].setText(Integer.toString(exchange.get(index)));
-						R[4].setText(Integer.toString(refund.get(index)));
+						R[0].setText(customer_name.get(index));
+						R0.setText(customer_telephone.get(index));
+						R[1].setText(customer_email.get(index));
+						R[2].setText(Integer.toString(customer_point.get(index)));
+						R[3].setText(Integer.toString(customer_exchange.get(index)));
+						R[4].setText(Integer.toString(customer_refund.get(index)));
 						
 						View.setVisible(false);
 						Modify.setVisible(true);
@@ -229,13 +223,13 @@ public class Customer extends Setting {
 					);
 				} else if(false /* 환불 & 교환 신청이 없는 경우 */) {
 					JOptionPane.showMessageDialog(null
-						, name.get(index) + "님의 환불 및 교환 신청이 없습니다!"
+						, customer_name.get(index) + "님의 환불 및 교환 신청이 없습니다!"
 						, "박리다매 무인가게"
 						, JOptionPane.ERROR_MESSAGE
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, name.get(index) + "님의 환불 및 교환 신청 정보를 확인 하시겠습니까?"
+						, customer_name.get(index) + "님의 환불 및 교환 신청 정보를 확인 하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -245,10 +239,10 @@ public class Customer extends Setting {
 						tableView.clearSelection();
 						
 						// 해당 고객의 환불 교환 신청 목록 가져오기
-						permuteDataLoad(telephone.get(index));
+						permuteDataLoad(customer_telephone.get(index));
 						model2.fireTableDataChanged();
-						permute_id = telephone.get(index);
-						permute_text.setText(name.get(index) + "님의 환불 및 교환 신청 리스트");
+						permute_id = customer_telephone.get(index);
+						permute_text.setText(customer_name.get(index) + "님의 환불 및 교환 신청 리스트");
 						
 						View.setVisible(false);
 						Modify.setVisible(false);
@@ -508,11 +502,11 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.ERROR_MESSAGE
 					);
-				} else if( R[0].getText().equals(name.get(index))
-						&&  R[1].getText().equals(email.get(index))
-						&&  Integer.parseInt(R[2].getText()) == point.get(index)
-						&&  Integer.parseInt(R[3].getText()) == exchange.get(index)
-						&&  Integer.parseInt(R[4].getText()) == (refund.get(index))) {
+				} else if( R[0].getText().equals(customer_name.get(index))
+						&&  R[1].getText().equals(customer_email.get(index))
+						&&  Integer.parseInt(R[2].getText()) == customer_point.get(index)
+						&&  Integer.parseInt(R[3].getText()) == customer_exchange.get(index)
+						&&  Integer.parseInt(R[4].getText()) == (customer_refund.get(index))) {
 						JOptionPane.showMessageDialog(null
 								, "변경사항이 없습니다!"
 								, "박리다매 무인가게"
@@ -533,15 +527,15 @@ public class Customer extends Setting {
 					);
 					if(n == 0) {
 						// 데이터 저장
-						name.set(index, R[0].getText());
-						email.set(index, R[1].getText());
-						point.set(index, Integer.parseInt(R[2].getText()));
-						exchange.set(index, Integer.parseInt(R[3].getText()));
-						refund.set(index, Integer.parseInt(R[4].getText()));
+						customer_name.set(index, R[0].getText());
+						customer_email.set(index, R[1].getText());
+						customer_point.set(index, Integer.parseInt(R[2].getText()));
+						customer_exchange.set(index, Integer.parseInt(R[3].getText()));
+						customer_refund.set(index, Integer.parseInt(R[4].getText()));
 						
 						
 						try {
-							firebase.update_cutomer(customer_id.get(index),customer_pw.get(index),customer_name.get(index), telephone.get(index),email.get(index),point.get(index));
+							firebase.update_cutomer(customer_id.get(index),customer_pw.get(index),customer_name.get(index), customer_telephone.get(index),customer_email.get(index),customer_point.get(index));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -804,12 +798,12 @@ public class Customer extends Setting {
 		// 데이터 입력
 		for (int i = 0; i < customer_name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(name.get(i));
-			rows.add(telephone.get(i));
-			rows.add(email.get(i));
-			rows.add(Integer.toString(point.get(i)));
-			rows.add(Integer.toString(exchange.get(i)));
-			rows.add(Integer.toString(refund.get(i)));
+			rows.add(customer_name.get(i));
+			rows.add(customer_telephone.get(i));
+			rows.add(customer_email.get(i));
+			rows.add(Integer.toString(customer_point.get(i)));
+			rows.add(Integer.toString(customer_exchange.get(i)));
+			rows.add(Integer.toString(customer_refund.get(i)));
 			dataSet.add(rows);
 		}
 	}
@@ -861,16 +855,15 @@ public class Customer extends Setting {
 	private void dataSearch(String str) {
 		dataSet.removeAllElements();
 		Vector<String> rows;
-		
 		// 검색 데이터 입력
 		for (int i = 0; i < customer_name.size(); i++) {
 			rows = new Vector<String>();
-			rows.add(name.get(i));
-			rows.add(telephone.get(i));
-			rows.add(email.get(i));
-			rows.add(Integer.toString(point.get(i)));
-			rows.add(Integer.toString(exchange.get(i)));
-			rows.add(Integer.toString(refund.get(i)));
+			rows.add(customer_name.get(i));
+			rows.add(customer_telephone.get(i));
+			rows.add(customer_email.get(i));
+			rows.add(Integer.toString(customer_point.get(i)));
+			rows.add(Integer.toString(customer_exchange.get(i)));
+			rows.add(Integer.toString(customer_refund.get(i)));
 			
 			if(customer_name.get(i).indexOf(str) != -1) {
 				dataSet.add(rows);

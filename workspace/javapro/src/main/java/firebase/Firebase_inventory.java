@@ -21,7 +21,7 @@ import code.Setting;
 
 public class Firebase_inventory extends App{
 	Setting set = new Setting();
-	public HashMap<String, Object> getQuoteFormHTTP(String code, String name, String category, String standard, String cnt, String price, String cost, String amount, String explain, String picture) throws IOException{
+	public HashMap<String, Object> getQuoteFormHTTP(String code, String name, String category, String standard, int cnt, String cost, String price,  int amount, String explain, String picture) throws IOException{
     	db = FirestoreClient.getFirestore();
     	HashMap<String,Object> map = new HashMap();
     	map.put("code", code);
@@ -29,8 +29,8 @@ public class Firebase_inventory extends App{
     	map.put("category", category );
     	map.put("standard",standard );
     	map.put("cnt", cnt);
-    	map.put("price", price);
     	map.put("cost", cost);
+    	map.put("price", price);
     	map.put("amount", amount);
     	map.put("explain", explain);
     	map.put("picture", picture);
@@ -38,10 +38,10 @@ public class Firebase_inventory extends App{
     	//id,pw,name,brand,location,empsal
 		return map;
     }
-	public void Add_inventory(String code, String name, String category, String standard, String cnt, String price, String cost, String amount, String explain, String picture) throws Exception {
+	public void Add_inventory(String code, String name, String category, String standard, int cnt, String cost, String price, int amount, String explain, String picture) throws Exception {
 		db = FirestoreClient.getFirestore();
     	Firebase_inventory getQuote = new Firebase_inventory();
-    	HashMap<String, Object> quote = getQuote.getQuoteFormHTTP(code, name, category, standard, cnt, price, cost, amount, explain, picture);
+    	HashMap<String, Object> quote = getQuote.getQuoteFormHTTP(code, name, category, standard, cnt, cost, price, amount, explain, picture);
     	try {
         	ApiFuture<WriteResult> hello = db.collection("Manager").document(getId()).collection("inventory").document(code).set(quote);
     	System.out.println("we Did" + hello.get().getUpdateTime());
@@ -66,28 +66,28 @@ public class Firebase_inventory extends App{
 		}
 		java.util.List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
-			set.amount.add(Integer.parseInt(document.getString("amount")));
-			set.category.add(document.getString("category"));
-			set.cnt.add(Integer.parseInt(document.getString("cnt")));
 			set.code.add(document.getString("code"));
-			set.cost.add(Integer.parseInt(document.getString("cost")));
-			set.explain.add(document.getString("explain"));
 			set.product_name.add(document.getString("name"));
-			set.picture.add(document.getString("picture"));
-			set.price.add(Integer.parseInt(document.getString("price")));
+			set.category.add(document.getString("category"));
 			set.standard.add(document.getString("standard"));
+			set.amount.add((document.getLong("amount")).intValue());
+			set.cost.add(Integer.parseInt(document.getString("cost")));
+			set.price.add(Integer.parseInt(document.getString("price")));
+			set.cnt.add((document.getLong("cnt")).intValue());
+			set.explain.add(document.getString("explain"));
+			set.picture.add(document.getString("picture"));
 		}
 	}
 	public void remove_inventory(String code) {
 		db.collection("Manager").document(getId()).collection("inventory").document(code).delete();
 	}
 	
-	public void update_Inventory(String code, String name, String category, String standard, String cnt, String price, String cost, String amount, String explain, String picture) throws Exception {
+	public void update_Inventory(String code, String name, String category, String standard, int cnt, String cost, String price, int amount, String explain, String picture) throws Exception {
 		db = FirestoreClient.getFirestore();
 		Firebase_inventory getQuote = new Firebase_inventory();
 		HashMap<String, Object> quote = null;
 		try {
-			quote = getQuote.getQuoteFormHTTP(code, name, standard, category, amount, cnt, price, cost, explain, picture);
+			quote = getQuote.getQuoteFormHTTP(code, name, category, standard, cnt, cost, price, amount, explain, picture);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

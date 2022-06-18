@@ -199,15 +199,25 @@ app.post("/buy", (req, res) => {
   res.send(a);
 })
 
-// 상품 교환 & 환불 신청 값 가져오기 · 결과 값 보내기
+// 상품 교환 & 환불 신청: 제품 코드 보내기
+app.post("/permute", (req, res) => {
+  console.log(' /permute 호출됨.');
+
+  let a = {code:0} 
+  
+  res.send(a);
+})
+
+// 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기
 app.post("/permute/apply", (req, res) => {
   console.log(' /permute/apply 호출됨.');
   
-  const paramName  = req.body.name || req.query.name;     // 제품명
-  const paramCnt  = req.body.cnt || req.query.cnt;                 // 신청 수량
-  const paramTel  = req.body.tel || req.query.tel;                    // 전화번호
-  const paramRes  = req.body.res || req.query.res;                 // 유형
-  const paramGro  = req.body.gro || req.query.gro;               // 신청 이유
+  const paramCode = req.body.code || req.query.code;          // 아이디
+  const paramName  = req.body.name || req.query.name;         // 제품명
+  const paramCnt  = req.body.cnt || req.query.cnt;            // 신청 수량
+  const paramTel  = req.body.tel || req.query.tel;            // 전화번호
+  const paramRes  = req.body.res || req.query.res;            // 유형
+  const paramGro  = req.body.gro || req.query.gro;            // 신청 이유
 
   console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
 
@@ -268,8 +278,14 @@ app.post("/buy/send", (req, res) => {
   console.log(paramCart, paramTel);
 
 
+
   // true flase 반환  
   let bool = false; 
+
+  if(paramTel === "-1") {
+    console.log("비회원 주문 입니다!")
+    bool = true;
+  }
   let a = {bool:bool} 
   
   res.send(a);
@@ -278,7 +294,9 @@ app.post("/buy/send", (req, res) => {
 // 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
 app.post("/buy/join", (req, res) => {
   console.log('/buy/join 호출됨.');
-  
+
+  const paramId = req.body.id || req.query.id;            // 아이디
+  const paramPw = req.body.pw || req.query.pw;            // 비밀번호
   const paramName = req.body.name || req.query.name;      // 이름    
   const paramTel  = req.body.tel || req.query.tel;        // 전화번호
   const paramEmail  = req.body.email || req.query.email;  // 이메일
@@ -292,6 +310,24 @@ app.post("/buy/join", (req, res) => {
   
   res.send(a);
 })
+
+// 회원가입 아이디 중복 확인
+app.post("/buy/join/overlap", (req, res) => {
+  console.log('/buy/join/overlap 호출됨.');
+  
+  const paramId = req.body.id || req.query.id;      // 아이디    
+
+  console.log(paramId);
+
+
+  // true flase 반환  
+  let bool = true; 
+  if(paramId === "") bool = false;
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
 
 // logout 결과 반환 
 app.post("/logout", (req, res) => {

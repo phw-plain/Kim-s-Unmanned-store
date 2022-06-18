@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'; 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Button, Spinner, Form, Col, Row } from "react-bootstrap";
 import { HiArrowRight } from 'react-icons/hi'
 import axios from 'axios';
 
 function Change() { 
-    let a = window.location.href;
-    let type = a.split("/")
-   
-
+    const {productId} = useParams();
+    const {permuteId} = useParams();
     const [products, setProducts] = useState([]);   // products 데이터가 아닌 바코드 스캔 정보를 바탕으로 객체 하나만 가지고오기
     const [imgUrl, setImgUrl] = useState("");
     const [name, setName] = useState("");
@@ -23,7 +21,7 @@ function Change() {
       .then(res => setProducts(res.data))
       .catch();
 
-      if(type[type.length-2] === "refund") {
+      if(permuteId === "refund") {
         setChange("환불")
       } else {
         setChange("교환")
@@ -87,6 +85,7 @@ function Change() {
 
             await axios.post('/permute/apply', null, {
                 params: {
+                    'code': productId,
                     'name': name,
                     'cnt': permute.cnt,
                     'tel': permute.tel,

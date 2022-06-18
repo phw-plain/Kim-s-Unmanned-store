@@ -130,7 +130,7 @@ function Rank() {
                             ? <FaCrown className={"crown"+index}/>
                             : (index+1)+"." }
                         </h1>
-                        <img className='item_img' src={item.img} alt={"product-img"}/>
+                        <img className='item_img' src={"/uploadfile/"+item.img} alt={"product-img"}/>
                         <div>
                             <div className='item_text1'>{item.name}</div>
                             <div className='item_text2'>

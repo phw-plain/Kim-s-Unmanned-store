@@ -10,13 +10,13 @@ const Permute = () => {
         <div className="main"> 
             <h1 className="p5 f1 bold"> 박리다매 무인가게 </h1>
             <div className='per_menus'>
-                <Link to="exchange">
+                <Link to="../permute/exchange">
                     <div className='shadow per_menu' style={{ marginTop: "1.9vh" }}>
                         <div className='left per_title'>교환하기</div>
                         <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
                     </div>
                 </Link>
-                <Link to="refund">
+                <Link to="../permute/refund">
                     <div className='shadow per_menu'>
                         <div className='left per_title'>환불하기</div>
                         <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>

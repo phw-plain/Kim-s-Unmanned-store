@@ -15,6 +15,7 @@ const Product = () => {
         .then(res => setProducts(res.data))
         .catch();
     }, [])
+    
     function colorCheck(category) {
         if(category === "채소")
             return 'green'
@@ -35,7 +36,7 @@ const Product = () => {
                         (index == productId)
                         ? <div key={index}>
                             <div className="product_img left" style={{  
-                                backgroundImage:`url(${item.img})`
+                                backgroundImage:`url(${"/uploadfile/"+item.img})`
                             }}></div>
                             <div className='product_main'>
                                 <div className='product_title'>{item.name}</div>

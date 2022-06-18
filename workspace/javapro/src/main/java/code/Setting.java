@@ -139,6 +139,16 @@ public class Setting {
 	protected static Vector<Integer> amount = new Vector<Integer>();
 	protected static Vector<String> explain = new Vector<String>();
 	protected static Vector<String> picture = new Vector<String>();
+	
+	// Customer
+	protected static Vector<String> customer_id = new Vector<String>();
+	protected static Vector<String> customer_pw = new Vector<String>();
+	protected static Vector<String> customer_name = new Vector<String>();
+	protected static Vector<String> customer_telephone = new Vector<String>();
+	protected static Vector<String> customer_email = new Vector<String>();
+	protected static Vector<Integer> customer_point = new Vector<Integer>();
+	protected static Vector<Integer> customer_exchange = new Vector<Integer>();
+	protected static Vector<Integer> customer_refund = new Vector<Integer>();
 
 	public static Frame startFrame;
 	

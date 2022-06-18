@@ -36,7 +36,7 @@ function Login() {
 
   return(
     <div className='main'>
-      <h1 className="p5 maintitle"> 박리다매 무인가게 </h1>
+      <h1 className="p5 maintitle"> 박리다매 무인마켓 </h1>
       <Form className='loginForm'>
         <Form.Text style={{  fontSize:"2.5vh", marginBottom: "1.5vh", color:"black" }}>로그인</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">

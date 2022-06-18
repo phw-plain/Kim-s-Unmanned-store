@@ -51,7 +51,7 @@ const Permute = () => {
 
     return ( 
         <div className="main"> 
-            <h1 className="p5 f1 bold"> 박리다매 무인가게 </h1>
+            <h1 className="p5 f1 bold"> 박리다매 무인마켓 </h1>
             {
                 (!show) ? 
                 <div>

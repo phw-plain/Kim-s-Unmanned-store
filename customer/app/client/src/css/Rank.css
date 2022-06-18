@@ -79,10 +79,9 @@
 }
 .Rank_tap:hover{
     right: 0%;
-
 }
 .tapCtrl{
-    width: 3.5vh;
+    width: 3.6vh;
     height: 100%;
     
     display: flex;

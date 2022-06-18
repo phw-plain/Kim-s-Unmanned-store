@@ -15,7 +15,7 @@ export function Receipt(props) {
                 ))} 
             </div>
             <div className="total">
-                <div>총 {props.purchase.cnt}</div>
+                <div>총 {props.purchase.cnt}개</div>
                 <div>{props.purchase.price}원</div>
             </div>
         </div>

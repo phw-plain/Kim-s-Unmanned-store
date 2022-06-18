@@ -136,7 +136,8 @@ public class Setting {
 	protected static Vector<Integer> cnt = new Vector<Integer>();
 	protected static Vector<Integer> price = new Vector<Integer>();
 	protected static Vector<Integer> cost = new Vector<Integer>();
-	protected static Vector<Integer> amount = new Vector<Integer>();
+	protected static Vector<Integer> amountDay = new Vector<Integer>();
+	protected static Vector<Integer> amountMonth = new Vector<Integer>();
 	protected static Vector<String> explain = new Vector<String>();
 	protected static Vector<String> picture = new Vector<String>();
 	

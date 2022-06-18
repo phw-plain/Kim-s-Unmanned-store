@@ -162,6 +162,33 @@ app.post("/buy", async (req, res) => {
 
 })
 
+// 상품 교환 & 환불 신청: 고객 전화번호 확인하기
+app.post("/permute/tel", (req, res) => {
+  console.log(' /permute/tel 호출됨.');
+
+  const paramTel  = req.body.tel || req.query.tel;            // 전화번호
+
+  let bool = false
+  if(paramTel === "010-1234-1234"){
+    bool = true
+  }
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
+// 상품 교환 & 환불 신청: 고객 전화번호 다시 보내기
+app.post("/permute/tel/get", (req, res) => {
+  console.log(' /permute/tel/get 호출됨.');
+
+  let tel = '010-1234-1234'
+  
+  let a = {tel:tel} 
+  
+  res.send(a);
+})
+
+
 // 상품 교환 & 환불 신청: 제품 코드 보내기
 app.post("/permute",async (req, res) => {
   console.log(' /permute 호출됨.');

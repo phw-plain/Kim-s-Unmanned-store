@@ -12,20 +12,29 @@ function Change() {
     const [name, setName] = useState("");
     const [stock, setStock] = useState(0);
     const [change, setChange] = useState("");
-    const [permute, setPermute] = useState({ cnt:"", tel:"", res:"", gro:"" });
+    const [tel, setTel] = useState();
+    const [permute, setPermute] = useState({ cnt:"", res:"", gro:"" });
     const [apply, setApply] = useState();
 
 
     useEffect(() => {
-      axios.post('/products')
-      .then(res => setProducts(res.data))
-      .catch();
+        axios.post('/products')
+        .then(res => setProducts(res.data))
+        .catch();
 
-      if(permuteId === "refund") {
-        setChange("환불")
-      } else {
-        setChange("교환")
-      }
+        let newPermute = {...permute}
+
+        axios.post('/permute/tel/get')
+        .then(res => setTel(res.data.tel))
+        .catch();
+
+        console.log(tel)
+
+        if(permuteId === "refund") {
+            setChange("환불")
+        } else {
+            setChange("교환")
+        }
     }, [])
 
     useEffect(() => {
@@ -40,7 +49,7 @@ function Change() {
         if(apply !== undefined){
             if(apply) {
                 alert(change + "신청 완료!")
-                window.location.href = "/permute";
+                window.location.href = "/main";
             } else {
                 alert("사용자의 정보와 일치하는 구매내역이 없습니다!")
             }
@@ -50,11 +59,6 @@ function Change() {
     const handleInputCnt = (e) => {
         let newPermute = {...permute}
         newPermute.cnt = e.target.value
-        setPermute(newPermute)
-    }
-    const handleInputTel = (e) => {
-        let newPermute = {...permute}
-        newPermute.tel = e.target.value
         setPermute(newPermute)
     }
     const handleInputRes = (e) => {   
@@ -74,8 +78,6 @@ function Change() {
 
         if(permute.cnt === "" || isNaN(permute.cnt) || +permute.cnt === 0 || +permute.cnt > stock) {
             alert('수량 입력 오류! 다시 확인 해주세요.');
-        } else if (permute.tel === "" || !regExp.test(permute.tel) &&  !regExp2.test(permute.tel)){
-            alert('전화번호 입력 오류! 다시 확인 해주세요.');
         } else if (permute.gro === ""){
             alert(change + '사유를 입력해주세요.')
         } else {
@@ -88,7 +90,7 @@ function Change() {
                     'code': productId,
                     'name': name,
                     'cnt': permute.cnt,
-                    'tel': permute.tel,
+                    'tel': tel,
                     'res': permute.res,
                     'gro': permute.gro
                 }
@@ -127,13 +129,15 @@ function Change() {
                    <Form.Label column sm={2} style={{width:"10vh"}}>
                    전화 번호
                    </Form.Label>
-                   <Form.Control type="text" className='fc' onChange={handleInputTel} />
+                   <Form.Label column sm={2} className='fc'>
+                   {tel}
+                   </Form.Label>
                </Form.Group>
                <Form.Group as={Row} className="mb-5 fg">
                    <Form.Label column sm={2} style={{width:"10vh"}}>
                    {change} 사유
                    </Form.Label>
-                   <Form.Select size="sm" className='fc' onChange={handleInputRes}>
+                   <Form.Select size="sm" className='fc' onMouseOut={handleInputRes}>
                        <option>상품 결함</option>
                        <option>단순 변심</option>
                    </Form.Select>

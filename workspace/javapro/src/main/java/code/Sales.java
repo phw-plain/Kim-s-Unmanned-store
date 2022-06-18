@@ -634,22 +634,25 @@ public class Sales extends Setting{
 				data2.add(a[1]);
 			}
 		}else {
-			for (int i = 0; i < 12; i++) {
+			for (int i = 1; i <= 12; i++) {
 				int a[] = null;
+				String realdate1 = null;
+				String realdate2 = null;
+				if(i<10) {
+					realdate1 = "2022-0"+i;
+					realdate2 = "2021-0"+i;
+				}else {
+					realdate1 = "2022-"+i;
+					realdate2 = "2021-"+i;
+				}
 				try {
-					int realdate = 0;
-					if(date-i%100<=0) {
-						realdate = date-100+11;  //202101
-					}else {
-						realdate = date-i;
-					}
-					a = sales.show_Monthsales(Year*10+i, 12);
-				} catch (InterruptedException e1) {
+					a = sales.show_Monthsales(realdate1, realdate2);
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ExecutionException e1) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e.printStackTrace();
 				}
 				data1.add(a[0]);
 				data2.add(a[1]);

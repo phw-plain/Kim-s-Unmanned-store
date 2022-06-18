@@ -9,7 +9,7 @@ admin.initializeApp({
 
 const db = firestore.getFirestore();
 let paramId = "";
-let Phonedata = [];
+
 
 const express = require('express');
 const path = require('path');
@@ -40,8 +40,12 @@ var today = new Date();
 var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
 var day = ('0' + today.getDate()).slice(-2);
+var hours = ('0' + today.getHours()).slice(-2); 
+var minutes = ('0' + today.getMinutes()).slice(-2);
+var seconds = ('0' + today.getSeconds()).slice(-2); 
 
 var dateString = year + '-' + month + '-' + day;
+var timeString = year + '-' + month + '-' + day+ ' ' + hours + ':' + minutes+ ':' + seconds;
 let monthString = year + '-' + month;
 
 // 로그인 정보 받고 결과 값 보내기
@@ -50,7 +54,7 @@ app.post("/login", async (req, res) => {
 
   paramId = req.body.user_id || req.query.user_id;
   let paramPw = req.body.user_pw || req.query.user_pw;
-
+  let Phonedata = [];
   console.log(paramId, paramPw);
   const snapshot = await db.collection('Manager').where('id', '==', paramId).where('pw', '==', paramPw).get();
   console.log(snapshot);
@@ -78,7 +82,6 @@ app.post("/products", async (req, res) => {
     console.log('No matching documents.');
     return;
   }
-
   let data = [];
   snapshot.forEach(doc => {
     data.push({
@@ -160,7 +163,7 @@ app.post("/buy", async (req, res) => {
 })
 
 // 상품 교환 & 환불 신청: 제품 코드 보내기
-app.post("/permute", (req, res) => {
+app.post("/permute",async (req, res) => {
   console.log(' /permute 호출됨.');
 
   let a = { code: 0 }
@@ -169,7 +172,7 @@ app.post("/permute", (req, res) => {
 })
 
 // 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기
-app.post("/permute/apply", (req, res) => {
+app.post("/permute/apply", async(req, res) => {
   console.log(' /permute/apply 호출됨.');
 
   const paramCode = req.body.code || req.query.code;          // 아이디
@@ -190,17 +193,24 @@ app.post("/permute/apply", (req, res) => {
 })
 
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
-app.post("/rank", (req, res) => {
-
+app.post("/rank", async (req, res) => {
   console.log(' /rank 호출됨.');
-  let data = [
-    { // 1번째 양식으로 데이터 전송 필요
-      code: "0",                           // 제품 코드
-      cnt: "3",                              // 구매 수량        
-      day: "2022-6-15"               // 구매일
-    }
-  ]
-
+  let citiesRef = db.collection("Manager").doc(paramId).collection("TodayRecord").doc(dateString).collection("list");
+  let snapshot = await citiesRef.get();
+  let data = [];
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return [];
+  }else{
+    snapshot.forEach(doc =>{
+      data.push({
+        code: doc.id,                           // 제품 코드
+        cnt: doc.data().cnt,                    // 구매 수량        
+        day: dateString
+      })
+    })
+  }
+  console.log(data)
   res.send(data);
 })
 
@@ -216,9 +226,21 @@ app.post("/buy/send", async (req, res) => {
   if (!snapshot.empty) {
     //로그인 확인
     bool = true;
+    let id = null;
+
+    snapshot.forEach(doc => {
+      id = doc.id
+    });
     //인벤토리에서 물건 찾기
     for (let i = 0; i < paramCart.length; i++) {
+      var timeString = year + '-' + month + '-' + day+ ' ' + hours + ':' + minutes+ ':' + seconds;
       let x = JSON.parse(paramCart[i]);
+      let data = {
+        code : x.code,
+        name : x.name,
+        cnt : x.cnt
+      }
+      await db.collection('Manager').doc(paramId).collection('customer').doc(id).collection("order_history").doc(timeString).set(data);
       //일일 순위
       snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
       let doc = await snapshot.get();
@@ -272,7 +294,8 @@ app.post("/buy/send", async (req, res) => {
         }
         await snapshot.set(hello);
       }
-    }
+      
+  }
   }else {
         console.log("해당 계정이 없습니다")
       }
@@ -303,9 +326,7 @@ app.post("/buy/join", (req, res) => {
 // 회원가입 아이디 중복 확인
 app.post("/buy/join/overlap", (req, res) => {
   console.log('/buy/join/overlap 호출됨.');
-
   const paramId = req.body.id || req.query.id;      // 아이디    
-
   console.log(paramId);
 
 

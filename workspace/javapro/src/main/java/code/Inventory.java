@@ -1064,13 +1064,13 @@ public class Inventory extends Setting {
                 {
                     str += tmp;
                 }
-
                 path = System.getProperty("user.dir"); 
-                path += "/src/upload/";
+                path = path.replace("workspace\\javapro", "customer");
+                path += "\\app\\client\\public\\uploadfile";
                 
                 f = jfc.getSelectedFile();
                 
-                return jfc.getSelectedFile().getPath();
+                return jfc.getSelectedFile().getPath().replace(jfc.getCurrentDirectory().getPath()+"\\", "");
             }catch(Exception e) {
                 e.printStackTrace();
             }
@@ -1090,6 +1090,7 @@ public class Inventory extends Setting {
 			if(!f.exists())	// 폴더가 존재하지 않는다면 upload폴더 생성
 			{
 				System.out.println("make drectory");
+				System.out.println(path);
 				f.mkdir();
 			}
 			

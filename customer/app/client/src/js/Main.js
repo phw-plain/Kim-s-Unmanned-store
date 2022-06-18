@@ -1,15 +1,33 @@
-import React from 'react'; 
+import React, { useState, useEffect } from 'react'; 
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { IoIosPower } from 'react-icons/io'
+
 import '.././css/Main.css';
 
 const Main = () => { 
-    // 장바구니 로컬 스토리지 set [프론트엔드 테스트용]
-    let purchase = { 
-        cnt : "0",
-        price : "0"
+    const [isTrue, setIsTrue] = useState(0);
+
+    useEffect(()=>{
+        if(isTrue !== 0) {
+            if(isTrue) {
+                alert('로그아웃 성공! 좋은 하루 되세요.')
+                window.location.href = "/"
+            }
+        }
+    }, [isTrue]) 
+
+    const logout = async() => {
+        let a = prompt('관리자 확인. 비밀번호를 입력해주세요.', '')
+
+        await axios.post('/logout', null, {
+            params: {
+            'user_pw': a
+            }
+          })
+          .then(res => setIsTrue(res.data.bool))
+          .catch();
     }
-    
-    localStorage.setItem('purchase', JSON.stringify(purchase))
 
     return ( 
         <div className="main">
@@ -46,6 +64,7 @@ const Main = () => {
                     </button>
                 </Link>    
             </div>
+            <IoIosPower onClick={() => logout()} style={{fontSize:"6vh", float: "right", margin:"9vh 3vh 5vh 0vh"}} />
         </div> 
     ); 
 }; 

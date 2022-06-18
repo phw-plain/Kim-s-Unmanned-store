@@ -222,12 +222,13 @@ app.post("/buy/send", (req, res) => {
 
 // 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
 app.post("/buy/join", (req, res) => {
-  console.log(' /buy/join 호출됨.');
+  console.log('/buy/join 호출됨.');
   
-  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+  const paramName = req.body.name || req.query.name;      // 이름    
   const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+  const paramEmail  = req.body.email || req.query.email;  // 이메일
 
-  console.log(paramCart, paramTel);
+  console.log(paramName, paramTel, paramEmail);
 
 
   // true flase 반환  
@@ -237,6 +238,21 @@ app.post("/buy/join", (req, res) => {
   res.send(a);
 })
 
-server.listen(5000, () => {
+// logout 결과 반환 
+app.post("/logout", (req, res) => {
+  console.log('/logout 호출됨.');
+  
+  const paramPw = req.body.user_pw || req.query.user_pw;      // 비밀번호 확인  
+
+  console.log(paramPw);
+
+  // true flase 반환  
+  let bool = (paramPw == 1); 
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
+
+server.listen(5000, ()=>{
   console.log('server is running on 5000')
 });

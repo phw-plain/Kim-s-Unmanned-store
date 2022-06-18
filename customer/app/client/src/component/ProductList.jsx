@@ -6,7 +6,7 @@ export function ProductList(props) {
   const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-
+  
   return (
     <div>
       <div className="products-box">
@@ -14,7 +14,7 @@ export function ProductList(props) {
           <div className="products" key={idx}>
             <div className='prod_background'>
               <Link to={`/product/${item.code}`} >
-              <img className="products_img" src={item.img} alt={"product-img"}/></Link>
+              <img className="products_img" src={"/uploadfile/"+item.img} alt={"product-img"}/></Link>
               <div>
                 <p className='prod_title'>{item.name}</p>
                 <div className="prod_texts">

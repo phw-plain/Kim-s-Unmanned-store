@@ -33,35 +33,37 @@ function Rank() {
             if(+select === 0) {
                 let check = -2;
                 purchases.map((item, idx) => {
-                    let d = new Date(item.day);
-                    if(date.getMonth() === d.getMonth() && date.getDate() === d.getDate()) {
-                        newRank.map((i, id) => {
-                            if(+item.code === +i.code){
-                                // 기존의 rank 상품이라면 rank의 값을 더하고 state에 추가 하기
-                                check = id;
-                            }
-                        })
-                        if(check < 0) check = -1;
+                    if(item.day.length > 7){
+                        let d = new Date(item.day);
+                        if(date.getMonth() === d.getMonth() && date.getDate() === d.getDate()) {
+                            newRank.map((i, id) => {
+                                if(+item.code === +i.code){
+                                    // 기존의 rank 상품이라면 rank의 값을 더하고 state에 추가 하기
+                                    check = id;
+                                }
+                            })
+                            if(check < 0) check = -1;
+                        }
+
+                        if(check >= 0) {
+                            newRank[check].cnt = +newRank[check].cnt + +item.cnt; // (판매량) 갯수 증가
+
+                            setRank(newRank);
+                        } else if(check === -1) {
+                            // 새로운 rank 상품이라면 rank state에 추가만 하기
+                            products.map((product, idx) => {
+                                if((+product.code === +item.code)) {
+
+                                    let newProduct = product;
+                                    newProduct.cnt = +item.cnt;
+
+                                    newRank.push(newProduct)
+                                    setRank(newRank)
+                                }
+                            })
+                        }
+                        check = -2
                     }
-
-                    if(check >= 0) {
-                        newRank[check].cnt = +newRank[check].cnt + +item.cnt; // (판매량) 갯수 증가
-
-                        setRank(newRank);
-                    } else if(check === -1) {
-                        // 새로운 rank 상품이라면 rank state에 추가만 하기
-                        products.map((product, idx) => {
-                            if((+product.code === +item.code)) {
-
-                                let newProduct = product;
-                                newProduct.cnt = +item.cnt;
-
-                                newRank.push(newProduct)
-                                setRank(newRank)
-                            }
-                        })
-                    }
-                    check = -2
                 })
             } else {
                 let check = -2;

@@ -58,7 +58,6 @@ const Buy = () => {
             if(apply) {
                 alert("계산 완료!")
                 handleShow4()
-                //window.location.href = "/main";
             } else {
                 alert("전화번호 입력 오류!")
             }
@@ -308,6 +307,7 @@ const Buy = () => {
     const handleShow4 = () => setShow4(true);
     const handleClose4 = () => {
         setShow4(false)
+        window.location.href = "/main";
     };
 
     const home = () => window.location.href = "/main"
@@ -479,14 +479,14 @@ const Buy = () => {
                             aria-labelledby="contained-modal-title-vcenter"
                             centered className='modal_lg'
                         >
-                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"2vh", margin:"2vh 2vh 2vh 2vh"}}>
+                            <Modal.Header closeButton style={{ borderBottom:"none",fontSize:"2vh", margin:"2vh 2vh 2vh 2vh"}}>
                                 <Modal.Title  style={{fontSize:"3vh"}}>영수증</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Receipt cart={cart}/>
+                                <Receipt cart={cart} purchase={purchase} />
                             </Modal.Body>
-                            <Modal.Footer style={{borderTop:"none", marginTop:"6vh"}}>
-                                <Button variant="success" onClick={() => eventJoin()} style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                            <Modal.Footer style={{borderTop:"none", marginTop:"2vh"}}>
+                                <Button variant="success" onClick={() => handleClose4()} style={{fontSize:"2vh", margin:"2vh 2vh 2vh 2vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
                                 확인
                                 </Button>
                             </Modal.Footer>

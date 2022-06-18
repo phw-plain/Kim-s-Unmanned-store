@@ -161,8 +161,19 @@ h1{
     width: 25vh !important;
 }
 .Receipt{
-    height: 20vh;
+    height: 50vh;
     font-size: 2.5vh;
+}
+.r_list{
+    height: 95%;
+    overflow-x: auto;
+}
+.total{
+    margin-left: 2.5vh;
+    margin-right: 4vh;
+    display: flex;
+    justify-content: space-between;
+
 }
 .receipt_list{
     display: flex;

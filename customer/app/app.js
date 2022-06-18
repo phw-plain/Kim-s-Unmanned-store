@@ -34,7 +34,14 @@ app.get('/', function (request, response) {
 
 const server = require('http').createServer(app);
 
-app.use(cors()); // cors 미들웨어를 삽입합니다.
+app.use(cors()); // cors 미들웨어를 삽입합니다
+
+var today = new Date();
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+var day = ('0' + today.getDate()).slice(-2);
+
+var dateString = year + '-' + month  + '-' + day;
 
 // 로그인 정보 받고 결과 값 보내기
 app.post("/login", async (req, res) => {
@@ -90,12 +97,20 @@ app.post("/products", async (req, res) => {
 })
 
 // 상품 목록 갯수 보내기
-app.post("/products/search", (req, res) => {
+app.post("/products/search",async (req, res) => {
   console.log('/products/search 호출됨.');
+  const citiesRef = db.collection("Manager").doc(paramId).collection("inventory");
+  const snapshot = await citiesRef.get();
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }
+  let dataCount = 0;
+  snapshot.forEach(doc => {
+    dataCount++;
+  });
 
-  let data = [8]
-
-  res.send(data);
+  res.send([dataCount]);
 })
 let paramCode;
 
@@ -186,30 +201,35 @@ app.post("/buy/send", async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;        // 전화번호
 
   paramCart =  JSON.parse(paramCart);
+  let bool = false;
   let snapshot = await db.collection('Manager').doc(paramId).collection('customer').where('tel', '==', paramTel).get();
   if (!snapshot.empty) {
-    const washingtonRef = db.collection("Manager").doc(paramId).collection("inventory").doc(paramCart.code);
+    let washingtonRef = db.collection("Manager").doc(paramId).collection("inventory").doc(paramCart.code);
     await washingtonRef.update({
-      "cnt": FieldValue.decrement(paramCart.cnt)
+      cnt : admin.firestore.FieldValue.increment(-(paramCart.cnt))
     });
-    
-    console.log("로그인 성공")
+    console.log(dateString)
+    bool = true;
+    snapshot = await db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').where('code', '==', paramCart.code).get();
+    if(!snapshot.empty){
+      washingtonRef = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(paramCart.code);
+      await washingtonRef.update({
+        cnt : admin.firestore.FieldValue.increment(paramCart.cnt)
+      });
+    }else{
+      let hello = {
+        cnt: paramCart.cnt
+      }
+      await db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(paramCart.code).set(hello);
+    }
+    washingtonRef = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString);
+      await washingtonRef.update({
+        sales : admin.firestore.FieldValue.increment(parseInt(paramCart.price))
+    });
   } else {
     console.log("해당 계정이 없습니다")
   }
   console.log(paramCart.cnt, paramTel);
-  // '{"code":"8808244201014",
-  // "name":"삼다수",
-  // "text":"물은 삼다수지",
-  // "stock":"5",
-  // "price":"500",
-  // "category":"물",
-  // "img":"C:\\\\Users\\\\user\\\\Downloads\\\\KakaoTalk_20220615_145952109.jpg",
-  // "cnt":2,
-  // "sum":1000}'
-
-  // true flase 반환  
-  let bool = false;
   let a = { bool: bool }
 
   res.send(a);

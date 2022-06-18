@@ -231,10 +231,10 @@ const Buy = () => {
             if(isMember) {
                 var regExp2 = /^01(?:0|[6-9])(?:\d{4}|\d{4})\d{4}$/
 
-                let newTel
+                let newTel = tel;
 
-                if(regExp2.test(tel)) { 
-                    newTel = tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                if(regExp2.test(newTel)) { 
+                    newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
                     setTel(newTel)
                 }
 
@@ -307,10 +307,11 @@ const Buy = () => {
             alert('이메일 입력 오류! 다시 확인 해주세요.');
         } else {
 
-            let newTel
+            let newTel = join.tel;
 
-            if(regExp2.test(join.tel)) { 
-                newTel = join.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+            if(regExp2.test(newTel)) { 
+                newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                setTel(newTel)
             }
 
             await axios.post('/buy/join', null, {

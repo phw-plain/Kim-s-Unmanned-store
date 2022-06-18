@@ -49,7 +49,7 @@ const Main = () => {
                 </Link> 
             </div>
             <div>
-                <Link to="/permute">
+                <Link to="/permute" state={{ telephone: undefined}}>
                     <button className="menu m1 p3 shadow">
                         <div className="f3 left green">03</div>
                         <div className="f2 left">환불&교환</div>

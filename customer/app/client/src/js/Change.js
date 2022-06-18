@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { Link, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import axios from 'axios';
 import { Spinner } from "react-bootstrap";
 
@@ -8,6 +9,10 @@ import { HiArrowRight } from 'react-icons/hi'
 function Change() { 
     const [productId, setProductId] = useState();
     const {permuteId}= useParams();
+
+
+    const location = useLocation();
+    console.log(location);
 
     useEffect(() => {
         axios.post('/permute')
@@ -36,7 +41,7 @@ function Exchange() {
                     <p className='Rank_title'>상품 교환</p>
                     <p className='Rank_subTitle'>개봉된 상품은 교환 불가능 합니다.</p>
                 </div>
-                <Link to="../../permute">
+                <Link to="../../permute" state={{ telephone: useLocation().state.telephone }}>
                     <HiArrowRight className='arrow'/>
                 </Link>
             </div>
@@ -58,7 +63,7 @@ function Refund() {
                     <p className='Rank_title'>상품 환불</p>
                     <p className='Rank_subTitle'>개봉된 상품은 환불 불가능 합니다.</p>
                 </div>
-                <Link to="../../permute">
+                <Link to="../../permute" state={{ telephone: useLocation().state.telephone }}>
                     <HiArrowRight className='arrow'/>
                 </Link>
             </div>

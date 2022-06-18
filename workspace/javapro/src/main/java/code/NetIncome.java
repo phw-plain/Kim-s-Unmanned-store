@@ -71,9 +71,9 @@ public class NetIncome extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(2, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.5), 40)); // 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		
@@ -139,9 +139,9 @@ public class NetIncome extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(2, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.5), 40)); // 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
 
@@ -160,9 +160,9 @@ public class NetIncome extends Setting{
 		leftpanel.add(monthbtn);
 
 		// right
-		JPanel rightpanel = new JPanel(new GridLayout(27, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(1, 1, 0, 0));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50)); // 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 40, (int)(height*0.58), 10)); // 위 왼 아 오
 
 		// 그래프 날짜 버튼 추가
 		int year = 2022; // 지금 년도 가져오기
@@ -170,7 +170,7 @@ public class NetIncome extends Setting{
 
 		JComboBox yearCh = new JComboBox();
 		JButton yearbtn = new JButton("확인");
-		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
+		yearbtn.setFont(font5);
 		yearbtn.setBackground(Color.white);
 
 		for (int i = 0; i < 10; i++) {
@@ -180,12 +180,8 @@ public class NetIncome extends Setting{
 
 		JPanel chbox = new JPanel(new BorderLayout());
 		chbox.setBackground(background);
-		JPanel chp = new JPanel();
-		chp.add(yearCh);
-		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // 위 왼 아 오
-		chp.setBackground(background);
 
-		chbox.add(chp, BorderLayout.WEST);
+		chbox.add(yearCh, BorderLayout.WEST);
 		chbox.add(yearbtn, BorderLayout.EAST);
 		rightpanel.add(chbox);
 

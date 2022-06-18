@@ -53,8 +53,8 @@ const Connect = () => {
     return ( 
         <div className="main">
             <div className="connect_header">
-                <h1 className="f1 bold" style={{marginTop:"0px"}}>바코드 리더 연동</h1>
-                <Button className="addBtn" style={{fontSize:'1.4vh'}} onClick={() => setBarcodeNumber(newDisplay)}>기기 추가</Button>
+                <h1 className="f1 bold maintitle" style={{marginTop:"0px"}}>바코드 리더 연동</h1>
+                <Button className="addBtn" style={{fontSize:'2vh'}} onClick={() => setBarcodeNumber(newDisplay)}>기기 추가</Button>
             </div>
             
             <div className="connect_body">

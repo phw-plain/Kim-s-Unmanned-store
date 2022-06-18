@@ -52,7 +52,7 @@ export const CategorySlider = ({ getText }) => {
   }
 
   return (
-    <div style={{marginTop:"3%", display:"inline-block", width:"37vh"}}>
+    <div className="category_slider">
       <Slider {...settings} >
         <div>
             <button className={isSelect[0] ? 'category_over' : 'category'} 

@@ -7,19 +7,22 @@ import { Receipt } from '../component/Receipt.jsx'
 import '.././css/Buy.css';
 
 const Buy = () => {
-    // 데이터 가져오기
-    // 상품 목록 데이터, 카트 데이터 : 상품 목록 데이터를 바탕으로 카트 데이터 생성
-    // 카트 + 데이터 (구매 갯수, 총액)
-    const [itemCode, setItemCode] = useState(0);
-    const [products, setProducts] = useState([]);
-    const [cart, setCarts] = useState([]);
-    const [purchase, setPurchase] = useState({cnt:0, price: 0});
-    const [tel, setTel] = useState("");
-    const [isStop, setIsStop] = useState(false)
-    const [join, setJoin] = useState({id:"", pw:"", name:"", tel:"", email:""});
-    const [apply, setApply] = useState();
-    const [joinApply, setJoinApply] = useState();
-    const [joinId, setJoinId] = useState();
+    const [itemCode, setItemCode] = useState(0);                            // 바코드 스캔한 데이터
+    const [isStop, setIsStop] = useState(false)                             // 바코드 리더 스캔 실시간 서버 연동 여부
+    
+    const [products, setProducts] = useState([]);                           // 총 상품 목록
+    const [cart, setCarts] = useState([]);                                  // 구매 상품 목록
+    const [purchase, setPurchase] = useState({cnt:0, price: 0});            // 구매 갯수, 구매 총액
+    const [apply, setApply] = useState();                                   // 구매 완료 체크
+
+    const [tel, setTel] = useState("");                                     // 고객 전화번호    (회원 전용)
+    const [member, setMember] = useState({pw:"", point:""});                // 고객 포인트, Pw  (회원 전용)
+    const [usePoint, setUsePoint] = useState();                             // 사용할 포인트    (회원 전용)
+    const [usePw, setUsePw] = useState();                                   // 고객 비밀번호    (회원 전용)
+
+    const [join, setJoin] = useState({id:"", pw:"", name:"", tel:"", email:""});    // 고객 회원가입
+    const [joinId, setJoinId] = useState();                                         // 아이디 중복 체크
+    const [joinApply, setJoinApply] = useState();                                   // 회원가입 성공 체크
 
     useEffect(() => {
         axios.post('/products')
@@ -55,12 +58,11 @@ const Buy = () => {
 
     useEffect(() => {
         if(apply !== undefined){
-            if(apply) {
-                alert("계산 완료!")
+            if(apply){
                 handleShow4()
-                //window.location.href = "/main";
             } else {
                 alert("전화번호 입력 오류!")
+                setApply(undefined)
             }
         }
     }, [apply])
@@ -171,11 +173,11 @@ const Buy = () => {
         setCarts(newCart)
     };
 
+    // 실시간 데이터 저장
     const eventBuy = () => {
         setIsStop(true)
         handleShow2()
     }
-
     const handleInputTel = (e) => {
         setTel(e.target.value)
     }
@@ -204,6 +206,12 @@ const Buy = () => {
         newJoin.email = e.target.value
         setJoin(newJoin)
     }
+    const handleUsePoint = (e) => {
+        setUsePoint(e.target.value);
+    }
+    const handleUsePw = (e) => {
+        setUsePw(e.target.value);
+    }
 
     const overlap = async() => {
         if(join.id !== ""){
@@ -220,17 +228,24 @@ const Buy = () => {
         if (isMember && !isTelephone(tel)){
             alert('전화번호 입력 오류! 다시 확인 해주세요.');
         } else {
-            // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
-            // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-
             if(isMember) {
-                axios.post('/buy/send', null, {
+                var regExp2 = /^01(?:0|[6-9])(?:\d{4}|\d{4})\d{4}$/
+
+                let newTel
+
+                if(regExp2.test(tel)) { 
+                    newTel = tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                    setTel(newTel)
+                }
+
+                axios.post('/buy/send/member', null, {
                     params: {
-                        'cart': cart,
-                        'tel': tel
+                        'tel': newTel
                     }
-                }).then(res =>  setApply(res.data.bool))
+                }).then(res =>  setMember(res.data.member))
                 .catch();
+
+                handleShow5()
             } else {
                 axios.post('/buy/send', null, {
                     params: {
@@ -245,9 +260,39 @@ const Buy = () => {
         }
     }
 
+    const memberBuy = (bool) => {
+        if(bool) {
+            if(+usePoint > +member.point) {
+                alert('포인트 잔액을 초과하는 금액은 사용할 수 없습니다.')
+            } else if (+usePoint < 100 || +usePoint%100 !== 0) {
+                alert('포인트는 100단위로 사용하실 수 있습니다.')
+            } else if (usePw !== member.pw) {
+                alert('비밀번호 입력 오류! 다시 확인해주세요.')
+            } else {
+                axios.post('/buy/send', null, {
+                    params: {
+                        'cart': cart,
+                        'tel': tel,
+                        'usePoint': usePoint,
+                    }
+                }).then(res =>  setApply(res.data.bool))
+                .catch();
+            }
+        } else {
+            axios.post('/buy/send', null, {
+                params: {
+                    'cart': cart,
+                    'tel': tel,
+                    'usePoint': usePoint,
+                }
+            }).then(res =>  setApply(res.data.bool))
+            .catch();
+        }
+    }
+
     const eventJoin = async() => {
         var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-        var regExp2 = /^01(?:0|[6-9])(?:\d{3}|\d{4})\d{4}$/
+        var regExp2 = /^01(?:0|[8])(?:\d{3}|\d{4})\d{4}$/
 
 
         if(join.id.length === 0) {
@@ -262,16 +307,18 @@ const Buy = () => {
             alert('이메일 입력 오류! 다시 확인 해주세요.');
         } else {
 
+            let newTel
+
             if(regExp2.test(join.tel)) { 
-                join.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-            } 
+                newTel = join.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+            }
 
             await axios.post('/buy/join', null, {
                 params: {
                     'id': join.id,
                     'pw': join.pw,
                     'name': join.name,
-                    'tel': join.tel,
+                    'tel': newTel,
                     'email': join.email
                 }
             }).then(res =>  setJoinApply(res.data.bool))
@@ -280,10 +327,11 @@ const Buy = () => {
     }
 
     function isTelephone(str) {
-        var regExp = /^01(?:0|[6-9])-(?:\d{3}|\d{4})-\d{4}$/
-        var regExp2 = /^01(?:0|[6-9])(?:\d{3}|\d{4})\d{4}$/
+        var regExp = /^01(?:0|[6-9])-(?:\d{4}|\d{4})-\d{4}$/
+        var regExp2 = /^01(?:0|[6-9])(?:\d{4}|\d{4})\d{4}$/
 
         if(str === "" || !regExp.test(str) &&  !regExp2.test(str)){
+            console.log("오류!!",str)
             return false;
         }
         return true;
@@ -294,9 +342,17 @@ const Buy = () => {
     const [show2, setShow2] = useState(false);
     const [show3, setShow3] = useState(false);
     const [show4, setShow4] = useState(false);
+    const [show5, setShow5] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
-    const handleShow2 = () => setShow2(true);
+    const handleShow2 = () => {
+        if(cart.length !== 0){
+            setShow2(true);
+        } else {
+            alert('카트에 담긴 상품이 없습니다!!')
+            setIsStop(false)
+        }
+    }
     const handleClose2 = () => {
         setShow2(false)
         setIsStop(false)
@@ -307,7 +363,11 @@ const Buy = () => {
     };
     const handleShow4 = () => setShow4(true);
     const handleClose4 = () => {
-        setShow4(false)
+        window.location.href = "/main";
+    };
+    const handleShow5 = () => setShow5(true);
+    const handleClose5 = () => {
+        setShow5(false);
     };
 
     const home = () => window.location.href = "/main"
@@ -479,15 +539,56 @@ const Buy = () => {
                             aria-labelledby="contained-modal-title-vcenter"
                             centered className='modal_lg'
                         >
-                            <Modal.Header closeButton style={{borderBottom:"none",fontSize:"2vh", margin:"2vh 2vh 2vh 2vh"}}>
+                            <Modal.Header closeButton style={{ borderBottom:"none",fontSize:"2vh", margin:"2vh 2vh 2vh 2vh"}}>
                                 <Modal.Title  style={{fontSize:"3vh"}}>영수증</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Receipt cart={cart}/>
+                                <Receipt cart={cart} purchase={purchase} />
                             </Modal.Body>
-                            <Modal.Footer style={{borderTop:"none", marginTop:"6vh"}}>
-                                <Button variant="success" onClick={() => eventJoin()} style={{fontSize:"2vh", marginRight:"0.5vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                            <Modal.Footer style={{borderTop:"none", marginTop:"2vh"}}>
+                                <Button variant="success" onClick={() => handleClose4()} style={{fontSize:"2vh", margin:"2vh 2vh 2vh 2vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
                                 확인
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <Modal 
+                            show={show5} 
+                            onHide={() => memberBuy(false)} 
+                            size="lg" 
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered className='modal_lg'
+                        >
+                            <Modal.Header closeButton style={{ borderBottom:"none",fontSize:"2vh", margin:"2vh 2vh 4vh 2vh"}}>
+                                <Modal.Title  style={{fontSize:"3vh"}}>포인트 사용</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form.Group as={Row} className="mb-5">
+                                    <Form.Label column sm={2} className="flb">
+                                    포인트 잔액
+                                    </Form.Label>
+                                    <Form.Label column sm={2} className="fcb">
+                                    {member.point}
+                                    </Form.Label>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-5">
+                                    <Form.Label column sm={2} className="flb">
+                                    사용 포인트
+                                    </Form.Label>
+                                    <Form.Control type="text" className='fcb' onChange={handleUsePoint} />
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-5">
+                                    <Form.Label column sm={2} className="flb">
+                                    비밀번호
+                                    </Form.Label>
+                                    <Form.Control type="text" className='fcb' onChange={handleUsePw} />
+                                </Form.Group>
+                            </Modal.Body>
+                            <Modal.Footer style={{borderTop:"none", marginTop:"2vh"}}>
+                                <Button variant="success" onClick={() =>  memberBuy(true)} style={{fontSize:"2vh", margin:"2vh 1vh 2vh 2vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                확인
+                                </Button>
+                                <Button onClick={() => memberBuy(false)} style={{fontSize:"2vh", margin:"2vh 2vh 2vh 0vh", paddingLeft: "1vh", paddingRight: "1vh"}}>
+                                취소
                                 </Button>
                             </Modal.Footer>
                         </Modal>

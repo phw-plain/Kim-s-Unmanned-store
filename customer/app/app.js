@@ -302,6 +302,53 @@ app.post("/buy/send", async (req, res) => {
       let a = { bool: bool }
       res.send(a);
   })
+// app.post("/buy/send", (req, res) => {
+//   console.log(' /buy/send 호출됨.');
+  
+//   const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
+//   const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+//   const paramPoint  = req.body.point || req.query.point;        // 전화번호
+
+//   console.log(paramCart, paramTel, paramPoint);
+
+//   // true flase 반환  
+//   let bool = true; 
+
+//   if(paramTel === "-1") {
+//     console.log("비회원 주문 입니다!")
+//     bool = true;
+//   } else {
+//     if(paramPoint === undefined){
+//       console.log("포인트를 사용하지 않는 회원 주문 입니다!")
+//     } else {
+//       console.log("포인트를 사용하는 회원 주문 입니다!")
+//     }
+//   }
+
+//   let a = {bool:bool} 
+//   res.send(a);
+// })
+
+// 상품 결재: 회원 주문 전화번호로 포인트와 비밀번호 반환 하기
+app.post("/buy/send/member", (req, res) => {
+  console.log(' /buy/send 호출됨.');
+  
+  // 전화번호에 - 없으면 자동으로 넣어 반환됨
+  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
+
+  console.log(paramTel);
+
+  let member = {pw:"", point:"0"}; 
+
+  if(paramTel === "010-1234-1234") {
+    member.pw = "abc123";
+    member.point = "4500";
+  }
+
+  let a = {member:member} 
+  
+  res.send(a);
+})
 
 // 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
 app.post("/buy/join", (req, res) => {

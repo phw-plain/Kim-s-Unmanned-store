@@ -21,7 +21,6 @@
     -webkit-border-radius: 1.5vh;
 }
 .shoptext{
-    width: 55%;
     display: flex;
     justify-content: space-between;
     margin-left: 20vh;
@@ -37,7 +36,7 @@
     justify-content: space-around;
     height: 40%;
     background-color: lightgray;
-    font-size: 2.0vh;
+    font-size: 2.3vh;
 }
 .footer_btns{
     display: flex;
@@ -90,8 +89,8 @@ h1{
 }
 .button{
     width: 10vh;
-    height: 4vh;
-    font-size: 1.3vh;
+    height: 4.3vh;
+    font-size: 1.8vh;
     color: #000;
     margin-left: 2%;
     background-color: rgb(236, 236, 236);
@@ -123,7 +122,7 @@ h1{
     border: none;
 }
 .cart_item{
-    margin: 1vh 3vh 1.5vh 3vh;
+    margin: 1vh 5vh 6vh 5vh;
     padding: 1.5vh 0vh 1.5vh 1.5vh !important;
     box-shadow: 2.5px 3.5px 7px rgba(0, 0, 0, 0.25);
 
@@ -145,6 +144,9 @@ h1{
     border-bottom-left-radius: 3vh !important;
     border-bottom-right-radius: 3vh !important;
 }
+.list-group-item:first-child{
+    margin-top: 5vh;
+}
 .modal-dialog{
     min-width: 50vh !important;
 }
@@ -161,8 +163,19 @@ h1{
     width: 25vh !important;
 }
 .Receipt{
-    height: 20vh;
+    height: 50vh;
     font-size: 2.5vh;
+}
+.r_list{
+    height: 95%;
+    overflow-x: auto;
+}
+.total{
+    margin-left: 2.5vh;
+    margin-right: 4vh;
+    display: flex;
+    justify-content: space-between;
+
 }
 .receipt_list{
     display: flex;

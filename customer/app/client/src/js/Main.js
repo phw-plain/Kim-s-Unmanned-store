@@ -18,15 +18,15 @@ const Main = () => {
     }, [isTrue]) 
 
     const logout = async() => {
-        let a = prompt('관리자 확인. 비밀번호를 입력해주세요.', '')
+        let pw = prompt('관리자 확인. 비밀번호를 입력해주세요.', '')
 
         await axios.post('/logout', null, {
             params: {
-            'user_pw': a
+            'user_pw': pw
             }
-          })
-          .then(res => setIsTrue(res.data.bool))
-          .catch();
+        })
+        .then(res => setIsTrue(res.data.bool))
+        .catch();
     }
 
     return ( 

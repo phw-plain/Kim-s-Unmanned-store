@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react'; 
-import { Link } from 'react-router-dom';
-import { Button, Spinner } from "react-bootstrap";
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { Spinner } from "react-bootstrap";
+
 import { HiArrowRight } from 'react-icons/hi'
 
 function Change() { 
-    let a = window.location.href;
-    let type = a.split("/")
+    const [productId, setProductId] = useState();
+    const {permuteId}= useParams();
 
+    useEffect(() => {
+        axios.post('/permute')
+        .then(res => setProductId(res.data.code))
+        .catch();
+    }, []);
+
+    useEffect(() => {
+        if(productId !== undefined){
+            window.location.href = permuteId+"/write/"+productId
+        }
+    }, [productId]);
+    
     return ( 
        <div>
-           { (type[type.length-1] == "refund") ? <Refund/> : <Exchange/> }
+           { (permuteId == "refund") ? <Refund/> : <Exchange/> }
        </div>
     );
 } 

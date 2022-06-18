@@ -145,6 +145,7 @@ public class Setting {
 	protected static Vector<String> picture = new Vector<String>();
 	
 	// 고객 DB 참조
+	// Customer
 	protected static Vector<String> customer_id = new Vector<String>();
 	protected static Vector<String> customer_pw = new Vector<String>();
 	protected static Vector<String> customer_name = new Vector<String>();

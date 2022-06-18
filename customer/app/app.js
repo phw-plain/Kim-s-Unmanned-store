@@ -41,7 +41,8 @@ var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
 var day = ('0' + today.getDate()).slice(-2);
 
-var dateString = year + '-' + month  + '-' + day;
+var dateString = year + '-' + month + '-' + day;
+let monthString = year + '-' + month;
 
 // 로그인 정보 받고 결과 값 보내기
 app.post("/login", async (req, res) => {
@@ -97,7 +98,7 @@ app.post("/products", async (req, res) => {
 })
 
 // 상품 목록 갯수 보내기
-app.post("/products/search",async (req, res) => {
+app.post("/products/search", async (req, res) => {
   console.log('/products/search 호출됨.');
   const citiesRef = db.collection("Manager").doc(paramId).collection("inventory");
   const snapshot = await citiesRef.get();
@@ -162,21 +163,21 @@ app.post("/buy", async (req, res) => {
 app.post("/permute", (req, res) => {
   console.log(' /permute 호출됨.');
 
-  let a = {code:0} 
-  
+  let a = { code: 0 }
+
   res.send(a);
 })
 
 // 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기
 app.post("/permute/apply", (req, res) => {
   console.log(' /permute/apply 호출됨.');
-  
+
   const paramCode = req.body.code || req.query.code;          // 아이디
-  const paramName  = req.body.name || req.query.name;         // 제품명
-  const paramCnt  = req.body.cnt || req.query.cnt;            // 신청 수량
-  const paramTel  = req.body.tel || req.query.tel;            // 전화번호
-  const paramRes  = req.body.res || req.query.res;            // 유형
-  const paramGro  = req.body.gro || req.query.gro;            // 신청 이유
+  const paramName = req.body.name || req.query.name;         // 제품명
+  const paramCnt = req.body.cnt || req.query.cnt;            // 신청 수량
+  const paramTel = req.body.tel || req.query.tel;            // 전화번호
+  const paramRes = req.body.res || req.query.res;            // 유형
+  const paramGro = req.body.gro || req.query.gro;            // 신청 이유
 
   console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
   // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
@@ -205,60 +206,79 @@ app.post("/rank", (req, res) => {
 
 // 상품 결재 시 전화번호가 일치하면 DB저장, 일치: true - 불일치: false 반환
 app.post("/buy/send", async (req, res) => {
-  console.log(' /buy/send 호출됨.');
-  
+
   let paramCart = req.body.cart || req.query.cart;     // 구매목록    
   const paramTel = req.body.tel || req.query.tel;        // 전화번호
-
-  paramCart =  JSON.parse(paramCart);
   let bool = false;
+
+  //전화번호로 로그인
   let snapshot = await db.collection('Manager').doc(paramId).collection('customer').where('tel', '==', paramTel).get();
   if (!snapshot.empty) {
-    let washingtonRef = db.collection("Manager").doc(paramId).collection("inventory").doc(paramCart.code);
-    await washingtonRef.update({
-      cnt : admin.firestore.FieldValue.increment(-(paramCart.cnt))
-    });
-    console.log(dateString)
+    //로그인 확인
     bool = true;
-    snapshot = await db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').where('code', '==', paramCart.code).get();
-    if(!snapshot.empty){
-      washingtonRef = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(paramCart.code);
-      await washingtonRef.update({
-        cnt : admin.firestore.FieldValue.increment(paramCart.cnt)
-      });
-    }else{
-      let hello = {
-        cnt: paramCart.cnt
+    //인벤토리에서 물건 찾기
+    for (let i = 0; i < paramCart.length; i++) {
+      let x = JSON.parse(paramCart[i]);
+      //일일 순위
+      snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
+      let doc = await snapshot.get();
+      if (doc.exists) {
+        await snapshot.update({
+          cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+        });
+        //없으면 리스트 새로 생성 
+      } else {
+        let hello = {cnt: parseInt(x.cnt)}
+        await snapshot.set(hello);
       }
-      await db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString).collection('list').doc(paramCart.code).set(hello);
+      //달 순위
+      snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
+      doc = await snapshot.get();
+      if (doc.exists) {
+        console.log("달 순위가 있음")
+        await snapshot.update({
+          cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+        });
+        //없으면 리스트 새로 생성 
+      } else {
+        let hello = {cnt: parseInt(x.cnt)}
+        await snapshot.set(hello);
+      }
+      //하루 매출
+      snapshot = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString);
+      doc = await snapshot.get();
+      if (doc.exists) {
+        await snapshot.update({
+          sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
+        });
+      }else{
+        let hello = {
+          expenses: 0,
+          sales : parseInt(x.sum)
+        }
+        await snapshot.set(hello);
+      }
+      //이번 달 매출
+      snapshot = db.collection('Manager').doc(paramId).collection('MonthRecord').doc(monthString);
+      doc = await snapshot.get();
+      if (doc.exists) {
+        await snapshot.update({
+          sales: admin.firestore.FieldValue.increment(parseInt(x.sum))
+        });
+      }else{
+        let hello = {
+          expenses: 0,
+          sales : parseInt(x.sum)
+        }
+        await snapshot.set(hello);
+      }
     }
-    washingtonRef = db.collection('Manager').doc(paramId).collection('TodayRecord').doc(dateString);
-      await washingtonRef.update({
-        sales : admin.firestore.FieldValue.increment(parseInt(paramCart.price))
-    });
-  } else {
-    console.log("해당 계정이 없습니다")
-  }
-  console.log(paramCart.cnt, paramTel);
-  // '{"code":"8808244201014",
-  // "name":"삼다수",
-  // "text":"물은 삼다수지",
-  // "stock":"5",
-  // "price":"500",
-  // "category":"물",
-  // "img":"C:\\\\Users\\\\user\\\\Downloads\\\\KakaoTalk_20220615_145952109.jpg",
-  // "cnt":2,
-  // "sum":1000}'
-
-  // true flase 반환  
-  if(paramTel === "-1") {
-    console.log("비회원 주문 입니다!")
-    bool = true;
-  }
-  let a = {bool:bool} 
-  
-  res.send(a);
-})
+  }else {
+        console.log("해당 계정이 없습니다")
+      }
+      let a = { bool: bool }
+      res.send(a);
+  })
 
 // 상품 결재 시 고객 회원가입 처리, 전화번호 중복 X: true - 중복 O: false 반환
 app.post("/buy/join", (req, res) => {
@@ -283,17 +303,17 @@ app.post("/buy/join", (req, res) => {
 // 회원가입 아이디 중복 확인
 app.post("/buy/join/overlap", (req, res) => {
   console.log('/buy/join/overlap 호출됨.');
-  
+
   const paramId = req.body.id || req.query.id;      // 아이디    
 
   console.log(paramId);
 
 
   // true flase 반환  
-  let bool = true; 
-  if(paramId === "") bool = false;
-  let a = {bool:bool} 
-  
+  let bool = true;
+  if (paramId === "") bool = false;
+  let a = { bool: bool }
+
   res.send(a);
 })
 

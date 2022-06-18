@@ -31,7 +31,7 @@ const Main = () => {
 
     return ( 
         <div className="main">
-            <h1 className="p5 f1 bold" style={{marginBottom:"1.6vh"}}> 박리다매 무인가게 </h1>
+            <h1 className="p5 maintitle"> 박리다매 무인가게 </h1>
             <div>
                 <Link to="/products">
                     <button className="menu m1 p3 shadow">

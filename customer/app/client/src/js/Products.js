@@ -4,8 +4,10 @@ import { Carousel, Button } from "react-bootstrap";
 import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
-import { CategorySlider } from './CategorySlider.jsx'
-import { ProductList } from './ProductList.jsx'
+import { CategorySlider } from '../component/CategorySlider.jsx'
+import { ProductList } from '../component/ProductList.jsx'
+import '.././css/Products.css';
+import { BennerSlide } from '../component/BennerSlide.jsx';
 
 export const Products = () => {
   const [text, setText] = useState("");
@@ -49,23 +51,10 @@ export const Products = () => {
 
   return (
     <div className="Products"> 
-      <Carousel slide className="banner">
-        <Carousel.Item>
-          <img
-          className="d-block w-100"
-          src="./img/banner1.png"
-          alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-          className="d-block w-100"
-          src="./img/banner1.png"
-          alt="Second slide"
-          />
-        </Carousel.Item>
-      </Carousel>
-      <CategorySlider getText={getText} />
+      <BennerSlide/>
+      <div class="cate_slider">
+        <CategorySlider getText={getText} />
+      </div>
       <div className="tools">
         <div>
           <Link to="/main">
@@ -82,3 +71,5 @@ export const Products = () => {
   </div>
   )
 }
+
+export default Products;

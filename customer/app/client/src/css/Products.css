@@ -137,3 +137,14 @@ body {
     padding-right: 2vh !important;
     padding-bottom: 0.2vh !important;
 }
+.category_slider{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    display: inline-block;
+}
+.cate_slider{
+    background-color: lightgray;
+}

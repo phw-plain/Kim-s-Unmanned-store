@@ -319,18 +319,18 @@ public class MyPage extends Setting {
 			L[i].setForeground(fontcolor);
 		}
 		
-		final JTextField R1 = new JTextField(getName(), 15);
+		final JTextField R1 = new JTextField(getName(), 20);
 		R1.setFont(font6);
 		final JLabel R2 = new JLabel(getId());
 		R2.setFont(font6);
 		R2.setForeground(fontcolor);
-		final JTextField R3 = new JTextField(getPw(), 15);
+		final JTextField R3 = new JTextField(getPw(), 20);
 		R3.setFont(font6);
-		final JTextField R4 = new JTextField(getBrand(), 15);
+		final JTextField R4 = new JTextField(getBrand(), 20);
 		R4.setFont(font6);
-		final JTextField R5 = new JTextField(getLocation(), 15);
+		final JTextField R5 = new JTextField(getLocation(), 20);
 		R5.setFont(font6);
-		final JTextField R7 = new JTextField(Integer.toString(getEmpsal()), 15);
+		final JTextField R7 = new JTextField(Integer.toString(getEmpsal()), 20);
 		R7.setFont(font6);
 		
 		Panel staff = new Panel();

@@ -84,9 +84,9 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.445), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
@@ -143,6 +143,8 @@ public class Sales extends Setting{
 		footer.setBackground(background);
 		footer.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // 위 왼 아 오
 
+		chartPanel1.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // 위 왼 아 오
+		
 		Today.add(header, BorderLayout.NORTH);
 		Today.add(leftpanel, BorderLayout.WEST);
 		Today.add(rightpanel, BorderLayout.EAST);
@@ -177,9 +179,9 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin, 1, 0, 5));
+		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.445), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
@@ -215,9 +217,9 @@ public class Sales extends Setting{
 		leftpanel.add(recode);
 		
 		// sales
-		JPanel rightpanel = new JPanel(new GridLayout(20, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(2, 1));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 15)); // 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.53), 0)); // 위 왼 아 오
 
 		JLabel stitle = new JLabel("Month");
 		stitle.setFont(font3);
@@ -232,7 +234,7 @@ public class Sales extends Setting{
 
 		Vector<String> y = new Vector<String>();
 		JButton yearbtn = new JButton("확인");
-		yearbtn.setFont(new Font("배달의민족 주아", Font.PLAIN, 13));
+		yearbtn.setFont(font5);
 		yearbtn.setBackground(Color.white);
 
 		for (int i = 0; i < 10; i++) {
@@ -244,16 +246,17 @@ public class Sales extends Setting{
 
 		JPanel chbox = new JPanel(new BorderLayout());
 		chbox.setBackground(background);
-		JPanel chp = new JPanel();
-		chp.add(yearCh);
-		chp.setBorder(BorderFactory.createEmptyBorder(-4, 0, 0, 0)); // 위 왼 아 오
-		chp.setBackground(background);
 
-		chbox.add(chp, BorderLayout.WEST);
+		chbox.add(yearCh, BorderLayout.WEST);
 		chbox.add(yearbtn, BorderLayout.EAST);
+		chbox.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10)); 
 
-		rightpanel.add(stitle);
-		rightpanel.add(sales);
+		JPanel texts = new JPanel();
+		texts.add(stitle);
+		texts.add(sales);
+		texts.setBackground(background);
+		
+		rightpanel.add(texts);
 		rightpanel.add(chbox);
 
 		yearbtn.addActionListener(new ActionListener() {
@@ -308,9 +311,9 @@ public class Sales extends Setting{
 		header.add(title, BorderLayout.CENTER);
 
 		// menu bar
-		JPanel leftpanel = new JPanel(new GridLayout(margin2, 1, 0, 6));
+		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.57), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2, Color.orange);
@@ -369,7 +372,7 @@ public class Sales extends Setting{
 		JPanel subPanel = new JPanel();
 		subPanel.setBackground(background);
 		
-		int margin = (height > 1000) ? 50 : 25;
+		int margin = (height > 1000) ? 50 : 27;
 		
 		JPanel gridPanel = new JPanel(new GridLayout(6, 2, 25, margin));
 		gridPanel.setBackground(background);
@@ -388,7 +391,7 @@ public class Sales extends Setting{
 		
 		final JTextField R[] = new JTextField[2];
 		for(int i=0; i<R.length; i++) {
-			R[i] = new JTextField("", 15);
+			R[i] = new JTextField("", 20);
 			R[i].setFont(font5);
 		}
 		

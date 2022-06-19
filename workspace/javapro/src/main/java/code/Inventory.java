@@ -112,9 +112,12 @@ public class Inventory extends Setting {
 		price.add(1200);
 		price.add(2700);
 		price.add(3200);
-		amount.add(10);
-		amount.add(5);
-		amount.add(3);
+		amountDay.add(10);
+		amountDay.add(5);
+		amountDay.add(3);
+		amountMonth.add(10);
+		amountMonth.add(5);
+		amountMonth.add(3);
 		explain.add("가나다라마바사아자차카타파하");
 
 		// amount => amountDay, amountMonth 변경
@@ -700,7 +703,7 @@ public class Inventory extends Setting {
 							fileSave(f, path, f.getName());
 						}
 						try {
-							fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), cnt.get(index), Integer.toString(cost.get(index)), Integer.toString(price.get(index)), amount.get(index), explain.get(index), picture.get(index));
+							fire_inventory.update_Inventory(code.get(index), product_name.get(index), category.get(index), standard.get(index), cnt.get(index), Integer.toString(cost.get(index)), Integer.toString(price.get(index)), amountDay.get(index), amountMonth.get(index), explain.get(index), picture.get(index));
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -1025,7 +1028,7 @@ public class Inventory extends Setting {
 						// 데이터 추가
 						Firebase_inventory add = new Firebase_inventory();
 						try {
-							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), Integer.parseInt(R5.getText()),R6.getText(), R7.getText(), Integer.parseInt(R8.getText()), R9.getText(), R10.getText());
+							add.Add_inventory(R1.getText(), R2.getText(), R3.getText(), R4.getText(), Integer.parseInt(R5.getText()),R6.getText(), R7.getText(), Integer.parseInt(R8.getText()), Integer.parseInt(R9.getText()),R10.getText(), R11.getText());
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -1096,6 +1099,7 @@ public class Inventory extends Setting {
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(amountDay.get(i)));
 			rows.add(Integer.toString(amountMonth.get(i)));
 			rows.add(explain.get(i));
@@ -1116,6 +1120,7 @@ public class Inventory extends Setting {
 			rows.add(standard.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(Integer.toString(cost.get(i)));
+			rows.add(Integer.toString(price.get(i)));
 			rows.add(Integer.toString(amountDay.get(i)));
 			rows.add(Integer.toString(amountMonth.get(i)));
 			rows.add(explain.get(i));

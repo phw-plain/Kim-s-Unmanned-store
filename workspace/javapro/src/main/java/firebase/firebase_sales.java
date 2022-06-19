@@ -16,22 +16,24 @@ import code.Setting;
 public class firebase_sales extends App {
 	Setting setting = new Setting();
 	
-	public int[] show_Daysales(int now, int last) throws InterruptedException, ExecutionException {
-		CollectionReference query = db.collection("Manager").document(getId()).collection("salesDay");
-		Query query1 = query.whereEqualTo("date", Integer.toString(now));
-		Query query2= query.whereEqualTo("date", Integer.toString(last));
-		int data1 = 0;
-		int data2 = 0;
-		ApiFuture<QuerySnapshot> querySnapshot = query1.get();
-		for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
-			  data1 = Integer.parseInt(document.getString("sales"));
+	public int[] show_Daysales(String now, String last) throws InterruptedException, ExecutionException {
+		int data[] = new int[2];
+		DocumentReference Nowquery = db.collection("Manager").document(getId()).collection("TodayRecord").document(now);
+		DocumentReference Lastquery = db.collection("Manager").document(getId()).collection("TodayRecord").document(last);
+		ApiFuture<DocumentSnapshot> Nowfuture = Nowquery.get();
+		ApiFuture<DocumentSnapshot> Lastfuture = Lastquery.get();
+		DocumentSnapshot document = Nowfuture.get();
+		if (document.exists()) {
+		  data[0] = (document.getLong("sales")).intValue();
+		} else {
+			data[0] = 0;
 		}
-		querySnapshot = query2.get();
-		for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
-			  data2 = Integer.parseInt(document.getString("sales"));
-			  break;
+		DocumentSnapshot document1 = Lastfuture.get();
+		if (document1.exists()) {
+			data[1] = (document1.getLong("sales")).intValue();
+		} else {
+			data[1] = 0;
 		}
-		int data[] = {data1,data2};
 		return data;
 	}
 	public int[] show_Monthsales(String now, String last) throws InterruptedException, ExecutionException {

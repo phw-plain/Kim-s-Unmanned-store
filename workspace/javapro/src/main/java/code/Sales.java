@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.XChartPanel;
+import org.threeten.bp.LocalDate;
 
 import firebase.firebase_sales;
 
@@ -619,13 +620,9 @@ public class Sales extends Setting{
 			for (int i = 6; i >= 0; i--) {
 				int a[] = null;
 				try {
-					int realdate = 0;
-					if(date-i%100>30||date-i%100==0) {
-						realdate = date-70-(100-(date-i%100));
-					}else {
-						realdate = date-i;
-					}
-					a = sales.show_Daysales(realdate, 7);
+					String realdate = (LocalDate.now().minusDays(i)).toString();
+					String beforedate = (LocalDate.now().minusDays(i+7)).toString();
+					a = sales.show_Daysales(realdate, beforedate);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -162,26 +162,27 @@ app.post("/buy", async (req, res) => {
 
 })
 
+let customerTel = null;
+let customerId = null;
 // 상품 교환 & 환불 신청: 고객 전화번호 확인하기
 app.post("/permute/tel", (req, res) => {
   console.log(' /permute/tel 호출됨.');
 
-  const paramTel  = req.body.tel || req.query.tel;            // 전화번호
-
+  customerTel  = req.body.tel || req.query.tel;            // 전화번호
+  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
   let bool = false
-  if(paramTel === "010-1234-1234"){
-    bool = true
+  if (!snapshot.empty) {
+    customerId = doc.id();
+    bool = true;
   }
   let a = {bool:bool} 
-  
   res.send(a);
 })
 
 // 상품 교환 & 환불 신청: 고객 전화번호 다시 보내기
 app.post("/permute/tel/get", (req, res) => {
   console.log(' /permute/tel/get 호출됨.');
-
-  let tel = '010-1234-1234'
+  let tel = customerTel;
   
   let a = {tel:tel} 
   
@@ -194,7 +195,6 @@ app.post("/permute", async (req, res) => {
   console.log(' /permute 호출됨.');
 
   let a = { code: 0 }
-
   res.send(a);
 })
 
@@ -285,28 +285,39 @@ app.post("/buy/send", async (req, res) => {
     }
     //일일 순위
     snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
+    let snapshot1 =  db.collection('Manager').doc(Id).collection('inventory').doc(x.code);
     let doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
         cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
+      await snapshot1.update({
+        amountDay: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+      });
       //없으면 리스트 새로 생성 
     } else {
       bool = false;
       let hello = { cnt: parseInt(x.cnt) }
+      let amountDay = { amountDay : parseInt(x.cnt) }
+      await snapshot1.set(amountDay);
       await snapshot.set(hello);
+
     }
     //달 순위
     snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
     doc = await snapshot.get();
     if (doc.exists) {
-      console.log("달 순위가 있음")
       await snapshot.update({
         cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
+      });
+      await snapshot1.update({
+        amountMonth: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
       //없으면 리스트 새로 생성 
     } else {
       let hello = { cnt: parseInt(x.cnt) }
+      let amountDay = { amountDay : parseInt(x.cnt) }
+      await snapshot1.set(amountDay);
       await snapshot.set(hello);
     }
     //하루 매출

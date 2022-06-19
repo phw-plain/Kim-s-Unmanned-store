@@ -156,13 +156,13 @@ public class Setting {
 	protected static Vector<Integer> customer_exchange = new Vector<Integer>();
 	protected static Vector<Integer> customer_refund = new Vector<Integer>();
 	
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = new Date();        
-	public int now = (Integer.parseInt(dateFormat.format(date)));
+	public String now = (dateFormat.format(date));
 	
-	SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyyMM");
+	SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM");
 	Date date1 = new Date();        
-	public int Year = (Integer.parseInt(dateFormat.format(date1)));
+	public String Year = (dateFormat1.format(date1));
 
 	public static Frame startFrame;
 	

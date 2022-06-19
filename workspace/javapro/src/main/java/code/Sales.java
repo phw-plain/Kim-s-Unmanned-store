@@ -526,6 +526,24 @@ public class Sales extends Setting{
 					System.out.println("알바 시급 : " + R[1].getText());
 					System.out.println("알바 시간 : " + (ch.getSelectedIndex() + 1) + "시간");
 					
+					int x = 0;
+					if(R[1].getText()!="") 
+						x = Integer.parseInt(R[1].getText())*(ch.getSelectedIndex() + 1);
+					if(R[0].getText()!="")
+						x += Integer.parseInt(R[0].getText());
+					firebase_sales sales = new firebase_sales();
+					String realdate = (LocalDate.now()).toString();
+					
+					try {
+						sales.input_expenses(x);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ExecutionException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					JOptionPane.showMessageDialog(null
 	 						, "오늘 지출 기록 완료!"
 	 						, "박리다매"
@@ -614,8 +632,6 @@ public class Sales extends Setting{
 		
 	    firebase_sales sales = new firebase_sales();
 	    
-		int date = (idx == 1) ? now : Year;
-		
 		if(idx==1) {
 			for (int i = 6; i >= 0; i--) {
 				int a[] = null;

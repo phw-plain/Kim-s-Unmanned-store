@@ -45,7 +45,7 @@ function Exchange() {
                     <HiArrowRight className='arrow'/>
                 </Link>
             </div>
-            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
+            <img src="../img/scan.png" alt="" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
             <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
                 <p>바코드를 스캔해 주세요</p>
                 <Spinner animation="grow" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
@@ -67,10 +67,10 @@ function Refund() {
                     <HiArrowRight className='arrow'/>
                 </Link>
             </div>
-            <img src="https://en.pimg.jp/050/610/791/1/50610791.jpg" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
+            <img src="../img/scan.png" alt="" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
             <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
                 <p>바코드를 스캔해 주세요</p>
-                <Spinner animation="border" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
+                <Spinner animation="grow" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
                 <p style={{marginTop:"2vh", color:"lightgray"}}>Loading ...</p>
             </div>
         </div>

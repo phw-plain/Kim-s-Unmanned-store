@@ -113,7 +113,7 @@ app.post("/products", (req, res) => {
       code : "1",
       name : "야이셔 레몬",
       text : "상품 설명2",
-      stock : "10",
+      stock : "0",
       price : "2000",
       category : "과일",
       img : "lemon.jpg"

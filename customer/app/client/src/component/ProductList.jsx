@@ -13,8 +13,15 @@ export function ProductList(props) {
         {props.products.slice(offset, offset + limit).map((item, idx) => (
           <div className="products" key={idx}>
             <div className='prod_background'>
+              {(+item.stock === 0) ?
+                <div className="products_img_stop">
+                    <img  className="pis_png" src="/img/stop.png" alt=""/>
+                    <div  className="pis_text">품절</div>
+                </div> : null 
+              }
               <Link to={`/product/${item.code}`} >
-              <img className="products_img" src={"/uploadfile/"+item.img} alt={"product-img"}/></Link>
+                <img className="products_img" src={"/uploadfile/"+item.img} alt={"product-img"}/>
+              </Link>
               <div>
                 <p className='prod_title'>{item.name}</p>
                 <div className="prod_texts">

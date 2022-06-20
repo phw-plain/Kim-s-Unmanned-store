@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -22,6 +24,8 @@ class login extends Setting {
 	private JPanel panelRight;
 	private JLabel headerLabel;
 	private Button b1;
+	
+	private Loading loading;
 	
 	private TextField tf1;
 	private TextField tf2;
@@ -171,24 +175,30 @@ class login extends Setting {
 						, JOptionPane.ERROR_MESSAGE
 						);
 			} else {
-				JOptionPane.showMessageDialog(null
-						, "환영합니다!"
-						, "박리다매 무인가게"
-						, JOptionPane.PLAIN_MESSAGE
-						);
+				loading = new Loading();
+				loading.setVisible(true);
+				mainFrame.add(loading.panel);
+				subpanel.setVisible(false);
+
 				
-				// 로그인 정보 저장
-				setName("고고곡");
-				setBrand("신림사거리점");
-				setLocation("관악구");
-				emp = false;
-				setEmpsal(0);
-				
-				// 테스트 계정 확인용
-		    	print();
-						
-				new Manage(id, pw);
-	    		mainFrame.dispose();
+//				// 로그인 정보 저장
+//				setName("고고곡");
+//				setBrand("신림사거리점");
+//				setLocation("관악구");
+//				emp = false;
+//				setEmpsal(0);
+//				
+//				// 테스트 계정 확인용
+//		    	print();
+//		    	
+//		    	JOptionPane.showMessageDialog(null
+//					, "환영합니다!"
+//					, "박리다매 무인가게"
+//					, JOptionPane.PLAIN_MESSAGE
+//				);
+//		    	
+//				new Manage(id, pw);
+//	    		mainFrame.dispose();
 			}
 	}
 	

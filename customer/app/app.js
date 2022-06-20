@@ -166,7 +166,7 @@ app.post("/buy", async (req, res) => {
 let customerTel = null;
 let customerId = null;
 // 상품 교환 & 환불 신청: 고객 전화번호 확인하기
-app.post("/permute/tel", (req, res) => {
+app.post("/permute/tel", async (req, res) => {
   console.log(' /permute/tel 호출됨.');
 
   customerTel  = req.body.tel || req.query.tel;            // 전화번호

@@ -21,6 +21,7 @@ import code.Setting;
 public class firebase_sales extends App {
 	Setting setting = new Setting();
 	
+	//매출 일/달
 	public int[] show_Daysales(String now, String last) throws InterruptedException, ExecutionException {
 		int data[] = new int[2];
 		DocumentReference Nowquery = db.collection("Manager").document(getId()).collection("TodayRecord").document(now);
@@ -94,6 +95,47 @@ public class firebase_sales extends App {
     		today.set(data);
     	}
 		
+	}
+	//실수령액 일/달 
+	public int[] show_Day(String now, String last) throws InterruptedException, ExecutionException {
+		int data[] = new int[2];
+		DocumentReference Nowquery = db.collection("Manager").document(getId()).collection("TodayRecord").document(now);
+		DocumentReference Lastquery = db.collection("Manager").document(getId()).collection("TodayRecord").document(last);
+		ApiFuture<DocumentSnapshot> Nowfuture = Nowquery.get();
+		ApiFuture<DocumentSnapshot> Lastfuture = Lastquery.get();
+		DocumentSnapshot document = Nowfuture.get();
+		if (document.exists()) {
+		  data[0] = (document.getLong("sales")).intValue();
+		} else {
+			data[0] = 0;
+		}
+		DocumentSnapshot document1 = Lastfuture.get();
+		if (document1.exists()) {
+			data[1] = (document1.getLong("sales")).intValue();
+		} else {
+			data[1] = 0;
+		}
+		return data;
+	}
+	public int[] show_Month(String now, String last) throws InterruptedException, ExecutionException {
+		int data[] = new int[2];
+		DocumentReference Nowquery = db.collection("Manager").document(getId()).collection("MonthRecord").document(now);
+		DocumentReference Lastquery = db.collection("Manager").document(getId()).collection("MonthRecord").document(last);
+		ApiFuture<DocumentSnapshot> Nowfuture = Nowquery.get();
+		ApiFuture<DocumentSnapshot> Lastfuture = Lastquery.get();
+		DocumentSnapshot document = Nowfuture.get();
+		if (document.exists()) {
+		  data[0] = (document.getLong("sales")).intValue() - (document.getLong("expenses")).intValue();
+		} else {
+			data[0] = 0;
+		}
+		DocumentSnapshot document1 = Lastfuture.get();
+		if (document1.exists()) {
+			data[1] = (document1.getLong("sales")).intValue() - (document1.getLong("expenses")).intValue();
+		} else {
+			data[1] = 0;
+		}
+		return data;
 	}
 
 }

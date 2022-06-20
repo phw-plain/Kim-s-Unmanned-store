@@ -95,8 +95,6 @@ app.post("/products", async (req, res) => {
     });
     console.log(data);
   });
-
-
   res.send(data);
 })
 
@@ -362,15 +360,15 @@ app.post("/buy/send/member", async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;        // 전화번호
 
   console.log(paramTel);
-  //let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
   let member = { pw: "", point: 0 };
-  // if (!snapshot.empty) {
-  //   //로그인 확인
-  //   snapshot.forEach(doc => {
-  //     member.pw = doc.data().pw,
-  //     member.point = doc.data().point
-  //   });
-  // }
+  if (!snapshot.empty) {
+    //로그인 확인
+    snapshot.forEach(doc => {
+      member.pw = doc.data().pw,
+      member.point = doc.data().point
+    });
+  }
   let a = { member: member }
   res.send(a);
 })
@@ -434,6 +432,7 @@ app.post("/logout", (req, res) => {
 
   res.send(a);
 })
+  
 
 server.listen(5000, () => {
   console.log('server is running on 5000')

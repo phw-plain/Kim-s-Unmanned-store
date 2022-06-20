@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,6 +22,9 @@ import javax.swing.JPanel;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.XChartPanel;
+import org.threeten.bp.LocalDate;
+
+import firebase.firebase_sales;
 
 public class NetIncome extends Setting{
 	public JPanel panel; // 실수령액 그래프
@@ -230,14 +236,22 @@ public class NetIncome extends Setting{
 		final CategoryChart chart = new CategoryChartBuilder().width(width/3).height(100).title(title).xAxisTitle("").yAxisTitle("원").build();
 		
 		// 오늘 기준으로 가져오는 데이터 바탕으로 요일 정렬 해야함
-		ArrayList<String> day = new ArrayList<String>();
-		day.add("월");
-		day.add("화");
-		day.add("수");
-		day.add("목");
-		day.add("금");
-		day.add("토");
-		day.add("일");
+		 ArrayList<String> day = new ArrayList<String>();   
+		 Date currentDate = new Date();        
+		 System.out.println(currentDate);      
+		 // 2. Calendar 생성        
+		 Calendar calendar = Calendar.getInstance();        
+		 calendar.setTime(currentDate);
+		 
+		int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
+		String DayEvent[] = {"화","수","목","금","토","일", "월"};
+		int y = 0;
+		for(int i = dayOfWeekNumber; y<7; i++, y++) {
+			day.add(DayEvent[i-1]);
+			if(i==7) {
+				i=0;
+			}
+		}
 		
 		ArrayList<String> month = new ArrayList<String>();
 		month.add("1월");
@@ -247,18 +261,59 @@ public class NetIncome extends Setting{
 		month.add("5월");
 		month.add("6월");
 		month.add("7월");
+		month.add("8월");
+		month.add("9월");
+		month.add("10월");
+		month.add("11월");
+		month.add("12월");
 		
 		// 그래프 데이터 가져오기
 		// idx: (1, 주 실수령액) (2, 달 실수령액)
 		ArrayList<Integer> data1 = new ArrayList<Integer>();
 		ArrayList<Integer> data2 = new ArrayList<Integer>();
-
-		for (int i = 0; i < day.size(); i++) {
-			data1.add(100+(100*i));
-			
-			data2.add(1000-(100*i));
+		firebase_sales sales = new firebase_sales();
+		if(idx==1) {
+			for (int i = 0; i <= 6; i++) {
+				int a[] = null;
+				try {
+					String realdate = (LocalDate.now().minusDays(i)).toString();
+					String beforedate = (LocalDate.now().minusDays(i+7)).toString();
+					a = sales.show_Day(realdate, beforedate);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ExecutionException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				data1.add(a[0]);
+				data2.add(a[1]);
+			}
+		}else {
+			for (int i = 1; i <= 12; i++) {
+				int a[] = null;
+				String realdate1 = null;
+				String realdate2 = null;
+				if(i<10) {
+					realdate1 = "2022-0"+i;
+					realdate2 = "2021-0"+i;
+				}else {
+					realdate1 = "2022-"+i;
+					realdate2 = "2021-"+i;
+				}
+				try {
+					a = sales.show_Month(realdate1, realdate2);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				data1.add(a[0]);
+				data2.add(a[1]);
+			}
 		}
-
 		// 그래프 값 넣기
         if(idx == 1) {
     		chart.addSeries(subTitle1, day, data1);

@@ -39,11 +39,15 @@ class BarcodeReader : AppCompatActivity() {
 
     fun buyBarcodeReader(view: View) {
         val intent = Intent(applicationContext, BuyActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("manager", ManagerId)
         startActivity(intent);
     }
 
     fun permuteBarcodeReader(view: View) {
         val intent = Intent(applicationContext, PermuteActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("manager", ManagerId)
         startActivity(intent);
     }
 }

@@ -29,13 +29,13 @@ const Permute = () => {
         if(tel === "" || !regExp.test(tel) &&  !regExp2.test(tel)){
             alert("전화번호 입력 오류! 다시 확인해주세요.",tel)
         } else {
-            let newTel;
+            let newTel = tel;
 
             if(regExp2.test(tel)) { 
                 newTel = tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
                 setTel(newTel)
             }
-
+            
             axios.post('/permute/tel', null, {
                 params: {
                     'tel': newTel

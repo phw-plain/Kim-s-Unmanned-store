@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 function Login() {
   const [inputId, setInputId] = useState('')
   const [inputPw, setInputPw] = useState('')
+  const [data, setData] = useState();
 
   localStorage.removeItem('device')
 
@@ -26,13 +27,23 @@ function Login() {
       'user_pw': inputPw
       }
     })
-    .then(res => localStorage.setItem('device', JSON.stringify(res.data)))
+    .then(res =>setData(res.data))
     .catch();
 
-    if(localStorage.getItem('device') !== null) {
-      window.location.href="connect";
-    } 
   }
+
+  useEffect(() => {
+    console.log("~~", data)
+    if(data !== undefined) {
+      if(data.bool === false) {
+        alert('아이디 또는 비밀번호 입력오류! 다시 확인해주세요.')
+      } else {
+        localStorage.setItem('device', JSON.stringify(data))
+        window.location.href = "/connect"
+      }
+
+    }
+  }, [data])
 
   return(
     <div className='main'>

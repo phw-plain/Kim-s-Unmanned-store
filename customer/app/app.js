@@ -70,6 +70,9 @@ app.post("/login", async (req, res) => {
     console.log("로그인 성공")
   } else {
     console.log("로그인 실패")
+    // 로그인 실패 시 false 반환
+    let data = {bool:false}
+    res.send(data)
   }
 });
 

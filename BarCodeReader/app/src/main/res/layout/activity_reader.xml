@@ -36,14 +36,38 @@
         android:layout_height="match_parent"
         android:onClick="startBarcodeReader" />
 
-    <TextView
-        android:id="@+id/eventText"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+
+        <Button
+        android:id="@+id/eventBuy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="바코드 스캔하기 >>"
+        android:text="계산 하기"
+        android:backgroundTint="@color/white"
         android:textColor="@color/black"
         android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/eventPermute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="교환·환불"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

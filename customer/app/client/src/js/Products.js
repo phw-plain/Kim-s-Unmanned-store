@@ -52,7 +52,7 @@ export const Products = () => {
   return (
     <div className="Products"> 
       <BennerSlide/>
-      <div class="cate_slider">
+      <div className="cate_slider">
         <CategorySlider getText={getText} />
       </div>
       <div className="tools">

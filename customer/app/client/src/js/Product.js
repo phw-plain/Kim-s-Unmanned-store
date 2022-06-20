@@ -18,11 +18,11 @@ const Product = () => {
     
     function colorCheck(category) {
         if(category === "채소")
-            return 'green'
+            return 'rgb(76,187,23)'
         else if(category === "과일")
-            return "red"
+            return "rgb(255,232,124)"
         else 
-            return "pink"
+            return "rgb(241, 166, 175)"
     }
         
     return ( 

@@ -36,8 +36,8 @@ public class Firebase_Customer extends App{
 			set.customer_telephone.add(document.getString("tel"));
 			set.customer_email.add(document.getString("email"));
 			set.customer_point.add((document.getLong("point")).intValue());
-			set.customer_exchange.add(1);
-			set.customer_refund.add(2);
+			set.customer_exchange.add((document.getLong("exchage")).intValue());
+			set.customer_refund.add((document.getLong("refund")).intValue());
 		}
 	}
 	public void update_cutomer(String id, String pw, String name, String telephone, String email, int point) throws Exception {
@@ -71,5 +71,36 @@ public class Firebase_Customer extends App{
     	//id,pw,name,brand,location,empsal
 		return map;
     }
+	
+	public void show_permute() {
+		db = FirestoreClient.getFirestore();
+		ApiFuture<QuerySnapshot> query = db.collection("Manager").document(getId()).collection("customer").get();
+		QuerySnapshot querySnapshot = null;
+		try {
+			querySnapshot = query.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		java.util.List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+		for (QueryDocumentSnapshot document : documents) {
+			set.pdt_name.add(document.getString("id"));
+			set.pdt_cnt.add(Integer.parseInt(document.getString("pw")));
+			set.buy.add(document.getString("name"));
+			set.apply.add(document.getString("tel"));
+			set.permute.add(document.getString("email"));
+			set.reasons.add(document.getString("point"));
+		}
+	}
+//	Vector<String> pdt_name = new Vector<String>();		// 제품명
+//	Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
+//	Vector<String> buy = new Vector<String>();			// 구매일자
+//	Vector<String> apply = new Vector<String>();		// 신청일자
+//	Vector<String> permute = new Vector<String>();		// 환불 or 교환
+//	Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
+//	Vector<String> grounds = new Vector<String>();		// 신청사유
 
 }

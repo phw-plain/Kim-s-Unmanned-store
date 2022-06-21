@@ -813,13 +813,7 @@ public class Customer extends Setting {
 		Vector<String> rows = null;
 		
 		// 전화번호 이용해서 데이터 가져오기
-		Vector<String> pdt_name = new Vector<String>();		// 제품명
-		Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
-		Vector<String> buy = new Vector<String>();			// 구매일자
-		Vector<String> apply = new Vector<String>();		// 신청일자
-		Vector<String> permute = new Vector<String>();		// 환불 or 교환
-		Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
-		Vector<String> grounds = new Vector<String>();		// 신청사유
+		
 		
 		// 프론트엔드용 데이터
 		pdt_name.add("토종 햇 당근");

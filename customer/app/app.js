@@ -177,12 +177,16 @@ app.post("/permute/tel", async (req, res) => {
   console.log(' /permute/tel 호출됨.');
 
   customerTel  = req.body.tel || req.query.tel;            // 전화번호
-  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', customerTel).get();
+  let snapshot = await db.collection('Manager').doc(Id)
+  .collection('customer').where('tel', '==', customerTel).get();
   let bool = false
   if (!snapshot.empty) {
-    customerId = snapshot.id;
+    snapshot.forEach(doc => {
+      customerId = doc.id;
+    });
     bool = true;
   }
+  console.log(customerId)
   let a = {bool:bool} 
   res.send(a);
 })
@@ -200,9 +204,10 @@ app.post("/permute/tel/get", (req, res) => {
 // 상품 교환 & 환불 신청: 제품 코드 보내기
 app.post("/permute", async (req, res) => {
   console.log(' /permute 호출됨.');
+  console.log(paramCode)
   let x = db.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
   const doc = await x.get();
-  let answer = null;
+  let answer;
   if (doc.data().permute != null) {
     answer = parseInt(doc.data().permute);
     db.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
@@ -216,37 +221,59 @@ app.post("/permute", async (req, res) => {
 // 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기
 app.post("/permute/apply", async (req, res) => {
   console.log(' /permute/apply 호출됨.');
-
+  let bool = false;
   const paramCode = req.body.code || req.query.code;          // 아이디
   const paramName = req.body.name || req.query.name;         // 제품명
   const paramCnt = req.body.cnt || req.query.cnt;            // 신청 수량
   const paramTel = req.body.tel || req.query.tel;            // 전화번호
   const paramRes = req.body.res || req.query.res;            // 유형
   const paramGro = req.body.gro || req.query.gro;            // 신청 이유
-  const data = {
-    paramCode: 'paramCode',
-    paramName: 'paramName',
-    paramCnt: 'paramCnt'
-  };
+  
 
-  console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
   // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
-  const isthere = db.collection('Manager').doc(Id).collection('customer').doc(customerId)
-  .collection('order_history').where('paramCode','==',paramCode);
-  var newdateString = year + '-' + month + '-' + parseInt(day)-7;
+  const isthere = await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+  .collection('order_history').where('code','==',paramCode).get();
+  var newdateString = year + "-" + month + "-" + (parseInt(day)-7);
+  let getDate = newDay();
+  let buyday1;
   if (isthere.empty) {
     console.log('No matching documents.');
     bool = false;
-  }
-  isthere.forEach(doc => {
-    let buyday = doc.id.split(' ');
-    if(buyday[0] < newdateString&&doc.data().cnt==paramCnt){
-      bool = true;
-      const ishere = db.collection('Manager').doc(Id).collection('customer')
-      .doc(customerId).collection('permute').doc(dateString);
+  }else{
+    isthere.forEach(doc => {
+      buyday1 = (doc.id);
+      let buyday = (doc.id).split(' ');
+      if(buyday[0]>newdateString&&doc.data().cnt == parseInt(paramCnt)){
+        console.log(customerId);
+        bool = true;
+      }
+    });
+    if(bool== true){
+      const data = {
+        paramCode: paramCode,
+        paramName: paramName,
+        paramCnt: paramCnt,
+        paramTel: paramTel,
+        paramGro:paramGro,
+        paramRes:paramRes,
+        buyday:buyday1,
+        returnday:getDate
+      };
+      const washingtonRef = db.collection('Manager').doc(Id).collection('customer').doc(customerId);
+      if(paramRes=="1"){
+        await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+        .collection('exchange').doc(getDate).set(data);
+        await washingtonRef.update({exchange: FieldValue.increment(1)});
+
+      }else if(paramRes=="2"){
+        await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+        .collection('refund').doc(getDate).set(data);
+        await washingtonRef.update({refund: FieldValue.increment(1)});
+      }
+      
 
     }
-  });
+  }
   // true flase 반환  
   let a = { bool: bool }
 

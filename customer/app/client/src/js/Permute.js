@@ -62,13 +62,13 @@ const Permute = () => {
                         <Link to="../permute/exchange" state={{ telephone: tel }}>
                             <div className='shadow per_menu' style={{ marginTop: "1.9vh" }}>
                                 <div className='left per_title'>교환하기</div>
-                                <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
+                                <img className='per_img' src='./img/exchange.png' alt=""></img>
                             </div>
                         </Link>
                         <Link to="../permute/refund" state={{ telephone: tel }}>
                             <div className='shadow per_menu'>
                                 <div className='left per_title'>환불하기</div>
-                                <img className='per_img' src='https://cdn-icons-png.flaticon.com/512/2250/2250295.png'></img>
+                                <img className='per_img' src='./img/refund.png' alt=""></img>
                             </div>
                         </Link>
                     </div>

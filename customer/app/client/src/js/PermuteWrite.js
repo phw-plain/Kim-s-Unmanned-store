@@ -18,9 +18,8 @@ function Change() {
     const [stock, setStock] = useState(0);
     const [change, setChange] = useState("");
     const [tel, setTel] = useState();
-    const [permute, setPermute] = useState({ cnt:"", res:"", gro:"" });
+    const [permute, setPermute] = useState({ cnt:"", res:"상품 결함", gro:"" });
     const [apply, setApply] = useState();
-
 
     useEffect(() => {
         axios.post('/products')
@@ -32,8 +31,6 @@ function Change() {
         axios.post('/permute/tel/get')
         .then(res => setTel(res.data.tel))
         .catch();
-
-        console.log(tel)
 
         if(permuteId === "refund") {
             setChange("환불")

@@ -53,7 +53,7 @@ function Login() {
       <Form className='loginForm'>
         <Form.Text style={{  fontSize:"2.5vh", marginBottom: "1.5vh", color:"black" }}>로그인</Form.Text>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control type="email" placeholder="ID"  onChange={handleInputId} style={{  fontSize:"2vh" }} />
+          <Form.Control type="text" placeholder="ID"  onChange={handleInputId} style={{  fontSize:"2vh" }} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">

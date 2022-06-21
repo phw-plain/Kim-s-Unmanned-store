@@ -14,18 +14,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
 
         <Button
             android:id="@+id/eventText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:width="230dp"
             android:text="키오스크 연동"
             android:textColor="@color/black"
             android:textSize="30dp"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/shape_for_round_button"
             android:onClick="startBarcodeReader" />
 
     </LinearLayout>

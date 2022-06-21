@@ -249,6 +249,7 @@ app.post("/permute/apply", (req, res) => {
   const paramTel  = req.body.tel || req.query.tel;            // 전화번호
   const paramRes  = req.body.res || req.query.res;            // 유형
   const paramGro  = req.body.gro || req.query.gro;            // 신청 이유
+  const paramPermute  = req.body.permute || req.query.permute;            // 신청 이유
 
   console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
 

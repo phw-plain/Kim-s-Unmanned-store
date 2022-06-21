@@ -7,8 +7,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -581,33 +584,74 @@ public class Sales extends Setting{
 		
 		// 오늘 기준으로 가져오는 데이터 바탕으로 요일 정렬 해야함
 		ArrayList<String> day = new ArrayList<String>();
-		day.add("월");
-		day.add("화");
-		day.add("수");
-		day.add("목");
-		day.add("금");
-		day.add("토");
-		day.add("일");
 		
-		ArrayList<String> month = new ArrayList<String>();
-		month.add("1월");
-		month.add("2월");
-		month.add("3월");
-		month.add("4월");
-		month.add("5월");
-		month.add("6월");
-		month.add("7월");
-		
-		// 그래프 데이터 가져오기
-		// idx: (1, 주 매출) (2, 달 매출)
-		ArrayList<Integer> data1 = new ArrayList<Integer>();
-		ArrayList<Integer> data2 = new ArrayList<Integer>();
+	      Date currentDate = new Date();        
+	      System.out.println(currentDate);      
+	             // 2. Calendar 생성        
+	      Calendar calendar = Calendar.getInstance();        
+	      calendar.setTime(currentDate);
+	             
+	      int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
+	      String DayEvent[] = {"일", "월", "화","수","목","금","토"};
+	      int y = 0;
+	      //1 7 6 5 4 3 2
+	      for(int i = dayOfWeekNumber; y<7; i--, y++) {
+	    	  System.out.println(i);
+	         day.add(DayEvent[i-1]);
+	         if(i==1) {
+	            i=8;
+	         }
+	      }
+	      
+	      ArrayList<String> month = new ArrayList<String>();
+	      month.add("1월");
+	      month.add("2월");
+	      month.add("3월");
+	      month.add("4월");
+	      month.add("5월");
+	      month.add("6월");
+	      month.add("7월");
+	      month.add("8월");
+	      month.add("9월");
+	      month.add("10월");
+	      month.add("11월");
+	      month.add("12월");
+	      
+	      // 그래프 데이터 가져오기
+	      // idx: (1, 주 매출) (2, 달 매출)
+	      ArrayList<Integer> data1 = new ArrayList<Integer>();
+	      ArrayList<Integer> data2 = new ArrayList<Integer>();
+	      
+	       
+	      if(idx==1) {
+	         for (int i = 0; i <= 6; i++) {
+	            int a[] = null;
+               String realdate = (LocalDate.now().minusDays(i)).toString();
+               String beforedate = (LocalDate.now().minusDays(i+7)).toString();
 
-		for (int i = 0; i < day.size(); i++) {
-			data1.add(100+(100*i));
-			
-			data2.add(1000-(100*i));
-		}
+	            data1.add(10);
+	            data2.add(20);
+	         }
+	      }else {
+	         for (int i = 1; i <= 12; i++) {
+	            int a[] = null;
+	            String realdate1 = null;
+	            String realdate2 = null;
+	            if(i<10) {
+	               realdate1 = "2022-0"+i;
+	               realdate2 = "2021-0"+i;
+	            }else {
+	               realdate1 = "2022-"+i;
+	               realdate2 = "2021-"+i;
+	            }
+	            
+	            data1.add(10);
+	            data2.add(20);
+	         }
+	      }
+	      
+		
+
 
 		// 그래프 값 넣기        
         if(idx == 1) {

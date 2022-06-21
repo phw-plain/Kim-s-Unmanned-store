@@ -105,11 +105,11 @@ public class Firebase_Customer extends App{
 		}
 		pdt_name = new Vector<String>();		// 제품명
 		pdt_cnt = new Vector<Integer>();	// 수량
-		 buy = new Vector<String>();			// 구매일자
+		buy = new Vector<String>();			// 구매일자
 		apply = new Vector<String>();		// 신청일자
-		 permute = new Vector<String>();		// 환불 or 교환
-		 reasons = new Vector<String>();		// 신청사유 카테고리
-		 grounds = new Vector<String>();		// 신청사유
+		permute = new Vector<String>();		// 환불 or 교환
+		reasons = new Vector<String>();		// 신청사유 카테고리
+		grounds = new Vector<String>();		// 신청사유
 		for (QueryDocumentSnapshot document : documents2) {
 			System.out.println(Integer.parseInt(document.getString("paramCnt")));
 			set.pdt_name.add(document.getString("paramName"));

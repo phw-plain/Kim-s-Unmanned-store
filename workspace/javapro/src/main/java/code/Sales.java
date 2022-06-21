@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.XChartPanel;
-import org.threeten.bp.LocalDate;
 
 import firebase.firebase_sales;
 

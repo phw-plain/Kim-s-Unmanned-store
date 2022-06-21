@@ -810,6 +810,7 @@ public class Customer extends Setting {
 	
 	private void permuteDataLoad(String telephone) {
 		dataSet2.removeAllElements();
+		System.out.println(pdt_name.size());
 		Vector<String> rows = null;
 		
 		// 전화번호 이용해서 데이터 가져오기
@@ -819,19 +820,17 @@ public class Customer extends Setting {
 		
 		// 데이터 입력
 		for (int i = 0; i < pdt_name.size(); i++) {
+			System.out.println();
 			rows = new Vector<String>();
 			rows.add(pdt_name.get(i));
-			rows.add(Integer.toString(cnt.get(i)));
+			rows.add(Integer.toString(pdt_cnt.get(i)));
 			rows.add(buy.get(i));
 			rows.add(apply.get(i));
 			rows.add(permute.get(i));
 			rows.add(reasons.get(i));
 			rows.add(grounds.get(i));
 			dataSet2.add(rows);
-			
-			System.out.println(pdt_name.get(i));
 		}
-		System.out.println(pdt_name.size());
 	}
 	
 	private void dataSearch(String str) {

@@ -96,11 +96,11 @@ public class Manage extends Setting {
 	        	            	menu.setVisible(true);
 	        	            }
 	        	        }, 
-	        	        7000
+	        	        0
 	        		);
 	            }
 	        }, 
-	        2000
+	        0
 		);
 		
 		

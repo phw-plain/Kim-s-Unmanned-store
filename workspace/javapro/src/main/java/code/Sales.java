@@ -645,9 +645,9 @@ public class Sales extends Setting{
 	    firebase_sales sales = new firebase_sales();
 	    
 		if(idx==1) {
-			for (int i = 6; i >= 0; i--) {
+			for (int i = 0; i <= 6; i++) {
 				int a[] = null;
-				try {
+				try {	
 					String realdate = (LocalDate.now().minusDays(i)).toString();
 					String beforedate = (LocalDate.now().minusDays(i+7)).toString();
 					a = sales.show_Daysales(realdate, beforedate);

@@ -103,16 +103,23 @@ public class Firebase_Customer extends App{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		pdt_name = new Vector<String>();		// 제품명
+		pdt_cnt = new Vector<Integer>();	// 수량
+		 buy = new Vector<String>();			// 구매일자
+		apply = new Vector<String>();		// 신청일자
+		 permute = new Vector<String>();		// 환불 or 교환
+		 reasons = new Vector<String>();		// 신청사유 카테고리
+		 grounds = new Vector<String>();		// 신청사유
 		for (QueryDocumentSnapshot document : documents2) {
-			System.out.println(document.getString("buyday"));
-			set.pdt_name.add(document.getString("buyday"));
+			System.out.println(Integer.parseInt(document.getString("paramCnt")));
+			set.pdt_name.add(document.getString("paramName"));
 			set.pdt_cnt.add(Integer.parseInt(document.getString("paramCnt")));
 			set.buy.add(document.getString("buyday"));
 			set.apply.add(document.getString("returnday"));
 			if(document.getString("paramPermute")=="1") {
-				set.permute.add(document.getString("교환"));
+				set.permute.add("교환");
 			}else {
-				set.permute.add(document.getString("환불"));
+				set.permute.add("환불");
 			}
 			set.reasons.add(document.getString("paramRes"));
 			set.grounds.add(document.getString("paramGro"));

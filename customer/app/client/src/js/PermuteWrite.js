@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
+import { useLocation } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Spinner, Form, Col, Row } from "react-bootstrap";
 import { HiArrowRight } from 'react-icons/hi'
@@ -42,10 +43,14 @@ function Change() {
     }, [])
 
     useEffect(() => {
-        if(products.length > 0) {
-            setImgUrl(products[0].img)
-            setName(products[0].name)
-            setStock(products[0].stock)
+        if(products !== undefined) {
+            products.map((item, idx) => {
+                if(+item.code === +productId) {   
+                    setImgUrl(products[idx].img)
+                    setName(products[idx].name)
+                    setStock(products[idx].stock)
+                }
+            })
         }
     }, [products])
 
@@ -110,7 +115,7 @@ function Change() {
                <p className='Rank_title'>상품 {change}</p>
                <p className='Rank_subTitle'>개봉된 상품은 {change} 불가능 합니다.</p>
            </div>
-           <Link to="../../permute">
+           <Link to="../main">
                <HiArrowRight className='arrow'/>
            </Link>
        </div>

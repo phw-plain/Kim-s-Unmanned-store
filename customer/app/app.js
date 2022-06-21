@@ -231,10 +231,12 @@ app.post("/permute/tel/get", (req, res) => {
 // 상품 교환 & 환불 신청: 제품 코드 보내기
 app.post("/permute", (req, res) => {
   console.log(' /permute 호출됨.');
-
-  //let a = {code:0} 
   
-  //res.send(a);
+  // code 전달하기
+  let test = Math.floor((Math.random()*5) + 0); // 프론트엔드용 랜덤 데이터
+  let a = {code:test} // 제품 코드 숫자형 타입으로 보내기
+ 
+  res.send(a);
 })
 
 // 상품 교환 & 환불 신청: 값 가져오기·결과 값 보내기

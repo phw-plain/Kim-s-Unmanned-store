@@ -10,22 +10,23 @@ import '.././css/Buy.css';
 const Buy = () => {
     isLogin()
     
-    const [itemCode, setItemCode] = useState(0);                            // 바코드 스캔한 데이터
+    const [itemCode, setItemCode] = useState(0);                      // 바코드 스캔한 데이터
     const [isStop, setIsStop] = useState(false)                             // 바코드 리더 스캔 실시간 서버 연동 여부
     
-    const [products, setProducts] = useState([]);                           // 총 상품 목록
-    const [cart, setCarts] = useState([]);                                  // 구매 상품 목록
-    const [purchase, setPurchase] = useState({cnt:0, price: 0});            // 구매 갯수, 구매 총액
-    const [apply, setApply] = useState();                                   // 구매 완료 체크
+    const [products, setProducts] = useState([]);                            // 총 상품 목록
+    const [cart, setCarts] = useState([]);                                          // 구매 상품 목록
+    const [purchase, setPurchase] = useState({cnt:0, price: 0});      // 구매 갯수, 구매 총액
+    const [apply, setApply] = useState();                                        // 구매 완료 체크
 
-    const [tel, setTel] = useState("");                                     // 고객 전화번호    (회원 전용)
-    const [member, setMember] = useState({pw:"", point:""});                // 고객 포인트, Pw  (회원 전용)
-    const [usePoint, setUsePoint] = useState();                             // 사용할 포인트    (회원 전용)
+    const [tel, setTel] = useState("");                                             // 고객 전화번호    (회원 전용)
+    const [member, setMember] = useState({pw:"", point:""});    // 고객 포인트, Pw  (회원 전용)
+    const [usePoint, setUsePoint] = useState();                            // 사용할 포인트    (회원 전용)
+    const [getPoint, setGetPoint] = useState();                            // 사용할 포인트    (회원 전용)
     const [usePw, setUsePw] = useState();                                   // 고객 비밀번호    (회원 전용)
 
-    const [join, setJoin] = useState({id:"", pw:"", name:"", tel:"", email:""});    // 고객 회원가입
-    const [joinId, setJoinId] = useState();                                         // 아이디 중복 체크
-    const [joinApply, setJoinApply] = useState();                                   // 회원가입 성공 체크
+    const [join, setJoin] = useState({id:"", pw:"", name:"", tel:"", email:""});      // 고객 회원가입
+    const [joinId, setJoinId] = useState();                                                         // 아이디 중복 체크
+    const [joinApply, setJoinApply] = useState();                                             // 회원가입 성공 체크
 
     useEffect(() => {
         axios.post('/products')
@@ -237,7 +238,7 @@ const Buy = () => {
                 let newTel = tel;
 
                 if(regExp2.test(newTel)) { 
-                    newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                    newTel = newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
                     setTel(newTel)
                 }
 
@@ -247,6 +248,8 @@ const Buy = () => {
                     }
                 }).then(res =>  setMember(res.data.member))
                 .catch();
+
+                setGetPoint(purchase.price * 0.05);
 
                 handleShow5()
             } else {
@@ -277,6 +280,7 @@ const Buy = () => {
                         'cart': cart,
                         'tel': tel,
                         'usePoint': usePoint,
+                        'getPoint': getPoint
                     }
                 }).then(res =>  setApply(res.data.bool))
                 .catch();
@@ -286,7 +290,8 @@ const Buy = () => {
                 params: {
                     'cart': cart,
                     'tel': tel,
-                    'usePoint': usePoint,
+                    'usePoint': undefined,
+                    'getPoint': getPoint
                 }
             }).then(res =>  setApply(res.data.bool))
             .catch();
@@ -313,7 +318,7 @@ const Buy = () => {
             let newTel = join.tel;
 
             if(regExp2.test(newTel)) { 
-                newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                newTel = newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
                 setTel(newTel)
             }
 
@@ -335,7 +340,6 @@ const Buy = () => {
         var regExp2 = /^01(?:0|[6-9])(?:\d{4}|\d{4})\d{4}$/
 
         if(str === "" || !regExp.test(str) &&  !regExp2.test(str)){
-            console.log("오류!!",str)
             return false;
         }
         return true;
@@ -572,6 +576,14 @@ const Buy = () => {
                                     </Form.Label>
                                     <Form.Label column sm={2} className="fcb">
                                     {member.point}
+                                    </Form.Label>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-5">
+                                    <Form.Label column sm={2} className="flb">
+                                    적립 예정
+                                    </Form.Label>
+                                    <Form.Label column sm={2} className="fcb">
+                                    {getPoint}
                                     </Form.Label>
                                 </Form.Group>
                                 <Form.Group as={Row} className="mb-5">

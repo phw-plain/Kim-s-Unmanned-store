@@ -297,12 +297,13 @@ app.post("/rank", (req, res) => {
 app.post("/buy/send", (req, res) => {
   console.log(' /buy/send 호출됨.');
   
-  const paramCart  = req.body.cart || req.query.cart;     // 구매목록    
-  const paramTel  = req.body.tel || req.query.tel;        // 전화번호
-  const paramPoint  = req.body.point || req.query.point;        // 전화번호
+  const paramCart  = req.body.cart || req.query.cart;               // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;                     // 전화번호
+  const paramUsePoint  = req.body.usePoint || req.query.usePoint;   // 사용 포인트
+  const paramGetPoint  = req.body.getPoint || req.query.getPoint;   // 적립 포인트
 
-  console.log(paramCart, paramTel, paramPoint);
-
+  console.log(paramCart, paramTel, paramUsePoint, paramGetPoint);
+  
   // true flase 반환  
   let bool = true; 
 
@@ -310,10 +311,12 @@ app.post("/buy/send", (req, res) => {
     console.log("비회원 주문 입니다!")
     bool = true;
   } else {
-    if(paramPoint === undefined){
+    if(paramUsePoint === undefined){
       console.log("포인트를 사용하지 않는 회원 주문 입니다!")
+      console.log('적립 예정 포인트:', paramGetPoint)
     } else {
       console.log("포인트를 사용하는 회원 주문 입니다!")
+      console.log('적립 예정 포인트:', paramGetPoint)
     }
   }
 

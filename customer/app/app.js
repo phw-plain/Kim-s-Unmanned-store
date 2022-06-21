@@ -491,6 +491,22 @@ app.post("/buy/join/overlap", async (req, res) => {
   res.send(a);
 })
 
+// 회원가입 비밀번호 중복 확인
+app.post("/buy/join/overlap2", (req, res) => {
+  console.log('/buy/join/overlap2 호출됨.');
+  
+  const paramTel = req.body.tel || req.query.tel;      // 아이디    
+
+  console.log(paramTel);
+
+
+  // true flase 반환  
+  let bool = true; 
+  if(paramTel === "") bool = false;
+  let a = {bool:bool} 
+  
+  res.send(a);
+})
 
 // logout 결과 반환 
 app.post("/logout", (req, res) => {

@@ -57,7 +57,9 @@ const Search = () => {
                 {products.map((item, index) => (item.name.indexOf(search.trim()) >= 0) ?
                     <div key={index} className="item">
                         <div>
-                            <img className='item_img' src={"/uploadfile/"+item.img} alt={"product-img"}/>
+                            <Link to={`/product/${item.code}`} >
+                                <img className="item_img" src={"/uploadfile/"+item.img} alt={"product-img"}/>
+                            </Link>
                             <div>
                                 <div className='item_text1'>{item.name}</div>
                                 <div className='item_text2'>

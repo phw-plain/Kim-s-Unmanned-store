@@ -151,6 +151,8 @@ public class Setting {
 	protected static Vector<Integer> customer_exchange = new Vector<Integer>();
 	protected static Vector<Integer> customer_refund = new Vector<Integer>();
 
+	protected static Vector<String> per_code = new Vector<String>();
+	
 	public static Frame startFrame;
 	
 	public Setting(){

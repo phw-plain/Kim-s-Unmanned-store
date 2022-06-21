@@ -101,6 +101,7 @@ public class Customer extends Setting {
 		refund.add(0);
 		
 		// 고객 환불 및 교환 cloumn 설정
+		colNames2.add("제품 코드");
 		colNames2.add("제품명");
 		colNames2.add("수량");
 		colNames2.add("구매 일자");
@@ -677,11 +678,12 @@ public class Customer extends Setting {
 			tableView2.getColumnModel().getColumn(i).setPreferredWidth(60);	// JTable 의 컬럼 길이 조절
 		}
 
-		tableView2.getColumnModel().getColumn(0).setPreferredWidth(150);
-		tableView2.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tableView2.getColumnModel().getColumn(1).setPreferredWidth(150);
 		tableView2.getColumnModel().getColumn(3).setPreferredWidth(120);
-		tableView2.getColumnModel().getColumn(5).setPreferredWidth(120);	
-		tableView2.getColumnModel().getColumn(6).setPreferredWidth(500);	
+		tableView2.getColumnModel().getColumn(4).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(6).setPreferredWidth(120);	
+		tableView2.getColumnModel().getColumn(7).setPreferredWidth(500);	
 		
 		center.add(navigation, BorderLayout.NORTH);
 		center.add(list, BorderLayout.CENTER);
@@ -707,7 +709,7 @@ public class Customer extends Setting {
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "승인하시겠습니까?"
+						, dataSet2.get(index).get(1) + " " + dataSet2.get(index).get(2)  + "개를 " + dataSet2.get(index).get(5) + " 승인하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -719,6 +721,8 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);
+
+						System.out.println(per_code.get(index));
 						
 						// 데이터베이스에서 해당 신청 목록 삭제하기
 						// permute_id변수 이용 : 전화번호
@@ -743,7 +747,7 @@ public class Customer extends Setting {
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "을 철회하시겠습니까?"
+						, dataSet2.get(index).get(1) + " " + dataSet2.get(index).get(2)  + "개를 " + dataSet2.get(index).get(5) + " 철회하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -755,6 +759,8 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);
+						
+						System.out.println(per_code.get(index));
 						
 						// 데이터베이스에서 해당 신청 목록 삭제하기
 						// permute_id변수 이용 : 전화번호
@@ -814,6 +820,7 @@ public class Customer extends Setting {
 		Vector<String> grounds = new Vector<String>();		// 신청사유
 		
 		// 프론트엔드용 데이터
+		per_code.add("12314123");
 		pdt_name.add("토종 햇 당근");
 		pdt_cnt.add(3);
 		buy.add("2022-5-1");
@@ -821,7 +828,8 @@ public class Customer extends Setting {
 		permute.add("환불");
 		reasons.add("단순 변심");
 		grounds.add("당근이 먹고 싶은 줄 알았는데 생각해보니 집에 당근이 있어서 환불하고 싶어졌어요.");
-		
+
+		per_code.add("21455123");
 		pdt_name.add("아이셔 레몬");
 		pdt_cnt.add(3);
 		buy.add("2022-5-22");
@@ -833,6 +841,7 @@ public class Customer extends Setting {
 		// 데이터 입력
 		for (int i = 0; i < pdt_name.size(); i++) {
 			rows = new Vector<String>();
+			rows.add(per_code.get(i));
 			rows.add(pdt_name.get(i));
 			rows.add(Integer.toString(cnt.get(i)));
 			rows.add(buy.get(i));

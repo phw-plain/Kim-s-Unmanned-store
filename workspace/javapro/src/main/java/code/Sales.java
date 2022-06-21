@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -610,15 +611,15 @@ public class Sales extends Setting{
 				 // 2. Calendar 생성        
 		Calendar calendar = Calendar.getInstance();        
 		calendar.setTime(currentDate);
-				 
+
 		int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
-		String DayEvent[] = {"월", "화","수","목","금","토","일"};
+		String DayEvent[] = {"일", "월", "화","수","목","금","토"};
 		int y = 0;
 		//1 7 6 5 4 3 2
 		for(int i = dayOfWeekNumber; y<7; i--, y++) {
 			day.add(DayEvent[i-1]);
 			if(i==1) {
-				i=8;
+			i=8;
 			}
 		}
 		

@@ -115,7 +115,7 @@ function Change() {
                <p className='Rank_title'>상품 {change}</p>
                <p className='Rank_subTitle'>개봉된 상품은 {change} 불가능 합니다.</p>
            </div>
-           <Link to="../main">
+           <Link to="../../permute" state={{ telephone: tel }}>
                <HiArrowRight className='arrow'/>
            </Link>
        </div>

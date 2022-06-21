@@ -24,8 +24,9 @@ const Buy = () => {
     const [getPoint, setGetPoint] = useState();                            // 사용할 포인트    (회원 전용)
     const [usePw, setUsePw] = useState();                                   // 고객 비밀번호    (회원 전용)
 
-    const [join, setJoin] = useState({id:"", pw:"", name:"", tel:"", email:""});      // 고객 회원가입
+    const [join, setJoin] = useState({id:"", pw:"", name:"",  email:""});      // 고객 회원가입
     const [joinId, setJoinId] = useState();                                                         // 아이디 중복 체크
+    const [joinTel, setJoinTel] = useState();                                                         // 아이디 중복 체크
     const [joinApply, setJoinApply] = useState();                                             // 회원가입 성공 체크
 
     useEffect(() => {
@@ -91,6 +92,18 @@ const Buy = () => {
             }
         }
     }, [joinId])
+
+    useEffect(() => {
+        if(joinTel !== undefined) {
+            if(joinTel) {
+                alert('사용 가능한 전화번호 입니다!')
+            } else {
+                alert('사용 불가능한 전화번호 입니다!')
+            }
+        }
+    }, [joinTel])
+
+
 
     const cartAdd = async() => {
         await axios.post('/buy')
@@ -228,6 +241,31 @@ const Buy = () => {
         }
     }
 
+    const overlap2 = async() => {
+        var regExp2 = /^01(?:0|[6-9])(?:\d{4}|\d{4})\d{4}$/
+
+        if(join.tel !== ""){
+            if(!isTelephone(join.tel)){
+                alert('전화번호 입력 오류! 다시 확인 해주세요.');
+            } else {
+                let newTel = join.tel;
+
+                if(regExp2.test(newTel)) { 
+                    newTel = newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
+                    setTel(newTel)
+                }
+
+                await axios.post('/buy/join/overlap2', null, {
+                    params: {
+                        'tel':newTel
+                    }
+                }).then(res => setJoinTel(res.data.bool))
+                .catch();
+            }
+          
+        }
+    }
+
     const sendBuy = (isMember) => {
         if (isMember && !isTelephone(tel)){
             alert('전화번호 입력 오류! 다시 확인 해주세요.');
@@ -302,32 +340,30 @@ const Buy = () => {
         var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
         var regExp2 = /^01(?:0|[8])(?:\d{3}|\d{4})\d{4}$/
 
+         console.log(joinId,  joinTel)
 
         if(join.id.length === 0) {
             alert('아이디를 작성해주세요!');
+        } else if(joinId !== true) {
+            alert('사용 불가능한 아이디 입니다! 다시 확인 해주세요.')
         } else if(join.pw.length === 0) {
             alert('비밀번호 입력 오류! 다시 확인 해주세요.');
         } else if(join.name.length === 0) {
             alert('이름 입력 오류! 다시 확인 해주세요.');
-        } else if(!isTelephone(join.tel)){
-            alert('전화번호 입력 오류! 다시 확인 해주세요.');
+        } else if(join.tel.length === 0) {
+            alert("전화번호를 작성해주세요.")
+        } else if(joinTel !== true) {
+            alert('사용 불가능한 전화번호 입니다! 다시 확인 해주세요.')
         } else if(!regEmail.test(join.email)) {
             alert('이메일 입력 오류! 다시 확인 해주세요.');
         } else {
-
-            let newTel = join.tel;
-
-            if(regExp2.test(newTel)) { 
-                newTel = newTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') 
-                setTel(newTel)
-            }
 
             await axios.post('/buy/join', null, {
                 params: {
                     'id': join.id,
                     'pw': join.pw,
                     'name': join.name,
-                    'tel': newTel,
+                    'tel': join.tel,
                     'email': join.email
                 }
             }).then(res =>  setJoinApply(res.data.bool))
@@ -524,7 +560,7 @@ const Buy = () => {
                                         <Form.Label column sm={2} className="flb">
                                         전화 번호
                                         </Form.Label>
-                                        <Form.Control type="text" className='fcb' onChange={handleJoinTel} />
+                                        <Form.Control type="text" className='fcb' onChange={handleJoinTel}  onMouseOut={overlap2}/>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-5">
                                         <Form.Label column sm={2} className="flb">

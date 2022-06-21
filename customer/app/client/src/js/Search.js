@@ -4,8 +4,11 @@ import axios from 'axios';
 import { HiArrowRight } from 'react-icons/hi'
 
 import '.././css/Search.css';
+import isLogin from '../components/isLogin.jsx'
 
 const Search = () => { 
+    isLogin()
+
     const [products, setProducts] = useState([]); 
     const [search, setSearch] = useState("");
     const [cnt, setCnt] = useState(0);

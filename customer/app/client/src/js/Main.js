@@ -12,6 +12,7 @@ const Main = () => {
         if(isTrue !== 0) {
             if(isTrue) {
                 alert('로그아웃 성공! 좋은 하루 되세요.')
+                localStorage.removeItem('accessToken')
                 window.location.href = "/"
             }
         }

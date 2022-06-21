@@ -5,8 +5,11 @@ import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
 import '.././css/Rank.css'
+import isLogin from '../components/isLogin.jsx'
 
 function Rank() { 
+  isLogin()
+  
     // 데이터 가져오기
     const { select } = useParams();
     const [products, setProducts] = useState([]);

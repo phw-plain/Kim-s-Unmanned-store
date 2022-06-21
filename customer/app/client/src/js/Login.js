@@ -3,11 +3,13 @@ import axios from 'axios';
 import { Form, Button } from "react-bootstrap";
 
 function Login() {
+
   const [inputId, setInputId] = useState('')
   const [inputPw, setInputPw] = useState('')
   const [data, setData] = useState();
 
   localStorage.removeItem('device')
+  localStorage.removeItem('accessToken')
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
@@ -33,12 +35,12 @@ function Login() {
   }
 
   useEffect(() => {
-    console.log("~~", data)
     if(data !== undefined) {
       if(data.bool === false) {
         alert('아이디 또는 비밀번호 입력오류! 다시 확인해주세요.')
       } else {
         localStorage.setItem('device', JSON.stringify(data))
+        localStorage.setItem('accessToken', JSON.stringify({id:inputId, pw:inputPw}))
         window.location.href = "/connect"
       }
 

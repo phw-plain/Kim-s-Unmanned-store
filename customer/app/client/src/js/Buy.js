@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { ListGroup,  Modal, Button, Form, Row } from "react-bootstrap";
 import axios from 'axios';
 
-import { Receipt } from '../component/Receipt.jsx'
+import { Receipt } from '../components/Receipt.jsx'
+import isLogin from '../components/isLogin.jsx'
 import '.././css/Buy.css';
 
 const Buy = () => {
+    isLogin()
+    
     const [itemCode, setItemCode] = useState(0);                            // 바코드 스캔한 데이터
     const [isStop, setIsStop] = useState(false)                             // 바코드 리더 스캔 실시간 서버 연동 여부
     

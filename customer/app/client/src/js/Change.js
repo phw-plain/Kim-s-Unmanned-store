@@ -3,10 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import axios from 'axios';
 import { Spinner } from "react-bootstrap";
-
 import { HiArrowRight } from 'react-icons/hi'
 
+import isLogin from '../components/isLogin.jsx'
+
 function Change() { 
+    isLogin()
+
     const [productId, setProductId] = useState();
     const {permuteId}= useParams();
 

@@ -3,7 +3,9 @@ import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+
 import Login from './js/Login'; 
+import LoginGo from './js/LoginGo'; 
 import Connect from './js/Connect'; 
 import Main from './js/Main'; 
 import Products from './js/Products'; 
@@ -24,13 +26,14 @@ function App() {
         {/* <Header />  */}
         <Routes> 
             <Route path='/' element={<Login />}></Route>
-            <Route path='/connect' element={<Connect />}></Route>
-            <Route path='/main' element={<Main />}></Route>
-            <Route path='/products' element={<Products />}></Route>
-            <Route path='/products/search' element={<Search />}></Route>
-            <Route path='/product/:productId' element={<Product />}></Route>
-            <Route path='/buy' element={<Buy />}></Route>
-            <Route path='/permute' element={<Permute />}></Route>
+            <Route path='/notLogin' element={<LoginGo />}></Route>
+            <Route exact path='/connect' element={<Connect />}></Route>
+            <Route exact path='/main' element={<Main />}></Route>
+            <Route exact path='/products' element={<Products />}></Route>
+            <Route exact path='/products/search' element={<Search />}></Route>
+            <Route exact path='/product/:productId' element={<Product />}></Route>
+            <Route exact path='/buy' element={<Buy />}></Route>
+            <Route exact path='/permute' element={<Permute />}></Route>
             <Route exact path='/permute/:permuteId' element={<Change />}></Route>
             <Route exact path='/permute/:permuteId/write/:productId' element={<PermuteWrite />}></Route>
             <Route path='/rank/:select' element={<Rank />}></Route>

@@ -17,13 +17,14 @@ public class Manage extends Setting {
 	private JPanel pWest;
 	private JPanel pEast;
 	
+	private Loading loading;
 	private Sales sales; 				// 매출 & 지출 기록 및 그래프
 	private NetIncome netincome;	 	// 실수령액 그래프
 	private Inventory inventory; 		// 재고 관리
 	private Customer customer; 			// 고객 관리
 	private MyPage mypage; 				// 마이페이지
 
-	public Manage(String id, String pw) {
+	public Manage(String id, String pw) {		
 		setId(id);
 		setPw(pw);
 		
@@ -66,6 +67,12 @@ public class Manage extends Setting {
 		customer.setVisible(false);
 		mypage.setVisible(false);
 
+		// 로딩 화면
+		loading = new Loading();
+		loading.setVisible(true);
+		mainFrame.add(loading.panel);
+
+		subpanel.add(loading.panel);
 		subpanel.add(menu);
 		subpanel.add(sales.panel);
 		subpanel.add(netincome.panel);
@@ -74,6 +81,17 @@ public class Manage extends Setting {
 		subpanel.add(mypage.panel);
 
 		mainFrame.add(subpanel);
+		
+		new java.util.Timer().schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+				    	loading.setVisible(false);
+		            	menu.setVisible(true);
+		            }
+		        }, 
+		        10000 
+		);
 	}
 
 	private void menu() {
@@ -317,7 +335,7 @@ public class Manage extends Setting {
 		menu.add(pWest);
 		menu.add(pEast);
 
-		menu.setVisible(true);
+		menu.setVisible(false);
 	}
 
 	public void homeevt() {

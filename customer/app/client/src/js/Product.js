@@ -4,8 +4,11 @@ import { Button  } from "react-bootstrap";
 import axios from 'axios';
 
 import  '.././css/Product.css';
+import isLogin from '../components/isLogin.jsx'
 
-const Product = () => { 
+const Product = () => {
+    isLogin()
+    
     // 데이터 가져오기
     const { productId } = useParams();
     const [products, setProducts] = useState([]);

@@ -25,7 +25,7 @@ class login extends Setting {
 	private JLabel headerLabel;
 	private Button b1;
 	
-	private Loading loading;
+
 	
 	private TextField tf1;
 	private TextField tf2;
@@ -153,8 +153,8 @@ class login extends Setting {
  	   	String input_pw = tf2.getText();
  	   
  	   // 데이터 불러오기
- 	   	String id = "1";
- 	   	String pw = "1";
+ 	   	final String id = "1";
+ 	   	final String pw = "1";
  	   
  	   if(input_id.length() == 0) {
  		   	JOptionPane.showMessageDialog(null
@@ -175,30 +175,25 @@ class login extends Setting {
 						, JOptionPane.ERROR_MESSAGE
 						);
 			} else {
-				loading = new Loading();
-				loading.setVisible(true);
-				mainFrame.add(loading.panel);
-				subpanel.setVisible(false);
-
+				JOptionPane.showMessageDialog(null
+					, "환영합니다!"
+					, "박리다매 무인가게"
+					, JOptionPane.PLAIN_MESSAGE
+				);
 				
-//				// 로그인 정보 저장
-//				setName("고고곡");
-//				setBrand("신림사거리점");
-//				setLocation("관악구");
-//				emp = false;
-//				setEmpsal(0);
-//				
-//				// 테스트 계정 확인용
-//		    	print();
-//		    	
-//		    	JOptionPane.showMessageDialog(null
-//					, "환영합니다!"
-//					, "박리다매 무인가게"
-//					, JOptionPane.PLAIN_MESSAGE
-//				);
-//		    	
-//				new Manage(id, pw);
-//	    		mainFrame.dispose();
+				// 로그인 정보 저장
+				setName("고고곡");
+				setBrand("신림사거리점");
+				setLocation("관악구");
+				emp = false;
+				setEmpsal(0);
+				
+				// 테스트 계정 확인용
+		    	print();
+		    	
+		    	mainFrame.dispose();
+            	new Manage(id, pw);
+		    	
 			}
 	}
 	

@@ -5,8 +5,11 @@ import { Row, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
 
 import  '.././css/Permute.css';
+import isLogin from '../components/isLogin.jsx'
 
 const Permute = () => { 
+    isLogin()
+    
     const [tel, setTel] = useState(useLocation().state.telephone);
     const [isMember, setIsMember] = useState();
     const [show, setShow] = useState((useLocation().state.telephone === undefined) ? true : false);

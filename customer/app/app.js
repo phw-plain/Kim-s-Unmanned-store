@@ -263,22 +263,18 @@ app.post("/permute/apply", async (req, res) => {
         paramTel: paramTel,
         paramGro:paramGro,
         paramRes:paramRes,
+        paramPermute:paramPermute,
         buyday:buyday1,
         returnday:getDate
       };
       const washingtonRef = db.collection('Manager').doc(Id).collection('customer').doc(customerId);
-      if(paramRes=="1"){
-        await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
-        .collection('exchange').doc(getDate).set(data);
+      await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+        .collection('permute').doc(getDate).set(data);
+      if(paramPermute=="1"){
         await washingtonRef.update({exchange: FieldValue.increment(1)});
-
-      }else if(paramRes=="2"){
-        await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
-        .collection('refund').doc(getDate).set(data);
+      }else if(paramPermute=="2"){
         await washingtonRef.update({refund: FieldValue.increment(1)});
       }
-      
-
     }
   }
   // true flase 반환  
@@ -465,7 +461,9 @@ app.post("/buy/join", async (req, res) => {
     name: paramName,
     point: 0,
     pw: paramPw,
-    tel: paramTel
+    tel: paramTel,
+    refund:0,
+    exchange:0
   }
   await db.collection('Manager').doc(Id).collection('customer').doc(paramId).set(data1);
   // true flase 반환  

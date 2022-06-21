@@ -2,10 +2,13 @@ package firebase;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
@@ -36,7 +39,7 @@ public class Firebase_Customer extends App{
 			set.customer_telephone.add(document.getString("tel"));
 			set.customer_email.add(document.getString("email"));
 			set.customer_point.add((document.getLong("point")).intValue());
-			set.customer_exchange.add((document.getLong("exchage")).intValue());
+			set.customer_exchange.add((document.getLong("exchange")).intValue());
 			set.customer_refund.add((document.getLong("refund")).intValue());
 		}
 	}
@@ -72,12 +75,27 @@ public class Firebase_Customer extends App{
 		return map;
     }
 	
-	public void show_permute() {
+	public void show_permute(String tel) {
 		db = FirestoreClient.getFirestore();
-		ApiFuture<QuerySnapshot> query = db.collection("Manager").document(getId()).collection("customer").get();
-		QuerySnapshot querySnapshot = null;
+		ApiFuture<QuerySnapshot> query = db.collection("Manager").document(getId()).collection("customer").whereEqualTo("tel", tel).get();
+		List<QueryDocumentSnapshot> documents = null;
 		try {
-			querySnapshot = query.get();
+			documents = query.get().getDocuments();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String customerId = null;
+		for (DocumentSnapshot document : documents) {
+			customerId=document.getId();
+		}
+		ApiFuture<QuerySnapshot> docRef = db.collection("Manager").document(getId()).collection("customer").document(customerId).collection("permute").get();
+		List<QueryDocumentSnapshot> documents2 = null;
+		try {
+			documents2 = docRef.get().getDocuments();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,22 +103,20 @@ public class Firebase_Customer extends App{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.util.List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-		for (QueryDocumentSnapshot document : documents) {
-			set.pdt_name.add(document.getString("id"));
-			set.pdt_cnt.add(Integer.parseInt(document.getString("pw")));
-			set.buy.add(document.getString("name"));
-			set.apply.add(document.getString("tel"));
-			set.permute.add(document.getString("email"));
-			set.reasons.add(document.getString("point"));
+		for (QueryDocumentSnapshot document : documents2) {
+			System.out.println(document.getString("buyday"));
+			set.pdt_name.add(document.getString("buyday"));
+			set.pdt_cnt.add(Integer.parseInt(document.getString("paramCnt")));
+			set.buy.add(document.getString("buyday"));
+			set.apply.add(document.getString("returnday"));
+			if(document.getString("paramPermute")=="1") {
+				set.permute.add(document.getString("교환"));
+			}else {
+				set.permute.add(document.getString("환불"));
+			}
+			set.reasons.add(document.getString("paramRes"));
+			set.grounds.add(document.getString("paramGro"));
 		}
 	}
-//	Vector<String> pdt_name = new Vector<String>();		// 제품명
-//	Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
-//	Vector<String> buy = new Vector<String>();			// 구매일자
-//	Vector<String> apply = new Vector<String>();		// 신청일자
-//	Vector<String> permute = new Vector<String>();		// 환불 or 교환
-//	Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
-//	Vector<String> grounds = new Vector<String>();		// 신청사유
 
 }

@@ -813,24 +813,9 @@ public class Customer extends Setting {
 		Vector<String> rows = null;
 		
 		// 전화번호 이용해서 데이터 가져오기
-		
-		
-		// 프론트엔드용 데이터
-		pdt_name.add("토종 햇 당근");
-		pdt_cnt.add(3);
-		buy.add("2022-5-1");
-		apply.add("2022-5-3");
-		permute.add("환불");
-		reasons.add("단순 변심");
-		grounds.add("당근이 먹고 싶은 줄 알았는데 생각해보니 집에 당근이 있어서 환불하고 싶어졌어요.");
-		
-		pdt_name.add("아이셔 레몬");
-		pdt_cnt.add(3);
-		buy.add("2022-5-22");
-		apply.add("2022-5-23");
-		permute.add("교환");
-		reasons.add("상품 불량");
-		grounds.add("분명 시다고 해서 구매했는데 단맛이나더라구요? 신맛나는 레몬으로 교환해주세요.");
+		Firebase_Customer last = new Firebase_Customer();
+		last.show_permute(telephone);
+		System.out.println("데이터 환불 교환");
 		
 		// 데이터 입력
 		for (int i = 0; i < pdt_name.size(); i++) {
@@ -843,7 +828,10 @@ public class Customer extends Setting {
 			rows.add(reasons.get(i));
 			rows.add(grounds.get(i));
 			dataSet2.add(rows);
+			
+			System.out.println(pdt_name.get(i));
 		}
+		System.out.println(pdt_name.size());
 	}
 	
 	private void dataSearch(String str) {

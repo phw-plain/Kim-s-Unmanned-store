@@ -46,7 +46,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="계산 하기"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/shape_for_round_button"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:onClick="buyBarcodeReader" />
@@ -59,7 +59,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="교환·환불"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/shape_for_round_button"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:onClick="permuteBarcodeReader"/>

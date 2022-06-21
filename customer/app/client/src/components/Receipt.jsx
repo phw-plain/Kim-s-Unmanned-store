@@ -3,6 +3,10 @@ import React from "react";
 export function Receipt(props) {     
     return (
         <div className="Receipt">
+            <h1 className="receipt_title">
+                <img className="logo" src="logo192.png" alt=""/>
+                박리다매 무인마켓
+            </h1>
             <div className="r_list">
                 {props.cart.map((item, idx) => (
                     <div className="receipt_list" key={idx}>

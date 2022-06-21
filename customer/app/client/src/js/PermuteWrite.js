@@ -4,7 +4,11 @@ import { Button, Spinner, Form, Col, Row } from "react-bootstrap";
 import { HiArrowRight } from 'react-icons/hi'
 import axios from 'axios';
 
+import isLogin from '../components/isLogin.jsx'
+
 function Change() { 
+    isLogin()
+    
     const {productId} = useParams();
     const {permuteId} = useParams();
     const [products, setProducts] = useState([]);   // products 데이터가 아닌 바코드 스캔 정보를 바탕으로 객체 하나만 가지고오기

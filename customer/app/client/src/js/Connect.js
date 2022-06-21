@@ -5,8 +5,11 @@ import JsBarcode from 'jsbarcode'
 import axios from 'axios';
 
 import '.././css/Connect.css';
+import isLogin from '../components/isLogin.jsx'
 
-const Connect = () => { 
+const Connect = () => {
+        isLogin()
+
     const [device, setDevice] = useState(JSON.parse(localStorage.getItem('device')));
     const [show, setShow] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
@@ -27,9 +30,7 @@ const Connect = () => {
             })
         }
     }, [barcodeNumber]) 
-
-
-
+    
     const handleClose = () => setShow(false);
 
     const checkConnect = () => {

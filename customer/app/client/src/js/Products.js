@@ -4,12 +4,15 @@ import { Carousel, Button } from "react-bootstrap";
 import { HiHome } from 'react-icons/hi'
 import axios from 'axios';
 
-import { CategorySlider } from '../component/CategorySlider.jsx'
-import { ProductList } from '../component/ProductList.jsx'
+import { CategorySlider } from '../components/CategorySlider.jsx'
+import { ProductList } from '../components/ProductList.jsx'
 import '.././css/Products.css';
-import { BennerSlide } from '../component/BennerSlide.jsx';
+import { BennerSlide } from '../components/BennerSlide.jsx';
+import isLogin from '../components/isLogin.jsx'
 
 export const Products = () => {
+  isLogin()
+
   const [text, setText] = useState("");
   const [select, setSelect] = useState([]);
   const [products, setProducts] = useState([]); 

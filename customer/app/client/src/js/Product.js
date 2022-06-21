@@ -1,5 +1,5 @@
 import React, { useEffect, useState }  from 'react'; 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button  } from "react-bootstrap";
 import axios from 'axios';
 
@@ -8,7 +8,9 @@ import isLogin from '../components/isLogin.jsx'
 
 const Product = () => {
     isLogin()
-    
+
+    const navigate = useNavigate();
+
     // 데이터 가져오기
     const { productId } = useParams();
     const [products, setProducts] = useState([]);
@@ -30,14 +32,13 @@ const Product = () => {
         
     return ( 
         <div>
-        
             {products.map((item, index) =>
                 <div className="product" style={{ 
                     backgroundColor: (colorCheck(item.category))
-            }}  > 
+                }}  key={index}> 
                     {
-                        (index == productId)
-                        ? <div key={index}>
+                        (index === +productId)
+                        ? <div>
                             <div className="product_img left" style={{  
                                 backgroundImage:`url(${"/uploadfile/"+item.img})`
                             }}></div>
@@ -66,9 +67,7 @@ const Product = () => {
                                 </div>
                             </div>
                             
-                        <Link to="/products">
-                            <Button variant="secondary" style={{ fontSize:"1.7vh", marginTop:"2.5vh", marginBottom:"15vh"}}>이전으로</Button>
-                        </Link>
+                            <Button variant="secondary" onClick={() => navigate(-1)} style={{ fontSize:"1.7vh", marginTop:"2.5vh", marginBottom:"15vh"}}>이전으로</Button>
                         </div>
                         : null
                     }

@@ -20,7 +20,7 @@ function Change() {
     const [tel, setTel] = useState();
     const [permute, setPermute] = useState({ cnt:"", res:"상품 결함", gro:"" });
     const [apply, setApply] = useState();
-
+    
     useEffect(() => {
         axios.post('/products')
         .then(res => setProducts(res.data))
@@ -91,6 +91,8 @@ function Change() {
             // if(regExp2.test(permute.tel)) { 전화번호 하이픈 없을때 넣기  } 
             // permute.tel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
 
+            let permuteCode = (permuteId === "exchange") ? 1 : 2;
+
             await axios.post('/permute/apply', null, {
                 params: {
                     'code': productId,
@@ -98,7 +100,8 @@ function Change() {
                     'cnt': permute.cnt,
                     'tel': tel,
                     'res': permute.res,
-                    'gro': permute.gro
+                    'gro': permute.gro,
+                    'permute': permuteCode
                 }
             }).then(res =>  setApply(res.data.bool))
             .catch();

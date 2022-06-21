@@ -156,13 +156,13 @@ public class Setting {
 	protected static Vector<Integer> customer_exchange = new Vector<Integer>();
 	protected static Vector<Integer> customer_refund = new Vector<Integer>();
 	
-	public Vector<String> pdt_name = new Vector<String>();		// 제품명
-	public Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
-	public Vector<String> buy = new Vector<String>();			// 구매일자
-	public Vector<String> apply = new Vector<String>();		// 신청일자
-	public Vector<String> permute = new Vector<String>();		// 환불 or 교환
-	public Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
-	public Vector<String> grounds = new Vector<String>();		// 신청사유
+	protected static Vector<String> pdt_name = new Vector<String>();		// 제품명
+	protected static Vector<Integer> pdt_cnt = new Vector<Integer>();	// 수량
+	protected static Vector<String> buy = new Vector<String>();			// 구매일자
+	protected static Vector<String> apply = new Vector<String>();		// 신청일자
+	protected static Vector<String> permute = new Vector<String>();		// 환불 or 교환
+	protected static Vector<String> reasons = new Vector<String>();		// 신청사유 카테고리
+	protected static Vector<String> grounds = new Vector<String>();		// 신청사유
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = new Date();        

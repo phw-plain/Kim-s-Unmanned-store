@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, useRef } from 'react'; 
 import { Link, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import axios from 'axios';
@@ -13,21 +13,43 @@ function Change() {
     const [productId, setProductId] = useState();
     const {permuteId}= useParams();
 
-
     const location = useLocation();
-    console.log(location);
-
-    useEffect(() => {
-        axios.post('/permute')
-        .then(res => setProductId(res.data.code))
-        .catch();
-    }, []);
-
+    
     useEffect(() => {
         if(productId !== undefined){
             window.location.href = permuteId+"/write/"+productId
         }
     }, [productId]);
+    
+    let loop = useInterval(() => {
+        itemCode();
+    }, 1000);
+
+    function useInterval(callback, delay) {
+        const savedCallback = useRef();
+
+        // Remember the latest callback.
+        useEffect(() => {
+            savedCallback.current = callback;
+        }, [callback]);
+        
+        // Set up the interval.
+        useEffect(() => {
+            function tick() {
+                savedCallback.current();
+            }
+            if (delay !== null) {
+                let id = setInterval(tick, delay);
+                return () => clearInterval(id);
+            }
+        }, [delay]);
+    }
+
+    const itemCode = async() => {
+        await axios.post('/permute')
+        .then(res => setProductId(res.data.code))
+        .catch();
+    }
     
     return ( 
        <div>
@@ -51,7 +73,7 @@ function Exchange() {
             <img src="../img/scan.png" alt="" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
             <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
                 <p>바코드를 스캔해 주세요</p>
-                <Spinner animation="grow" role="status" style={{ width:"20vh", height:"20vh", marginTop:"10vh", color:"rgb(3, 60, 89)"}}/>
+                <Spinner animation="grow" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
                 <p style={{marginTop:"12vh", color:"lightgray"}}>Loading ...</p>
             </div>
         </div>

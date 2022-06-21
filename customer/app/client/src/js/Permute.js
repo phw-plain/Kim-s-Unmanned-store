@@ -87,14 +87,14 @@ const Permute = () => {
                     <Modal.Title  style={{fontSize:"3vh"}}>회원 정보</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <div>
                         <Form.Group as={Row} className="mb-5">
                             <Form.Label column sm={2} className="flb">
                             전화 번호
                             </Form.Label>
                             <Form.Control type="text" className='fcb' onChange={handleInputTel} />
                         </Form.Group>
-                    </Form>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer style={{borderTop:"none", marginTop:"10vh"}}>
                     <Link to="/main">

@@ -57,42 +57,52 @@ public class Manage extends Setting {
 
 		mainFrame.add(subpanel);
 		
-		// 메뉴 화면 생성
-		menu();
-		
-		// 객체 할당
-		sales = new Sales(); 
-		netincome = new NetIncome();
-		mypage = new MyPage();
-		inventory = new Inventory();
-		customer = new Customer();
-
-		// 홈 버튼 이벤트 적용
-		homeevt();
-
-		sales.setVisible(false);
-		netincome.setVisible(false);
-		inventory.setVisible(false);
-		customer.setVisible(false);
-		mypage.setVisible(false);
-		
-		subpanel.add(menu);
-		subpanel.add(sales.panel);
-		subpanel.add(netincome.panel);
-		subpanel.add(inventory.panel);
-		subpanel.add(customer.panel);
-		subpanel.add(mypage.panel);
-		
 		new java.util.Timer().schedule( 
 	        new java.util.TimerTask() {
 	            @Override
 	            public void run() {
-			    	loading.setVisible(false);
-	            	menu.setVisible(true);
+	            	// 메뉴 화면 생성
+	        		menu();
+	        		
+	        		// 객체 할당
+	        		sales = new Sales(); 
+	        		netincome = new NetIncome();
+	        		mypage = new MyPage();
+	        		inventory = new Inventory();
+	        		customer = new Customer();
+
+	        		// 홈 버튼 이벤트 적용
+	        		homeevt();
+
+	        		sales.setVisible(false);
+	        		netincome.setVisible(false);
+	        		inventory.setVisible(false);
+	        		customer.setVisible(false);
+	        		mypage.setVisible(false);
+	        		
+	        		subpanel.add(menu);
+	        		subpanel.add(sales.panel);
+	        		subpanel.add(netincome.panel);
+	        		subpanel.add(inventory.panel);
+	        		subpanel.add(customer.panel);
+	        		subpanel.add(mypage.panel);
+	            	
+	            	new java.util.Timer().schedule( 
+	        	        new java.util.TimerTask() {
+	        	            @Override
+	        	            public void run() {
+	        			    	loading.setVisible(false);
+	        	            	menu.setVisible(true);
+	        	            }
+	        	        }, 
+	        	        7000
+	        		);
 	            }
 	        }, 
-	        7000
+	        2000
 		);
+		
+		
 	}
 
 	private void menu() {

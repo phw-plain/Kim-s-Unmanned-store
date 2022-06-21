@@ -223,13 +223,15 @@ app.post("/permute/apply", async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;            // 전화번호
   const paramRes = req.body.res || req.query.res;            // 유형
   const paramGro = req.body.gro || req.query.gro;            // 신청 이유
+  const paramPermute  = req.body.permute || req.query.permute; 
+
   const data = {
     paramCode: 'paramCode',
     paramName: 'paramName',
     paramCnt: 'paramCnt'
   };
 
-  console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
+  console.log(paramName, paramCnt, paramTel, paramRes, paramGro, paramPermute);
   // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
   const isthere = db.collection('Manager').doc(Id).collection('customer').doc(customerId)
   .collection('order_history').where('paramCode','==',paramCode);

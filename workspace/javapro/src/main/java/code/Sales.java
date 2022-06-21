@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
@@ -602,14 +604,23 @@ public class Sales extends Setting{
 		final CategoryChart chart = new CategoryChartBuilder().width(width/3).height(100).title(title).xAxisTitle("").yAxisTitle("원").build();
 		
 		// 오늘 기준으로 가져오는 데이터 바탕으로 요일 정렬 해야함
-		ArrayList<String> day = new ArrayList<String>();
-		day.add("월");
-		day.add("화");
-		day.add("수");
-		day.add("목");
-		day.add("금");
-		day.add("토");
-		day.add("일");
+		ArrayList<String> day = new ArrayList<String>();   
+		Date currentDate = new Date();        
+		System.out.println(currentDate);      
+				 // 2. Calendar 생성        
+		Calendar calendar = Calendar.getInstance();        
+		calendar.setTime(currentDate);
+				 
+		int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
+		String DayEvent[] = {"월", "화","수","목","금","토","일"};
+		int y = 0;
+		//1 7 6 5 4 3 2
+		for(int i = dayOfWeekNumber; y<7; i--, y++) {
+			day.add(DayEvent[i-1]);
+			if(i==1) {
+				i=8;
+			}
+		}
 		
 		ArrayList<String> month = new ArrayList<String>();
 		month.add("1월");

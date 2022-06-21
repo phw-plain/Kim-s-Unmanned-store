@@ -76,12 +76,11 @@ class PermuteActivity : AppCompatActivity() {
                         .collection("barcode").document(id!!)
                     docRef1.get()
                         .addOnSuccessListener { document1 ->
-                            Toast.makeText(this, "카트에 ${productName}이 추가되었습니다", Toast.LENGTH_LONG).show()
-                            docRef1.update("cart", productCode);
+                            docRef1.update("permute", productCode);
                         }
                 } else {
                     ManagerId = "";
-                    Toast.makeText(this, "해당 제품은 판매하지 않는 상품입니다", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "해당 제품은 없는 상품입니다", Toast.LENGTH_LONG).show()
                     id = "";
                 }
             }

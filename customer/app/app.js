@@ -40,13 +40,20 @@ var today = new Date();
 var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
 var day = ('0' + today.getDate()).slice(-2);
-var hours = ('0' + today.getHours()).slice(-2);
-var minutes = ('0' + today.getMinutes()).slice(-2);
-var seconds = ('0' + today.getSeconds()).slice(-2);
 
 var dateString = year + '-' + month + '-' + day;
-var timeString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 let monthString = year + '-' + month;
+
+function newDay(){
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+  var day = ('0' + today.getDate()).slice(-2);
+  var hours = ('0' + today.getHours()).slice(-2);
+  var minutes = ('0' + today.getMinutes()).slice(-2);
+  var seconds = ('0' + today.getSeconds()).slice(-2);
+  return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+}
 
 // 로그인 정보 받고 결과 값 보내기
 app.post("/login", async (req, res) => {
@@ -184,7 +191,6 @@ app.post("/permute/tel", async (req, res) => {
 app.post("/permute/tel/get", (req, res) => {
   console.log(' /permute/tel/get 호출됨.');
   let tel = customerTel;
-  
   let a = {tel:tel} 
   
   res.send(a);
@@ -194,8 +200,16 @@ app.post("/permute/tel/get", (req, res) => {
 // 상품 교환 & 환불 신청: 제품 코드 보내기
 app.post("/permute", async (req, res) => {
   console.log(' /permute 호출됨.');
-
-  let a = { code: 0 }
+  let x = db.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
+  const doc = await x.get();
+  let answer = null;
+  if (doc.data().permute != null) {
+    answer = await parseInt(doc.data().permute);
+    db.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
+      'permute': null
+    });
+  }
+  let a = { code: answer }
   res.send(a);
 })
 
@@ -209,12 +223,31 @@ app.post("/permute/apply", async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;            // 전화번호
   const paramRes = req.body.res || req.query.res;            // 유형
   const paramGro = req.body.gro || req.query.gro;            // 신청 이유
+  const data = {
+    paramCode: 'paramCode',
+    paramName: 'paramName',
+    paramCnt: 'paramCnt'
+  };
 
   console.log(paramName, paramCnt, paramTel, paramRes, paramGro);
   // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
+  const isthere = db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+  .collection('order_history').where('paramCode','==',paramCode);
+  var newdateString = year + '-' + month + '-' + parseInt(day)-7;
+  if (isthere.empty) {
+    console.log('No matching documents.');
+    bool = false;
+  }
+  isthere.forEach(doc => {
+    let buyday = doc.id.split(' ');
+    if(buyday[0] < newdateString&&doc.data().cnt==paramCnt){
+      bool = true;
+      const ishere = db.collection('Manager').doc(Id).collection('customer')
+      .doc(customerId).collection('permute').doc(dateString);
 
+    }
+  });
   // true flase 반환  
-  let bool = true;
   let a = { bool: bool }
 
   res.send(a);
@@ -261,11 +294,11 @@ app.post("/buy/send", async (req, res) => {
     let x = JSON.parse(paramCart[i]);
     if (paramTel !== "-1") {
       bool = true;
-      snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
-      snapshot.forEach(doc => {
+      let snapshot1 = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+      snapshot1.forEach(doc => {
         login_id = doc.id
       });
-      var timeString = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+      var timeString = newDay(0);
       let data = {
         code: x.code,
         name: x.name,
@@ -285,14 +318,14 @@ app.post("/buy/send", async (req, res) => {
       bool = true;
     }
     //일일 순위
-    snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
-    let snapshot1 =  db.collection('Manager').doc(Id).collection('inventory').doc(x.code);
-    let doc = await snapshot.get();
+    let snapshot2 = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
+    let snapshot3 =  db.collection('Manager').doc(Id).collection('inventory').doc(x.code);
+    let doc = await snapshot2.get();
     if (doc.exists) {
-      await snapshot.update({
+      await snapshot2.update({
         cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
-      await snapshot1.update({
+      await snapshot3.update({
         amountDay: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
       //없으면 리스트 새로 생성 
@@ -336,7 +369,7 @@ app.post("/buy/send", async (req, res) => {
       await snapshot.set(hello);
     }
     //이번 달 매출
-    snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
+    let snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
     doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
@@ -424,11 +457,10 @@ app.post("/buy/join/overlap", async (req, res) => {
 // logout 결과 반환 
 app.post("/logout", (req, res) => {
   console.log('/logout 호출됨.');
-
   const paramPw = req.body.user_pw || req.query.user_pw;      // 비밀번호 확인  
 
   console.log(paramPw);
-
+  Id = null;
   // true flase 반환  
   let bool = (paramPw == 1);
   let a = { bool: bool }

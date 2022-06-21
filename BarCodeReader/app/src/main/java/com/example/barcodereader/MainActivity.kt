@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
                             "id" to id,
                             "display" to Build.MODEL,
                             "time" to mFormat.format(mDate),
-                            "cart" to null
+                            "cart" to null,
+                            "permute" to null
                         );
                         db.collection("Manager").document(ManagerId).collection("barcode")
                             .document(id)

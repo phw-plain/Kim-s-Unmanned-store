@@ -244,7 +244,7 @@ public class NetIncome extends Setting{
 		 calendar.setTime(currentDate);
 		 
 		int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
-		String DayEvent[] = {"화","수","목","금","토","일", "월"};
+		String DayEvent[] = {"일", "월", "화","수","목","금","토"};
 		int y = 0;
 		for(int i = dayOfWeekNumber; y<7; i++, y++) {
 			day.add(DayEvent[i-1]);

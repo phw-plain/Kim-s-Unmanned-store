@@ -51,7 +51,7 @@ function Exchange() {
             <img src="../img/scan.png" alt="" style={{ width:"30vh", height:"30vh",marginTop:"5vh"}}/>
             <div style={{ fontSize:"1.7vh", marginTop:"5vh" }}>
                 <p>바코드를 스캔해 주세요</p>
-                <Spinner animation="grow" role="status" style={{ width:"20vh", height:"20vh", marginTop:"10vh", color:"rgb(3, 60, 89)"}}/>
+                <Spinner animation="grow" role="status" style={{ width:"10vh", height:"10vh", marginTop:"10vh", color:"lightgray"}}/>
                 <p style={{marginTop:"12vh", color:"lightgray"}}>Loading ...</p>
             </div>
         </div>

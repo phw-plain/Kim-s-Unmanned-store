@@ -21,7 +21,6 @@ function Change() {
     const [permute, setPermute] = useState({ cnt:"", res:"", gro:"" });
     const [apply, setApply] = useState();
 
-
     useEffect(() => {
         axios.post('/products')
         .then(res => setProducts(res.data))
@@ -32,8 +31,6 @@ function Change() {
         axios.post('/permute/tel/get')
         .then(res => setTel(res.data.tel))
         .catch();
-
-        console.log(tel)
 
         if(permuteId === "refund") {
             setChange("환불")

@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -173,10 +175,10 @@ class login extends Setting {
 						);
 			} else {
 				JOptionPane.showMessageDialog(null
-						, "환영합니다!"
-						, "박리다매 무인가게"
-						, JOptionPane.PLAIN_MESSAGE
-						);
+					, "환영합니다!"
+					, "박리다매 무인가게"
+					, JOptionPane.PLAIN_MESSAGE
+				);
 				
 				// 테스트 계정 확인용
 		    	print();

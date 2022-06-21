@@ -245,12 +245,31 @@ app.post("/rank", async (req, res) => {
 // 상품 결재 시 전화번호가 일치하면 DB저장, 일치: true - 불일치: false 반환
 app.post("/buy/send", async (req, res) => {
 
-  let paramCart = req.body.cart || req.query.cart;     // 구매목록    
-  const paramTel = req.body.tel || req.query.tel;        // 전화번호
-  const paramPoint = req.body.point || req.query.point;        // 포인트
+  let paramCart  = req.body.cart || req.query.cart;               // 구매목록    
+  const paramTel  = req.body.tel || req.query.tel;                     // 전화번호
+  const paramUsePoint  = req.body.usePoint || req.query.usePoint;   // 사용 포인트
+  const paramGetPoint  = req.body.getPoint || req.query.getPoint;   // 적립 포인트
+
+  console.log(paramCart, paramTel, paramUsePoint, paramGetPoint);
+  
+  // true flase 반환  
+  let bool = true; 
+
+  if(paramTel === "-1") {
+    console.log("비회원 주문 입니다!")
+    bool = true;
+  } else {
+    if(paramUsePoint === undefined){
+      console.log("포인트를 사용하지 않는 회원 주문 입니다!")
+      console.log('적립 예정 포인트:', paramGetPoint)
+    } else {
+      console.log("포인트를 사용하는 회원 주문 입니다!")
+      console.log('적립 예정 포인트:', paramGetPoint)
+
+
   let bool = false;
 
-  console.log(paramPoint)
+  console.log(paramUsePoint)
 
   //로그인 확인
   bool = true;
@@ -272,14 +291,16 @@ app.post("/buy/send", async (req, res) => {
         cnt: x.cnt
       }
       await db.collection('Manager').doc(Id).collection('customer').doc(login_id).collection("order_history").doc(timeString).set(data);
-      if (paramPoint != undefined) {
+      if (paramUsePoint != undefined) {
         console.log("포인트를 사용하는 회원 주문 입니다!")
+        console.log('적립 예정 포인트:', paramGetPoint)
         const updatePoint = db.collection('Manager').doc(Id).collection('customer').doc(login_id);
         await updatePoint.update({
-          point: FieldValue.increment(-paramPoint)
+          point: FieldValue.increment(-paramUsePoint)
         })
       } else {
         console.log("포인트를 사용하는 회원 주문이 아니다!")
+        console.log('적립 예정 포인트:', paramGetPoint)
       }
     } else {
       bool = true;

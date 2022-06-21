@@ -47,40 +47,41 @@ public class Manage extends Setting {
 		// subpanel 세팅
 		subpanel = new JPanel(new CardLayout());
 		subpanel.setBackground(background);
-
-		// 메뉴 화면 생성
-		menu();
-
-		// 객체 할당
-		sales = new Sales(); 
-		netincome = new NetIncome();
-		mypage = new MyPage();
-		inventory = new Inventory();
-		customer = new Customer();
 		
-		// 홈 버튼 이벤트 적용
-		homeevt();
-		
-		sales.setVisible(false);
-		netincome.setVisible(false);
-		inventory.setVisible(false);
-		customer.setVisible(false);
-		mypage.setVisible(false);
-
 		// 로딩 화면
 		loading = new Loading();
 		loading.setVisible(true);
 		mainFrame.add(loading.panel);
 
 		subpanel.add(loading.panel);
+
+		mainFrame.add(subpanel);
+		
+		// 메뉴 화면 생성
+		menu();
+		
+		// 객체 할당
+		sales = new Sales(); 
+		netincome = new NetIncome();
+		mypage = new MyPage();
+		inventory = new Inventory();
+		customer = new Customer();
+
+		// 홈 버튼 이벤트 적용
+		homeevt();
+
+		sales.setVisible(false);
+		netincome.setVisible(false);
+		inventory.setVisible(false);
+		customer.setVisible(false);
+		mypage.setVisible(false);
+		
 		subpanel.add(menu);
 		subpanel.add(sales.panel);
 		subpanel.add(netincome.panel);
 		subpanel.add(inventory.panel);
 		subpanel.add(customer.panel);
 		subpanel.add(mypage.panel);
-
-		mainFrame.add(subpanel);
 		
 		new java.util.Timer().schedule( 
 	        new java.util.TimerTask() {

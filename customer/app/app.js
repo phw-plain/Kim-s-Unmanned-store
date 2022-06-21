@@ -98,7 +98,7 @@ app.post("/products", async (req, res) => {
       code: doc.data().code,
       name: doc.data().name,
       text: doc.data().explain,
-      stock: doc.data().amount,
+      stock: doc.data().cnt,
       price: doc.data().price,
       category: doc.data().category,
       img: doc.data().picture
@@ -177,10 +177,10 @@ app.post("/permute/tel", async (req, res) => {
   console.log(' /permute/tel 호출됨.');
 
   customerTel  = req.body.tel || req.query.tel;            // 전화번호
-  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', customerTel).get();
   let bool = false
   if (!snapshot.empty) {
-    customerId = doc.id();
+    customerId = snapshot.id;
     bool = true;
   }
   let a = {bool:bool} 
@@ -204,7 +204,7 @@ app.post("/permute", async (req, res) => {
   const doc = await x.get();
   let answer = null;
   if (doc.data().permute != null) {
-    answer = await parseInt(doc.data().permute);
+    answer = parseInt(doc.data().permute);
     db.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
       'permute': null
     });
@@ -287,37 +287,20 @@ app.post("/buy/send", async (req, res) => {
   
   // true flase 반환  
   let bool = true; 
-
-  if(paramTel === "-1") {
-    console.log("비회원 주문 입니다!")
-    bool = true;
-  } else {
-    if(paramUsePoint === undefined){
-      console.log("포인트를 사용하지 않는 회원 주문 입니다!")
-      console.log('적립 예정 포인트:', paramGetPoint)
-    } else {
-      console.log("포인트를 사용하는 회원 주문 입니다!")
-      console.log('적립 예정 포인트:', paramGetPoint)
-
-
-  let bool = false;
-
-  console.log(paramUsePoint)
-
-  //로그인 확인
-  bool = true;
   let login_id = null;
-
+  let snapshot1 = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+  snapshot1.forEach(doc => {
+    login_id = doc.id
+  });
+  
+  let updatepoint = db.collection('Manager').doc(Id).collection('customer').doc(login_id);
+  await updatepoint.update({point: firestore.FieldValue.increment(parseInt(paramGetPoint))})
   //인벤토리에서 물건 찾기
   for (let i = 0; i < paramCart.length; i++) {
     let x = JSON.parse(paramCart[i]);
     if (paramTel !== "-1") {
       bool = true;
-      let snapshot1 = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
-      snapshot1.forEach(doc => {
-        login_id = doc.id
-      });
-      var timeString = newDay(0);
+      var timeString = newDay();
       let data = {
         code: x.code,
         name: x.name,
@@ -354,29 +337,28 @@ app.post("/buy/send", async (req, res) => {
       bool = false;
       let hello = { cnt: parseInt(x.cnt) }
       let amountDay = { amountDay : parseInt(x.cnt) }
-      await snapshot1.set(amountDay);
-      await snapshot.set(hello);
-
+      await snapshot3.set(amountDay);
+      await snapshot2.set(hello);
     }
     //달 순위
-    snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
-    doc = await snapshot.get();
+    let monthfire = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
+    doc = await monthfire.get();
     if (doc.exists) {
-      await snapshot.update({
+      await monthfire.update({
         cnt: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
-      await snapshot1.update({
+      await snapshot3.update({
         amountMonth: admin.firestore.FieldValue.increment(parseInt(x.cnt))
       });
       //없으면 리스트 새로 생성 
     } else {
       let hello = { cnt: parseInt(x.cnt) }
       let amountDay = { amountDay : parseInt(x.cnt) }
-      await snapshot1.set(amountDay);
-      await snapshot.set(hello);
+      await monthfire.set(amountDay);
+      await snapshot3.set(hello);
     }
     //하루 매출
-    snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString);
+    let snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString);
     doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
@@ -390,7 +372,7 @@ app.post("/buy/send", async (req, res) => {
       await snapshot.set(hello);
     }
     //이번 달 매출
-    let snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
+    snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
     doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
@@ -403,11 +385,12 @@ app.post("/buy/send", async (req, res) => {
       }
       await snapshot.set(hello);
     }
+    
   }
   let a = { bool: bool }
-  res.send(a);
+    res.send(a);
+});
 
-})
 
 // 상품 결재: 회원 주문 전화번호로 포인트와 비밀번호 반환 하기
 app.post("/buy/send/member", async (req, res) => {

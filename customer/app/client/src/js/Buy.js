@@ -38,7 +38,7 @@ const Buy = () => {
         if(!isStop) {
             cartAdd();
         }
-    }, 500);
+    }, 1000);
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();

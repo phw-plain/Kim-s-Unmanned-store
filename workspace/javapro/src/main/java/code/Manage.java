@@ -83,14 +83,14 @@ public class Manage extends Setting {
 		mainFrame.add(subpanel);
 		
 		new java.util.Timer().schedule( 
-		        new java.util.TimerTask() {
-		            @Override
-		            public void run() {
-				    	loading.setVisible(false);
-		            	menu.setVisible(true);
-		            }
-		        }, 
-		        10000 
+	        new java.util.TimerTask() {
+	            @Override
+	            public void run() {
+			    	loading.setVisible(false);
+	            	menu.setVisible(true);
+	            }
+	        }, 
+	        7000
 		);
 	}
 

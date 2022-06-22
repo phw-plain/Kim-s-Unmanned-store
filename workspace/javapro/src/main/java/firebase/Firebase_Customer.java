@@ -103,7 +103,7 @@ public class Firebase_Customer extends App{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		pdt_name = new Vector<String>();		// 제품명
+		pdt_name = new Vector<String>();	// 제품명
 		pdt_cnt = new Vector<Integer>();	// 수량
 		buy = new Vector<String>();			// 구매일자
 		apply = new Vector<String>();		// 신청일자

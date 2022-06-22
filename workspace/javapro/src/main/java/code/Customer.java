@@ -731,6 +731,7 @@ public class Customer extends Setting {
 						// 데이터베이스에서 해당 신청 목록 삭제하기
 						// permute_id변수 이용 : 전화번호
 						
+						
 						// 다시 그리기
 						permuteDataLoad(permute_id);
 						model2.fireTableDataChanged();

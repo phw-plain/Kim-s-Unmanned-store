@@ -1143,12 +1143,9 @@ public class Inventory extends Setting {
                     str += tmp;
                 }
                 path = System.getProperty("user.dir"); 
-                path = path.replace("workspace\\javapro", "customer");
-                path += "\\app\\client\\public\\uploadfile";
-                
                 f = jfc.getSelectedFile();
                 
-                return jfc.getSelectedFile().getPath().replace(jfc.getCurrentDirectory().getPath()+"\\", "");
+                return jfc.getSelectedFile().getPath();
             }catch(Exception e) {
                 e.printStackTrace();
             }

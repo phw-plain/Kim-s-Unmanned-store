@@ -63,6 +63,7 @@ app.post("/login", async (req, res) => {
   let paramPw = req.body.user_pw || req.query.user_pw;
   let Phonedata = [];
   console.log(Id, paramPw);
+  console.log("??")
   const snapshot = await db.collection('Manager').where('id', '==', Id).where('pw', '==', paramPw).get();
   console.log(snapshot);
   if (!snapshot.empty) {
@@ -490,24 +491,23 @@ app.post("/buy/join/overlap", async (req, res) => {
 })
 
 // 회원가입 비밀번호 중복 확인
-app.post("/buy/join/overlap2", (req, res) => {
+app.post("/buy/join/overlap2",async (req, res) => {
   console.log('/buy/join/overlap2 호출됨.');
   
-  const paramTel = req.body.tel || req.query.tel;      // 아이디    
-
-  console.log(paramTel);
-
-
+  const paramTel = req.body.tel || req.query.tel;     
   // true flase 반환  
-  let bool = true; 
-  if(paramTel === "") bool = false;
+  let bool = true;
+  const snapshot1 = await db.collection('Manager').doc(Id).collection("customer").where('tel', '==',paramTel).get();
+  console.log(snapshot1);
+  if (!snapshot1.empty) {
+    bool = false;
+  }
   let a = {bool:bool} 
-  
   res.send(a);
 })
 
 // logout 결과 반환 
-app.post("/logout", (req, res) => {
+app.post("/logout", async(req, res) => {
   console.log('/logout 호출됨.');
   const paramPw = req.body.user_pw || req.query.user_pw;      // 비밀번호 확인  
 
@@ -521,6 +521,6 @@ app.post("/logout", (req, res) => {
 })
   
 
-server.listen(5000, () => {
+server.listen(3008, () => {
   console.log('server is running on 5000')
 });

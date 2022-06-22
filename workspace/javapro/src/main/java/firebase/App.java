@@ -29,6 +29,7 @@ public class App extends Setting {
 	FileInputStream serviceAccount = null;
 	public static FirebaseOptions options = null;
 	static Firestore db;
+	FirebaseApp firebaseApp = null; 
 	public App() {
 		
 		try {
@@ -38,7 +39,7 @@ public class App extends Setting {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FirebaseApp firebaseApp = null; 
+		
 		java.util.List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
 		if(firebaseApps != null && !firebaseApps.isEmpty()){
 			for(FirebaseApp app : firebaseApps){
@@ -51,6 +52,7 @@ public class App extends Setting {
 					options = new FirebaseOptions.Builder()
 							.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 							.setDatabaseUrl("https://parklee-4b50c-default-rtdb.firebaseio.com")
+							.setStorageBucket("parklee-market.appspot.com")
 							.build();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

@@ -283,7 +283,7 @@ public class Customer extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -389,7 +389,7 @@ public class Customer extends Setting {
 		imformation.setBackground(background);
 		JPanel form = new JPanel(new GridLayout(6,2,0,20));
 		form.setBackground(background);
-		form.setPreferredSize(new Dimension(800,(int)(height*0.5)));
+		form.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800,(int)(height*0.5)));
 		form.setBorder(BorderFactory.createEmptyBorder((int)(height*0.01), 100, 0, 100));
 		
 		JLabel L[] = new JLabel[6];
@@ -659,7 +659,7 @@ public class Customer extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView2);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);

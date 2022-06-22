@@ -86,10 +86,12 @@ public class Sales extends Setting{
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 
+		double mar1 = (height > 1000) ? 0.6 : 0.445;
+		
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.445), 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*mar1), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
@@ -128,10 +130,10 @@ public class Sales extends Setting{
 		JPanel rightpanel = new JPanel(new GridLayout(25, 1, 0, 0));
 		rightpanel.setBackground(background);
 		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 67)); // 위 왼 아 오
-		JLabel stitle = new JLabel("Today");
+		JLabel stitle = new JLabel("");
 		stitle.setFont(font3);
 		stitle.setForeground(fontcolor);
-		JLabel sales = new JLabel("▲ 350,000");
+		JLabel sales = new JLabel("");
 		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
 		sales.setForeground(Color.red);
 
@@ -181,10 +183,12 @@ public class Sales extends Setting{
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 
+		double mar1 = (height > 1000) ? 0.6 : 0.445;
+		
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.445), 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*mar1), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2);
@@ -218,18 +222,13 @@ public class Sales extends Setting{
 		leftpanel.add(daybtn);
 		leftpanel.add(monthbtn);
 		leftpanel.add(recode);
+
+		double mar2 = (height > 1000) ? 0.67 : 0.53;
 		
-		// sales
+		// right
 		JPanel rightpanel = new JPanel(new GridLayout(2, 1));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.53), 0)); // 위 왼 아 오
-
-		JLabel stitle = new JLabel("Month");
-		stitle.setFont(font3);
-		stitle.setForeground(fontcolor);
-		JLabel sales = new JLabel("▲ 780,000");
-		sales.setFont(new Font("돋움체", Font.PLAIN, 16));
-		sales.setForeground(Color.red);
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 40, (int)(height*mar2), 10)); // 위 왼 아 오
 
 		// 그래프 날짜 버튼 추가
 		int year = 2022; // 지금 년도 가져오기
@@ -254,12 +253,6 @@ public class Sales extends Setting{
 		chbox.add(yearbtn, BorderLayout.EAST);
 		chbox.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10)); 
 
-		JPanel texts = new JPanel();
-		texts.add(stitle);
-		texts.add(sales);
-		texts.setBackground(background);
-		
-		rightpanel.add(texts);
 		rightpanel.add(chbox);
 
 		yearbtn.addActionListener(new ActionListener() {
@@ -313,10 +306,12 @@ public class Sales extends Setting{
 		header.add(homebtn3, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 
+		double mar1 = (height > 1000) ? 0.685 : 0.57;
+		
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(3, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*0.57), 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(0, 0, (int)(height*mar1), 40)); // 위 왼 아 오
 		HalfRoundedButton daybtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		HalfRoundedButton recode = new HalfRoundedButton(blank1 + "기록" + blank2, Color.orange);

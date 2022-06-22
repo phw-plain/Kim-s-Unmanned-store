@@ -16,8 +16,8 @@ public class Main extends Setting{
 		Setting s = new Setting();
 		
 		// Frame 기본 세팅 정보
-		width = 1024;
-		height = 786;
+		width = 1600;
+		height = 1200;
 		font = JsonFileEdit.get("font");
 		setFonts(font);
 		

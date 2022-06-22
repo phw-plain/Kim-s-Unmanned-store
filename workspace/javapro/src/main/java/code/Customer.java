@@ -102,6 +102,7 @@ public class Customer extends Setting {
 		customer.show_customer();
 		
 		// 고객 환불 및 교환 cloumn 설정
+		colNames2.add("제품 코드");
 		colNames2.add("제품명");
 		colNames2.add("수량");
 		colNames2.add("구매 일자");
@@ -283,7 +284,7 @@ public class Customer extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -389,7 +390,7 @@ public class Customer extends Setting {
 		imformation.setBackground(background);
 		JPanel form = new JPanel(new GridLayout(6,2,0,20));
 		form.setBackground(background);
-		form.setPreferredSize(new Dimension(800,(int)(height*0.5)));
+		form.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800,(int)(height*0.5)));
 		form.setBorder(BorderFactory.createEmptyBorder((int)(height*0.01), 100, 0, 100));
 		
 		JLabel L[] = new JLabel[6];
@@ -666,7 +667,7 @@ public class Customer extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView2);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);
@@ -685,11 +686,12 @@ public class Customer extends Setting {
 			tableView2.getColumnModel().getColumn(i).setPreferredWidth(60);	// JTable 의 컬럼 길이 조절
 		}
 
-		tableView2.getColumnModel().getColumn(0).setPreferredWidth(150);
-		tableView2.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tableView2.getColumnModel().getColumn(1).setPreferredWidth(150);
 		tableView2.getColumnModel().getColumn(3).setPreferredWidth(120);
-		tableView2.getColumnModel().getColumn(5).setPreferredWidth(120);	
-		tableView2.getColumnModel().getColumn(6).setPreferredWidth(500);	
+		tableView2.getColumnModel().getColumn(4).setPreferredWidth(120);
+		tableView2.getColumnModel().getColumn(6).setPreferredWidth(120);	
+		tableView2.getColumnModel().getColumn(7).setPreferredWidth(500);	
 		
 		center.add(navigation, BorderLayout.NORTH);
 		center.add(list, BorderLayout.CENTER);
@@ -715,7 +717,7 @@ public class Customer extends Setting {
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "승인하시겠습니까?"
+						, dataSet2.get(index).get(1) + " " + dataSet2.get(index).get(2)  + "개를 " + dataSet2.get(index).get(5) + " 승인하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -727,6 +729,8 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);
+
+						System.out.println(per_code.get(index));
 						
 						// 데이터베이스에서 해당 신청 목록 삭제하기
 						// permute_id변수 이용 : 전화번호
@@ -752,7 +756,7 @@ public class Customer extends Setting {
 					);
 				} else {
 					int n = JOptionPane.showConfirmDialog(null
-						, dataSet2.get(index).get(0) + " " + dataSet2.get(index).get(1)  + "개를 " + dataSet2.get(index).get(4) + "을 철회하시겠습니까?"
+						, dataSet2.get(index).get(1) + " " + dataSet2.get(index).get(2)  + "개를 " + dataSet2.get(index).get(5) + " 철회하시겠습니까?"
 						, "박리다매 무인가게"
 						, JOptionPane.YES_NO_OPTION
 						, JOptionPane.QUESTION_MESSAGE
@@ -764,6 +768,8 @@ public class Customer extends Setting {
 							, "박리다매 무인가게"
 							, JOptionPane.PLAIN_MESSAGE
 						);
+						
+						System.out.println(per_code.get(index));
 						
 						// 데이터베이스에서 해당 신청 목록 삭제하기
 						// permute_id변수 이용 : 전화번호
@@ -823,6 +829,7 @@ public class Customer extends Setting {
 		for (int i = 0; i < pdt_name.size(); i++) {
 			System.out.println();
 			rows = new Vector<String>();
+			rows.add(per_code.get(i));
 			rows.add(pdt_name.get(i));
 			rows.add(Integer.toString(pdt_cnt.get(i)));
 			rows.add(buy.get(i));

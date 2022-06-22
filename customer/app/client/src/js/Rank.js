@@ -154,10 +154,10 @@ function Rank() {
                 <div className='tapCtrl'>◀</div>
                 <div className='tapMain'>
                     <ul>
-                        <div onClick={handleToday} >
+                        <div style={{ marginTop: "15%" }} onClick={handleToday} >
                             <li>오늘 판매량 순위</li>
                         </div>
-                        <div onClick={handleMonth}>
+                        <div style={{ marginTop: "5%" }} onClick={handleMonth}>
                             <li>월간 판매량 순위</li>
                         </div>
                     </ul>

@@ -251,7 +251,7 @@ public class Inventory extends Setting {
 		double margin = (height < 1000) ? 0.12 : 0.2;
 		search.setBorder(BorderFactory.createEmptyBorder(50, (int)(width*margin), 0, 0));
 		final JTextField input = new JTextField(" ", 20);
-		HalfRoundedButton check = new HalfRoundedButton("🔍");
+		HalfRoundedButton check = new HalfRoundedButton("검색");
 
 		search.add(input);
 		search.add(check);
@@ -290,7 +290,7 @@ public class Inventory extends Setting {
 		
 		JScrollPane scrollList = new JScrollPane(tableView);
 		scrollList.setFont(font4);
-		scrollList.setPreferredSize(new Dimension(800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
+		scrollList.setPreferredSize(new Dimension((width > 1000) ? 1000 : 800, (int)(height*((height > 1000) ? 0.6 : 0.5))));	// 테이블 사이즈 조절
 
 		list.setBackground(background);
 		list.add(scrollList);

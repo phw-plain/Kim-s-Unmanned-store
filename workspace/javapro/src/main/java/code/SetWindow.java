@@ -46,13 +46,16 @@ public class SetWindow extends Setting {
     	
     	JPanel center = new JPanel(new GridLayout(3, 2, 0, 50));
     	center.setBackground(Color.white);
-    	center.setBorder(BorderFactory.createEmptyBorder(40, 100, 25, 100));
+    	center.setBorder(BorderFactory.createEmptyBorder(40, 90, 25, 90));
 
     	// 해상도
     	JPanel resolution = new JPanel();
     	resolution.setBackground(Color.white);
     	JLabel reso_title =  new JLabel("해상도");
 
+    	resoX.add(1600);
+    	resoY.add(1200);
+    	
     	resoX.add(1280);
     	resoY.add(1024);
     	

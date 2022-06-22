@@ -172,6 +172,8 @@ public class Setting {
 	Date date1 = new Date();        
 	public String Year = (dateFormat1.format(date1));
 
+	protected static Vector<String> per_code = new Vector<String>();
+	
 	public static Frame startFrame;
 	
 	public Setting(){

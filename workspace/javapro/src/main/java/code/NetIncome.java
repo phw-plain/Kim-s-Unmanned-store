@@ -76,10 +76,12 @@ public class NetIncome extends Setting{
 		header.add(homebtn1, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 
+		double mar1 = (height > 1000) ? 0.645 : 0.5;
+		
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(2, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.5), 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*mar1), 40)); // 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2, Color.orange);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2);
 		
@@ -144,10 +146,12 @@ public class NetIncome extends Setting{
 		header.add(homebtn2, BorderLayout.WEST);
 		header.add(title, BorderLayout.CENTER);
 
+		double mar1 = (height > 1000) ? 0.645 : 0.5;
+		
 		// menu bar
 		JPanel leftpanel = new JPanel(new GridLayout(2, 1, 0, 5));
 		leftpanel.setBackground(background);
-		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*0.5), 40)); // 위 왼 아 오
+		leftpanel.setBorder(BorderFactory.createEmptyBorder(-1, 0, (int)(height*mar1), 40)); // 위 왼 아 오
 		HalfRoundedButton weekbtn = new HalfRoundedButton(blank1 + " 일 "+ blank2);
 		HalfRoundedButton monthbtn = new HalfRoundedButton(blank1 + " 월 " + blank2, Color.orange);
 
@@ -165,10 +169,12 @@ public class NetIncome extends Setting{
 		leftpanel.add(weekbtn);
 		leftpanel.add(monthbtn);
 
+		double mar2 = (height > 1000) ? 0.67 : 0.53;
+		
 		// right
-		JPanel rightpanel = new JPanel(new GridLayout(1, 1, 0, 0));
+		JPanel rightpanel = new JPanel(new GridLayout(2, 1));
 		rightpanel.setBackground(background);
-		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 40, (int)(height*0.58), 10)); // 위 왼 아 오
+		rightpanel.setBorder(BorderFactory.createEmptyBorder(0, 40, (int)(height*mar2), 10)); // 위 왼 아 오
 
 		// 그래프 날짜 버튼 추가
 		int year = 2022; // 지금 년도 가져오기

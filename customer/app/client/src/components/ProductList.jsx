@@ -6,7 +6,7 @@ export function ProductList(props) {
   const [limit, setLimit] = useState(4);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  
+  console.log(props.products)
   return (
     <div>
       <div className="products-box">
@@ -26,7 +26,7 @@ export function ProductList(props) {
                 <div className="prod_texts">
                   <p className='prod_cate'>#{item.category}</p>
                   <p className='prod_text'>
-                    {item.text}<br/>
+                    {item.standard}<br/>
                     {item.price} 원
                   </p>
               </div>

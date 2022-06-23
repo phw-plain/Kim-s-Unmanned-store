@@ -63,9 +63,9 @@ const Search = () => {
                             <div>
                                 <div className='item_text1'>{item.name}</div>
                                 <div className='item_text2'>
-                                    {item.text}
+                                    {item.standard}
                                     <br/>
-                                    {item.price}
+                                    {item.price}원
                                 </div>
                             </div>
                         </div>

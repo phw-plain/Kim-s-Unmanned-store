@@ -141,7 +141,7 @@ function Rank() {
                         <div>
                             <div className='item_text1'>{item.name}</div>
                             <div className='item_text2'>
-                                {item.text}
+                                {item.standard}
                                 <br/>
                                 {item.price}
                             </div>

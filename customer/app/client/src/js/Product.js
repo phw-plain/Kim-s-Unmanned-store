@@ -22,10 +22,12 @@ const Product = () => {
     }, [])
     
     function colorCheck(category) {
-        if(category === "채소")
+        if(category === "음료")
             return 'rgb(76,187,23)'
-        else if(category === "과일")
+        else if(category === "캔디")
             return "rgb(255,232,124)"
+        else if(category === "제과")
+            return "#D3B49E"
         else 
             return "rgb(241, 166, 175)"
     }
@@ -37,11 +39,11 @@ const Product = () => {
                     backgroundColor: (colorCheck(item.category))
                 }}  key={index}> 
                     {
-                        (index === +productId)
+                        (item.code === productId)
                         ? <div>
-                            <div className="product_img left" style={{  
-                                backgroundImage:`url(${"/uploadfile/"+item.img})`
-                            }}></div>
+                            <img className="product_img left"
+                                src={"/uploadfile/"+item.img} alt={"product-img"} 
+                            />
                             <div className='product_main'>
                                 <div className='product_title'>{item.name}</div>
                                 <div className='product_cate' style={{ 

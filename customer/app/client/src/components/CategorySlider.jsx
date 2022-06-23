@@ -89,13 +89,6 @@ export const CategorySlider = ({ getText }) => {
                 btnClick(4);
             }}>{category[4]}</button>
         </div>
-        <div>
-            <button className={isSelect[5] ? 'category_over' : 'category'} 
-              value={category[5]} 
-              onClick={() => {
-                btnClick(5);
-            }}>{category[5]}</button>
-        </div>
       </Slider>
     </div>
   );

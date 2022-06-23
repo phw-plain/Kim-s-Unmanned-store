@@ -511,10 +511,13 @@ app.post("/logout", async(req, res) => {
   console.log('/logout 호출됨.');
   const paramPw = req.body.user_pw || req.query.user_pw;      // 비밀번호 확인  
 
+  let bool = false
   console.log(paramPw);
+  const snapshot1 = await db.collection('Manager').doc(Id).get();
+  if(snapshot1.data().pw==paramPw) bool = true
+  else console.log("sdfsdf")
   Id = null;
   // true flase 반환  
-  let bool = (paramPw == 1);
   let a = { bool: bool }
 
   res.send(a);

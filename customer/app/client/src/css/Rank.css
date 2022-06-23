@@ -9,7 +9,8 @@
     padding: 4vh 4vh 4vh 5vh;
 }
 .Rank_Main{
-    height: 30%;
+    overflow-y: auto;
+    height: 70vh;
 
     display: grid;
     justify-items: center;

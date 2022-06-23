@@ -55,14 +55,12 @@ const Product = () => {
                                         용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;량<br/>
                                         재&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고<br/>
                                         상품설명<br/>
-                                        위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;치
                                     </div>
                                     <div className='product_text_R'>
                                         {item.price}<br/>
-                                        150g<br/>
+                                        {item.standard}<br/>
                                         {item.stock}개<br/>
                                         {item.text}<br/>
-                                        청과류 코너의 A열 4번째 칸
                                     </div>
                                 </div>
                             </div>

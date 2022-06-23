@@ -50,7 +50,6 @@ public class Firebase_inventory extends App{
 	public void Add_inventory(String code, String name, String category, String standard, int cnt, String cost, String price,int amountDay, int amountMonth,  String explain, String picture) throws Exception {
 		db = FirestoreClient.getFirestore();
     	Firebase_inventory getQuote = new Firebase_inventory();
-    	String filename = upload_image(picture);
     	HashMap<String, Object> quote = getQuote.getQuoteFormHTTP(code, name, category, standard, cnt, cost, price, amountDay, amountMonth, explain, picture);
     	try {
         	ApiFuture<WriteResult> hello = db.collection("Manager").document(getId()).collection("inventory").document(code).set(quote);
@@ -111,20 +110,5 @@ public class Firebase_inventory extends App{
     		   throw e; //최상위 클래스가 아니라면 무조건 던져주자
     	}
 	}
-	public String upload_image(String img) {
-		StorageClient storageClient = StorageClient.getInstance(firebaseApp);
-        InputStream testFile = null;
-		try {
-			testFile = new FileInputStream(img);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        String blobString = "/" + img;        
-
-        storageClient.bucket().create(blobString, testFile , Bucket.BlobWriteOption.userProject("parklee-market"));
-		return blobString;
-	}
-	
 	
 }

@@ -89,36 +89,6 @@ public class Inventory extends Setting {
 		// 데이터 불러오기
 		Firebase_inventory add = new Firebase_inventory();
 		add.show_inventory();
-		
-		Setting.code.add("AD1004");
-		code.add("BC2075");
-		code.add("TR1200");
-		product_name.add("초코송이");
-		product_name.add("칠성사이다");
-		product_name.add("허니버터칩");
-		category.add("과자");
-		category.add("음료");
-		category.add("과자");
-		standard.add("240g");
-		standard.add("1.5L");
-		standard.add("600g");
-		cnt.add(3);
-		cnt.add(15);
-		cnt.add(7);
-		cost.add(1000);
-		cost.add(2500);
-		cost.add(2900);
-
-		price.add(1200);
-		price.add(2700);
-		price.add(3200);
-		amountDay.add(10);
-		amountDay.add(5);
-		amountDay.add(3);
-		amountMonth.add(10);
-		amountMonth.add(5);
-		amountMonth.add(3);
-		explain.add("가나다라마바사아자차카타파하");
 
 		// amount => amountDay, amountMonth 변경
 		// cost.add(850);
@@ -1038,8 +1008,8 @@ public class Inventory extends Setting {
 						category.add(R3.getText());
 						standard.add(R4.getText());
 						cnt.add(Integer.parseInt(R5.getText()));
-						price.add(Integer.parseInt(R6.getText()));
-						cost.add(Integer.parseInt(R7.getText()));
+						cost.add(Integer.parseInt(R6.getText()));
+						price.add(Integer.parseInt(R7.getText()));
 						amountDay.add(Integer.parseInt(R8.getText()));
 						amountMonth.add(Integer.parseInt(R9.getText()));
 						explain.add(R10.getText());
@@ -1143,9 +1113,12 @@ public class Inventory extends Setting {
                     str += tmp;
                 }
                 path = System.getProperty("user.dir"); 
+                path = path.replace("workspace\\javapro", "customer");
+                path += "\\app\\client\\public\\uploadfile";
+                
                 f = jfc.getSelectedFile();
                 
-                return jfc.getSelectedFile().getPath();
+                return jfc.getSelectedFile().getPath().replace(jfc.getCurrentDirectory().getPath()+"\\", "");
             }catch(Exception e) {
                 e.printStackTrace();
             }

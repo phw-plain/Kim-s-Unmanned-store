@@ -53,7 +53,7 @@ body {
     display: flex;
     justify-content: space-between;
     height: 6vh;
-    margin: 1.5vh 9.5vh 3vh 9.5vh;
+    margin: 1.5vh 9.5vh 0vh 9.5vh;
 }
 .scrollbtn{
     border: 0;
@@ -61,8 +61,8 @@ body {
     background-color: gray;
 }
 .products-box{
-    padding: 0% 10% 5% 10%;
-    height: 44.5vh;
+    padding: 0% 12% 10% 12%;
+    height: 56vh;
 
     display: grid;
     justify-content: stretch;
@@ -76,21 +76,20 @@ body {
 .prod_background{
     background-color: rgb(233, 233, 233);
 
-    padding: 5% 3vh 5% 5%;
+    padding-top: 5%;
+    padding-bottom: 10%;
 
-    margin-left: 0.4vh;
-    margin-right: 1.1vh;
-    margin-bottom: 5%;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    margin-bottom: 8%;
 
     border-radius: 1vh;
     -moz-border-radius: 1vh;
     -khtml-border-radius: 1vh;
     -webkit-border-radius: 1vh;
-
-    display: flex;;
 }
 .products_img{
-    width: 15vh;
+    width: 16vh;
     height: 16vh;
 
     border-radius: 1vh;
@@ -100,11 +99,32 @@ body {
 
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
+.prod_title{
+    padding-top: 2%;
+    margin-left: 2vh;
+    text-align: left;
+    font-size: 1.6vh;
+}
+.prod_cate{
+    margin-left: 2vh;
+    text-align: left;
+    font-size: 1.3vh;
+}
+.prod_text{
+    margin-right: 2vh;
+    text-align: right;
+    font-size: 1.3vh;
+}
+.prod_texts{
+    display: flex;    
+    justify-content: space-between;
+}
 .products_img_stop{
     position: absolute;
-    width: 15vh;
+    width: 16vh;
     height: 16vh;
-    
+    margin-left: 1.9vh;
+
     border-radius: 1vh;
     -moz-border-radius: 1vh;
     -khtml-border-radius: 1vh;
@@ -120,27 +140,6 @@ body {
 .pis_text{
     margin-top: 0vh;
     font-size: 2.5vh;
-}
-.prod_title{
-    width: 10.5vh;
-    padding-left: 5%;
-    padding-top: 2%;
-    text-align: left;
-    font-size: 1.6vh;
-}
-.prod_cate{
-    text-align: left;
-    padding-left: 5%;
-    font-size: 1.3vh;
-}
-.prod_text{
-    padding-top: 82%;
-    text-align: right;
-    font-size: 1.3vh;
-}
-.prod_texts{
-    display: flex;    
-    justify-content: space-between;
 }
 .nav_close{
     padding-top: 5%;

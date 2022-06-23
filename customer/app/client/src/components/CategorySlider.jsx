@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 export const CategorySlider = ({ getText }) => {
   const [index, setIndex] = useState(null);
   const [isSelect, setSelect] = useState([false, false, false, false, false, false, false]);
-  const [category, setCategory] = useState([ "과자", "사탕", "음료", "젤리", "냉장", "과일", "채소" ]);
+  const [category, setCategory] = useState([ "과자", "캔디", "음료", "젤리", "제과"]);
 
   const settings = {
     dots: false,
@@ -95,13 +95,6 @@ export const CategorySlider = ({ getText }) => {
               onClick={() => {
                 btnClick(5);
             }}>{category[5]}</button>
-        </div><div>
-            <button className={isSelect[6] ? 'category_over' : 'category'} 
-              value={category[6]} 
-              onClick={() => {
-                
-                btnClick(6);
-            }}>{category[6]}</button>
         </div>
       </Slider>
     </div>

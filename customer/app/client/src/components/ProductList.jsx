@@ -22,7 +22,6 @@ export function ProductList(props) {
               <Link to={`/product/${item.code}`} >
                 <img className="products_img" src={"/uploadfile/"+item.img} alt={"product-img"}/>
               </Link>
-              <div>
                 <p className='prod_title'>{item.name}</p>
                 <div className="prod_texts">
                   <p className='prod_cate'>#{item.category}</p>
@@ -30,7 +29,6 @@ export function ProductList(props) {
                     {item.text}<br/>
                     {item.price} 원
                   </p>
-                </div>
               </div>
             </div>
           </div>

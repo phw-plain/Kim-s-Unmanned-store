@@ -58,7 +58,7 @@ const Product = () => {
                                     </div>
                                     <div className='product_text_R'>
                                         {item.price}<br/>
-                                        150g<br/>
+                                        {item.standard}<br/>
                                         {item.stock}개<br/>
                                         {item.text}<br/>
                                     </div>

@@ -101,6 +101,7 @@ app.post("/products", async (req, res) => {
       text: doc.data().explain,
       stock: doc.data().cnt,
       price: doc.data().price,
+      standard: doc.data().standard,
       category: doc.data().category,
       img: doc.data().picture
     });

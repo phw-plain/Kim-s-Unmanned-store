@@ -108,6 +108,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "1000",
       category : "채소",
+      standard : "150g",
       img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
     }, { 
       code : "1",
@@ -116,6 +117,7 @@ app.post("/products", (req, res) => {
       stock : "0",
       price : "2000",
       category : "과일",
+      standard : "150g",
       img : "lemon.jpg"
     }, { 
       code : "2",
@@ -124,6 +126,7 @@ app.post("/products", (req, res) => {
       stock : "0",
       price : "3000",
       category : "과일",
+      standard : "21",
       img : "https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg"
     }, { 
       code : "3",
@@ -132,6 +135,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "4000",
       category : "과일",
+      standard : "52",
       img : "https://cdn.pixabay.com/photo/2016/11/18/13/47/apple-1834639_960_720.jpg"
     }, { 
       code : "4",
@@ -140,6 +144,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "1000",
       category : "채소",
+      standard : "42",
       img : "https://cdn.pixabay.com/photo/2015/03/14/14/00/carrots-673184__340.jpg"
     }, { 
       code : "5",
@@ -148,6 +153,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "2000",
       category : "과일",
+      standard : "23",
       img : "lemon.jpg"
     }, { 
       code : "6",
@@ -156,6 +162,7 @@ app.post("/products", (req, res) => {
       stock : "10",
       price : "3000",
       category : "과일",
+      standard : "151g",
       img : "https://cdn.pixabay.com/photo/2016/09/03/20/48/bananas-1642706__340.jpg"
     }
   ]

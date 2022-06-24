@@ -270,21 +270,35 @@ app.post("/permute/apply", (req, res) => {
 })
 
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
-app.post("/rank", (req, res) => {
-  console.log(' /rank 호출됨.');
+app.post("/rank/today", (req, res) => {
+  console.log(' /rank/today 호출됨.');
+  let data = [
+    { 
+      code : "3",                  
+      cnt : "2",               
+      day : "2022-06-24"                 
+    }, { 
+      code : "2",                  
+      cnt : "5",              
+      day : "2022-6-19"                 
+    },  { 
+      code : "2",                  
+      cnt : "1",            
+      day : "2022-6-19"                 
+    }
+  ]
+
+  res.send(data);
+})
+
+// 인기순위 : 고객이 구매한 데이터 DB 값 보내기
+app.post("/rank/month", (req, res) => {
+  console.log(' /rank/month 호출됨.');
   let data = [
     { // 1번째 양식으로 데이터 전송 필요
       code : "0",                           // 제품 코드
       cnt : "3",                            // 구매 수량        
       day : "2022-6"                        // 구매일
-    }, { 
-      code : "3",                  
-      cnt : "2",               
-      day : "2022-06-19"                 
-    }, { 
-      code : "2",                  
-      cnt : "5",              
-      day : "2022-6-19"                 
     }, { 
       code : "5",                  
       cnt : "5",              
@@ -293,10 +307,6 @@ app.post("/rank", (req, res) => {
       code : "2",                  
       cnt : "5",              
       day : "2022-6"                 
-    }, { 
-      code : "2",                  
-      cnt : "1",            
-      day : "2022-6-19"                 
     }
   ]
 

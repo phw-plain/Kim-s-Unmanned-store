@@ -302,8 +302,9 @@ app.post("/rank", async (req, res) => {
         day: dateString
       })
     })
+    console.log(Id)
   }
-  console.log(data)
+
   res.send(data);
 })
 
@@ -369,8 +370,8 @@ app.post("/buy/send", async (req, res) => {
       bool = false;
       let hello = { cnt: parseInt(x.cnt) }
       let amountDay = { amountDay : parseInt(x.cnt) }
-      await snapshot3.set(amountDay);
       await snapshot2.set(hello);
+      await snapshot3.update(amountDay);
     }
     //달 순위
     let monthfire = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
@@ -385,9 +386,9 @@ app.post("/buy/send", async (req, res) => {
       //없으면 리스트 새로 생성 
     } else {
       let hello = { cnt: parseInt(x.cnt) }
-      let amountDay = { amountDay : parseInt(x.cnt) }
+      let amountDay = { amountMonth : parseInt(x.cnt) }
       await monthfire.set(amountDay);
-      await snapshot3.set(hello);
+      await snapshot3.update(hello);
     }
     //하루 매출
     let snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString);

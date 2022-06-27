@@ -286,8 +286,8 @@ app.post("/permute/apply", async (req, res) => {
 })
 
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
-app.post("/rank", async (req, res) => {
-  console.log(' /rank 호출됨.');
+app.post("/rank/today", async (req, res) => {
+  console.log(' /rank/today 호출됨.');
   let citiesRef = db.collection("Manager").doc(Id).collection("TodayRecord").doc(dateString).collection("list");
   let snapshot = await citiesRef.get();
   let data = [];
@@ -303,48 +303,30 @@ app.post("/rank", async (req, res) => {
       })
     })
     console.log(Id)
-  }
-app.post("/rank/today", (req, res) => {
-  console.log(' /rank/today 호출됨.');
-  let data = [
-    { 
-      code : "3",                  
-      cnt : "2",               
-      day : "2022-06-24"                 
-    }, { 
-      code : "2",                  
-      cnt : "5",              
-      day : "2022-6-19"                 
-    },  { 
-      code : "2",                  
-      cnt : "1",            
-      day : "2022-6-19"                 
-    }
-  ]
-
   res.send(data);
+  }
 })
 
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
-app.post("/rank/month", (req, res) => {
+app.post("/rank/month", async (req, res) => {
   console.log(' /rank/month 호출됨.');
-  let data = [
-    { // 1번째 양식으로 데이터 전송 필요
-      code : "0",                           // 제품 코드
-      cnt : "3",                            // 구매 수량        
-      day : "2022-6"                        // 구매일
-    }, { 
-      code : "5",                  
-      cnt : "5",              
-      day : "2022-6"                 
-    }, { 
-      code : "2",                  
-      cnt : "5",              
-      day : "2022-6"                 
-    }
-  ]
-
-  res.send(data);
+  let citiesRef = db.collection("Manager").doc(Id).collection("MonthRecord").doc(monthString).collection("list");
+  let snapshot = await citiesRef.get();
+  let data = [];
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return [];
+  } else {
+    snapshot.forEach(doc => {
+      data.push({
+        code: doc.id,                           // 제품 코드
+        cnt: doc.data().cnt,                    // 구매 수량        
+        day: monthString
+      })
+    })
+    console.log(Id)
+    res.send(data);
+  }
 })
 
 // 상품 결재 시 전화번호가 일치하면 DB저장, 일치: true - 불일치: false 반환

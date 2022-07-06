@@ -4,6 +4,7 @@
 * <a href="https://ph1.notion.site/9ed37e1334804607a374424520d5b71d">NOTION</a>
 
 
+![Frame 1](https://user-images.githubusercontent.com/79086141/177476156-070aea4e-105e-4b01-9025-998ebeacf318.png)
 
 >  박리다매 무인마켓은 매출 관리부터 시작해 고객·매장 관리뿐만이 아니라 고객에 맞는 서비스를 제공하여 매출을 올릴 수 있는 올인원 서비스입니다.
 

@@ -10,7 +10,7 @@
 
 <br><br>
 
-### 기능
+### Function
 <ul> 
   
   #### Manager Application
@@ -51,3 +51,14 @@
   
   
 </ul>
+
+<br><br>
+
+### Contributor
+
+#### Developer
+* <a href="https://github.com/suyeon04">suyeon04</a>
+* <a href="https://github.com/phw-plain">phw-plain</a>
+
+#### Designer
+* Lee Ha-Na d2034@e-mirim.hs.kr

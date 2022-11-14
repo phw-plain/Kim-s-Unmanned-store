@@ -1,22 +1,14 @@
-var admin = require("firebase-admin");
-var firestore = require("firebase-admin/firestore");
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import url from 'url';
+import bodyParser from "body-parser";
+import http from 'http';
+import DB from "./server/utils/firebase.js";
 
-var serviceAccount = require("./firebasekey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
-const db = firestore.getFirestore();
-let Id = "";
-
-
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const url = require('url');
-const bodyParser = require("body-parser");
+const server = http.createServer(app);
 const app = express();
+let Id = "";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,7 +24,7 @@ app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname, 'client/build/index.html'))
 });
 
-const server = require('http').createServer(app);
+
 
 app.use(cors()); // cors 미들웨어를 삽입합니다
 
@@ -64,10 +56,10 @@ app.post("/login", async (req, res) => {
   let Phonedata = [];
   console.log(Id, paramPw);
   console.log("??")
-  const snapshot = await db.collection('Manager').where('id', '==', Id).where('pw', '==', paramPw).get();
+  const snapshot = await DB.collection('Manager').where('id', '==', Id).where('pw', '==', paramPw).get();
   console.log(snapshot);
   if (!snapshot.empty) {
-    const sfRef = db.collection('Manager').doc(Id).collection('barcode');
+    const sfRef = DB.collection('Manager').doc(Id).collection('barcode');
     const snapshot = await sfRef.get();
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
@@ -87,7 +79,7 @@ app.post("/login", async (req, res) => {
 app.post("/products", async (req, res) => {
   console.log('/products 호출됨.');
 
-  const citiesRef = db.collection("Manager").doc(Id).collection("inventory");
+  const citiesRef = DB.collection("Manager").doc(Id).collection("inventory");
   const snapshot = await citiesRef.get();
   if (snapshot.empty) {
     console.log('No matching documents.');
@@ -113,7 +105,7 @@ app.post("/products", async (req, res) => {
 // 상품 목록 갯수 보내기
 app.post("/products/search", async (req, res) => {
   console.log('/products/search 호출됨.');
-  const citiesRef = db.collection("Manager").doc(Id).collection("inventory");
+  const citiesRef = DB.collection("Manager").doc(Id).collection("inventory");
   const snapshot = await citiesRef.get();
   if (snapshot.empty) {
     console.log('No matching documents.');
@@ -137,14 +129,14 @@ app.post("/connect", async (req, res) => {
   let hello = {
     id: Id
   }
-  await db.collection('code').doc(paramCode).set(hello);
+  await DB.collection('code').doc(paramCode).set(hello);
 })
 
 //  바코드 리더 기기 연동 확인
 app.post("/connect/check", async (req, res) => {
   console.log('/connect/check 호출됨.');
   console.log(Id + " " + paramCode);
-  const cityRef = db.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
+  const cityRef = DB.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
   const doc = await cityRef.get();
   if (!doc.exists) {
     res.send(false);
@@ -158,11 +150,11 @@ app.post("/connect/check", async (req, res) => {
 // 상품 결제 바코드 스캔 데이터 보내기
 app.post("/buy", async (req, res) => {
   console.log('/buy 호출됨.');
-  let x = db.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
+  let x = DB.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
   const doc = await x.get();
   if (doc.data().cart != null) {
     let y = await parseInt(doc.data().cart);
-    db.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
+    DB.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
       'cart': null
     });
     res.send({ code: y });
@@ -179,7 +171,7 @@ app.post("/permute/tel", async (req, res) => {
   console.log(' /permute/tel 호출됨.');
 
   customerTel  = req.body.tel || req.query.tel;            // 전화번호
-  let snapshot = await db.collection('Manager').doc(Id)
+  let snapshot = await DB.collection('Manager').doc(Id)
   .collection('customer').where('tel', '==', customerTel).get();
   let bool = false
   if (!snapshot.empty) {
@@ -207,12 +199,12 @@ app.post("/permute/tel/get", (req, res) => {
 app.post("/permute", async (req, res) => {
   console.log(' /permute 호출됨.');
   console.log(paramCode)
-  let x = db.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
+  let x = DB.collection('Manager').doc(Id).collection('barcode').doc(paramCode);
   const doc = await x.get();
   let answer;
   if (doc.data().permute != null) {
     answer = parseInt(doc.data().permute);
-    db.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
+    DB.collection('Manager').doc(Id).collection('barcode').doc(paramCode).update({
       'permute': null
     });
   }
@@ -240,7 +232,7 @@ app.post("/permute/apply", async (req, res) => {
 
   console.log(paramName, paramCnt, paramTel, paramRes, paramGro, paramPermute);
   // 입력 데이터의 구매 내역이 있으면 신청 데이터 저장
-  const isthere = await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+  const isthere = await DB.collection('Manager').doc(Id).collection('customer').doc(customerId)
   .collection('order_history').where('code','==',paramCode).get();
   var newdateString = year + "-" + month + "-" + (parseInt(day)-7);
   let getDate = newDay();
@@ -269,8 +261,8 @@ app.post("/permute/apply", async (req, res) => {
         buyday:buyday1,
         returnday:getDate
       };
-      const washingtonRef = db.collection('Manager').doc(Id).collection('customer').doc(customerId);
-      await db.collection('Manager').doc(Id).collection('customer').doc(customerId)
+      const washingtonRef = DB.collection('Manager').doc(Id).collection('customer').doc(customerId);
+      await DB.collection('Manager').doc(Id).collection('customer').doc(customerId)
         .collection('permute').doc(getDate).set(data);
       if(paramPermute=="1"){
         await washingtonRef.update({exchange: FieldValue.increment(1)});
@@ -288,7 +280,7 @@ app.post("/permute/apply", async (req, res) => {
 // 인기순위 : 고객이 구매한 데이터 DB 값 보내기
 app.post("/rank", async (req, res) => {
   console.log(' /rank 호출됨.');
-  let citiesRef = db.collection("Manager").doc(Id).collection("TodayRecord").doc(dateString).collection("list");
+  let citiesRef = DB.collection("Manager").doc(Id).collection("TodayRecord").doc(dateString).collection("list");
   let snapshot = await citiesRef.get();
   let data = [];
   if (snapshot.empty) {
@@ -320,12 +312,12 @@ app.post("/buy/send", async (req, res) => {
   // true flase 반환  
   let bool = true; 
   let login_id = null;
-  let snapshot1 = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+  let snapshot1 = await DB.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
   snapshot1.forEach(doc => {
     login_id = doc.id
   });
   
-  let updatepoint = db.collection('Manager').doc(Id).collection('customer').doc(login_id);
+  let updatepoint = DB.collection('Manager').doc(Id).collection('customer').doc(login_id);
   await updatepoint.update({point: firestore.FieldValue.increment(parseInt(paramGetPoint))})
   //인벤토리에서 물건 찾기
   for (let i = 0; i < paramCart.length; i++) {
@@ -338,11 +330,11 @@ app.post("/buy/send", async (req, res) => {
         name: x.name,
         cnt: x.cnt
       }
-      await db.collection('Manager').doc(Id).collection('customer').doc(login_id).collection("order_history").doc(timeString).set(data);
+      await DB.collection('Manager').doc(Id).collection('customer').doc(login_id).collection("order_history").doc(timeString).set(data);
       if (paramUsePoint != undefined) {
         console.log("포인트를 사용하는 회원 주문 입니다!")
         console.log('적립 예정 포인트:', paramGetPoint)
-        const updatePoint = db.collection('Manager').doc(Id).collection('customer').doc(login_id);
+        const updatePoint = DB.collection('Manager').doc(Id).collection('customer').doc(login_id);
         await updatePoint.update({
           point: FieldValue.increment(-paramUsePoint)
         })
@@ -354,8 +346,8 @@ app.post("/buy/send", async (req, res) => {
       bool = true;
     }
     //일일 순위
-    let snapshot2 = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
-    let snapshot3 =  db.collection('Manager').doc(Id).collection('inventory').doc(x.code);
+    let snapshot2 = DB.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString).collection('list').doc(x.code);
+    let snapshot3 =  DB.collection('Manager').doc(Id).collection('inventory').doc(x.code);
     let doc = await snapshot2.get();
     if (doc.exists) {
       await snapshot2.update({
@@ -373,7 +365,7 @@ app.post("/buy/send", async (req, res) => {
       await snapshot2.set(hello);
     }
     //달 순위
-    let monthfire = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
+    let monthfire = DB.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString).collection('list').doc(x.code);
     doc = await monthfire.get();
     if (doc.exists) {
       await monthfire.update({
@@ -390,7 +382,7 @@ app.post("/buy/send", async (req, res) => {
       await snapshot3.set(hello);
     }
     //하루 매출
-    let snapshot = db.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString);
+    let snapshot = DB.collection('Manager').doc(Id).collection('TodayRecord').doc(dateString);
     doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
@@ -404,7 +396,7 @@ app.post("/buy/send", async (req, res) => {
       await snapshot.set(hello);
     }
     //이번 달 매출
-    snapshot = db.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
+    snapshot = DB.collection('Manager').doc(Id).collection('MonthRecord').doc(monthString);
     doc = await snapshot.get();
     if (doc.exists) {
       await snapshot.update({
@@ -432,7 +424,7 @@ app.post("/buy/send/member", async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;        // 전화번호
 
   console.log(paramTel);
-  let snapshot = await db.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
+  let snapshot = await DB.collection('Manager').doc(Id).collection('customer').where('tel', '==', paramTel).get();
   let member = { pw: "", point: 0 };
   if (!snapshot.empty) {
     //로그인 확인
@@ -467,7 +459,7 @@ app.post("/buy/join", async (req, res) => {
     refund:0,
     exchange:0
   }
-  await db.collection('Manager').doc(Id).collection('customer').doc(paramId).set(data1);
+  await DB.collection('Manager').doc(Id).collection('customer').doc(paramId).set(data1);
   // true flase 반환  
   let bool = true;
   let a = { bool: bool }
@@ -481,7 +473,7 @@ app.post("/buy/join/overlap", async (req, res) => {
   console.log(Id);
   // true flase 반환  
   let bool = true;
-  const cityRef = db.collection('Manager').doc(Id).collection('customer').doc(Id);
+  const cityRef = DB.collection('Manager').doc(Id).collection('customer').doc(Id);
   const doc = await cityRef.get();
   if (!doc.exists) {
     bool = false
@@ -498,7 +490,7 @@ app.post("/buy/join/overlap2",async (req, res) => {
   const paramTel = req.body.tel || req.query.tel;     
   // true flase 반환  
   let bool = true;
-  const snapshot1 = await db.collection('Manager').doc(Id).collection("customer").where('tel', '==',paramTel).get();
+  const snapshot1 = await DB.collection('Manager').doc(Id).collection("customer").where('tel', '==',paramTel).get();
   console.log(snapshot1);
   if (!snapshot1.empty) {
     bool = false;
@@ -514,7 +506,7 @@ app.post("/logout", async(req, res) => {
 
   let bool = false
   console.log(paramPw);
-  const snapshot1 = await db.collection('Manager').doc(Id).get();
+  const snapshot1 = await DB.collection('Manager').doc(Id).get();
   if(snapshot1.data().pw==paramPw) bool = true
   else console.log("sdfsdf")
   Id = null;

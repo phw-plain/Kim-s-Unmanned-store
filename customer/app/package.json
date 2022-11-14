@@ -16,6 +16,7 @@
     "firebase": "^9.8.3",
     "firebase-admin": "^10.3.0",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.20",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },
@@ -26,5 +27,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }

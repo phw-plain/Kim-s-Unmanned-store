@@ -10,6 +10,7 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -822,7 +823,15 @@ public class Customer extends Setting {
 		
 		// 전화번호 이용해서 데이터 가져오기
 		Firebase_Customer last = new Firebase_Customer();
-		last.show_permute(telephone);
+		try {
+			last.show_permute(telephone);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("데이터 환불 교환");
 		
 		// 데이터 입력

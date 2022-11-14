@@ -75,55 +75,44 @@ public class Firebase_Customer extends App{
 		return map;
     }
 	
-	public void show_permute(String tel) {
+	public void show_permute(String tel) throws InterruptedException, ExecutionException {
 		db = FirestoreClient.getFirestore();
 		ApiFuture<QuerySnapshot> query = db.collection("Manager").document(getId()).collection("customer").whereEqualTo("tel", tel).get();
-		List<QueryDocumentSnapshot> documents = null;
-		try {
-			documents = query.get().getDocuments();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ExecutionException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		List<QueryDocumentSnapshot> documents = query.get().getDocuments();
 		String customerId = null;
 		for (DocumentSnapshot document : documents) {
 			customerId=document.getId();
 		}
 		ApiFuture<QuerySnapshot> docRef = db.collection("Manager").document(getId()).collection("customer").document(customerId).collection("permute").get();
-		List<QueryDocumentSnapshot> documents2 = null;
-		try {
-			documents2 = docRef.get().getDocuments();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		pdt_name = new Vector<String>();	// 제품명
-		pdt_cnt = new Vector<Integer>();	// 수량
-		buy = new Vector<String>();			// 구매일자
-		apply = new Vector<String>();		// 신청일자
-		permute = new Vector<String>();		// 환불 or 교환
-		reasons = new Vector<String>();		// 신청사유 카테고리
-		grounds = new Vector<String>();		// 신청사유
-		for (QueryDocumentSnapshot document : documents2) {
-			System.out.println(Integer.parseInt(document.getString("paramCnt")));
-			set.pdt_name.add(document.getString("paramName"));
-			set.pdt_cnt.add(Integer.parseInt(document.getString("paramCnt")));
-			set.buy.add(document.getString("buyday"));
-			set.apply.add(document.getString("returnday"));
-			if(document.getString("paramPermute")=="1") {
-				set.permute.add("교환");
-			}else {
-				set.permute.add("환불");
+		List<QueryDocumentSnapshot> documents2 = docRef.get().getDocuments();
+		if(customerId!=null) {
+			set.per_code = new Vector<String>();
+			set.pdt_name = new Vector<String>();	// 제품명
+			set.pdt_cnt = new Vector<Integer>();	// 수량
+			set.buy = new Vector<String>();			// 구매일자
+			set.apply = new Vector<String>();		// 신청일자
+			set.permute = new Vector<String>();		// 환불 or 교환
+			set.reasons = new Vector<String>();		// 신청사유 카테고리
+			set.grounds = new Vector<String>();		// 신청사유
+			for (QueryDocumentSnapshot document : documents2) {
+				System.out.println(Integer.parseInt(document.getString("paramCnt")));
+				set.per_code.add(document.getString("paramCode"));
+				set.pdt_name.add(document.getString("paramName"));
+				set.pdt_cnt.add(Integer.parseInt(document.getString("paramCnt")));
+				set.buy.add(document.getString("buyday"));
+				set.apply.add(document.getId());
+				if(document.getString("paramPermute")=="1") {
+					set.permute.add("교환");
+				}else {
+					set.permute.add("환불");
+				}
+				set.reasons.add(document.getString("paramRes"));
+				set.grounds.add(document.getString("paramGro"));
 			}
-			set.reasons.add(document.getString("paramRes"));
-			set.grounds.add(document.getString("paramGro"));
+		}else {
+			System.out.println("아이디 없음");
 		}
+		
 	}
 
 }
